@@ -4,7 +4,7 @@
 pdftext.py — 纯 Python 标准库实现的 PDF 文字层提取器
 =====================================================
 
-背景：本机 Python 环境没有 pypdf / PyMuPDF / pdfminer / pdfplumber，
+背景：当前 Python 环境没有 pypdf / PyMuPDF / pdfminer / pdfplumber，
 因此本模块只依赖标准库（zlib / re / sys / json / pathlib）来还原 PDF 文字。
 
 支持：

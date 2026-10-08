@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-finalize_disputed.py — 存疑内容收尾清零（T18）
+finalize_disputed.py — 存疑内容收尾清零
 ============================================
 
 把三类残留一次处置完，交付物里不留「待定」：

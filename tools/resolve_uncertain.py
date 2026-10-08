@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-resolve_uncertain.py — 用依据解除「多选答案切分存疑」（T18）
+resolve_uncertain.py — 用依据解除「多选答案切分存疑」
 ==========================================================
 
 背景：`answerUncertain` 标记的由来是「源 PDF 把多选答案压成连续字母串，切分有歧义」。

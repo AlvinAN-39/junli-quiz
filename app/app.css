@@ -207,7 +207,7 @@ kbd {
 .nav-item:hover { background:var(--surface-2); color:var(--text); }
 .nav-item:hover kbd { opacity:1; }
 .nav-item.active { background:var(--primary-soft); color:var(--primary); font-weight:700; }
-/* T16③ 侧栏与底部导航保持同一套选中语义：图标描边加粗 */
+/*侧栏与底部导航保持同一套选中语义：图标描边加粗 */
 .nav-item.active svg path,
 .nav-item.active svg circle,
 .nav-item.active svg rect,
@@ -240,7 +240,7 @@ kbd {
   border-bottom:1px solid var(--border);
 }
 .topbar-title { flex:1 1 auto; min-width:0; font-size:1.02rem; font-weight:700; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-/* T16① 首页左上角版本号：小字、--muted，不抢眼 */
+/*首页左上角版本号：小字、--muted，不抢眼 */
 .ver-tag {
   flex:0 0 auto; margin-right:4px; padding:2px 7px;
   font:500 .68rem/1.5 var(--mono); color:var(--muted);
@@ -285,7 +285,7 @@ kbd {
   color:var(--muted); font-size:.68rem;
   transition:color .15s, font-weight .15s;
 }
-/* T16③ 底部导航选中态：三重差异（颜色 / 图标描边加粗+药丸底 / 文字加粗），150ms 过渡。
+/*底部导航选中态：三重差异（颜色 / 图标描边加粗+药丸底 / 文字加粗），150ms 过渡。
    padding 与 box-sizing 两个状态都保留，避免切换时布局跳动。 */
 .tab-item svg {
   width:23px; height:23px;
@@ -417,7 +417,7 @@ kbd {
   padding:10px 12px; border-radius:var(--radius-sm); font-size:.82rem; line-height:1.7;
   background:var(--warn-soft); color:var(--text-dim); border:1px solid transparent;
 }
-/* 多选答案存疑提示（T7）：中性/浅黄信息样式，刻意不用红色错误样式 */
+/* 多选答案存疑提示：中性/浅黄信息样式，刻意不用红色错误样式 */
 .uncert {
   margin-top:12px; padding:9px 12px; border-radius:var(--radius-sm);
   font-size:.83rem; line-height:1.7;
@@ -513,14 +513,14 @@ kbd {
   -webkit-user-select:text; user-select:text;
 }
 .explain .ex-title { font-weight:700; color:var(--text); margin-bottom:3px; }
-/* 解析结构化分行（T13）：正确答案 / 为什么 / 提示；只用现有变量，无新配色 */
+/* 解析结构化分行：正确答案 / 为什么 / 提示；只用现有变量，无新配色 */
 .ex-row { display:flex; align-items:baseline; gap:8px; line-height:1.7; }
 .ex-row + .ex-row { margin-top:7px; }
 .ex-label { flex:0 0 4.6em; font-weight:600; color:var(--text); }
 .ex-val { flex:1 1 auto; min-width:0; word-break:break-word; }
 .ex-sub, .ex-sub .ex-label, .ex-sub .ex-val { color:var(--muted); }
 .ex-sub, .ex-sub .ex-val { font-size:.78rem; }
-/* 解析折叠（T9）：默认折起，点标题条展开。显隐只用 CSS，解析正文始终留在 DOM 里。
+/* 解析折叠：默认折起，点标题条展开。显隐只用 CSS，解析正文始终留在 DOM 里。
    上面 .explain / .ex-title 保持原样（简答自评页的「你的作答」仍用静态 .explain）。 */
 .explain.fold { padding:0; overflow:hidden; }
 .ex-head {
@@ -539,7 +539,7 @@ kbd {
   -webkit-user-select:text; user-select:text;
 }
 .explain.open .ex-body { display:block; }
-/* 解析出处标注（T8）：仅用现有变量，不引入新配色、不动布局骨架 */
+/* 解析出处标注：仅用现有变量，不引入新配色、不动布局骨架 */
 .ex-src {
   display:flex; align-items:center; gap:5px; flex-wrap:wrap;
   margin-top:9px; padding-top:8px;
@@ -548,7 +548,7 @@ kbd {
 }
 .ex-src .ex-ico { flex:0 0 auto; }
 .ex-src .chip.mini { font-weight:600; }
-/* 关键词解析（T12）：仅在答错时渲染；容器复用 .note，chip 行复用 .chips 的 flex-wrap */
+/* 关键词解析：仅在答错时渲染；容器复用 .note，chip 行复用 .chips 的 flex-wrap */
 .kw-block { margin-top:10px; }
 .kw-title { font-weight:700; color:var(--text); margin-bottom:7px; font-size:.86rem; }
 .kw-concept { font-weight:600; color:var(--text); margin-bottom:7px; }

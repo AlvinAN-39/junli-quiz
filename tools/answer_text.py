@@ -6,7 +6,7 @@ answer_text.py — 题库「答案」字段的统一读取工具（单一真相�
 
 为什么需要这个模块：
   `answer` 字段的形态**按题型不统一**，而项目里曾有 6 处各自实现了一遍读取逻辑，
-  且**都假定 single 是字符串**。T18 修正答案时引入了 7 道 `answer` 为列表的单选，
+  且**都假定 single 是字符串**。修正答案时引入了 7 道 `answer` 为列表的单选，
   于是这 6 处全部抛 `TypeError: 'in <string>' requires string as left operand, not list`，
   相互独立却同时崩 —— 正是「同一段逻辑出现第二处」的代价。
 

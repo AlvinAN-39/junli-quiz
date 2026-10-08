@@ -1,7 +1,7 @@
 /* ==========================================================================
  * 军理刷题 · app.js
  * 纯原生 JS（无模块、无依赖、无构建）—— 必须写成普通脚本 + IIFE，
- * 以便 T6 打包时把本文件内容直接内联进 script 标签（切勿使用 ESM）。
+ * 以便打包时把本文件内容直接内联进 script 标签（切勿使用 ESM）。
  * 数据契约：docs/02-data-contract.md（冻结）
  * ========================================================================== */
 (function () {
@@ -289,7 +289,7 @@
     return Promise.resolve({ bank: MOCK_BANK, from: '内置示例题库（mock）' });
   }
 
-  /** T13：结构化解析字段的防御性归一化（非对象/数组 → {}，各字段 String 化） */
+  /**结构化解析字段的防御性归一化（非对象/数组 → {}，各字段 String 化） */
   function normalizeParts(raw) {
     if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return {};
     return {
@@ -937,7 +937,7 @@
     if (sub) sub.textContent = State.from || '离线题库';
   }
 
-  /* ---- T16③：导航选中态（底部 tabbar + 桌面侧栏）------------------------
+  /* ----导航选中态（底部 tabbar + 桌面侧栏）------------------------
    * 视觉差异由 CSS 负责（颜色 / 图标描边加粗+药丸底 / 文字加粗），这里只负责打标记：
    *   class="active" + aria-current="page" + data-active="true|false"
    * 路由映射：答题页(practice)、背题(recite)、考试(exam) 都归属「练习」tab；
@@ -972,7 +972,7 @@
     });
   }
 
-  /** T16①：构建版本号（日期+时间）。由 tools/bundle.py 注入 window.__BUILD__，读不到返回空串。 */
+  /**构建版本号（日期+时间）。由 tools/bundle.py 注入 window.__BUILD__，读不到返回空串。 */
   function buildTagText() {
     try {
       var b = window.__BUILD__;
@@ -1036,7 +1036,7 @@
 
     var t = $('#page-title');
     if (t) t.textContent = title;
-    // T16①：版本号只在首页显示，位置是顶栏最左侧（首页时返回按钮是隐藏的）
+    //版本号只在首页显示，位置是顶栏最左侧（首页时返回按钮是隐藏的）
     var vt = $('#ver-tag');
     if (vt) {
       var vtext = buildTagText();
@@ -1125,7 +1125,7 @@
     return answerText(q);
   }
 
-  /* ---- 解析正文里的选项字母映射（T17）----------------------------------
+  /* ---- 解析正文里的选项字母映射----------------------------------
    * 问题：选项乱序只改了 `q.qa`（经 dispLetterOf），但 `explanationParts.answer`
    * 与 `reason` 正文里的字母是**生成时写死的原始字母**，乱序后就会与选项顺序、
    * 「参考答案」行的显示字母不一致 —— 同一道题出现两套字母。
@@ -1188,7 +1188,7 @@
     return dispLettersInText(a, q, sess);
   }
 
-  /* ---- 多选答案存疑标记（T7）--------------------------------------------
+  /* ---- 多选答案存疑标记--------------------------------------------
    * 源 PDF 把多选题答案压成连续字母串，切分存在固有歧义，题库对这批 multi
    * 题打了 answerUncertain: true。此标记只影响展示，不影响任何判分/统计逻辑。
    * 约定：仅当 q.type === 'multi' 且 q.answerUncertain === true 时显示。
@@ -1302,7 +1302,7 @@
     return '<br><span class="small">你的答案：' + esc(mine || '（未作答）') + '　正确答案：' + esc(answerTextDisp(q, ctx.sess)) + uncertSuffix(q) + '</span>';
   }
 
-  /* ---- 解析出处标注（T8）----------------------------------------------
+  /* ---- 解析出处标注----------------------------------------------
    * explanationSrc: textbook | manual | bank | template（题库 1171/1171 全覆盖）
    *   textbook → 显示教材引用位置 explanationRef
    *   manual   → 显示「已人工校订」小 chip
@@ -1316,7 +1316,7 @@
   function explainSrcLine(q) {
     var src = q.explanationSrc || '';
     if (src === 'textbook') {
-      // 出处文本优先取 explanationRef；T13 的 explanationParts.ref 是它的冗余副本，作兜底
+      // 出处文本优先取 explanationRef；的 explanationParts.ref 是它的冗余副本，作兜底
       var parts = q.explanationParts || {};
       var ref = String(q.explanationRef || parts.ref || '').trim();
       return '<div class="ex-src">' + ICO_BOOK + '<span>依据：' + esc(ref || '教材') + '</span></div>';
@@ -1331,11 +1331,11 @@
   }
 
   /**
-   * 解析正文（T13）：优先用结构化 explanationParts 分行渲染，字段缺失就跳过该行，
+   * 解析正文：优先用结构化 explanationParts 分行渲染，字段缺失就跳过该行，
    * 不会出现「为什么：」这种空标签。
    *  - answer 正确答案 / reason 为什么 / note 提示（小字灰）
    *  - ref 不单独出块，统一由 explainSrcLine() 出「依据」行，避免重复显示两遍
-   *  - 四个字段全缺失时回落到纯文本 q.explanation（保持 T13 之前的行为，数据异常也不空白）
+   *  - 四个字段全缺失时回落到纯文本 q.explanation（保持之前的行为，数据异常也不空白）
    * 说明：题库里 explanation 本身就是 parts 的拼接（如 "正确答案：A、…\n提示：…"），
    *      所以分行渲染不会丢内容。
    */
@@ -1343,11 +1343,11 @@
     var p = q.explanationParts || {};
     var rows = '';
     if (p.answer) {
-      // T17：选项乱序时把解析里的答案字母同步成显示字母，避免与选项/参考答案两套字母
+      //选项乱序时把解析里的答案字母同步成显示字母，避免与选项/参考答案两套字母
       rows += '<div class="ex-row"><b class="ex-label">正确答案</b><span class="ex-val">' + esc(answerDispInExplain(q, sess)) + '</span></div>';
     }
     if (p.reason) {
-      // T17：正文若按字母指代选项（如「故A、B正确」），同样要跟着乱序走
+      //正文若按字母指代选项（如「故A、B正确」），同样要跟着乱序走
       rows += '<div class="ex-row"><b class="ex-label">为什么</b><span class="ex-val">' + esc(dispLettersInText(p.reason, q, sess)) + '</span></div>';
     }
     if (p.note) {
@@ -1358,7 +1358,7 @@
   }
 
   /**
-   * 解析默认展开还是折叠（T9；本版按用户要求改为**默认展开**）。
+   * 解析默认展开还是折叠（；本版按用户要求改为**默认展开**）。
    *  - 题目卡片路径（练习/背题/简答）：未记录偏好时**默认展开**；
    *    用户手动折叠过后就沿用他的选择（`settings.explainOpen`）。
    *  - 成绩单路径（route === 'exam'）：**一律使用各区块自己的默认值**，忽略偏好
@@ -1403,7 +1403,7 @@
     if (State.route !== 'exam') { State.settings.explainOpen = next; saveSettings(); }
   });
 
-  /* ---- 关键词解析（T12）：只在「实际答错」时显示 --------------------------
+  /* ---- 关键词解析：只在「实际答错」时显示 --------------------------
    * 数据来自题库新增字段：
    *   keyConcept    考点（短名词短语）
    *   keywords      关键词数组
@@ -1656,7 +1656,7 @@
       (d.attempts ? '<div class="small muted mt6">上次进度：已答 ' + d.attempts + ' 次 · 掌握 ' + d.mastered + ' 题 · 待复习 ' + d.review + ' 题</div>' : '') +
       '</div>';
 
-    // 入口（T16②：练习的四个模式原本各占一张卡、但点击后都只是跳转到同一个练习设置页，
+    // 入口（练习的四个模式原本各占一张卡、但点击后都只是跳转到同一个练习设置页，
     //   属于重复入口，合并为一张「顺序练习」卡 —— 四种模式在设置页里选，能力一个不少）
     html += '<div class="entry-grid">' +
       entryCard('home:mode', ICO.seq, '顺序练习', '顺序 / 随机 · 按章节 / 按题型') +
@@ -2127,7 +2127,7 @@
       toast(State.settings[k] ? '选项乱序已开启' : '选项乱序已关闭', '', 1400);
     }
   });
-  /** 音效 / 震动开关（T10）：开启时补一次反馈，让用户立刻听到/感觉到 */
+  /** 音效 / 震动开关：开启时补一次反馈，让用户立刻听到/感觉到 */
   reg('set:feedback', function (el) {
     var k = el.getAttribute('data-k');
     if (k !== 'sound' && k !== 'haptic') return;
@@ -2544,7 +2544,7 @@
       '<span class="row"><button class="btn sm ghost" type="button" data-act="grid:toggle">答题卡</button>' +
       '<button class="btn sm danger" type="button" data-act="exam:submit">交卷</button></span></div>';
     html += navBtns({ idx: e.i, total: e.ids.length });
-    // T16②：卡片标题里的重复「收起/展开」按钮已删除（上方工具行的「答题卡」就是同一个动作）；
+    //卡片标题里的重复「收起/展开」按钮已删除（上方工具行的「答题卡」就是同一个动作）；
     //   折叠时整张卡片不再渲染，避免留下一个空卡片。
     // 答题卡与练习共用同一个分页组件（每 100 题一页），不再各写一份。
     // 考试中不显示对错，只显示「已答/未答」，故 revealRes=false。
@@ -3338,11 +3338,11 @@
   }
 
   /* ======================================================================
-   * 18.5 反馈模块（T10 + T11）：音效（Web Audio 实时合成）+ 震动（navigator.vibrate）
+   * 18.5 反馈模块（+）：音效（Web Audio 实时合成）+ 震动（navigator.vibrate）
    *  - 零外部音频文件；所有调用都包 try/catch，反馈失败绝不影响功能
    *  - 只在 bindGlobal 的派发点 + 少数几个独立监听 + 键盘路径挂钩，不散落到 reg() 回调
    *  - iOS 震动：navigator.vibrate 不存在 ⇒ 静默跳过（系统未开放，无解）
-   *  - iOS 静音键（T11「双通道」策略）：
+   *  - iOS 静音键（「双通道」策略）：
    *      主通道   = Web Audio 合成（音色好、零体积）
    *      保活通道 = 常驻的静音循环 <audio>（内联 WAV data URL）
    *    原理（社区验证，参考 swevans/unmute）：iOS 把音频会话切到 <audio>/<video>
@@ -3370,7 +3370,7 @@
     return AudioCtx;
   }
 
-  /* ---- T11：iOS 静音键兼容用的常驻静音音轨 ---------------------------- */
+  /* ----iOS 静音键兼容用的常驻静音音轨 ---------------------------- */
 
   /**
    * 现场按 RIFF/WAVE 规范逐字节生成一段静音 PCM 的 data URL。
@@ -3548,9 +3548,9 @@
     result: function (ok) {
       try { Feedback.play(ok ? 'correct' : 'wrong'); } catch (e) { /* noop */ }
     },
-    /** 供 T5 / Playwright 观察 AudioContext 是否已创建 */
+    /** 供/ Playwright 观察 AudioContext 是否已创建 */
     audioCtx: function () { return AudioCtx; },
-    /** 供 T5 / Playwright 观察常驻静音音轨（iOS 静音键兼容） */
+    /** 供/ Playwright 观察常驻静音音轨（iOS 静音键兼容） */
     silentTrack: function () { return silentTrack; },
     pauseSilentTrack: function () { pauseSilentTrack(); }
   };
@@ -3851,7 +3851,7 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start, false);
   else start();
 
-  // 便于 T6/T5 调试：暴露少量只读接口
+  // 便于调试：暴露少量只读接口
   window.__JLX__ = {
     version: EXPORT_VER,
     state: State,
@@ -3866,7 +3866,7 @@
     outlineMarkdown: function (opts) { return outlineToMarkdown(buildOutline(opts)); },
     exportText: exportText,
     normalizeAnswer: normalizeAnswer,
-    // 会话恢复的只读探针（T5/测试用）：看磁盘会话是否被判为可恢复，以及为什么
+    // 会话恢复的只读探针（/测试用）：看磁盘会话是否被判为可恢复，以及为什么
     sessionProbe: function () {
       var d = loadJSON(KEY_SESSION, null);
       return {

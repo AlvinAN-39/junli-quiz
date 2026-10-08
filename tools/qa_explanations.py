@@ -45,7 +45,7 @@ def answer_text(q) -> str:
 
     保留此转发是为了不破坏可能的外部调用；**新代码请直接用 answer_text 模块**。
     历史上这里与另外 5 个脚本各自实现了一遍，且都假定 single 是字符串，
-    结果 T18 修正答案引入列表型单选后 6 处同时崩 —— 这正是重复实现的代价。
+    结果修正答案引入列表型单选后 6 处同时崩 —— 这正是重复实现的代价。
     """
     from answer_text import answer_text as _impl
     return _impl(q)
