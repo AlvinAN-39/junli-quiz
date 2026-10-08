@@ -1,5 +1,7 @@
 # 军理刷题 · 军事理论课复习 App
 
+[![verify](https://github.com/AlvinAN-39/junli-quiz/actions/workflows/verify.yml/badge.svg)](https://github.com/AlvinAN-39/junli-quiz/actions/workflows/verify.yml)
+
 > ### 关于本仓库（开源版）
 >
 > - 这是**源码版**：`dist/`（打包产物）、`build/`（4 份 PDF 提取出的语料）、`qa/`（质检中间产物）
@@ -460,6 +462,25 @@ cd junli-quiz
 
 ## 6. 验收证据
 
+分两部分：**A 是 clone 下来就能跑的**（不需要任何额外数据）；**B 需要额外环境**（依赖项目外的 Playwright 环境或 4 份 PDF 提取出的语料）。每次 `push` 会自动跑 A 的前两项，配置见 `.github/workflows/verify.yml`。
+
+### A. 本仓库内可直接运行（已实测）
+
+| 检查 | 命令（在仓库根执行） | 实测结果 |
+|------|--------------------|---------|
+| 生成产物 | `python tools/bundle.py` | 退出码 0；产出 `dist/军理刷题.html`、`dist/web/`、`dist/军理刷题-网页版.zip` |
+| **产物体检**（静态 29 项 + Node 沙箱） | `python tools/verify_app.py` | **29/29 通过、0 失败**；缺 Playwright 时浏览器部分自动降级为 WARN |
+| 解析质量量化验收 | `python tools/qa_explanations.py` | 0 问题 |
+| 解析质量诊断 | `python tools/diag_explanations.py` | 退出码 0 |
+| 存疑盘点 | `python tools/audit_disputed.py` | `pending = 3`（3 道待人工确认）；**退出码 1 表示「有待处置项」，不是脚本故障** |
+| 自洽性复核 | `python tools/audit_selfconsistent.py` | 待处置 0 |
+| 依据相关性独立复核 | `python tools/verify_relevance.py` | 退出码 0 |
+| 多选答案 / 选项冲突检查 | `python tools/check_multi_answers.py`、`tools/check_answer_conflicts.py` | 退出码 0 |
+
+> 这些脚本的输出写到 `qa/`、`work/`（均已被 `.gitignore` 忽略），不会污染工作区。
+
+### B. 需要额外环境（命令与当年结果一并列出，供追溯）
+
 全部由真实浏览器（Playwright + Chromium）与独立质检跑出，可复现：
 
 > **测试套件位置**：`.mjs` 套件在 **与仓库同级的 `qa-env/`**（Playwright 环境所在目录，
@@ -469,10 +490,10 @@ cd junli-quiz
 
 | 套件 | 命令（在本地 `qa-env/` 下执行） | 结果 |
 |------|------|------|
-| 产物静态体检 + 浏览器 E2E（含 iPhone 模拟、PWA 离线、QR 解码） | `python 军理刷题\tools\verify_app.py` | **29/29 通过，0 失败 0 警告** |
+| 产物静态体检 + 浏览器 E2E（含 iPhone 模拟、PWA 离线、QR 解码） | `python tools/verify_app.py` | **29/29 通过，0 失败 0 警告** |
 | 浏览器全流程（单文件版 + PWA 版各一遍） | `node browser_test.mjs` | **34/34 通过** |
 | **解析链路**（练习/背题/简答/主观题自评/成绩单五处） | `node explanation_test.mjs` | **13/13 通过** |
-| **解析质量 + 文本噪声诊断** | `python 军理刷题\tools\qa_explanations.py` + `diag_explanations.py` | **0 问题 / 0 噪声** |
+| **解析质量 + 文本噪声诊断** | `python tools/qa_explanations.py` + `diag_explanations.py` | **0 问题 / 0 噪声** |
 | **解析折叠**（默认态/展开/偏好记忆/成绩单两种默认） | `node collapse_test.mjs` | **10/10 通过** |
 | **选项乱序**（乱序后参考答案与解析答案指向同一选项、0 冲突） | `node shuffle_test.mjs` | **5/5 通过** |
 | **音效与震动**（音调指纹/答对答错区分/震动模式/开关/持久化） | `node feedback_test.mjs` | **15/15 通过** |
@@ -480,14 +501,14 @@ cd junli-quiz
 | **答错关键词解析**（答错显示/答对不显示/文案质量） | `node kw_test.mjs` | **10/10 通过** |
 | **导航选中态**（`aria-current`/三重视觉差异） | `node ui_v2_test.mjs` | **16/16 通过** |
 | **一键部署包**（解压成站点 → SW 接管 → 断网可用） | `node deploy_test.mjs` | **11/11 通过** |
-| **解析质量量化验收** | `python 军理刷题\tools\qa_explanations.py` | **0 问题**（1171/1171 覆盖、支持度 100%） |
+| **解析质量量化验收** | `python tools/qa_explanations.py` | **0 问题**（1171/1171 覆盖、支持度 100%） |
 | PWA 真实离线（断网重载） | `node pwa_offline_test.mjs` | **7/7 通过** |
 | 参考书目卡片（出现/幂等/不污染答题页） | `node reference_test.mjs` | **15/15 通过** |
 | 单文件可移植性（拷贝到空目录） | `node portability_test.mjs` | **10/10 通过** |
 | **iPhone 真机模拟**（iPhone 15 UA + 触摸 + PWA + 安全区） | `node phone_sim.mjs` | **12/12 通过** |
 | **二维码可扫性**（第三方 jsQR 独立解码） | `node qr_verify.mjs` | **4/4 通过** |
 | 用户视角复现（双击各种文件，确认不是 mock 题库） | `node user_repro.mjs` | 3/3 场景均为 1171 题 |
-| 题库独立质检 | `python qa/verify_questions.py`（该脚本随本机质检环境，未包含在公开仓库中） | **P0 = 0**，可用 |
+| 题库独立质检 | `python qa/verify_questions.py`（随本机质检环境，**未随仓库发布**；需自备 `build/text/` 语料） | 原始输出 P0 3 类——经逐条核实：2 类为顶层元数据缺失的连带、1 类为派生题误判，**同题型答案冲突实测 0 道**（详见下方「已知偏差」） |
 
 > **已归档**：`uncertainty_test.mjs` 测的是「多选存疑提示」，而存疑标记已于
 > 「存疑内容清零」一轮全部处理完（残留 0），该提示永不出现；套件保留但不再纳入回归。
@@ -501,6 +522,12 @@ cd junli-quiz
 > `tools/verify_app.py` 会自动定位套件目录（默认与仓库同级的 `qa-env/`）并调用
 > `browser_test.mjs`；若该目录不存在，会自动跳过浏览器部分并降级为 Node 沙箱
 > 执行 `app.js`（核心逻辑仍会被验证）。
+
+### 已知偏差（待上游修复）
+
+1. **顶层元数据缺失**：`docs/02-data-contract.md` 要求 `data/questions.json` 顶层含 `schema` / `generatedAt` / `counts` / `sources` 四个字段，而实际顶层只有 `questions`。这会让独立质检脚本报出两类 P0（顶层字段缺失、`counts` 与实际题量不一致），但**对 App 运行没有影响**：前端不读这四个字段（`app.js` 里的 `counts` 只出现在内置的 16 题示例题库中），`bundle.py` 也只在日志里打印它们。
+2. **独立质检脚本的口径缺陷**：`qa/verify_questions.py`（随本机质检环境，未随仓库发布）的原始输出是「P0 3 类 / 不可直接用于正式刷题」。逐条核实后：2 类源于上面第 1 条；另 1 类（156 对）实为「单选题 ↔ 同一道题派生的填空题」被误判为答案冲突——**同题型答案冲突实测 0 道**。此外它在缺少 `build/text/` 语料时会把「重建出 0 题」与「已提交 1531 题」相比，报出 1531 处不一致，属假阳性。**结论：题库没有被这几项检查证伪，但上述两项偏差确实存在。**
+3. **依赖语料的脚本无法开箱运行**：`build/text/`（4 份 PDF 提取出的教材全文）因版权不随仓库发布，因此 `parse_questions.py`、`gen_explanations.py`、`audit_corpus.py` 等在 clone 后无法直接运行（`audit_corpus.py` 会抛 `FileNotFoundError`）；`qa_explanations.py`、`audit_textbook.py` 等在无语料时仍能跑完，但结论范围受限。
 
 ---
 
