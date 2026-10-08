@@ -161,6 +161,11 @@ python tools/verify_app.py   # 产物体检（29 项 + Node 沙箱）
    `parse_questions.py`、`gen_explanations.py`、`audit_corpus.py` 等在 clone 后无法直接运行；
    `qa_explanations.py`、`audit_textbook.py` 等在无语料时仍能跑完，但结论范围受限。
 
+## 参与贡献与安全问题
+
+- 想反馈题目、提建议或改代码 → [CONTRIBUTING.md](CONTRIBUTING.md)
+- 想报告安全问题（含"本项目不收集任何数据"的说明）→ [SECURITY.md](SECURITY.md)
+
 ## 许可证与声明
 
 - **代码**采用 [Apache-2.0](LICENSE)。
