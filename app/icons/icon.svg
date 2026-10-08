@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="512" height="512" role="img" aria-label="军理刷题">
+  <title>军理刷题</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0" stop-color="#1c7a49"/>
+      <stop offset="1" stop-color="#0d3a26"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffe08a"/>
+      <stop offset="1" stop-color="#e0a020"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="64" height="64" rx="14" fill="url(#bg)"/>
+
+  <!-- 盾牌（军校风格轮廓） -->
+  <path d="M32 7 L53 15 v15.5 C53 43 44.5 51.5 32 57 C19.5 51.5 11 43 11 30.5 V15 Z"
+        fill="none" stroke="#ffffff" stroke-opacity="0.92" stroke-width="2.6" stroke-linejoin="round"/>
+  <path d="M32 12.5 L48 18.8 v11.6 C48 39.4 41.6 46 32 50.6 C22.4 46 16 39.4 16 30.4 V18.8 Z"
+        fill="#ffffff" fill-opacity="0.08"/>
+
+  <!-- 五角星 -->
+  <polygon points="32,17 35.06,25.79 44.36,25.98 36.95,31.61 39.64,40.52 32,35.2 24.36,40.52 27.05,31.61 19.64,25.98 28.94,25.79"
+           fill="url(#gold)" stroke="#fff8e1" stroke-opacity="0.5" stroke-width="1" stroke-linejoin="round"/>
+
+  <!-- 书本底纹（刷题） -->
+  <path d="M22 47.5 h20" stroke="#ffffff" stroke-opacity="0.85" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M25 42.6 h14" stroke="#ffffff" stroke-opacity="0.55" stroke-width="2" stroke-linecap="round"/>
+</svg>

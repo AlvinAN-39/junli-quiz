@@ -1,0 +1,35 @@
+{
+  "name": "军理刷题 · 军事理论课复习",
+  "short_name": "军理刷题",
+  "description": "军事理论课离线刷题：顺序/随机/章节/题型练习、错题本、收藏、模拟考试、背题模式、搜索与学习统计。零依赖，断网可用。",
+  "lang": "zh-CN",
+  "dir": "ltr",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "any",
+  "background_color": "#0f3d2a",
+  "theme_color": "#14532d",
+  "categories": ["education", "productivity"],
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    { "name": "顺序练习", "short_name": "练习", "url": "./index.html#/practice" },
+    { "name": "模拟考试", "short_name": "考试", "url": "./index.html#/exam" },
+    { "name": "错题本", "short_name": "错题", "url": "./index.html#/wrong" }
+  ]
+}
