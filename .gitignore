@@ -23,6 +23,9 @@
 /_prepare_opensource.py
 *.bak
 
+# ── 质检脚本的输出目录（verify_new_questions.py 等会写这里）────
+/work/
+
 # ── Python 缓存 ────────────────────────────────────────────────
 __pycache__/
 *.py[cod]

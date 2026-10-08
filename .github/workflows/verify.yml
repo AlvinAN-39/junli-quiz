@@ -1,0 +1,43 @@
+# 军理刷题 · 持续集成
+#
+# 每次 push / PR 自动做两件事：
+#   1) tools/bundle.py   —— 从 app/ + data/ 生成单文件版、PWA 版与部署 zip
+#   2) tools/verify_app.py —— 29 项静态体检 + Node 沙箱（直接执行 app.js 的核心逻辑）
+#
+# 说明：
+#   * 本项目零第三方依赖（只用 Python 标准库），所以不需要 pip install。
+#   * verify_app.py 若找不到 Playwright 会自动降级为 Node 沙箱并给 WARN（不算失败）；
+#     浏览器 E2E 套件依赖项目外的 qa-env/，不在本工作流范围内。
+#   * 依赖 build/text 语料的脚本（parse_questions.py、qa_explanations.py 等）需要
+#     4 份 PDF 提取出的文本，语料本身因版权不随仓库发布，故不在 CI 中运行。
+
+name: verify
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出仓库
+        uses: actions/checkout@v4
+
+      - name: 安装 Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: 安装 Node 20（用于 JS 语法检查与 Node 沙箱）
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: 生成产物（单文件版 + PWA 版 + 部署 zip）
+        run: python tools/bundle.py
+
+      - name: 产物体检（静态 29 项 + Node 沙箱）
+        run: python tools/verify_app.py
