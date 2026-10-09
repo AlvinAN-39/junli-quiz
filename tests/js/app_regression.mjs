@@ -75,7 +75,7 @@ function makeEl(tag = 'div') {
 }
 
 /** 每个用例一个全新沙箱（localStorage 可注入、可跨沙箱复用模拟「刷新」）。 */
-async function build(store) {
+async function build(store, hash = '') {
   const byId = new Map();
   const elById = (id) => { if (!byId.has(id)) { const e = makeEl('div'); e.id = id; byId.set(id, e); } return byId.get(id); };
   const listeners = {};
@@ -103,7 +103,7 @@ async function build(store) {
   const sb = {
     console, setTimeout, clearTimeout, setInterval, clearInterval,
     document: doc, localStorage, sessionStorage: localStorage,
-    location: { protocol: 'file:', href: 'file:///x/a.html', hash: '', search: '', reload() {} },
+    location: { protocol: 'file:', href: 'file:///x/a.html', hash, search: '', reload() {} },
     navigator: {
       userAgent: 'node', language: 'zh-CN', languages: ['zh-CN'], onLine: true,
       clipboard: { writeText: async () => {} }, serviceWorker: undefined,
@@ -409,6 +409,130 @@ const qById = (h, id) => h.J.state.byId[id];
   check('R17b 设置页主题为三态按钮', hasThree, '');
   click(h, 'set:theme', { 'data-v': 'dark' });
   check('R17c 可直接选深色', h.J.state.settings.theme === 'dark', 'theme=' + h.J.state.settings.theme);
+}
+
+// ---------------------------------------------------------------------------
+// R18–R19 考试刷新恢复 / 过期自动交卷
+// ---------------------------------------------------------------------------
+{
+  const store = new Map();
+  const h = await build(store);
+  click(h, 'exam:new');
+  click(h, 'exam:count', { 'data-v': '5' });
+  click(h, 'exam:start');
+  const st = h.J.state;
+  const ids = st.exam.ids.slice();
+  const q0 = qById(h, ids[0]);
+  click(h, 'nav:jump', { 'data-i': 0 });
+  if (q0.type === 'single') click(h, 'ans:pick', { 'data-k': q0.qa });
+  else if (q0.type === 'judge') click(h, 'ans:pick', { 'data-k': q0.qa ? 'true' : 'false' });
+  else if (q0.type === 'multi') click(h, 'ans:pick', { 'data-k': q0.qa[0] });
+  else if (q0.type === 'fill') input(h, 'ans:fill', { 'data-i': '0', value: 'x' });
+  else input(h, 'ans:short', { value: 'x' });
+  click(h, 'nav:jump', { 'data-i': 2 });
+  await new Promise((r) => setTimeout(r, 160));      // 等 saveExamSoon 落盘
+
+  check('R18a 考试进行中已落盘', !!store.get('jlx.exam.v1'));
+  const h2 = await build(store, '#/exam');           // 模拟刷新
+  const e2 = h2.J.state.exam;
+  check('R18b 刷新后考试被恢复', !!e2 && e2.phase === 'run', 'phase=' + (e2 && e2.phase));
+  check('R18c 题目与顺序一致', !!e2 && JSON.stringify(e2.ids) === JSON.stringify(ids), '');
+  check('R18d 回到退出时那一题', !!e2 && e2.i === 2, 'i=' + (e2 && e2.i));
+  check('R18e 已作答的草稿保留', !!e2 && e2.draft[ids[0]] !== undefined,
+    JSON.stringify(e2 && e2.draft[ids[0]]));
+  check('R18f 刷新恢复不会跳回考试设置页', html(h2).indexOf('考试设置') < 0, '');
+}
+{
+  const store = new Map();
+  const ids = ['q-0001', 'q-0002'];
+  store.set('jlx.exam.v1', JSON.stringify({
+    ver: 1, ts: Date.now(), phase: 'run', ids, i: 0,
+    draft: { 'q-0001': 'A' }, perm: {}, self: {},
+    startTs: Date.now() - 3600000, endTs: Date.now() - 60000, minutes: 30,
+    withShort: false, scope: 'all', gridPage: 1, res: null, durationMs: 0, autoSubmit: false,
+  }));
+  const h = await build(store, '#/exam');
+  const st = h.J.state;
+  check('R19a 关页期间已超时 → 恢复即自动交卷', !!st.exam && st.exam.phase === 'report',
+    'phase=' + (st.exam && st.exam.phase));
+  check('R19b 自动交卷写入历史成绩', st.exams.length === 1, 'exams=' + st.exams.length);
+  check('R19c 已作答的题写入进度', !!(st.progress['q-0001'] && st.progress['q-0001'].seen === 1), '');
+  check('R19d 未作答的题不写入进度', !st.progress['q-0002'], '');
+  check('R19e 交卷后清除恢复点', !store.get('jlx.exam.v1'), '');
+}
+
+// ---------------------------------------------------------------------------
+// R20–R21 背题刷新恢复 / 退出即作废
+// ---------------------------------------------------------------------------
+{
+  const store = new Map();
+  const h = await build(store);
+  click(h, 'recite:start');
+  click(h, 'nav:jump', { 'data-i': 5 });
+  await new Promise((r) => setTimeout(r, 160));
+  check('R20a 背题会话已落盘', !!store.get('jlx.recite.v1'));
+  const h2 = await build(store, '#/recite');
+  const s2 = h2.J.state.sess;
+  check('R20b 刷新后回到背题原位置', !!s2 && s2.mode === 'recite' && s2.i === 5,
+    'mode=' + (s2 && s2.mode) + ' i=' + (s2 && s2.i));
+  check('R20c 刷新后不是背题设置页', html(h2).indexOf('开始背题') < 0, '');
+}
+{
+  const store = new Map();
+  const h = await build(store);
+  click(h, 'recite:start');
+  await new Promise((r) => setTimeout(r, 60));
+  click(h, 'sess:exit');
+  check('R21a 退出背题确认框可触发', modalOk(h));
+  check('R21b 退出背题清掉恢复点', !store.get('jlx.recite.v1'), '');
+  const h2 = await build(store, '#/recite');
+  check('R21c 刷新后不再被拉回旧背题', !h2.J.state.sess, '');
+}
+
+// ---------------------------------------------------------------------------
+// R22 设置页的「未完成的考试」入口（不自动恢复 / 可继续 / 可放弃）
+// ---------------------------------------------------------------------------
+const pendingExam = () => JSON.stringify({
+  ver: 1, ts: Date.now(), phase: 'run', ids: ['q-0001', 'q-0002'], i: 0,
+  draft: {}, perm: {}, self: {}, startTs: Date.now() - 60000,
+  endTs: Date.now() + 600000, minutes: 30, withShort: false, scope: 'all',
+  gridPage: 1, res: null, durationMs: 0, autoSubmit: false,
+});
+{
+  const store = new Map();
+  store.set('jlx.exam.v1', pendingExam());
+  const h = await build(store);                      // 首页启动：不该被自动拉进考试
+  check('R22a 启动在首页时不被自动拉进考试', !h.J.state.exam, '');
+  nav(h, 'exam');
+  check('R22b 考试设置页显示「未完成的考试」', html(h).indexOf('未完成的考试') >= 0, '');
+  click(h, 'exam:continue');
+  check('R22c 点「继续这场考试」后恢复', !!h.J.state.exam && h.J.state.exam.phase === 'run',
+    'phase=' + (h.J.state.exam && h.J.state.exam.phase));
+}
+{
+  const store = new Map();
+  store.set('jlx.exam.v1', pendingExam());
+  const h = await build(store);
+  nav(h, 'exam');
+  click(h, 'exam:discard');
+  check('R22d 放弃确认框可触发', modalOk(h));
+  check('R22e 放弃后清除恢复点', !store.get('jlx.exam.v1'), '');
+  check('R22f 放弃后不显示入口', html(h).indexOf('未完成的考试') < 0, '');
+}
+
+// ---------------------------------------------------------------------------
+// R23 交卷出分后不再保留恢复点
+// ---------------------------------------------------------------------------
+{
+  const store = new Map();
+  const h = await build(store);
+  click(h, 'exam:new');
+  click(h, 'exam:count', { 'data-v': '3' });
+  click(h, 'exam:start');
+  click(h, 'exam:submit');
+  check('R23a 交卷确认框可触发', modalOk(h));
+  check('R23b 交卷后清除恢复点', !store.get('jlx.exam.v1'), '');
+  check('R23c 成绩已入历史', h.J.state.exams.length === 1, 'exams=' + h.J.state.exams.length);
 }
 
 // ---------------------------------------------------------------------------

@@ -83,6 +83,8 @@ App 只把数据存在浏览器 `localStorage`，键名如下（不与其他项�
 | `jlx.exams.v1` | 考试历史 `[{ ts, total, correct, score, durationMs, detail }]` |
 | `jlx.meta.v1` | `{ bankHash, ver, lastExportTs, noticeSeen }` |
 | `jlx.session.v1` | 练习会话（用于「继续上次练习」）：`{ ver, ts, title, seed, order, i, ids, res, wrongMode, perm, draft }`；`ver` 不匹配即作废 |
+| `jlx.recite.v1` | 背题会话（刷新后回到原题；**退出即删**）：`{ ver, ts, title, i, ids }` |
+| `jlx.exam.v1` | 未完成的考试（仅 `run` / `selfcheck` 阶段；交卷出分后删除）：`{ ver, ts, phase, ids, i, draft, perm, self, startTs, endTs, minutes, withShort, scope, gridPage, res, durationMs, autoSubmit }`。截止时间是绝对时刻，恢复时若已过期即按超时自动交卷 |
 
 导出文件格式：`{ app: "军理刷题", ver: 1, exportedAt, progress, settings, exams, daily }`
 （`daily` 与 `progress.__daily` 是同一份按日期作答记录的两种写法）。

@@ -17,6 +17,8 @@
   // 练习会话（用于「继续上次练习」）：只持久化**练习模式**，背题与考试各有自己的机制
   var KEY_SESSION  = 'jlx.session.v1';
   var SESSION_VER  = 2;   // v2：会话里新增 wrongMode / perm / draft（见 sessionPayload）
+  var KEY_RECITE   = 'jlx.recite.v1';   // 背题会话（刷新后回到原题；退出即作废）
+  var KEY_EXAM     = 'jlx.exam.v1';     // 未完成的考试（仅 run / selfcheck 两个阶段）
 
   var APP_NAME = '军理刷题';
   var EXPORT_VER = 1;
@@ -470,6 +472,110 @@
     };
     State.sess = s; State.lastSess = s; State.lastOrder = d.order;
     go('practice');
+    return true;
+  }
+
+  /* ======================================================================
+   * 背题会话持久化（jlx.recite.v1）
+   * ----------------------------------------------------------------------
+   * 用独立键而不是复用 KEY_SESSION：练习的键要保持「退出不清、首页可继续」的语义，
+   * 背题没有「继续」入口、退出即作废，分开存最不容易互相干扰。
+   * ==================================================================== */
+  var RECITE_VER = 1;
+  var reciteSaveTimer = 0;
+  function saveReciteSoon() {
+    if (reciteSaveTimer) return;
+    reciteSaveTimer = setTimeout(function () { reciteSaveTimer = 0; saveRecite(); }, 60);
+  }
+  function saveRecite() {
+    var s = State.sess;
+    if (!s || s.mode !== 'recite' || !s.ids || !s.ids.length) return;
+    saveJSON(KEY_RECITE, {
+      ver: RECITE_VER, ts: Date.now(), title: s.title || '',
+      i: toInt(s.i, 0), ids: s.ids.slice()
+    });
+  }
+  function loadRecite() {
+    var d = loadJSON(KEY_RECITE, null);
+    if (!d || typeof d !== 'object') return null;
+    if (d.ver !== RECITE_VER) return null;
+    if (!Array.isArray(d.ids) || !d.ids.length) return null;
+    for (var k = 0; k < d.ids.length; k++) if (!State.byId[d.ids[k]]) return null;
+    return d;
+  }
+  function clearRecite() { rawDel(KEY_RECITE); }
+  /** 把磁盘里的背题会话装回内存（不跳转，由调用方决定） */
+  function resumeRecite() {
+    var d = loadRecite();
+    if (!d) return false;
+    var ids = d.ids.slice();
+    State.sess = {
+      ids: ids, i: clamp(toInt(d.i, 0), 0, ids.length - 1), title: d.title || '继续背题',
+      order: 'seq', mode: 'recite', res: {}, draft: {}, perm: {},
+      startedAt: Date.now(), gridOpen: false, gridPage: 1, seed: 0
+    };
+    return true;
+  }
+
+  /* ======================================================================
+   * 考试持久化（jlx.exam.v1）
+   * ----------------------------------------------------------------------
+   * 只存 run / selfcheck：交卷出分后成绩已进「历史成绩」，不再需要恢复点。
+   * 截止时间是**绝对时刻** endTs，所以关页期间时间照走 —— 恢复时若已过期就按
+   * 超时自动交卷，与页面一直开着时的行为一致。
+   * ==================================================================== */
+  var EXAM_VER = 1;
+  var examSaveTimer = 0;
+  function saveExamSoon() {
+    if (examSaveTimer) return;
+    examSaveTimer = setTimeout(function () { examSaveTimer = 0; saveExam(); }, 60);
+  }
+  function saveExam() {
+    var e = State.exam;
+    if (!e || !e.ids || !e.ids.length) return;
+    if (e.phase !== 'run' && e.phase !== 'selfcheck') return;
+    saveJSON(KEY_EXAM, {
+      ver: EXAM_VER, ts: Date.now(), phase: e.phase,
+      ids: e.ids.slice(), i: toInt(e.i, 0),
+      draft: (e.draft && typeof e.draft === 'object') ? e.draft : {},
+      perm: (e.perm && typeof e.perm === 'object') ? e.perm : {},
+      self: (e.self && typeof e.self === 'object') ? e.self : {},
+      startTs: toInt(e.startTs, 0), endTs: toInt(e.endTs, 0), minutes: toInt(e.minutes, 30),
+      withShort: !!e.withShort, scope: e.scope || 'all',
+      gridPage: toInt(e.gridPage, 1),
+      res: (e.res && typeof e.res === 'object') ? e.res : null,
+      durationMs: toInt(e.durationMs, 0), autoSubmit: !!e.autoSubmit
+    });
+  }
+  function clearExam() { rawDel(KEY_EXAM); }
+  function loadExam() {
+    var d = loadJSON(KEY_EXAM, null);
+    if (!d || typeof d !== 'object') return null;
+    if (d.ver !== EXAM_VER) return null;
+    if (!Array.isArray(d.ids) || !d.ids.length) return null;
+    if (['run', 'selfcheck'].indexOf(d.phase) < 0) return null;
+    for (var k = 0; k < d.ids.length; k++) if (!State.byId[d.ids[k]]) return null;
+    return d;
+  }
+  /** 把磁盘里的考试装回内存；若已过截止时间就按超时交卷（不跳转） */
+  function resumeExam() {
+    var d = loadExam();
+    if (!d) return false;
+    State.exam = {
+      ids: d.ids.slice(), i: clamp(toInt(d.i, 0), 0, d.ids.length - 1), phase: d.phase,
+      draft: (d.draft && typeof d.draft === 'object') ? d.draft : {},
+      perm: (d.perm && typeof d.perm === 'object') ? d.perm : {},
+      self: (d.self && typeof d.self === 'object') ? d.self : {},
+      startTs: toInt(d.startTs, Date.now()), endTs: toInt(d.endTs, Date.now()),
+      minutes: toInt(d.minutes, 30), withShort: !!d.withShort, scope: d.scope || 'all',
+      gridOpen: false, gridPage: toInt(d.gridPage, 1),
+      res: (d.res && typeof d.res === 'object') ? d.res : null,
+      durationMs: toInt(d.durationMs, 0), autoSubmit: !!d.autoSubmit
+    };
+    if (State.exam.phase === 'run' && State.exam.endTs <= Date.now()) {
+      State.exam.autoSubmit = true;      // 关页期间时间照走：恢复即视为超时
+      examFinish();
+    }
     return true;
   }
 
@@ -1734,7 +1840,9 @@
     // 记住「上次实际用的出题顺序」。首页的「继续上次练习」在页面刷新后要靠它
     // 才能回到随机练习 —— 否则会硬编码落回顺序练习（用户报告的问题 3）。
     State.lastOrder = (ord === 'rand') ? 'rand' : 'seq';
-    saveSession();                       // 立刻落盘：退出/关页后还能继续
+    // 立刻落盘：练习写 KEY_SESSION（退出后仍可「继续上次练习」），
+    // 背题写 KEY_RECITE（刷新后回到原题；退出即作废，见 sess:exit）。
+    if ((mode || 'practice') === 'recite') saveRecite(); else saveSession();
     go(mode === 'recite' ? 'recite' : 'practice');
   }
 
@@ -2004,6 +2112,7 @@
     cur[i] = el.value;
     setDraft(s, q.id, cur);
     if (State.route === 'practice') saveSessionSoon();
+    else if (State.route === 'exam') saveExamSoon();
     updateGridCell();
   });
 
@@ -2014,6 +2123,7 @@
     if (!q) return;
     setDraft(s, q.id, el.value);
     if (State.route === 'practice') saveSessionSoon();
+    else if (State.route === 'exam') saveExamSoon();
     updateGridCell();
   });
 
@@ -2113,7 +2223,10 @@
       return;
     }
     c.i = ni;
-    if (State.route === 'practice') saveSessionSoon();   // 翻页即落盘：退出/关页后能回到这一题
+    // 翻页即落盘：练习 / 背题 / 考试都能回到这一题
+    if (State.route === 'practice') saveSessionSoon();
+    else if (State.route === 'recite') saveReciteSoon();
+    else if (State.route === 'exam') saveExamSoon();
     render(true);
   }
   function jumpTo(i) {
@@ -2124,17 +2237,24 @@
       examSaveDraft();
     }
     c.i = clamp(i, 0, c.ids.length - 1);
-    if (State.route === 'practice') saveSessionSoon();   // 位置也要落盘，供「继续」回到这一题
+    // 位置也要落盘，供「继续」回到这一题（练习 / 背题 / 考试）
+    if (State.route === 'practice') saveSessionSoon();
+    else if (State.route === 'recite') saveReciteSoon();
+    else if (State.route === 'exam') saveExamSoon();
     render(true);
   }
 
   reg('sess:exit', function () {
-    // 退出只清内存会话；磁盘里的会话保留，下次「继续上次练习」才能接着练
-    confirmBox('退出练习', '当前练习进度已自动保存，确定退出吗？', '退出', function () {
-      saveSession();
-      State.sess = null;
-      go('home');
-    });
+    var rec = !!(State.sess && State.sess.mode === 'recite');
+    // 练习：退出只清内存，磁盘保留 —— 下次「继续上次练习」才有东西可恢复。
+    // 背题：没有「继续」入口，退出即作废，否则下次进背题会被自动拉回旧会话。
+    confirmBox(rec ? '退出背题' : '退出练习',
+      rec ? '退出后本次背题的进度不再保留，确定退出吗？' : '当前练习进度已自动保存，确定退出吗？',
+      '退出', function () {
+        if (rec) { clearRecite(); State.sess = null; }
+        else { saveSession(); State.sess = null; }
+        go('home');
+      });
   });
 
   reg('fav', function (el) {
@@ -2257,6 +2377,16 @@
         '<p class="small dim">直接显示题干、正确答案与解析，适合考前快速过一遍。' +
         '可用 <kbd>←</kbd> <kbd>→</kbd> 或下方按钮翻题。</p>' +
         '<div class="btn-row mt10"><button class="btn primary block" type="button" data-act="recite:start">开始背题（全部 ' + d.total + ' 题）</button></div></div>';
+      // 上次背到一半（刷新后落到别的页面、或从主屏重新打开）：给一个显式入口
+      var rd = loadRecite();
+      if (rd) {
+        html += '<div class="card"><div class="card-title">继续上次背题</div>' +
+          '<div class="list-item"><span class="li-idx">上次</span><span class="li-body">' +
+          '<strong class="clamp2">' + esc(rd.title || '上次背题还没看完') + '</strong>' +
+          '<small>第 ' + (clamp(toInt(rd.i, 0), 0, rd.ids.length - 1) + 1) + ' / ' + rd.ids.length +
+          ' 题 · ' + fmtDate(rd.ts) + '</small></span></div>' +
+          '<div class="btn-row mt10"><button class="btn primary block" type="button" data-act="recite:continue">继续上次背题</button></div></div>';
+      }
       var chs = Object.keys(d.byChapter);
       if (chs.length) {
         html += '<div class="card"><div class="card-title">按章节背题</div><div class="grid grid-2">';
@@ -2281,6 +2411,7 @@
     return html;
   };
 
+  reg('recite:continue', function () { if (resumeRecite()) go('recite'); });
   reg('recite:start', function () {
     startSession(State.questions.map(function (q) { return q.id; }), '背题模式 · 全部 ' + State.questions.length + ' 题', 'seq', 'recite');
   });
@@ -2453,6 +2584,23 @@
     var pool = examScopePool(scope, withShort);
     var html = '';
 
+    // 未完成的考试：刷新后落到别的页面、或从主屏重新打开时给一个**显式**入口。
+    // 不做自动恢复 —— 否则「打开 App 就被拉回一场很久以前的考试」。
+    var pending = loadExam();
+    if (pending) {
+      var expired = pending.phase === 'run' && toInt(pending.endTs, 0) <= Date.now();
+      html += '<div class="card"><div class="card-title">未完成的考试' +
+        (expired ? '<span class="chip warn">已超时</span>' : '') + '</div>' +
+        '<div class="small dim">共 ' + pending.ids.length + ' 题 · ' +
+        (pending.phase === 'selfcheck' ? '待主观题自评'
+          : (expired ? '时间已到，继续即按超时自动交卷' : '限时 ' + toInt(pending.minutes, 30) + ' 分钟')) +
+        ' · 开始于 ' + fmtDate(pending.startTs) + '</div>' +
+        '<div class="btn-row mt10">' +
+        '<button class="btn primary" type="button" data-act="exam:continue">继续这场考试</button>' +
+        '<button class="btn ghost" type="button" data-act="exam:discard">放弃</button>' +
+        '</div></div>';
+    }
+
     html += '<div class="card"><div class="card-title">考试设置</div>' +
       '<div class="field"><label>题量</label><div class="seg">' +
       [10, 20, 30, 50, 100].map(function (n) {
@@ -2518,6 +2666,7 @@
       minutes: State.settings.examMinutes, gridOpen: true, gridPage: 1, withShort: withShort, scope: scope,
       res: null, self: {}, autoSubmit: false
     };
+    saveExam();          // 立刻落盘：刷新后能接着考
     go('exam');
     startExamTimer();
     toast('考试开始，共 ' + n + ' 题 / ' + State.settings.examMinutes + ' 分钟', 'ok', 2200);
@@ -2563,8 +2712,8 @@
     if (!e || e.phase !== 'run') return;
     var q = examCurrent();
     if (!q) return;
-    if (q.type === 'single') { setDraft(e, q.id, k); render(false); return; }
-    if (q.type === 'judge') { setDraft(e, q.id, k === 'true'); render(false); return; }
+    if (q.type === 'single') { setDraft(e, q.id, k); saveExamSoon(); render(false); return; }
+    if (q.type === 'judge') { setDraft(e, q.id, k === 'true'); saveExamSoon(); render(false); return; }
     if (q.type === 'multi') {
       var cur = getDraft(e, q.id);
       if (!Array.isArray(cur)) cur = [];
@@ -2572,6 +2721,7 @@
       if (i >= 0) cur.splice(i, 1); else cur.push(k);
       cur.sort();
       setDraft(e, q.id, cur);
+      saveExamSoon();
       render(false);
     }
   }
@@ -2621,7 +2771,14 @@
     }
   }
 
-  reg('exam:new', function () { State.exam = null; State.p = { scope: 'all', withShort: false }; go('exam'); });
+  reg('exam:new', function () { clearExam(); State.exam = null; State.p = { scope: 'all', withShort: false }; go('exam'); });
+  /** 继续未完成的考试（设置页入口；已超时会按超时自动交卷） */
+  reg('exam:continue', function () { if (resumeExam()) go('exam'); });
+  reg('exam:discard', function () {
+    confirmBox('放弃这场考试', '放弃后本场考试不会记入成绩，确定吗？', '放弃', function () {
+      clearExam(); State.exam = null; render(false); toast('已放弃未完成的考试', '', 1400);
+    });
+  });
   reg('exam:count', function (el) { State.settings.examCount = toInt(el.getAttribute('data-v'), 20); saveSettings(); render(false); });
   reg('exam:min', function (el) { State.settings.examMinutes = toInt(el.getAttribute('data-v'), 30); saveSettings(); render(false); });
   reg('exam:scope', function (el) { State.p.scope = el.getAttribute('data-v'); render(false); });
@@ -2666,7 +2823,7 @@
         e.res[id] = { picked: picked, ok: judgeAnswer(q, picked), self: false };
       }
     });
-    if (needSelf) { e.phase = 'selfcheck'; return; }
+    if (needSelf) { e.phase = 'selfcheck'; saveExam(); return; }   // 自评阶段也要能刷新恢复
     examScore();
   }
 
@@ -2702,6 +2859,7 @@
     var id = el.getAttribute('data-id');
     if (!id) { var q = examCurrent(); if (!q) return; id = q.id; }
     e.self[id] = el.getAttribute('data-v') === '1';
+    saveExamSoon();
     if (e.phase === 'selfcheck') render(false);
   }
 
@@ -2715,6 +2873,7 @@
     });
     e.score = pct(correct, total);
     e.phase = 'report';
+    clearExam();          // 已出分：成绩进「历史成绩」，不再需要恢复点
     e.correct = correct;
     e.wrongList = wrongIds2;
     Feedback.play('complete');    // 交卷出成绩：四音上行琶音（同一拍内的 exam:scoredone 会被 60ms 去抖吃掉）
@@ -3399,8 +3558,8 @@
       State.exams = Array.isArray(data.exams) ? data.exams.slice(0, 50) : [];
       // 覆盖导入等于换了一份进度：旧练习会话里的作答已不属于新进度，必须一并作废，
       // 否则首页「继续上次练习」会恢复出一份已不存在的会话。
-      rawDel(KEY_SESSION);
-      State.lastSess = null;
+      rawDel(KEY_SESSION); clearRecite(); clearExam();
+      State.lastSess = null; State.exam = null;
       if (data.settings && typeof data.settings === 'object') {
         State.settings = Object.assign({}, DEFAULT_SETTINGS, data.settings);
         syncSettings(); saveSettings(); applyTheme();
@@ -3526,7 +3685,7 @@
       State.meta = { bankHash: State.meta.bankHash, ver: EXPORT_VER, lastExportTs: 0 };
       saveProgress(); saveExams(); saveSettings(); saveMeta();
       // 会话也要一起清：否则首页仍显示「继续上次练习」，点进去还能恢复已被清掉的作答。
-      rawDel(KEY_SESSION);
+      rawDel(KEY_SESSION); clearRecite(); clearExam();
       State.sess = null; State.lastSess = null; State.exam = null;
       invalidateStats();
       applyTheme(); updateBadges(); render(false);
@@ -4077,6 +4236,10 @@
       State.meta.ver = EXPORT_VER;
       saveMeta();
       State.route = currentRouteFromHash();
+      // 刷新恢复：背题 / 考试按当前 hash 自动装回内存（练习走首页「继续上次练习」入口）。
+      // 只有 hash 本来就落在这两个页面上才恢复，避免「打开 App 被拉回上次没做完的东西」。
+      if (State.route === 'recite') resumeRecite();
+      else if (State.route === 'exam') resumeExam();
       render(true);
       if (changed) toast('题库已更新，学习进度按题目 ID 保留', '', 3000);
       maybeShowNotice();     // 开屏公告：每个版本只自动弹一次
