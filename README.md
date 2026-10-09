@@ -49,8 +49,8 @@
 
 | 题型 | 数量 | 来源 |
 |------|------|------|
-| 单选题 | 748 | 真题集合 + 模拟题集合原卷 |
-| 不定项选择题 | 322 | 同上 |
+| 单选题 | 747 | 真题集合 + 模拟题集合原卷 |
+| 不定项选择题 | 323 | 同上 |
 | 判断题 | 170 | 派生题 + 原卷判断题 |
 | 填空题 | 155 | 派生题 + 简答区识别 |
 | 简答题 / 论述题 | 136 | 原卷参考答案全文 |
@@ -160,19 +160,21 @@ python tools/verify_app.py   # 产物体检（29 项 + Node 沙箱）
 3. **依赖语料的脚本无法开箱运行**：`build/text/`（教材全文）因版权不随仓库发布，因此
    `parse_questions.py`、`gen_explanations.py`、`audit_corpus.py` 等在 clone 后无法直接运行；
    `qa_explanations.py`、`audit_textbook.py` 等在无语料时仍能跑完，但结论范围受限。
-4. **公开版不含提纲正文数据**：`data/outline-2026.json`（第三方整理的约 4.9 万字提纲全文）与
-   `build/` 同理**不入库**。缺少它时 `tools/bundle.py` 会注入 `null`，App 的「复习提纲」页会提示
-   数据缺失——**其余功能完全不受影响**。
+4. **仓库源码不含提纲正文数据**：`data/outline-2026.json`（第三方整理的约 4.9 万字提纲全文）与
+   `build/` 同理**不入库**；但 **Release 里的成品已内嵌该数据**，下载即可直接用「复习提纲」页。
+   自己从源码构建时若不放该文件，`tools/bundle.py` 会注入 `null`，App 的「复习提纲」页会提示数据缺失
+   ——**其余功能完全不受影响**。
 
 ## 自己准备提纲数据
 
-公开版不含提纲正文，但**你可以自己准备一份**来启用「复习提纲」页：
+**如果你用的是 Release 里的成品，不需要做任何事**——提纲数据已内嵌。
 
-- 结构是 **章 → 节 → 小节** 三层，文件名固定为 `data/outline-2026.json`；
+只有**自己从源码构建**时，才需要准备一份 `data/outline-2026.json`（结构是 **章 → 节 → 小节** 三层）：
+
 - 仓库里带了空壳示例 [`data/outline-2026.example.json`](data/outline-2026.example.json)，
   复制改名为 `outline-2026.json` 后按你的资料填内容即可；
-- 放好后跑 `python tools/bundle.py`（单文件版会把数据**内嵌**进去，双击打开也能看提纲）；
-  也可以用 `tools/build_outline_data.py` 从你自己的 PDF 提取文本生成该文件。
+- 放好后跑 `python tools/bundle.py`，单文件版会把数据**内嵌**进去（双击打开也能看提纲）；
+- 也可以用 `tools/build_outline_data.py` 从你自己的 PDF 提取文本生成该文件。
 
 > 完整的字段说明与三种启用方式 → **[docs/04-outline-data.md](docs/04-outline-data.md)**
 
