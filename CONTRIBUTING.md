@@ -29,9 +29,13 @@
    ```bash
    python tools/bundle.py       # 生成产物（单文件版 + PWA 版 + 部署 zip）
    python tools/verify_app.py   # 29 项静态体检 + Node 沙箱
+
+   python -m unittest discover -s tests -t . -v   # 回归套件（纯标准库、不联网、不需要 dist/）
    ```
 
-   期望输出：`合计 29 项：通过 29，失败 0，警告 0`。
+   期望输出：`合计 29 项：通过 29，失败 0，警告 0`，以及 unittest 的 `OK`。
+   CI（[.github/workflows/verify.yml](.github/workflows/verify.yml)）会在这两组检查上自动跑，
+   Ubuntu（Python 3.12 / 3.13 / 3.14）与 Windows（Python 3.12）都有覆盖。
 
 3. 如果改动了 `data/questions.json`，请另外跑：
 

@@ -287,6 +287,32 @@ def _place_format(m, ec: str, mask: int) -> None:
     m[size - 8][8] = 1
 
 
+def _version_bits(ver: int) -> int:
+    """版本信息：6 位版本号 + 12 位 BCH(18,6)，生成多项式 0x1F25。
+
+    版本 7 起，矩阵里必须额外写入两个 18 位的版本信息块（右上、左下）。
+    少了它们，矩阵会多出 36 个「本应是功能模块」的格子被当成数据区，
+    生成的码在符合规范的扫码器上读不出来。
+    """
+    rem = ver << 12
+    for i in range(5, -1, -1):
+        if rem & (1 << (i + 12)):
+            rem ^= 0x1F25 << i
+    return (ver << 12) | rem
+
+
+def _place_version_info(m, ver: int) -> None:
+    """写入两个版本信息块（版本 < 7 无需写入）。"""
+    if ver < 7:
+        return
+    size = len(m)
+    bits = _version_bits(ver)
+    for i in range(18):
+        bit = (bits >> i) & 1
+        m[i // 3][size - 11 + (i % 3)] = bit          # 右上块（行 0~5，列 size-11~size-9）
+        m[size - 11 + (i % 3)][i // 3] = bit          # 左下块（行 size-11~size-9，列 0~5）
+
+
 def _place_data(m, codewords: list[int], mask_id: int) -> None:
     size = len(m)
     bits: list[int] = []
@@ -355,6 +381,7 @@ def make_matrix(text: str) -> list[list[int]]:
         _place_alignment(m, ALIGN_CENTERS[ver])
         _place_timing(m)
         _reserve_format(m)
+        _place_version_info(m, ver)
         _place_data(m, codewords, mask_id)
         _place_format(m, "M", mask_id)
         score = _penalty(m)

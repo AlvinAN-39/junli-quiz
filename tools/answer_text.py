@@ -24,6 +24,11 @@ from __future__ import annotations
 
 LETTERS = "ABCDEFGH"
 
+# 注意：必须用**集合**判断，不能用 `a in LETTERS` —— 后者是子串匹配，
+# 会把 ""、"AB"、"ABC" 当成合法答案，再经 `LETTERS.index()` 静默落到错误选项上
+# （实测 `answer_text({"type":"single","answer":"AB"})` 返回 A 的文本而不是报错）。
+_LETTER_SET = frozenset(LETTERS)
+
 
 def letters_of(q) -> list[str]:
     """返回答案的字母列表（仅选择题有意义）；非选择题返回空列表。
@@ -32,15 +37,15 @@ def letters_of(q) -> list[str]:
     """
     a = q.get("answer")
     if q.get("type") == "single":
-        if isinstance(a, str) and a in LETTERS:
+        if isinstance(a, str) and a in _LETTER_SET:
             return [a]
-        if isinstance(a, list) and len(a) == 1 and isinstance(a[0], str) and a[0] in LETTERS:
+        if isinstance(a, list) and len(a) == 1 and isinstance(a[0], str) and a[0] in _LETTER_SET:
             return [a[0]]
         return []
     if q.get("type") == "multi":
         if not isinstance(a, list):
             return []
-        return [x for x in a if isinstance(x, str) and x in LETTERS]
+        return [x for x in a if isinstance(x, str) and x in _LETTER_SET]
     return []
 
 

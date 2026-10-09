@@ -63,8 +63,9 @@
   人工校订 7；其余如实标注「教材中未收录与该题直接对应的内容」，不硬凑依据。
 - **判断题与填空题是派生题**（300 道）：由「题干恰好含一个空格 + 4 个选项」的单选题自动生成，
   解析里注明原题号，方便回溯核对。
-- **不确定的地方如实标注**：多选题答案在原卷里被排版成连续字母串，区间切分存在固有歧义——
-  这类题在 App 里会显示提示，建议对照原卷核实。
+- **不确定的地方如实标注**：多选题答案在原卷里被排版成连续字母串，区间切分存在固有歧义。
+  历史上标记过存疑的多选题已逐题复核处置完毕，**当前 `answerUncertain` 为 `true` 的题 0 道**；
+  核对后仍无法唯一确定的表述，改为在解析里如实说明，而不是挂一个含糊的「存疑」标记。
 
 > 质量口径、联网核查的收录规则、派生题机制、历史处置记录 → **[docs/题目质量与依据说明.md](docs/题目质量与依据说明.md)**
 
@@ -99,8 +100,17 @@ junli-quiz/                    ← 公开仓库根目录
 │  ├─ verify_app.py            产物静态体检 + Node 沙箱（缺 Playwright 时自动降级）
 │  ├─ parse_questions.py       文本 → 题库 JSON（需要 build/text 语料）
 │  └─ …                        其余为题库生成与核查脚本
+├─ tests/                      自动化测试（纯标准库 unittest，零第三方依赖）
+│  ├─ test_questions_data.py   题库逐题契约校验
+│  ├─ test_answer_text.py      答案读取单一真相的容错边界
+│  ├─ test_qr_svg.py           QR 生成器（含独立逆向解码）
+│  ├─ test_bundle.py           打包器 + 产物检查
+│  ├─ test_app_js.py           前端核心逻辑（调用下面的 Node 桩）
+│  ├─ test_sources_compile.py  全仓 Python/JS 语法与依赖自检
+│  └─ js/app_contract.mjs      Node + 最小 DOM 桩执行真实 app.js
+├─ .github/workflows/verify.yml  CI：打包体检 + 上面这套测试
 ├─ docs/
-│  ├─ 02-data-contract.md      数据契约（已冻结）
+│  ├─ 02-data-contract.md      题库 JSON 与前端 API 的数据契约
 │  ├─ 03-reference.md          参考书目与核对依据
 │  └─ 题目质量与依据说明.md      题库质量口径、核查规则与历史处置
 ├─ README.md
@@ -120,6 +130,9 @@ junli-quiz/                    ← 公开仓库根目录
 ```powershell
 python tools/bundle.py       # 生成 dist/军理刷题.html、dist/web/、dist/军理刷题-网页版.zip
 python tools/verify_app.py   # 产物体检（29 项 + Node 沙箱）
+
+# 回归测试（纯标准库、不联网、不需要 dist/；未装 Node 时 JS 用例自动跳过）
+python -m unittest discover -s tests -t . -v
 ```
 
 > 想重新从 PDF 解析题库（`tools/parse_questions.py`）需要 `build/text/` 语料，
@@ -127,8 +140,12 @@ python tools/verify_app.py   # 产物体检（29 项 + Node 沙箱）
 
 ## 验收与 CI
 
-每次 `push` / PR 会自动跑 `python tools/bundle.py` + `python tools/verify_app.py`
-（配置见 [.github/workflows/verify.yml](.github/workflows/verify.yml)），结果就是仓库顶部那个徽章。
+每次 `push` / PR 会自动跑两组检查（配置见 [.github/workflows/verify.yml](.github/workflows/verify.yml)），
+结果就是仓库顶部那个徽章：
+
+1. **打包体检** —— `python tools/bundle.py` + `python tools/verify_app.py`；
+2. **回归测试** —— `tests/` 全套 + `node tests/js/app_contract.mjs`，在 Ubuntu（Python 3.12 / 3.13 / 3.14）
+   与 Windows（Python 3.12）上各跑一遍。
 
 **clone 下来就能跑、不需要额外数据的检查**（2026-10-09 实测）：
 
@@ -136,6 +153,8 @@ python tools/verify_app.py   # 产物体检（29 项 + Node 沙箱）
 |------|--------------------|---------|
 | 生成产物 | `python tools/bundle.py` | 退出码 0 |
 | **产物体检** | `python tools/verify_app.py` | **29/29 通过、0 失败**（缺 Playwright 时浏览器部分降级为 WARN） |
+| **回归测试** | `python -m unittest discover -s tests -t . -v` | **131 项全部通过**（数据契约、答案读取、QR 生成器、打包器、前端核心逻辑、全仓语法与依赖自检） |
+| **app.js 契约** | `node tests/js/app_contract.mjs` | 16 项检查全部通过（未装 Node 时自动跳过） |
 | 解析质量 | `python tools/qa_explanations.py` | 0 问题 |
 | 解析质量诊断 | `python tools/diag_explanations.py` | 退出码 0 |
 | 存疑盘点 | `python tools/audit_disputed.py` | 3 道待人工确认；**退出码 1 表示「有待处置项」，不是脚本故障** |
@@ -151,10 +170,10 @@ python tools/verify_app.py   # 产物体检（29 项 + Node 沙箱）
 
 ## 已知偏差（待修复）
 
-1. **顶层元数据缺失**：`docs/02-data-contract.md` 要求 `data/questions.json` 顶层含 `schema` / `generatedAt` /
-   `counts` / `sources` 四个字段，而实际顶层只有 `questions`。这会让独立质检脚本报出两类 P0
-   （顶层字段缺失、`counts` 与实际题量不一致），但**对 App 运行没有影响**：前端不读这四个字段，
-   `bundle.py` 也只在日志里打印它们。
+1. **顶层元数据未写入**：`data/questions.json` 顶层只有 `questions`，约定的 `schema` / `generatedAt` /
+   `counts` / `sources` 四个字段尚未写入（[数据契约文档](docs/02-data-contract.md)已按现状说明，
+   读取方需对这四个字段容错）。这会让依赖它们的独立质检脚本报出 P0，但**对 App 运行没有影响**：
+   前端不读这四个字段，`bundle.py` 也只在日志里打印它们。
 2. **题库仍有一处待人工确认**：`tools/audit_disputed.py` 盘点出 3 道题的依据与答案存在出入可能，
    正在逐条核实（该脚本因此返回退出码 1）。
 3. **依赖语料的脚本无法开箱运行**：`build/text/`（教材全文）因版权不随仓库发布，因此
