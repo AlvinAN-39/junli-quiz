@@ -14,8 +14,10 @@
   var KEY_SETTINGS = 'jlx.settings.v1';
   var KEY_EXAMS    = 'jlx.exams.v1';
   var KEY_META     = 'jlx.meta.v1';
-  // 练习会话（用于「继续上次练习」）：只持久化**练习模式**，背题与考试各有自己的机制
+  // 练习与背题各用独立存档，互不覆盖。
   var KEY_SESSION  = 'jlx.session.v1';
+  var KEY_RECITE   = 'jlx.recite.v1'; // 背题独立存档，不覆盖练习进度
+  var KEY_EXAM_SESSION = 'jlx.exam-session.v1'; // 未完成考试独立保存，恢复后等待主动继续
   var SESSION_VER  = 1;
 
   var APP_NAME = '军理刷题';
@@ -370,10 +372,12 @@
     meta: {},
     from: '',
     route: 'home',
-    sess: null,       // 练习会话
+    sess: null,       // 当前练习或背题会话
     exam: null,       // 正在进行的考试
     lastSess: null,   // 最近一次练习会话（内存内「继续上次练习」）
     lastOrder: 'seq', // 上次实际使用的出题顺序（seq|rand），供刷新后「继续上次练习」还原
+    reciteQ: '',     // 背题搜索词，与全局搜索页面隔离
+    reciteSearchOpen: false,
     p: {},            // 各页面临时参数
     examTimer: 0
   };
@@ -395,7 +399,7 @@
    * 练习会话持久化（用户报告：随机练习退出/刷新后点「继续上次练习」要接着练）
    * ----------------------------------------------------------------------
    * 设计要点（用户裁定）：
-   *   · 只处理**练习模式**；背题、考试各有自己的恢复机制，不写这个键。
+   *   · 练习与背题分别保存到各自的键，考试不写这两个键。
    *   · 恢复「退出时的原顺序 + 原位置」：顺序靠 seed 重排复现，位置靠 i，
    *     当前题的作答状态靠 res（这样退出前看到的判定与解析能原样回来）。
    *   · 退出练习**不清**这个键：下次点「继续上次练习」才有东西可恢复。
@@ -414,19 +418,28 @@
       var v = s.res[k];
       res[k] = { picked: v.picked, ok: !!v.ok, ts: v.ts || 0, self: !!v.self };
     });
-    return {
+    var payload = {
       ver: SESSION_VER, ts: Date.now(), title: s.title || '',
       seed: toInt(s.seed, 0), order: s.order || 'seq', i: toInt(s.i, 0),
-      ids: s.ids.slice(), res: res
+      ids: s.ids.slice(), res: res, draft: s.draft || {}, perm: s.perm || {},
+      wrongMode: !!s.wrongMode, revealedRef: s.revealedRef || {}
     };
+    if (s.mode === 'recite') {
+      payload.mode = 'recite';
+      payload.query = State.reciteQ;
+      payload.searchOpen = State.reciteSearchOpen;
+      payload.scrollY = Math.max(0, toInt(s.scrollY, 0));
+      payload.perm = s.perm || {};
+    }
+    return payload;
   }
   function saveSession() {
     var s = State.sess;
-    if (!s || s.mode !== 'practice' || !s.ids || !s.ids.length) return;
+    if (!s || ['practice', 'recite'].indexOf(s.mode) < 0 || !s.ids || !s.ids.length) return;
     // ⚠ 这里存的是**当前会话已排好的题目顺序**（`s.ids`），不是原始题库顺序。
     //    恢复时必须**原样使用**这份顺序（见 resumeSession），绝不能再洗一次 ——
     //    否则「洗过的顺序再洗一遍」会得到第三个顺序，永远对不上原顺序。
-    saveJSON(KEY_SESSION, sessionPayload(s));
+    saveJSON(s.mode === 'recite' ? KEY_RECITE : KEY_SESSION, sessionPayload(s));
   }
   /** 磁盘里的会话是否可用（用于首页/设置页决定是否显示「继续」入口） */
   function hasResumable() {
@@ -435,14 +448,43 @@
         && State.lastSess.ids.every(function (id) { return !!State.byId[id]; })) return true;
     return !!loadSession();
   }
-  function loadSession() {
-    var d = loadJSON(KEY_SESSION, null);
+  function loadSession(key) {
+    var d = loadJSON(key || KEY_SESSION, null);
     if (!d || typeof d !== 'object') return null;
     if (d.ver !== SESSION_VER) return null;
     if (!Array.isArray(d.ids) || !d.ids.length) return null;
     if (['seq', 'rand'].indexOf(d.order) < 0) return null;
-    for (var k = 0; k < d.ids.length; k++) if (!State.byId[d.ids[k]]) return null;
+    for (var k = 0; k < d.ids.length; k++) {
+      if (typeof d.ids[k] !== 'string' || !Object.prototype.hasOwnProperty.call(State.byId, d.ids[k])) return null;
+    }
     return d;
+  }
+  /** 草稿与排列按题型校验；旧存档缺少新增字段时自然兼容为空。 */
+  function restoreSessionMap(data, ids, kind) {
+    var out = {};
+    if (!data || typeof data !== 'object' || Array.isArray(data)) return out;
+    ids.forEach(function (id) {
+      if (!Object.prototype.hasOwnProperty.call(data, id)) return;
+      var q = qById(id), v = data[id];
+      if (!q) return;
+      var letters = q.options.map(function (_, i) { return LETTERS[i]; });
+      if (kind === 'perm') {
+        if (Array.isArray(v) && v.length === letters.length && v.every(function (l, i) {
+          return typeof l === 'string' && letters.indexOf(l) >= 0 && v.indexOf(l) === i;
+        })) out[id] = v.slice();
+      } else if (kind === 'flag') {
+        if (typeof v === 'boolean') out[id] = v;
+      } else if (q.type === 'single') {
+        if (typeof v === 'string' && letters.indexOf(v) >= 0) out[id] = v;
+      } else if (q.type === 'multi') {
+        if (Array.isArray(v) && v.every(function (l, i) { return letters.indexOf(l) >= 0 && v.indexOf(l) === i; })) out[id] = v.slice();
+      } else if (q.type === 'judge') {
+        if (typeof v === 'boolean') out[id] = v;
+      } else if (q.type === 'fill') {
+        if (Array.isArray(v) && v.every(function (x) { return typeof x === 'string'; })) out[id] = v.slice();
+      } else if (typeof v === 'string') out[id] = v;
+    });
+    return out;
   }
   /**
    * 恢复会话（首页「继续上次练习」与设置页「从下一题继续」共用这一套）。
@@ -457,7 +499,8 @@
       ids: ids, i: clamp(toInt(d.i, 0), 0, ids.length - 1),
       title: d.title || '继续练习', order: d.order, mode: 'practice',
       res: (d.res && typeof d.res === 'object') ? d.res : {},
-      draft: {}, perm: {}, startedAt: Date.now(),
+      draft: restoreSessionMap(d.draft, ids, 'draft'), perm: restoreSessionMap(d.perm, ids, 'perm'),
+      wrongMode: !!d.wrongMode, revealedRef: restoreSessionMap(d.revealedRef, ids, 'flag'), startedAt: Date.now(),
       gridOpen: false, gridPage: 1, seed: toInt(d.seed, 0)
     };
     State.sess = s; State.lastSess = s; State.lastOrder = d.order;
@@ -556,20 +599,31 @@
    */
   var NOTICE = {
     title: '本次更新',
-    intro: '这份公告只说明当前这一个版本改了什么 —— 每个版本发布时会替换为当版内容，不再累积历史版本。',
+    intro: '本版新增背题恢复与模式内搜索，并修复会话、考试、统计和显示问题。题库仍为 1531 题。',
     groups: [
       {
         name: '修复', items: [
-          '统计页的「按题型正确率」「按章节掌握情况」此前整列显示 NaN%（上一版引入的回归：统计分桶少初始化了一个字段，累加时 undefined + 1 变成 NaN）—— 已修好，现在显示真实百分比。',
-          '离线更新失效：此前「联网能看到新版本、断网重开仍是旧版本」。根因是离线缓存的键不一致（写入用导航地址 `/`、回退却查 `./index.html`，两者不是同一条目），且缓存名固定不变导致浏览器不认为 Service Worker 有更新。现在写入与回退统一用同一个键，构建标识也写进缓存名，断网重开拿到的必然是最新版本。',
-          '缓存写入改为纳入事件生命周期：此前写缓存的 Promise 没有被等待，存在竞态 —— 页面已经显示出新内容，但缓存还没落盘，关掉页面就等于没更新。',
-          '预缓存精简：PWA 版页面已把 CSS / JS / 题库全部内联，不再重复缓存这些文件；同时关键资源缓存失败会让新 Worker 安装失败、保留旧 Worker，不会再出现「新 Worker 装上了却没有可用 HTML」的半残状态。'
+          '错题重做续练保留自动移出语义；练习恢复保留选项乱序、未提交草稿和已展开的参考答案。',
+          '考试暂停后不再后台计时或交卷；简答题交卷后的自评会实际计入成绩，未答题不增加学习计数。',
+          '考试页隐藏练习专用判分提示和无效提交按钮；答题卡分页题号正确显示。',
+          '收藏数量包含未作答题，取消收藏即时移除列表项；跨模式顶栏与当前页面一致。',
+          '首页与统计页总正确率采用一致口径；错题搜索防抖生效且不重建输入框。',
+          '多选题少选时不再把已选的正确项解释为错误；四档字号避免重复缩放，深色正误标记提高对比度。',
+          '背题模式退出、刷新或关闭页面后，再次进入会回到上次阅读的同一道题和同一题集，不再从第 1 题开始。'
         ]
       },
       {
         name: '新增', items: [
-          '设置页新增「离线与更新」：显示当前版本的离线缓存是否已就绪 —— 只有真的写入成功才显示「已就绪」，不再靠推测（页面显示新内容 ≠ 缓存已更新，这正是之前那个故障的迷惑之处）。',
-          '公告改为只显示当前版本内容，并在左上角标注版本号。'
+          '考试独立存档：保存题目、位置、草稿、选项排列、剩余时间与自评进度，主动选择继续或放弃。',
+          '背题模式内可搜索当前题集的题干、选项、章节与题型；多个关键词用空格分隔，点击结果直接跳题。',
+          '背题保存搜索词、阅读滚动位置与选项排列；可用「从头背全部」重新开始。'
+        ]
+      },
+      {
+        name: '说明', items: [
+          '背题、练习和考试分别存档；背题不计作答次数，搜索与清空搜索保留原题集。',
+          '总正确率为做对过的题目数除以做过的题目数；考试未答题扣试卷分，但不算实际作答。',
+          '考试离开页面、切到后台、刷新或关页会暂停，回来后主动继续；旧版未保存的草稿无法补回。'
         ]
       }
     ]
@@ -727,6 +781,9 @@
       var c = d.byChapter[q.chapter];
       c.total += 1;
       var p = State.progress[q.id];
+      // 收藏与错题标记不依赖作答次数，背题时仅收藏也必须计入徽章。
+      if (p && p.fav) d.fav += 1;
+      if (p && p.wrongFlag) d.wrong += 1;
       if (!p || !p.seen) { d.untouched += 1; return; }
       d.done += 1; d.attempts += p.seen; d.correct += p.correct;
       if (p.correct > 0) d.uniqueCorrect += 1;
@@ -734,8 +791,6 @@
       if (p.correct > 0) t.uniqueCorrect += 1;
       c.done += 1; c.attempts += p.seen; c.correct += p.correct;
       if (p.correct > 0) c.uniqueCorrect += 1;
-      if (p.fav) d.fav += 1;
-      if (p.wrongFlag) d.wrong += 1;
       if (p.box >= 3 && p.correct > 0) d.mastered += 1; else d.review += 1;
     });
     d.rate = pct(d.correct, d.attempts);
@@ -907,6 +962,16 @@
 
   function go(route, params) {
     if (!VIEWS[route]) route = 'home';
+    if (route !== 'exam' && State.route === 'exam' && State.exam && State.exam.phase === 'run' && !State.exam.paused) {
+      confirmBox('暂停考试并离开？', '已作答内容和剩余时间会保存，回来后可继续考试。', '暂停并离开', function () {
+        pauseExam();
+        go(route, params);
+      });
+      return;
+    }
+    cancelWrongSearch();
+    wrongSearchComposing = false;
+    flushSession(); // 切换页面前同步保存，避免延迟写盘错过最后一次翻页
     State.route = route;
     if (params) State.p = params;
     var hash = '#/' + route;
@@ -1008,7 +1073,14 @@
     updateBadges();
     updateNavActive();
     try { afterRender(route); } catch (e2) { /* 渲染后钩子异常不影响主流程 */ }
-    if (scroll) { try { window.scrollTo(0, 0); } catch (e3) { /* noop */ } }
+    var s = State.sess;
+    if (route === 'recite' && s && s.mode === 'recite' && s.restoreScroll) {
+      s.restoreScroll = false;
+      try { window.scrollTo(0, s.scrollY || 0); } catch (e3) { /* 不支持滚动时保留题目位置 */ }
+    } else if (scroll) { try { window.scrollTo(0, 0); } catch (e4) { /* noop */ } }
+    // 题卡渲染时才生成选项排列，渲染后保存才能恢复相同的字母与答案。
+    if (s && route === s.mode) saveSession();
+    if (route === 'exam') saveExamSession();
   }
 
   function updateTopbar() {
@@ -1017,7 +1089,7 @@
     var meta = '';
     var strip = false, cur = 0, tot = 0, stripTip = '';
 
-    if (r === 'practice' && State.sess) {
+    if (r === 'practice' && State.sess && State.sess.mode === 'practice') {
       // 进度标度 = **已作答去重计数**（不是「走到第几题」）。
       // 原实现用 i+1 当进度，前后跳题都会让百分比虚高，用户报告「题号当进度」即此。
       title = State.sess.title;
@@ -1026,12 +1098,12 @@
       strip = true;
       stripTip = '正确率 ' + sessRate(State.sess) + '%';
       meta = State.sess.order === 'rand' ? '随机' : '顺序';
-    } else if (r === 'recite' && State.sess) {
+    } else if (r === 'recite' && State.sess && State.sess.mode === 'recite') {
       // 背题模式不计对错，进度只能是「浏览到第几题」
       title = State.sess.title; cur = State.sess.i + 1; tot = State.sess.ids.length; strip = true;
       meta = '背题';
     } else if (r === 'exam') {
-      if (State.exam && State.exam.phase === 'run') {
+      if (State.exam && State.exam.phase === 'run' && !State.exam.paused) {
         title = '模拟考试'; cur = State.exam.i + 1; tot = State.exam.ids.length; strip = true;
         meta = '<span class="timer" id="exam-clock">--:--</span>';
       } else if (State.exam && State.exam.phase === 'selfcheck') {
@@ -1068,6 +1140,7 @@
   }
 
   function afterRender(route) {
+    if (route === 'recite') renderReciteSearchResults();
     if (route === 'search') {
       var inp = $('#search-input');
       if (inp) {
@@ -1445,6 +1518,9 @@
     var why = q.distractorWhy || {};
     var out = '';
     pickedLetters(q, ctx.picked).forEach(function (L) {
+      // 多选少选会判错，但选中的正确项不属于干扰项。
+      var correct = q.type === 'multi' ? q.qa : [q.qa];
+      if (correct && correct.indexOf(L) >= 0) return;
       var txt = why[L];
       if (txt == null || txt === '') return;
       var idx = LETTERS.indexOf(L);
@@ -1488,7 +1564,7 @@
   }
 
   function submitBtn(q, ctx) {
-    if (ctx.reveal || ctx.locked || ctx.showSelf) return '';
+    if (ctx.reveal || ctx.locked || ctx.showSelf || ctx.examRunning) return '';
     if (q.type === 'multi') return '<div class="btn-row mt16"><button class="btn primary block" type="button" data-act="ans:submit">提交答案</button></div>';
     if (q.type === 'fill') return '<div class="btn-row mt16"><button class="btn primary block" type="button" data-act="ans:submit">提交答案</button></div>';
     if (q.type === 'short') {
@@ -1508,6 +1584,8 @@
 
   function hintLine(q, ctx) {
     if (ctx.reveal || ctx.locked) return '';
+    if (ctx.examRunning) return '<div class="note mt10">' +
+      (q.type === 'short' ? '作答自动保存；交卷后对照参考答案自评。' : '作答自动保存；交卷后统一评分。') + '</div>';
     if (q.type === 'single') return '<div class="note mt10">点选即判分（快捷键 <kbd>1</kbd>–<kbd>' + Math.min(9, q.options.length) + '</kbd>）</div>';
     if (q.type === 'multi') return '<div class="note mt10">多选，选好后点「提交答案」（快捷键 <kbd>1</kbd>–<kbd>' + Math.min(9, q.options.length) + '</kbd> 选择，<kbd>Enter</kbd> 提交）</div>';
     if (q.type === 'judge') return '<div class="note mt10">判断对错（快捷键 <kbd>1</kbd> 正确 / <kbd>2</kbd> 错误）</div>';
@@ -1604,7 +1682,7 @@
     });
     pages += '</div>';
     return '<div class="card"><div class="card-title">答题卡<span class="card-sub">' +
-      from + 1 + '-' + to + ' / 共 ' + total + ' 题</span></div>' +
+      (from + 1) + '-' + to + ' / 共 ' + total + ' 题</span></div>' +
       cells + pages +
       '<div class="legend mt10"><span><i class="done"></i>已答</span><span><i class="todo"></i>未答</span>' +
       '<span><i class="cur"></i>当前</span>' + (ctx.revealRes ? '<span><i class="right"></i>正确</span><span><i class="wrong"></i>错误</span>' : '') +
@@ -1649,7 +1727,7 @@
       '<div class="grid grid-4">' +
       '<div class="stat pri"><b>' + d.total + '</b><span>总题数</span></div>' +
       '<div class="stat"><b>' + d.done + '</b><span>已做</span></div>' +
-      '<div class="stat ' + (d.rate >= 60 ? 'ok' : (d.attempts ? 'bad' : '')) + '"><b>' + d.rate + '%</b><span>正确率</span></div>' +
+      '<div class="stat ' + (d.uniqueRate >= 60 ? 'ok' : (d.done ? 'bad' : '')) + '"><b>' + d.uniqueRate + '%</b><span>总正确率</span></div>' +
       '<div class="stat"><b>' + d.wrong + '</b><span>错题</span></div>' +
       '</div>' +
       '<div class="chips mt10">' +
@@ -1696,6 +1774,8 @@
    * 12. 练习（顺序 / 随机 / 章节 / 题型）
    * ==================================================================== */
   function startSession(ids, title, order, mode) {
+    flushSession();
+    if (mode === 'recite') { State.reciteQ = ''; State.reciteSearchOpen = false; }
     var ord = order || 'seq';
     // 随机顺序用一个种子固定下来：退出/刷新后靠它重排出**同一顺序**（见 shuffleSeeded 注释）
     var seed = (ord === 'rand') ? newSeed() : 0;
@@ -1704,7 +1784,7 @@
     State.sess = {
       ids: list, i: 0, title: title, order: ord, mode: mode || 'practice',
       res: {}, draft: {}, perm: {}, startedAt: Date.now(), gridOpen: false, wrongMode: false,
-      gridPage: 1, seed: seed
+      gridPage: 1, seed: seed, scrollY: 0
     };
     // 只有练习模式才更新「上次练习」指针：背题/考试不该让首页误显示「继续上次练习」
     // （注意判据是 mode，不是 ord —— ord 存的是 'seq'|'rand'）
@@ -1876,8 +1956,11 @@
     return undefined;
   }
   function setDraft(container, qid, v) {
+    if (container === State.exam && (container.phase !== 'run' || container.paused)) return;
     if (!container.draft) container.draft = {};
     container.draft[qid] = v;
+    if (container === State.sess && container.mode === 'practice') saveSession();
+    else if (container === State.exam) saveExamSession();
   }
 
   function hasAnswer(q, v) {
@@ -2067,7 +2150,7 @@
     if (!c) return;
     if (!c.ids.length) return;
     if (State.route === 'exam') {
-      if (c.phase !== 'run') return;
+      if (c.phase !== 'run' || c.paused) return;
       examSaveDraft();
     }
     var ni = c.i + d;
@@ -2087,25 +2170,28 @@
       return;
     }
     c.i = ni;
-    if (State.route === 'practice') saveSessionSoon();   // 翻页即落盘：退出/关页后能回到这一题
+    if (State.route === 'practice') saveSessionSoon();
+    else if (State.route === 'recite') { c.scrollY = 0; saveSession(); }
     render(true);
   }
   function jumpTo(i) {
     var c = activeContainer();
     if (!c || isNaN(i)) return;
     if (State.route === 'exam') {
-      if (c.phase !== 'run') return;
+      if (c.phase !== 'run' || c.paused) return;
       examSaveDraft();
     }
     c.i = clamp(i, 0, c.ids.length - 1);
-    if (State.route === 'practice') saveSessionSoon();   // 位置也要落盘，供「继续」回到这一题
+    if (State.route === 'practice') saveSessionSoon();
+    else if (State.route === 'recite') { c.scrollY = 0; saveSession(); }
     render(true);
   }
 
   reg('sess:exit', function () {
     // 退出只清内存会话；磁盘里的会话保留，下次「继续上次练习」才能接着练
-    confirmBox('退出练习', '当前练习进度已自动保存，确定退出吗？', '退出', function () {
-      saveSession();
+    var name = State.route === 'recite' ? '背题' : '练习';
+    confirmBox('退出' + name, '当前' + name + '进度已自动保存，确定退出吗？', '退出', function () {
+      flushSession();
       State.sess = null;
       go('home');
     });
@@ -2120,6 +2206,7 @@
     var sp = btn.querySelector('span');
     if (sp) sp.textContent = on ? '已收藏' : '收藏';
     updateBadges();
+    if (State.route === 'fav') render(false); // 取消收藏后立即更新行与页头数量
   });
 
   /* ---- 练习入口动作 ---- */
@@ -2220,11 +2307,89 @@
   /* ======================================================================
    * 13. 背题模式
    * ==================================================================== */
+  /** 离开、关页时同步保存阅读位置；滚动事件只合并写盘。 */
+  function flushSession() {
+    if (State.route === 'exam') { examSaveDraft(); saveExamSession(); }
+    var s = State.sess;
+    if (!s || State.route !== s.mode) return; // 主页的残留会话不属于当前阅读状态
+    if (State.route === 'recite' && s && s.mode === 'recite') {
+      s.scrollY = Math.max(0, toInt(window.scrollY || window.pageYOffset, 0));
+    }
+    saveSession();
+  }
+
+  /** 索引完成后恢复背题，缺失任一题号则整份作废，避免位置错位。 */
+  function restoreReciteSession() {
+    var d = loadSession(KEY_RECITE);
+    if (!d || d.mode !== 'recite') return false;
+    var perm = restoreSessionMap(d.perm, d.ids, 'perm');
+    State.sess = {
+      ids: d.ids.slice(), i: clamp(toInt(d.i, 0), 0, d.ids.length - 1),
+      title: d.title || '继续背题', order: d.order, mode: 'recite',
+      res: {}, draft: {}, perm: perm, startedAt: Date.now(),
+      gridOpen: false, gridPage: 1, seed: toInt(d.seed, 0),
+      scrollY: Math.max(0, toInt(d.scrollY, 0)), restoreScroll: true
+    };
+    State.reciteQ = typeof d.query === 'string' ? d.query : '';
+    State.reciteSearchOpen = !!d.searchOpen;
+    return true;
+  }
+
+  /** 搜索只定位当前题集，不重建或重排背题会话。 */
+  function reciteScope() {
+    var s = State.sess;
+    return s && s.mode === 'recite' ? s.ids : State.questions.map(function (q) { return q.id; });
+  }
+  function reciteSearchCard() {
+    return '<div class="card recite-search"><div class="field mb0">' +
+      '<label for="recite-search-input">搜索背题题目<span class="card-sub">当前范围 ' + reciteScope().length + ' 题</span></label>' +
+      '<input class="input" id="recite-search-input" data-act="recite:search" type="search" aria-label="搜索背题题目"' +
+      ' placeholder="题干 / 选项 / 章节；多个关键词用空格分隔" autocomplete="off" value="' + esc(State.reciteQ) + '"></div>' +
+      '<div class="row wrap mt10"><button class="btn sm ghost" type="button" data-act="recite:searchclear">清空搜索</button>' +
+      '<button class="btn sm ghost" type="button" data-act="recite:searchshow">显示搜索结果</button></div>' +
+      '<div id="recite-search-results" class="recite-search-results" aria-live="polite"></div></div>';
+  }
+  function renderReciteSearchResults() {
+    var box = $('#recite-search-results');
+    if (!box) return;
+    var kws = State.reciteQ.trim().toLowerCase().split(/\s+/).filter(Boolean);
+    if (!kws.length || !State.reciteSearchOpen) { box.innerHTML = ''; return; }
+    var hits = reciteScope().map(qById).filter(function (q) { return q && searchMatch(q, kws); });
+    if (!hits.length) { box.innerHTML = '<p class="small muted mt10">没有找到相关题目，请换个关键词；当前背题位置保持不变。</p>'; return; }
+    var html = '<div class="small muted mt10">找到 ' + hits.length + ' 题，点击题目继续背题。</div><div class="list">';
+    hits.slice(0, 200).forEach(function (q) {
+      html += '<button class="list-item" type="button" data-act="recite:searchgo" data-id="' + esc(q.id) + '">' +
+        '<span class="li-idx">' + (TYPE_SHORT[q.type] || '') + '</span><span class="li-body"><strong class="clamp3">' +
+        hl(q.stem, kws[0]) + '</strong><small>' + esc(q.chapter) + '</small></span></button>';
+    });
+    box.innerHTML = html + '</div>' + (hits.length > 200 ? '<p class="small muted">仅显示前 200 条，请增加关键词缩小范围。</p>' : '');
+  }
+  reg('recite:search', null); // input 只重绘结果，保留焦点与中文输入法状态
+  reg('recite:searchclear', function () {
+    State.reciteQ = ''; State.reciteSearchOpen = false;
+    var el = $('#recite-search-input');
+    if (el) { el.value = ''; el.focus(); }
+    renderReciteSearchResults(); saveSession();
+  });
+  reg('recite:searchshow', function () { State.reciteSearchOpen = true; renderReciteSearchResults(); saveSession(); });
+  reg('recite:searchgo', function (el) {
+    var id = el.getAttribute('data-id'), ids = reciteScope(), idx = ids.indexOf(id);
+    if (idx < 0 || !qById(id)) return;
+    if (!State.sess || State.sess.mode !== 'recite') {
+      var query = State.reciteQ;
+      startSession(ids, '背题模式 · 全部 ' + ids.length + ' 题', 'seq', 'recite');
+      State.reciteQ = query;
+    }
+    State.reciteSearchOpen = false;
+    jumpTo(idx);
+  });
+
   VIEWS.recite = function () {
     var s = State.sess;
+    if ((!s || s.mode !== 'recite') && restoreReciteSession()) s = State.sess;
     if (!s || s.mode !== 'recite' || !s.ids.length) {
       var d = derive();
-      var html = '<div class="card"><div class="card-title">背题模式</div>' +
+      var html = reciteSearchCard() + '<div class="card"><div class="card-title">背题模式</div>' +
         '<p class="small dim">直接显示题干、正确答案与解析，适合考前快速过一遍。' +
         '可用 <kbd>←</kbd> <kbd>→</kbd> 或下方按钮翻题。</p>' +
         '<div class="btn-row mt10"><button class="btn primary block" type="button" data-act="recite:start">开始背题（全部 ' + d.total + ' 题）</button></div></div>';
@@ -2243,16 +2408,21 @@
       return html;
     }
     var q = sessCurrent();
-    if (!q) { State.sess = null; return VIEWS.recite(); }
+    if (!q) { State.sess = null; rawDel(KEY_RECITE); return VIEWS.recite(); }
     var ctx = { q: q, idx: s.i, total: s.ids.length, sess: s, picked: undefined, reveal: true, ok: false, locked: true };
-    var html = renderCard(q, ctx);
+    var html = reciteSearchCard() + renderCard(q, ctx);
     html += '<div class="row between mt10 small muted"><span>背题模式 · 不计入正确率</span>' +
-      '<button class="btn sm ghost" type="button" data-act="sess:exit">退出</button></div>';
+      '<div class="row wrap"><button class="btn sm ghost" type="button" data-act="recite:new">从头背全部</button>' +
+      '<button class="btn sm ghost" type="button" data-act="sess:exit">退出</button></div></div>';
     html += navBtns({ idx: s.i, total: s.ids.length });
     return html;
   };
 
   reg('recite:start', function () {
+    if (restoreReciteSession()) { go('recite'); return; }
+    ACT['recite:new']();
+  });
+  reg('recite:new', function () {
     startSession(State.questions.map(function (q) { return q.id; }), '背题模式 · 全部 ' + State.questions.length + ' 题', 'seq', 'recite');
   });
   reg('recite:chapter', function (el) {
@@ -2409,10 +2579,69 @@
     });
   }
 
+  /** 存档一律表示已暂停；刷新、关页后不会自行倒计时或交卷。 */
+  function saveExamSession() {
+    var e = State.exam;
+    if (!e || (e.phase !== 'run' && e.phase !== 'selfcheck')) return;
+    var active = e.phase === 'run' && !e.paused;
+    var now = Date.now();
+    saveJSON(KEY_EXAM_SESSION, {
+      ver: SESSION_VER, ids: e.ids.slice(), i: e.i, phase: e.phase, paused: true,
+      draft: e.draft || {}, perm: e.perm || {}, self: e.self || {},
+      minutes: e.minutes, withShort: e.withShort, scope: e.scope,
+      gridOpen: e.gridOpen, gridPage: e.gridPage, autoSubmit: !!e.autoSubmit,
+      remainingMs: active ? Math.max(0, e.endTs - now) : e.remainingMs,
+      elapsedMs: (e.elapsedMs || 0) + (active ? Math.max(0, now - e.segmentStartTs) : 0)
+    });
+  }
+
+  /** 外部存档先验证题号、时间和各题答案类型，再重建判分状态。 */
+  function loadExamSession() {
+    var d = loadJSON(KEY_EXAM_SESSION, null);
+    if (!d || d.ver !== SESSION_VER || ['run', 'selfcheck'].indexOf(d.phase) < 0 ||
+        !Array.isArray(d.ids) || !d.ids.length || d.ids.length > 200 ||
+        new Set(d.ids).size !== d.ids.length || !d.ids.every(function (id) {
+          return typeof id === 'string' && Object.prototype.hasOwnProperty.call(State.byId, id);
+        }) || typeof d.remainingMs !== 'number' || !isFinite(d.remainingMs) || d.remainingMs < 0 ||
+        typeof d.elapsedMs !== 'number' || !isFinite(d.elapsedMs) || d.elapsedMs < 0) return null;
+    var minutes = clamp(toInt(d.minutes, 30), 1, 300);
+    var e = {
+      ids: d.ids.slice(), i: clamp(toInt(d.i, 0), 0, d.ids.length - 1), phase: d.phase, paused: true,
+      draft: restoreSessionMap(d.draft, d.ids, 'draft'), perm: restoreSessionMap(d.perm, d.ids, 'perm'),
+      self: restoreSessionMap(d.self, d.ids, 'flag'), minutes: minutes, withShort: !!d.withShort,
+      scope: ['all', 'wrong', 'new'].indexOf(d.scope) >= 0 ? d.scope : 'all',
+      gridOpen: d.gridOpen !== false, gridPage: Math.max(1, toInt(d.gridPage, 1)),
+      remainingMs: Math.min(d.remainingMs, minutes * 60000), elapsedMs: d.elapsedMs,
+      autoSubmit: !!d.autoSubmit, res: null
+    };
+    if (e.phase === 'selfcheck') { e.durationMs = e.elapsedMs; buildExamResults(e); }
+    return e;
+  }
+
+  /** 仅累计实际考试时间，暂停期间不扣秒，也不计入用时。 */
+  function pauseExam() {
+    var e = State.exam;
+    if (!e || (e.phase !== 'run' && e.phase !== 'selfcheck')) return;
+    examSaveDraft();
+    if (e.phase === 'run' && !e.paused) {
+      var now = Date.now();
+      e.remainingMs = Math.max(0, e.endTs - now);
+      e.elapsedMs = (e.elapsedMs || 0) + Math.max(0, now - e.segmentStartTs);
+      e.paused = true;
+    }
+    stopExamTimer();
+    saveExamSession();
+  }
+
+  function pendingExam() {
+    if (State.exam && (State.exam.phase === 'run' || State.exam.phase === 'selfcheck')) return State.exam;
+    return loadExamSession();
+  }
+
   VIEWS.exam = function () {
     var e = State.exam;
     if (!e) return examSetup();
-    if (e.phase === 'run') return examRun();
+    if (e.phase === 'run') return e.paused ? examSetup() : examRun();
     if (e.phase === 'selfcheck') return examSelfCheck();
     if (e.phase === 'report') return examReport();
     return examSetup();
@@ -2423,6 +2652,15 @@
     var scope = State.p.scope || 'all';
     var pool = examScopePool(scope, withShort);
     var html = '';
+
+    var pending = pendingExam();
+    if (pending) {
+      html += '<div class="card"><div class="card-title">上次考试已保存</div>' +
+        '<div class="note">共 ' + pending.ids.length + ' 题，' + (pending.phase === 'selfcheck' ? '等待主观题自评' :
+        '剩余 ' + fmtClock(pending.remainingMs / 1000)) + '。草稿与选项顺序已保留。</div>' +
+        '<div class="btn-row mt10"><button class="btn primary" type="button" data-act="exam:resume">继续上次考试</button>' +
+        '<button class="btn danger" type="button" data-act="exam:discard">放弃上次考试</button></div></div>';
+    }
 
     html += '<div class="card"><div class="card-title">考试设置</div>' +
       '<div class="field"><label>题量</label><div class="seg">' +
@@ -2476,7 +2714,11 @@
     return html;
   }
 
-  function examStart() {
+  function examStart(force) {
+    if (!force && pendingExam()) {
+      confirmBox('重新开始考试？', '上次未完成的考试将被替换，已有学习进度和成绩不受影响。', '重新开始', function () { examStart(true); });
+      return;
+    }
     var withShort = !!State.p.withShort;
     var scope = State.p.scope || 'all';
     var pool = examScopePool(scope, withShort);
@@ -2487,7 +2729,8 @@
       ids: ids, i: 0, phase: 'run', draft: {}, perm: {}, answered: {},
       startTs: Date.now(), endTs: Date.now() + State.settings.examMinutes * 60000,
       minutes: State.settings.examMinutes, gridOpen: true, gridPage: 1, withShort: withShort, scope: scope,
-      res: null, self: {}, autoSubmit: false
+      res: null, self: {}, autoSubmit: false, paused: false,
+      remainingMs: State.settings.examMinutes * 60000, elapsedMs: 0, segmentStartTs: Date.now()
     };
     go('exam');
     startExamTimer();
@@ -2507,7 +2750,7 @@
     if (!q) { State.exam = null; return examSetup(); }
     var picked = getDraft(e, q.id);
     var answered = Object.keys(e.ids).filter(function (i) { return hasAnswer(qById(e.ids[i]), getDraft(e, e.ids[i])); }).length;
-    var ctx = { q: q, idx: e.i, total: e.ids.length, sess: e, picked: picked, reveal: false, ok: false, locked: false };
+    var ctx = { q: q, idx: e.i, total: e.ids.length, sess: e, picked: picked, reveal: false, ok: false, locked: false, examRunning: true };
     var html = renderCard(q, ctx);
     html += '<div class="row between mt10 small muted"><span>已答 ' + answered + '/' + e.ids.length + ' 题</span>' +
       '<span class="row"><button class="btn sm ghost" type="button" data-act="grid:toggle">答题卡</button>' +
@@ -2531,7 +2774,7 @@
 
   function examPick(k) {
     var e = State.exam;
-    if (!e || e.phase !== 'run') return;
+    if (!e || e.phase !== 'run' || e.paused) return;
     var q = examCurrent();
     if (!q) return;
     if (q.type === 'single') { setDraft(e, q.id, k); render(false); return; }
@@ -2549,7 +2792,7 @@
 
   function examSaveDraft() {
     var e = State.exam;
-    if (!e) return;
+    if (!e || e.phase !== 'run' || e.paused || State.route !== 'exam') return;
     var q = examCurrent();
     if (!q) return;
     if (q.type === 'fill') {
@@ -2576,7 +2819,8 @@
   function tickClock() {
     var el = document.getElementById('exam-clock');
     var e = State.exam;
-    if (!e || e.phase !== 'run') { stopExamTimer(); return; }
+    if (!e || e.phase !== 'run' || e.paused) { stopExamTimer(); return; }
+    if (State.route !== 'exam') { pauseExam(); return; }
     var left = Math.max(0, e.endTs - Date.now());
     var sec = Math.round(left / 1000);
     if (el) {
@@ -2592,7 +2836,25 @@
     }
   }
 
-  reg('exam:new', function () { State.exam = null; State.p = { scope: 'all', withShort: false }; go('exam'); });
+  reg('exam:new', function () {
+    if (State.exam && State.exam.phase === 'report') State.exam = null;
+    go('exam', { scope: 'all', withShort: false });
+  });
+  reg('exam:resume', function () {
+    var e = pendingExam();
+    if (!e) { toast('没有可恢复的考试', 'bad'); return; }
+    State.exam = e;
+    if (e.phase === 'run') {
+      e.paused = false; e.segmentStartTs = Date.now(); e.endTs = e.segmentStartTs + e.remainingMs;
+    }
+    go('exam');
+    if (e.phase === 'run') startExamTimer();
+  });
+  reg('exam:discard', function () {
+    confirmBox('放弃上次考试？', '将删除这场未完成考试的草稿，已有学习进度和成绩不受影响。', '放弃考试', function () {
+      stopExamTimer(); State.exam = null; rawDel(KEY_EXAM_SESSION); render(false);
+    });
+  });
   reg('exam:count', function (el) { State.settings.examCount = toInt(el.getAttribute('data-v'), 20); saveSettings(); render(false); });
   reg('exam:min', function (el) { State.settings.examMinutes = toInt(el.getAttribute('data-v'), 30); saveSettings(); render(false); });
   reg('exam:scope', function (el) { State.p.scope = el.getAttribute('data-v'); render(false); });
@@ -2609,7 +2871,7 @@
 
   reg('exam:submit', function () {
     var e = State.exam;
-    if (!e || e.phase !== 'run') return;
+    if (!e || e.phase !== 'run' || e.paused) return;
     examSaveDraft();
     var un = e.ids.filter(function (id) { return !hasAnswer(qById(id), getDraft(e, id)); }).length;
     confirmBox('确认交卷？', un ? ('还有 ' + un + ' 题未作答，交卷后将无法修改。') : '所有题目均已作答，交卷后将无法修改。', '交卷', function () {
@@ -2621,9 +2883,16 @@
   /** 交卷：判分（含简答自评环节） */
   function examFinish() {
     var e = State.exam;
-    if (!e || e.phase !== 'run') return;
-    stopExamTimer();
-    e.durationMs = Date.now() - e.startTs;
+    if (!e || e.phase !== 'run' || e.paused) return;
+    pauseExam();
+    e.durationMs = e.elapsedMs;
+    var needSelf = buildExamResults(e);
+    if (needSelf) { e.phase = 'selfcheck'; saveExamSession(); return; }
+    examScore();
+  }
+
+  /** 未答计入试卷分母，但没有作答内容就不能判为正确。 */
+  function buildExamResults(e) {
     e.res = {};
     var needSelf = false;
     e.ids.forEach(function (id) {
@@ -2631,14 +2900,14 @@
       var picked = getDraft(e, id);
       if (!q) return;
       if (q.type === 'short') {
-        if (!Object.prototype.hasOwnProperty.call(e.self, id)) needSelf = true;
+        if (!hasAnswer(q, picked)) e.self[id] = false;
+        else if (!Object.prototype.hasOwnProperty.call(e.self, id)) needSelf = true;
         e.res[id] = { picked: picked, ok: e.self[id] === true, self: true };
       } else {
-        e.res[id] = { picked: picked, ok: judgeAnswer(q, picked), self: false };
+        e.res[id] = { picked: picked, ok: hasAnswer(q, picked) && judgeAnswer(q, picked), self: false };
       }
     });
-    if (needSelf) { e.phase = 'selfcheck'; return; }
-    examScore();
+    return needSelf;
   }
 
   function examSelfCheck() {
@@ -2657,7 +2926,7 @@
         '<div class="answer-box"><div class="ab-title">参考答案</div>' + esc(answerTextDisp(q, e)) + '</div>' +
         explainBlock(q, false, e) +
         '<div class="selfcheck">' +
-        '<button class="btn ' + (sel === true ? 'primary' : 'ghost') + '" type="button" data-act="ans:self" data-v="1" data-id="' + esc(id) + '">✅ 会</button>' +
+        '<button class="btn ' + (sel === true ? 'primary' : 'ghost') + '" type="button" data-act="ans:self" data-v="1" data-id="' + esc(id) + '"' + (hasAnswer(q, mine) ? '' : ' disabled') + '>✅ 会</button>' +
         '<button class="btn ' + (sel === false ? 'danger' : 'ghost') + '" type="button" data-act="ans:self" data-v="0" data-id="' + esc(id) + '">❌ 不会</button>' +
         '</div></div>';
     });
@@ -2669,15 +2938,19 @@
 
   function examSelf(el) {
     var e = State.exam;
-    if (!e) return;
+    if (!e || e.phase !== 'selfcheck') return;
     var id = el.getAttribute('data-id');
     if (!id) { var q = examCurrent(); if (!q) return; id = q.id; }
-    e.self[id] = el.getAttribute('data-v') === '1';
-    if (e.phase === 'selfcheck') render(false);
+    var qq = qById(id);
+    if (e.ids.indexOf(id) < 0 || !qq || qq.type !== 'short') return;
+    e.self[id] = hasAnswer(qq, getDraft(e, id)) && el.getAttribute('data-v') === '1';
+    e.res[id].ok = e.self[id];
+    render(false);
   }
 
   function examScore() {
     var e = State.exam;
+    if (!e || e.phase === 'report' || !e.res || buildExamResults(e)) return;
     var total = e.ids.length;
     var correct = 0, wrongIds2 = [];
     e.ids.forEach(function (id) {
@@ -2688,6 +2961,8 @@
     e.phase = 'report';
     e.correct = correct;
     e.wrongList = wrongIds2;
+    stopExamTimer();
+    rawDel(KEY_EXAM_SESSION);
     Feedback.play('complete');    // 交卷出成绩：四音上行琶音（同一拍内的 exam:scoredone 会被 60ms 去抖吃掉）
     // 写入历史与进度
     var rec = {
@@ -2704,8 +2979,8 @@
       var r = e.res[id];
       if (!r) return;
       var q = qById(id);
-      // 考试中「未作答」计为错分，但不进错题本（只有真正答错才进）
-      record(id, !!r.ok, { inWrongMode: false, markWrong: !!(q && hasAnswer(q, r.picked)) });
+      // 学习计数、日做题量和错题本只记录实际作答，未答仅扣考试分。
+      if (q && hasAnswer(q, r.picked)) record(id, !!r.ok, { inWrongMode: false, markWrong: true });
     });
   }
 
@@ -2828,18 +3103,26 @@
       '<span class="search-ico" aria-hidden="true">🔍</span>' +
       '<input class="input search-input" type="search" data-act="wrong:search" value="' + esc(kw) + '"' +
       ' placeholder="搜索题干 / 选项关键词，快速定位错题" aria-label="搜索错题">' +
-      (kw ? '<button class="btn sm ghost" type="button" data-act="wrong:searchclear" aria-label="清空搜索">清空</button>' : '') +
+      '<button class="btn sm ghost" type="button" data-act="wrong:searchclear" aria-label="清空搜索"' + (kw ? '' : ' hidden') + '>清空</button>' +
       '</div>' +
-      (kw ? '<div class="small muted mt6">命中 <b>' + shown.length + '</b> / ' + ids.length + ' 题' +
-            (shown.length ? '，结果已按匹配度排序' : '，没有匹配的错题') + '</div>' : '') +
+      '<div class="small muted mt6" id="wrong-search-summary">' + wrongSearchSummary(ids, shown, kw) + '</div>' +
       '<div class="btn-row mt10">' +
       '<button class="btn primary" type="button" data-act="wrong:redo">重做' + (kw ? '筛选出的 ' + shown.length + ' 题' : '全部错题') + '</button>' +
       '<button class="btn danger" type="button" data-act="wrong:clear">清空错题本</button>' +
       '</div><div class="small muted mt6">在「错题重做」中答对的题目会自动移出错题本。</div></div>';
+    return html + '<div id="wrong-search-results">' + wrongResultsHtml(shown, kw) + '</div>';
+  };
+
+  /** 搜索只替换结果区，输入框与移动端键盘保持原位。 */
+  function wrongSearchSummary(ids, shown, kw) {
+    return kw ? '命中 <b>' + shown.length + '</b> / ' + ids.length + ' 题' +
+      (shown.length ? '，结果沿用错题顺序' : '，没有匹配的错题') : '';
+  }
+  function wrongResultsHtml(shown, kw) {
     if (kw && !shown.length) {
-      return html + listEmpty('🔍', '没有匹配的错题', '换个关键词试试，或点「清空搜索」看全部。');
+      return listEmpty('🔍', '没有匹配的错题', '换个关键词试试，或点「清空搜索」看全部。');
     }
-    html += '<div class="card"><div class="card-title">' + (kw ? '搜索结果' : '全部错题') +
+    var html = '<div class="card"><div class="card-title">' + (kw ? '搜索结果' : '全部错题') +
       '<span class="card-sub">' + shown.length + ' 题</span></div><div class="list">';
     shown.forEach(function (id) {
       var q = qById(id);
@@ -2850,7 +3133,26 @@
     });
     html += '</div></div>';
     return html;
-  };
+  }
+
+  var wrongSearchTimer = 0;
+  var wrongSearchComposing = false;
+  function cancelWrongSearch() {
+    if (wrongSearchTimer) clearTimeout(wrongSearchTimer);
+    wrongSearchTimer = 0;
+  }
+  function renderWrongSearchResults() {
+    if (State.route !== 'wrong') return;
+    var box = $('#wrong-search-results');
+    if (!box) return;
+    var ids = wrongIds(), kw = String(State.wrongQ || '').trim(), shown = wrongFilter(ids, kw);
+    box.innerHTML = wrongResultsHtml(shown, kw);
+    var summary = $('#wrong-search-summary'), clear = $('#view [data-act="wrong:searchclear"]');
+    var redo = $('#view [data-act="wrong:redo"]');
+    if (summary) summary.innerHTML = wrongSearchSummary(ids, shown, kw);
+    if (clear) clear.hidden = !kw;
+    if (redo) redo.textContent = '重做' + (kw ? '筛选出的 ' + shown.length + ' 题' : '全部错题');
+  }
 
   VIEWS.fav = function () {
     var ids = favIds();
@@ -2894,29 +3196,22 @@
       return blob.indexOf(k) >= 0;
     });
   }
-  reg('wrong:search', function (el) {
-    State.wrongQ = String(el.value || '');
-    render(false);
-    // 渲染会重建输入框 → 焦点与光标必须还原，否则打一个字就失焦（无法连续输入）
-    refocusWrongSearch(State.wrongQ.length);
-  });
+  // input 与输入法结束事件统一调度，通用事件分派不能绕过防抖。
+  reg('wrong:search', null);
   reg('wrong:searchclear', function () {
+    cancelWrongSearch();
     State.wrongQ = '';
-    render(false);
+    var el = $('#view [data-act="wrong:search"]');
+    if (el) { el.value = ''; el.focus(); }
+    renderWrongSearchResults();
   });
-  /** 渲染后把焦点还给错题搜索框，并把光标放到末尾 */
-  function refocusWrongSearch(pos) {
-    var el = document.querySelector('#view [data-act="wrong:search"]');
-    if (!el) return;
-    try { el.focus(); el.setSelectionRange(pos, pos); } catch (e) { /* 老浏览器 / 非文本控件忽略 */ }
-  }
   reg('wrong:redo', function () {
     var all = wrongIds();
     var kw = String(State.wrongQ || '').trim();
     var ids = kw ? wrongFilter(all, kw).slice(0, 999) : all;
     if (!ids.length) { toast(kw ? '没有匹配的错题' : '错题本是空的', '', 1400); return; }
     startSession(ids, '错题重做 · ' + ids.length + ' 题', State.settings.order, 'practice');
-    if (State.sess) State.sess.wrongMode = true;
+    if (State.sess) { State.sess.wrongMode = true; saveSession(); }
   });
   reg('wrong:recite', function () {
     var ids = wrongIds();
@@ -3460,6 +3755,10 @@
       State.meta = { bankHash: State.meta.bankHash, ver: EXPORT_VER, lastExportTs: 0 };
       saveProgress(); saveExams(); saveSettings(); saveMeta();
       State.sess = null; State.exam = null;
+      State.lastSess = null; stopExamTimer();
+      if (sessSaveTimer) { clearTimeout(sessSaveTimer); sessSaveTimer = 0; }
+      rawDel(KEY_SESSION); rawDel(KEY_EXAM_SESSION);
+      State.reciteQ = ''; State.reciteSearchOpen = false; rawDel(KEY_RECITE);
       applyTheme(); updateBadges(); render(false);
       toast('已清空本机数据', 'ok', 2000);
     });
@@ -3698,21 +3997,26 @@
   var touchInfo = { t: 0, x: 0, y: 0, long: false, moved: false };
 
   function bindGlobal() {
-    // 错题本搜索：**输入即过滤**（300ms 防抖）。
-    // 为什么必须单加 input 监听：全局只委托了 click，光靠 data-act 要「点别处」才触发过滤，
-    // 用户打字时列表纹丝不动 —— 这是搜索框基本体验，不是可选项。
-    var wrongSearchTimer = 0;
-    document.addEventListener('input', function (e) {
+    // 280ms 合并输入，输入法组词期间不替换结果；离页即取消回调。
+    function scheduleWrongSearch(e) {
       var el = closestAct(e.target);
       if (!el || el.getAttribute('data-act') !== 'wrong:search') return;
       State.wrongQ = String(el.value || '');
-      if (wrongSearchTimer) clearTimeout(wrongSearchTimer);
+      cancelWrongSearch();
+      if (e.isComposing || wrongSearchComposing) return;
       wrongSearchTimer = setTimeout(function () {
         wrongSearchTimer = 0;
-        var pos = State.wrongQ.length;
-        render(false);
-        refocusWrongSearch(pos);
+        renderWrongSearchResults();
       }, 280);
+    }
+    document.addEventListener('input', scheduleWrongSearch);
+    document.addEventListener('compositionstart', function (e) {
+      var el = closestAct(e.target);
+      if (!el || el.getAttribute('data-act') !== 'wrong:search') return;
+      wrongSearchComposing = true; cancelWrongSearch();
+    });
+    document.addEventListener('compositionend', function (e) {
+      wrongSearchComposing = false; scheduleWrongSearch(e);
     });
     document.addEventListener('click', function (e) {
       var el = closestAct(e.target);
@@ -3721,8 +4025,7 @@
       if (el.hasAttribute('data-nav')) {
         var nav = el.getAttribute('data-nav');
         Feedback.fire('nav:go');
-        if (nav === 'practice') State.p = {};
-        go(nav);
+        go(nav, nav === 'practice' ? {} : undefined);
         return;
       }
       var act = el.getAttribute('data-act');
@@ -3734,6 +4037,12 @@
       var el = closestAct(e.target);
       if (!el) return;
       var act = el.getAttribute('data-act');
+      if (act === 'recite:search') {
+        State.reciteQ = String(el.value || '');
+        State.reciteSearchOpen = true;
+        renderReciteSearchResults(); saveSession();
+        return;
+      }
       if (act === 'search:input') {
         State.p.q = el.value;
         renderSearchResults();
@@ -3777,12 +4086,28 @@
     window.addEventListener('hashchange', function () {
       if (suppressHash) { suppressHash = false; return; }
       var r = currentRouteFromHash();
-      if (r !== State.route) { State.route = r; if (r !== 'practice') { /* 保留会话 */ } render(true); }
+      if (r !== State.route) {
+        // 浏览器返回同样走离场确认；先还原考试地址，取消后仍留在原页。
+        if (State.route === 'exam' && State.exam && State.exam.phase === 'run' && !State.exam.paused) {
+          suppressHash = true; window.location.hash = '#/exam';
+        }
+        go(r);
+      }
     }, false);
 
     document.addEventListener('visibilitychange', function () {
-      if (!document.hidden) tickClock();
+      if (document.hidden) { pauseExam(); flushSession(); }
+      else if (State.route === 'exam' && State.exam && State.exam.paused && State.exam.phase === 'run') render(false);
+      else tickClock();
     }, false);
+    function saveBeforePageClose() { pauseExam(); flushSession(); }
+    window.addEventListener('pagehide', saveBeforePageClose, false);
+    window.addEventListener('beforeunload', saveBeforePageClose, false);
+    window.addEventListener('scroll', function () {
+      if (State.route !== 'recite' || !State.sess || State.sess.mode !== 'recite') return;
+      State.sess.scrollY = Math.max(0, toInt(window.scrollY || window.pageYOffset, 0));
+      saveSessionSoon();
+    }, { passive: true });
 
     // 误触防护：禁止 iOS 双击缩放手势
     ['gesturestart', 'gesturechange', 'gestureend'].forEach(function (ev) {
@@ -3845,8 +4170,15 @@
       return;
     }
 
-    var inQ = (State.route === 'practice' || State.route === 'recite' || State.route === 'exam');
-    if (key === 's' || key === 'S') { Feedback.play('tap'); go('search'); e.preventDefault(); return; }
+    // 暂停、设置和自评页面没有可修改的考试题卡。
+    var inQ = (State.route === 'practice' || State.route === 'recite' ||
+      (State.route === 'exam' && State.exam && State.exam.phase === 'run' && !State.exam.paused));
+    if (key === 's' || key === 'S') {
+      Feedback.play('tap');
+      var reciteInput = State.route === 'recite' ? $('#recite-search-input') : null;
+      if (reciteInput) reciteInput.focus(); else go('search');
+      e.preventDefault(); return;
+    }
     if (key === 'ArrowLeft') { if (inQ) { Feedback.play('tap'); move(-1); e.preventDefault(); } return; }
     if (key === 'ArrowRight') { if (inQ) { Feedback.play('tap'); move(1); e.preventDefault(); } return; }
     if (key === 'Home') { Feedback.play('tap'); go('home'); e.preventDefault(); return; }

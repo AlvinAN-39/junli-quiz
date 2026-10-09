@@ -461,9 +461,9 @@ kbd {
 .opt.sel { border-color:var(--primary); background:var(--primary-soft); }
 .opt.sel .opt-key { background:var(--primary); border-color:var(--primary); color:var(--primary-ink); }
 .opt.right { border-color:var(--ok); background:var(--ok-soft); }
-.opt.right .opt-key { background:var(--ok); border-color:var(--ok); color:#fff; }
+.opt.right .opt-key { background:var(--ok); border-color:var(--ok); color:var(--primary-ink); }
 .opt.wrong { border-color:var(--bad); background:var(--bad-soft); }
-.opt.wrong .opt-key { background:var(--bad); border-color:var(--bad); color:#fff; }
+.opt.wrong .opt-key { background:var(--bad); border-color:var(--bad); color:var(--primary-ink); }
 .opt.faded { opacity:.5; }
 .opt[disabled] { cursor:default; }
 .opt[disabled]:hover { border-color:var(--border); }
@@ -599,8 +599,8 @@ kbd {
 .qcell.done { color:var(--primary-ink); background:var(--primary); border-color:var(--primary); }
 .qcell.fav { box-shadow:inset 0 0 0 2px var(--accent); }
 .qcell.cur { border-color:var(--primary); box-shadow:0 0 0 3px var(--primary-soft); }
-.qcell.right { background:var(--ok); border-color:var(--ok); color:#fff; }
-.qcell.wrong { background:var(--bad); border-color:var(--bad); color:#fff; }
+.qcell.right { background:var(--ok); border-color:var(--ok); color:var(--primary-ink); }
+.qcell.wrong { background:var(--bad); border-color:var(--bad); color:var(--primary-ink); }
 /* 答题卡分页栏：按 100 题一页，页码按钮直接写题号区间 */
 .grid-pages {
   display:flex; flex-wrap:wrap; gap:6px; align-items:center;
@@ -661,6 +661,10 @@ kbd {
   background:var(--surface); border:1px solid var(--border); border-radius:7px; padding:1px 6px;
 }
 .search-hit { background:var(--warn-soft); color:var(--accent); border-radius:3px; }
+/* 搜索结果独立滚动，窄屏上保留题卡的阅读空间。 */
+.recite-search-results { max-height:38vh; overflow-y:auto; overscroll-behavior:contain; }
+.recite-search .card-sub { display:inline-block; }
+.recite-search .row { flex-wrap:wrap; }
 .chart { display:flex; align-items:flex-end; gap:6px; height:132px; margin-top:6px; }
 .chart .col { flex:1 1 0; min-width:0; display:flex; flex-direction:column; justify-content:flex-end; align-items:center; height:100%; gap:3px; }
 .chart .val { font:600 .68rem/1 var(--mono); color:var(--muted); }
@@ -722,19 +726,9 @@ kbd {
 }
 
 /* ---------- 11.5 字号系统（2026-10-09 修复） ----------
-   根字号必须随 data-fs 缩放：此前 html 固定 font-size:16px，而组件用的是 rem，
-   于是「调字号」只影响少数显式写死的字号，大量文字纹丝不动（用户报告的 bug）。
-   现在把基础字号接到 --fs，并给写死 px 的组件补一条统一缩放规则。 */
+   根字号随 data-fs 缩放，组件已有的 rem 字号自动跟随根字号。
+   组件不得再乘 --fs，否则会重复缩放，导致大字号下按钮与题干异常放大。 */
 html { font-size: calc(16px * var(--fs)); }
-/* 写死 px 的组件随字号同比缩放；最大档 xl(--fs:1.28) 下移动端仍有 390px 宽度余量 */
-html[data-fs] .topbar-title { font-size: calc(1.02rem * var(--fs)); }
-html[data-fs] .card-title { font-size: calc(.98rem * var(--fs)); }
-html[data-fs] .btn { font-size: calc(.95rem * var(--fs)); }
-html[data-fs] .seg button { font-size: calc(.86rem * var(--fs)); }
-html[data-fs] .nav-item { font-size: calc(.95rem * var(--fs)); }
-html[data-fs] .tab-item { font-size: calc(.68rem * var(--fs)); }
-html[data-fs] .q-stem { font-size: calc(1.06rem * var(--fs)); }
-html[data-fs] .opt { font-size: calc(.98rem * var(--fs)); }
 /* 防溢出：字号拉大时，长按钮文案允许换行而不是撑破卡片 */
 html[data-fs="xl"] .btn, html[data-fs="l"] .btn { white-space:normal; height:auto; }
 html[data-fs="xl"] .entry-txt strong, html[data-fs="l"] .entry-txt strong { overflow-wrap:anywhere; }
