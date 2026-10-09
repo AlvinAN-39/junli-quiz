@@ -86,3 +86,10 @@ jobs:
       # 标识已注入且与当前内容哈希一致。
       - name: PWA 离线更新契约（静态检查，Node）
         run: node tests/pwa_version_test.mjs
+
+      # 截图 F5–F19 的真实界面回归（35 项，长期回归套件）。
+      # 需要 Playwright 与 dist/ 产物：本作业两者都没有，脚本会打印 SKIP 并**以 0 退出**，
+      # 所以这一步在 CI 里证明「套件仍在、语法可解析、跳过逻辑正常」，不会误报失败；
+      # 本地在 qa-env/ 有 Playwright 且 dist/ 有产物时会真跑 35 项。
+      - name: 截图回归套件（需 Playwright 与 dist，缺失时 SKIP）
+        run: node tests/screenshot_fix_test.mjs
