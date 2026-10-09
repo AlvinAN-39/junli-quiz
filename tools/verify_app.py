@@ -140,14 +140,17 @@ def main() -> int:
                   "manifest.webmanifest" in h)
             check("PWA 版注册 Service Worker",
                   "serviceWorker" in h)
-            check("PWA 版题库与 index 同层（SW 可缓存）",
-                  (web / "data" / "questions.json").exists())
+            # 部署目录不再夹带 data/：题库与提纲都已内联，这两个文件在正常产物里
+            # 永远不会被请求，实测白占部署包约 45% 体积。
+            check("PWA 版不夹带未被读取的 data/ 文件",
+                  not (web / "data").exists(),
+                  "data/ 仍在（题库/提纲已内联，属冗余）" if (web / "data").exists() else "")
             sw = web / "sw.js"
             if sw.exists():
                 ok, msg = node_check(sw)
                 check("dist/web/sw.js 语法", ok, msg)
             for f in ("app.css", "app.js", "manifest.webmanifest",
-                      "icons/icon.svg", "data/questions.json"):
+                      "icons/icon.svg"):
                 check(f"dist/web/{f} 存在", (web / f).exists())
 
     # ---------- 5. 契约键名 ----------

@@ -235,16 +235,25 @@ class TestBuildEndToEnd(unittest.TestCase):
     def test_web_assets_copied(self):
         web = self.index.parent
         for name in ("app.css", "app.js", "sw.js", "manifest.webmanifest",
-                     "icons/icon.svg", "data/questions.json"):
+                     "icons/icon.svg"):
             with self.subTest(name=name):
                 self.assertTrue((web / name).exists(), f"缺少 {name}")
 
-    def test_web_bank_json_is_lean_and_usable(self):
-        web_bank = json.loads((self.index.parent / "data" / "questions.json")
-                              .read_text(encoding="utf-8"))
-        self.assertEqual(len(web_bank["questions"]), N_REAL)
-        self.assertNotIn("raw", web_bank["questions"][0])
-        self.assertIn("explanation", web_bank["questions"][0])
+    def test_web_inlined_bank_matches_source(self):
+        """PWA 版不再放 data/questions.json，题库以**内联**为准 —— 这里核对内联内容。"""
+        m = re.search(r"window\.__QUESTION_BANK__\s*=\s*(\{.*?\});\s*\n</script>",
+                      self.web_html, re.S)
+        self.assertIsNotNone(m, "PWA 版未内联题库")
+        bank = json.loads(m.group(1))
+        self.assertEqual(len(bank["questions"]), N_REAL)
+        self.assertEqual({q["id"] for q in bank["questions"]},
+                         {q["id"] for q in REAL_BANK["questions"]})
+        self.assertNotIn("raw", bank["questions"][0])
+        self.assertIn("explanation", bank["questions"][0])
+
+    def test_web_has_no_dead_data_dir(self):
+        """部署目录不放 data/：题库与提纲都已内联，这两个文件永远不会被请求。"""
+        self.assertFalse((self.index.parent / "data").exists())
 
     def test_web_manifest_is_valid_json(self):
         mf = json.loads((self.index.parent / "manifest.webmanifest")
@@ -258,7 +267,8 @@ class TestBuildEndToEnd(unittest.TestCase):
         with zipfile.ZipFile(self.zip_path) as z:
             names = z.namelist()
         self.assertIn("index.html", names, "zip 必须是扁平结构（部署平台要求）")
-        self.assertIn("data/questions.json", names)
+        # 题库/提纲已内联，data/ 属于白占体积（实测约 45%），不应进部署包
+        self.assertNotIn("data/questions.json", names)
         self.assertIn("app.js", names)
         self.assertIn("manifest.webmanifest", names)
         self.assertFalse(any(n.startswith("web/") for n in names))

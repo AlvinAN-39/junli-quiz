@@ -128,6 +128,23 @@ const cacheNameOk = /var\s+CACHE_NAME\s*=\s*'jlx-cache-'\s*\+\s*BUILD_ID/.test(s
 check('CACHE_NAME 由 BUILD_ID 拼接（缓存名随内容变化）', cacheNameOk,
   cacheNameOk ? "CACHE_NAME = 'jlx-cache-' + BUILD_ID" : '未按 BUILD_ID 拼接');
 
+// ⑥b activate 只能清理**本应用前缀**的缓存
+//    Cache Storage 按 origin 共享、不按 scope 隔离：删掉所有非当前名的缓存
+//    会连带清空同源下其它应用的离线缓存。
+const prefixDecl = /var\s+CACHE_PREFIX\s*=\s*'jlx-cache-'/.test(sw);
+const actStart = sw.indexOf("addEventListener('activate'");
+const fetchStart = sw.indexOf("addEventListener('fetch'");
+const activateBlock = (actStart >= 0 && fetchStart > actStart) ? sw.slice(actStart, fetchStart) : '';
+const scopedDelete = /indexOf\(CACHE_PREFIX\)\s*===\s*0/.test(activateBlock);
+check('activate 只清理本应用前缀的缓存（不误删同源其它应用）', prefixDecl && scopedDelete,
+  `CACHE_PREFIX=${prefixDecl} scopedDelete=${scopedDelete}`);
+
+// ⑥c 提纲数据走网络优先（支持「不重新打包、直接替换部署目录文件」的方式二）
+const outlineNetFirst = /outline-2026\.json/.test(sw) &&
+  /outline-2026\.json[\s\S]{0,600}?fetch\(req\)/.test(sw);
+check('提纲数据走网络优先（换文件后能更新）', outlineNetFirst,
+  outlineNetFirst ? '网络优先 + 断网回退缓存' : '仍走缓存优先，换提纲不会生效');
+
 // ⑦ 源码里保留 __BUILD_ID__ 占位符（由构建注入）
 check('app/sw.js 保留 __BUILD_ID__ 占位符', sw.includes('__BUILD_ID__'),
   sw.includes('__BUILD_ID__') ? '占位符在' : '占位符缺失，构建将无法注入标识');

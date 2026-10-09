@@ -30,6 +30,10 @@
  * 内容一变哈希就变 → 缓存名变 → Worker 字节变 → 浏览器触发更新、旧缓存被清理。 */
 var BUILD_ID = '__BUILD_ID__';
 var CACHE_NAME = 'jlx-cache-' + BUILD_ID;
+/* 本应用的缓存名前缀：activate 只清理**自己的**旧缓存。
+ * Cache Storage 按 origin 共享、不按 SW scope 隔离，若删掉所有 k !== CACHE_NAME 的
+ * 缓存，会把同源下其它应用（同一 GitHub Pages 用户站里的别的项目）的离线缓存一起清空。 */
+var CACHE_PREFIX = 'jlx-cache-';
 
 /* 统一的 HTML 缓存键：联网写入与断网读取**必须是同一个键**（缺陷①的修法）。 */
 var HTML_KEY = './index.html';
@@ -86,7 +90,7 @@ self.addEventListener('activate', function (event) {
   event.waitUntil(
     caches.keys().then(function (keys) {
       return Promise.all(keys.map(function (k) {
-        if (k !== CACHE_NAME) return caches['delete'](k);
+        if (k.indexOf(CACHE_PREFIX) === 0 && k !== CACHE_NAME) return caches['delete'](k);
         return null;
       }));
     }).then(function () {
@@ -135,6 +139,23 @@ self.addEventListener('fetch', function (event) {
             '请联网打开一次本应用以完成缓存。</p>',
             { status: 503, headers: { 'Content-Type': 'text/html; charset=utf-8' } }
           );
+        });
+      })
+    );
+    return;
+  }
+
+  // 复习提纲数据：网络优先。
+  // 它是唯一一个「支持不重新打包、直接把新文件放进部署目录」的资源
+  // （docs/04-outline-data.md 的「方式二」）。若也走缓存优先，换掉文件后用户
+  // 会永远看到旧提纲 —— SW 字节没变，浏览器不会触发更新。
+  if (url.pathname.indexOf('/data/outline-2026.json') >= 0) {
+    event.respondWith(
+      fetch(req).then(function (res) {
+        return cachePut(req, res.clone()).then(function () { return res; });
+      })['catch'](function () {
+        return caches.match(req).then(function (hit) {
+          return hit || new Response('', { status: 504, statusText: 'offline' });
         });
       })
     );

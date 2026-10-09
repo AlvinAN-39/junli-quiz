@@ -8,10 +8,11 @@ bundle.py — 把 app/ + data/questions.json 组装成可交付产物
   1. `dist/军理刷题.html`  ★ 单文件离线版
      内联 app.css + app.js + 题库 JSON，**零外部请求**。
      双击即可用；拷到 iPhone「文件」App 后用 Safari 打开也能用。
-  2. `dist/web/index.html` + `app.css` + `app.js` + `data/questions.json`
-     + `manifest.webmanifest` + `sw.js` + `icons/icon.svg`
+  2. `dist/web/index.html` + `app.css` + `app.js` + `manifest.webmanifest`
+     + `sw.js` + `icons/icon.svg`
      → PWA 版，可「添加到主屏幕 / 安装为应用」，Service Worker 真正离线。
-     （sw.js 的 scope 限制要求 index.html 与 data/ 同层，故放同一目录）
+     题库与提纲都内联在 index.html 里，因此**不再**输出 data/questions.json
+     （它永远不会被请求，实测占部署 zip 约 45% 体积）。
 
 内联注意事项（来自交付说明）：
   * app.js 是单个 IIFE 普通脚本，无 `import`/`export`，可安全字符串内联。
@@ -289,8 +290,14 @@ def render_sw(web: Path) -> str:
     #   同一份源码每次打包都会得到不同标识 —— 缓存名每次都变，等于「每次构建都强制用户更新」，
     #   既丢掉了「内容没变就不该变」的语义，也让「同一份源码连续构建两次标识稳定」无法成立。
     #   （实测踩过：连续两次 bundle.py，标识从 62aa65ac 变成 28c8cc45。）
-    stamp = content_hash([APP / "index.html", APP / "app.css", APP / "app.js", DATA,
-                          APP / "manifest.webmanifest", APP / "icons" / "icon.svg"])
+    hash_inputs = [APP / "index.html", APP / "app.css", APP / "app.js", DATA,
+                   APP / "manifest.webmanifest", APP / "icons" / "icon.svg"]
+    # 提纲数据也要进哈希：官方产物把提纲内联进 index.html（已被上面的输入覆盖），
+    # 但「方式二」部署时 index.html 里没有提纲、文件放在 data/ 下 ——
+    # 不把它算进去，换提纲就不会改变缓存名、SW 不更新，用户永远看到旧提纲。
+    if OUTLINE_DATA.exists():
+        hash_inputs.append(OUTLINE_DATA)
+    stamp = content_hash(hash_inputs)
     out = src.replace("__BUILD_ID__", stamp)
     if "__BUILD_ID__" in out:
         raise SystemExit("!! sw.js 占位符替换后仍有残留")
@@ -304,13 +311,12 @@ def build_web(bank: dict) -> Path:
     关键设计：PWA 版也把题库**内嵌**进 index.html。
     原因：`dist/web/index.html` 是用户很容易直接双击的文件；若题库只放在
     `data/questions.json`，`file://` 下 fetch 被拦 → App 静默退化为 16 题 mock 题库，
-    看起来就像「题库没内嵌」。内嵌后无论双击还是走 HTTP 都能拿到 1171 题；
-    同时仍保留 `data/questions.json`（供 PWA 缓存与外部工具核对）。
+    看起来就像「题库没内嵌」。内嵌后无论双击还是走 HTTP 都能拿到全部题目，
+    因此部署目录里不再放 data/questions.json（原因见函数末尾注释）。
     """
     web = DIST / "web"
     if web.exists():
         shutil.rmtree(web)
-    (web / "data").mkdir(parents=True, exist_ok=True)
     (web / "icons").mkdir(parents=True, exist_ok=True)
 
     # 以单文件版为基底（CSS/JS/题库已全部内联）
@@ -344,14 +350,12 @@ def build_web(bank: dict) -> Path:
     #   哈希取自「内联后的 index.html + manifest + 图标」，已覆盖 CSS/JS/题库的全部内容：
     #   任何一处变化都会改变缓存名 → 触发安装新 Worker 并清理旧缓存。
     (web / "sw.js").write_text(render_sw(web), encoding="utf-8")
-    # PWA 的 data/questions.json 只作「外部核对 / SW 预缓存」用，App 一律优先读内嵌题库，
-    # 因此这里同样做字段精简 —— 否则会白占 SW 缓存与部署包体积（实测该文件 2.0 MB）。
-    lean, _removed = strip_debug_fields(bank)
-    (web / "data" / "questions.json").write_text(
-        json.dumps(lean, ensure_ascii=False, indent=1), encoding="utf-8")
-    # 提纲数据同样放进 PWA 版：HTTP 下 App 可 fetch 它作为内嵌失败时的回退
-    if OUTLINE_DATA.exists():
-        shutil.copy2(OUTLINE_DATA, web / "data" / "outline-2026.json")
+    # 不再往部署目录写 data/questions.json 与 data/outline-2026.json：
+    #   · 题库与提纲都已**内联**进 index.html，app.js 的 loadBank()/loadOutlineData()
+    #     一律优先用内嵌数据，这两个文件在正常产物里永远不会被请求；
+    #   · 实测它们占部署 zip 约 45%，iPhone 用户要多下一半。
+    # 需要「不重新打包、只替换提纲」时，按 docs/04-outline-data.md 的方式二自行把
+    # data/outline-2026.json 放进部署目录即可（SW 对该文件是网络优先）。
     return web / "index.html"
 
 
@@ -377,8 +381,7 @@ def main() -> int:
     print(f"     大小 {single.stat().st_size / 1024:.0f} KB  题库已内嵌")
     print(f"  2) {index}")
     print(f"     大小 {(index.parent / 'index.html').stat().st_size / 1024:.0f} KB"
-          f"（题库已内嵌） + data/questions.json "
-          f"{(index.parent / 'data' / 'questions.json').stat().st_size / 1024:.0f} KB（备用/供 SW 缓存）")
+          f"（题库与提纲均已内联；不再夹带 data/）")
     print(f"外部资源引用: {len(externals)}（应为 0）{externals[:3]}")
     print(f"app.js 中 fetch 出现次数: {len(fetch_calls)}")
     print(f"内联脚本数: {html.count('<script')}")
