@@ -33,7 +33,7 @@ except Exception:
     pass
 
 ROOT = Path(__file__).resolve().parent.parent
-SRC = Path(r"D:\.Study\大学\军训期间\军理课\【第一版】题库\整理前\真题\已提取真题\11年.txt")
+SRC = ROOT.parent / "军理课资料" / "第一版题库" / "已提取真题" / "11年.txt"
 WORK = ROOT / "work"
 WORK.mkdir(parents=True, exist_ok=True)
 OUT = WORK / "v1-11nian.json"

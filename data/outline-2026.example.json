@@ -1,0 +1,31 @@
+{
+  "_note": "这是空壳示例。复制为 data/outline-2026.json 后按你的资料填写即可；删除本字段不影响解析。详见 docs/04-outline-data.md",
+  "source": "在这里写你的提纲资料来源（会显示在提纲页标题下方）",
+  "basis": "在这里写核对依据（可选，供溯源）",
+  "generatedAt": "2026-10-09T12:01:04+08:00",
+  "stats": {
+    "chapters": 1,
+    "sections": 1,
+    "subs": 1,
+    "chars": 0
+  },
+  "chapters": [
+    {
+      "chapter": "第一章中国国防",
+      "chars": 0,
+      "sections": [
+        {
+          "section": "第一节国防概述",
+          "text": "（可选）这一节的正文。如果下面的 subs 有内容，App 会优先渲染 subs。",
+          "chars": 0,
+          "subs": [
+            {
+              "title": "国防的主体",
+              "text": "（必填）这一小节的正文内容。三层结构：章 → 节 → 小节，每层最少一条就能跑通。"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

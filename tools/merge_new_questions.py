@@ -37,7 +37,7 @@ REPORT = WORK / "merge-report.json"
 TYPE_MAP = {"single": "single", "multi": "multi", "judge": "judge", "fill": "fill",
             "short_answer": "short", "short": "short", "essay": "short"}
 SHARD_FILES = ["shard-01.json", "shard-02.json", "shard-03.json", "shard-04.json", "shard-11nian.json"]
-OUTLINE = Path(r"D:\.Study\大学\军训期间\军理课\【第二版】source\military_theory\outline.json")
+OUTLINE = ROOT.parent / "军理课资料" / "military_theory" / "outline.json"
 CH_NAME = {"MT_CH01": "第一章中国国防", "MT_CH02": "第二章国家安全", "MT_CH03": "第三章军事思想",
            "MT_CH04": "第四章现代战争", "MT_CH05": "第五章信息化装备"}
 

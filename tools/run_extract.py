@@ -23,7 +23,7 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "tools"))
 from pdftext import extract_pdf  # noqa: E402
 
-SRC = Path(r"D:\.Study\大学\军训期间\军理课")
+SRC = ROOT.parent / "军理课资料"   # 自行准备：把资料放这里（本项目不发布语料）
 OUT = ROOT / "build" / "text"
 OUT.mkdir(parents=True, exist_ok=True)
 

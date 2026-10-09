@@ -36,7 +36,7 @@ ROOT = Path(__file__).resolve().parent.parent
 WORK = ROOT / "work"
 WORK.mkdir(parents=True, exist_ok=True)
 SPLIT = WORK / "split"
-OUTLINE = Path(r"D:\.Study\大学\军训期间\军理课\【第二版】source\military_theory\outline.json")
+OUTLINE = ROOT.parent / "军理课资料" / "military_theory" / "outline.json"
 
 CH_NAME = {
     "MT_CH01": "第一章中国国防",
@@ -51,7 +51,7 @@ BRIEF = """你是「军理刷题」项目的题目解析生成子代理。任务
 
 【依据优先级（严格按顺序，不得跳级）】
 1. `build/text/1-textbook.txt`（教材抽取文本，716 KB，用 grep 定位后 read 取段，不要整篇读）
-2. 第一版题库语料：`D:/.Study/大学/军训期间/军理课/【第一版】题库/` 下的 txt（900题库、已提取真题等）
+2. 第一版题库语料：自行准备的资料目录下的 txt（900题库、已提取真题等）
 3. 本轮真题语料：`build/text/2-past.txt`、`3-mock.txt`
 4. 以上都没有 → 允许联网检索（web_search / web_fetch），只用能核对到的权威表述，并把 URL 填进 explanationRef
 5. 仍然找不到 → `explanationSrc` 写 `"template"`，解析里如实写「未收录」（**绝不编造出处或原文**）

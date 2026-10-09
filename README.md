@@ -162,7 +162,19 @@ python tools/verify_app.py   # 产物体检（29 项 + Node 沙箱）
    `qa_explanations.py`、`audit_textbook.py` 等在无语料时仍能跑完，但结论范围受限。
 4. **公开版不含提纲正文数据**：`data/outline-2026.json`（第三方整理的约 4.9 万字提纲全文）与
    `build/` 同理**不入库**。缺少它时 `tools/bundle.py` 会注入 `null`，App 的「复习提纲」页会提示
-   数据缺失；在本地把该文件放回 `data/` 即可恢复完整功能。
+   数据缺失——**其余功能完全不受影响**。
+
+## 自己准备提纲数据
+
+公开版不含提纲正文，但**你可以自己准备一份**来启用「复习提纲」页：
+
+- 结构是 **章 → 节 → 小节** 三层，文件名固定为 `data/outline-2026.json`；
+- 仓库里带了空壳示例 [`data/outline-2026.example.json`](data/outline-2026.example.json)，
+  复制改名为 `outline-2026.json` 后按你的资料填内容即可；
+- 放好后跑 `python tools/bundle.py`（单文件版会把数据**内嵌**进去，双击打开也能看提纲）；
+  也可以用 `tools/build_outline_data.py` 从你自己的 PDF 提取文本生成该文件。
+
+> 完整的字段说明与三种启用方式 → **[docs/04-outline-data.md](docs/04-outline-data.md)**
 
 ## 参与贡献与安全问题
 

@@ -2351,7 +2351,8 @@
     var chapters = data.chapters || [];
     if (!chapters.length) {
       return listEmpty('📑', '提纲数据未载入',
-        '单文件版会把提纲内嵌进来；PWA 版请确认 data/outline-2026.json 存在。');
+        '公开版未包含提纲数据。你可以自己准备一份 data/outline-2026.json（结构见仓库 ' +
+        'docs/04-outline-data.md，仓库里也带了空壳示例），重新打包后即可使用。');
     }
     var chs = chapters.map(function (c) { return c.chapter; });
     var focus = (State.p && State.p.chapter) || '';

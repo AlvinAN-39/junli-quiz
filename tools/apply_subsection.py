@@ -30,7 +30,7 @@ ROOT = Path(__file__).resolve().parent.parent
 WORK = ROOT / "work"
 WORK.mkdir(parents=True, exist_ok=True)
 BANK = ROOT / "data" / "questions.json"
-V2 = Path(r"D:\.Study\大学\军训期间\军理课\【第二版】source\military_theory")
+V2 = ROOT.parent / "军理课资料" / "military_theory"
 CH_NAME = {"MT_CH01": "第一章中国国防", "MT_CH02": "第二章国家安全", "MT_CH03": "第三章军事思想",
            "MT_CH04": "第四章现代战争", "MT_CH05": "第五章信息化装备"}
 TYPE_FILE = {"single": "single.json", "multi": "multi.json",
