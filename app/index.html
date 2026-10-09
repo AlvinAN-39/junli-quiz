@@ -16,7 +16,9 @@
 <!-- PWA manifest 由 app.js 在 http/https 下动态注入：
      file:// 直接打开时静态 manifest 会触发 CORS 控制台报错，动态注入可两全。 -->
 <link rel="icon" type="image/svg+xml" href="icons/icon.svg">
-<link rel="apple-touch-icon" href="icons/icon.svg">
+<!-- iOS 的 apple-touch-icon 只认位图（SVG 会被忽略、主屏图标退化成页面截图），
+     所以这里指向 tools/make_icons.py 生成的 180×180 PNG。 -->
+<link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
 <link rel="stylesheet" href="app.css">
 </head>
 <body>
@@ -78,7 +80,7 @@
     <div class="side-foot">
       <div class="mini-stat" id="side-stat">—</div>
       <div class="kbd-hint">
-        <div><kbd>1</kbd>–<kbd>6</kbd> 选项</div>
+        <div><kbd>1</kbd>–<kbd>9</kbd> 选项</div>
         <div><kbd>Enter</kbd> 提交 / 下一题</div>
         <div><kbd>←</kbd><kbd>→</kbd> 上一题 / 下一题</div>
         <div><kbd>F</kbd> 收藏 · <kbd>S</kbd> 搜索 · <kbd>Esc</kbd> 首页</div>
@@ -138,7 +140,7 @@
       </button>
       <button class="tab-item" type="button" data-nav="fav">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l2.7 5.6 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1L3.2 10l6.1-.9z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
-        <span>收藏</span>
+        <span>收藏</span><em class="badge" id="badge-fav-t">0</em>
       </button>
       <button class="tab-item" type="button" data-nav="stats">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>

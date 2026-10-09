@@ -235,7 +235,8 @@ class TestBuildEndToEnd(unittest.TestCase):
     def test_web_assets_copied(self):
         web = self.index.parent
         for name in ("app.css", "app.js", "sw.js", "manifest.webmanifest",
-                     "icons/icon.svg"):
+                     "icons/icon.svg", "icons/apple-touch-icon.png",
+                     "icons/icon-192.png", "icons/icon-512.png"):
             with self.subTest(name=name):
                 self.assertTrue((web / name).exists(), f"缺少 {name}")
 
@@ -272,6 +273,34 @@ class TestBuildEndToEnd(unittest.TestCase):
         self.assertIn("app.js", names)
         self.assertIn("manifest.webmanifest", names)
         self.assertFalse(any(n.startswith("web/") for n in names))
+
+class TestAppIcons(unittest.TestCase):
+    """iOS 的 apple-touch-icon 只认位图：必须有 180×180 PNG，manifest 也要 PNG。
+
+    SVG 会被 iOS 忽略、主屏图标退化成页面截图 —— 这是每个 iPhone 用户
+    添加主屏后第一眼就能看到的差异，所以固化在这里。
+    """
+
+    def test_png_icons_exist_with_expected_sizes(self):
+        import struct
+        for name, size in (("apple-touch-icon.png", 180), ("icon-192.png", 192),
+                           ("icon-512.png", 512)):
+            with self.subTest(name=name):
+                p = ROOT / "app" / "icons" / name
+                self.assertTrue(p.exists(), f"缺少 {name}（跑 python tools/make_icons.py 生成）")
+                data = p.read_bytes()
+                self.assertEqual(data[:8], b"\x89PNG\r\n\x1a\n", f"{name} 不是 PNG")
+                w, h = struct.unpack(">II", data[16:24])
+                self.assertEqual((w, h), (size, size), f"{name} 尺寸应为 {size}")
+
+    def test_manifest_and_html_reference_png(self):
+        mf = json.loads((ROOT / "app" / "manifest.webmanifest").read_text(encoding="utf-8"))
+        pngs = [i for i in mf["icons"] if i.get("type") == "image/png"]
+        self.assertTrue(any(i.get("sizes") == "192x192" for i in pngs), "manifest 缺 192 PNG")
+        self.assertTrue(any(i.get("sizes") == "512x512" for i in pngs), "manifest 缺 512 PNG")
+        html = (ROOT / "app" / "index.html").read_text(encoding="utf-8")
+        self.assertIn("apple-touch-icon", html)
+        self.assertIn("icons/apple-touch-icon.png", html)
 
 
 if __name__ == "__main__":

@@ -150,7 +150,8 @@ def main() -> int:
                 ok, msg = node_check(sw)
                 check("dist/web/sw.js 语法", ok, msg)
             for f in ("app.css", "app.js", "manifest.webmanifest",
-                      "icons/icon.svg"):
+                      "icons/icon.svg", "icons/apple-touch-icon.png",
+                      "icons/icon-192.png", "icons/icon-512.png"):
                 check(f"dist/web/{f} 存在", (web / f).exists())
 
     # ---------- 5. 契约键名 ----------

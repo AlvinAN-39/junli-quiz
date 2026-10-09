@@ -943,7 +943,7 @@
     // 徽章数字直接来自同一次统计结果，省掉 wrongIds()/favIds() 两遍全库遍历
     var bw = d.wrong, bf = d.fav;
     if (!PERF_LEAN_BADGES) { bw = wrongIds().length; bf = favIds().length; }
-    [['#badge-wrong', bw], ['#badge-wrong-t', bw], ['#badge-fav', bf]].forEach(function (pair) {
+    [['#badge-wrong', bw], ['#badge-wrong-t', bw], ['#badge-fav', bf], ['#badge-fav-t', bf]].forEach(function (pair) {
       var el = $(pair[0]);
       if (!el) return;
       el.textContent = String(pair[1]);

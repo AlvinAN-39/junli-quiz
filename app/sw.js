@@ -46,7 +46,10 @@ var CRITICAL = [
 /* 可选资源：失败只忽略，不影响安装（图标缺失不该让整个 App 无法离线使用）。 */
 var OPTIONAL = [
   './manifest.webmanifest',
-  './icons/icon.svg'
+  './icons/icon.svg',
+  './icons/apple-touch-icon.png',
+  './icons/icon-192.png',
+  './icons/icon-512.png'
 ];
 
 /**

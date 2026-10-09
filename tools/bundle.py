@@ -342,7 +342,9 @@ def build_web(bank: dict) -> Path:
 
     for name in ("app.css", "app.js", "manifest.webmanifest"):
         shutil.copy2(APP / name, web / name)
-    shutil.copy2(APP / "icons" / "icon.svg", web / "icons" / "icon.svg")
+    for icon in sorted((APP / "icons").glob("*")):
+        if icon.is_file():
+            shutil.copy2(icon, web / "icons" / icon.name)
     # sw.js 不直接拷：要把 BUILD_ID 占位符换成**内容哈希**（必须在 index.html 写盘之后做）。
     #   为什么必须做：旧版缓存名写死 'jlx-cache-v2'，内容发布多版后 sw.js 字节没变，
     #   浏览器就不认为 Worker 有更新 → 旧 HTML 永远留在缓存里，正是用户反馈的
