@@ -31,7 +31,7 @@
 | `options` | string[] | 条件 | `single`/`multi` 必填，长度 ≥ 2；**不含** "A." 前缀，是纯选项文本。`judge`/`fill`/`short` 为 `[]` |
 | `answer` | string \| string[] \| boolean | ✅ | 见下方「答案规范」 |
 | `explanation` | string | ✅ | 解析全文（作答后显示）；当前 1531 / 1531 题非空 |
-| `explanationSrc` | string | ✅ | 依据等级：`textbook`（教材原文）\| `manual`（人工校订）\| `bank`（题库自带/派生说明）\| `template`（未收录直接出处，如实说明） |
+| `explanationSrc` | string | ✅ | 依据等级：`textbook`（教材原文）\| `web`（权威网页）\| `manual`（人工校订）\| `bank`（题库自带/派生说明）\| `template`（未收录直接出处，如实说明） |
 | `explanationRef` | string | ✅ | 出处位置，如 `教材《普通高校军事课教程》·中国国防`；`bank`/`template` 时为空串或来源说明 |
 | `source` | string | ✅ | `真题` \| `模拟题` \| `提纲` \| `教程` |
 | `chapter` | string | ✅ | 章节名；取不到时为 `未分类` |
@@ -78,12 +78,14 @@ App 只把数据存在浏览器 `localStorage`，键名如下（不与其他项�
 
 | 键 | 内容 |
 |----|------|
-| `jlx.progress.v1` | `{ [questionId]: { seen, correct, wrong, lastTs, box, fav, wrongFlag } }` |
-| `jlx.settings.v1` | `{ theme, fontSize, order, shuffleOptions, autoNext, examCount, examMinutes }` |
+| `jlx.progress.v1` | `{ [questionId]: { seen, correct, wrong, lastTs, box, fav, wrongFlag }, __daily: { 'YYYY-MM-DD': { n, ok } } }`（`__daily` 是保留键，不是题目） |
+| `jlx.settings.v1` | `{ theme, fontSize, order, shuffleOptions, autoNext, examCount, examMinutes, explainOpen, sound, haptic, volume }` |
 | `jlx.exams.v1` | 考试历史 `[{ ts, total, correct, score, durationMs, detail }]` |
-| `jlx.meta.v1` | `{ bankHash, ver, lastExportTs }` |
+| `jlx.meta.v1` | `{ bankHash, ver, lastExportTs, noticeSeen }` |
+| `jlx.session.v1` | 练习会话（用于「继续上次练习」）：`{ ver, ts, title, seed, order, i, ids, res, wrongMode, perm, draft }`；`ver` 不匹配即作废 |
 
-导出文件格式：`{ app: "军理刷题", ver: 1, exportedAt, progress, settings, exams }`。
+导出文件格式：`{ app: "军理刷题", ver: 1, exportedAt, progress, settings, exams, daily }`
+（`daily` 与 `progress.__daily` 是同一份按日期作答记录的两种写法）。
 
 ## 4. 文件布局
 

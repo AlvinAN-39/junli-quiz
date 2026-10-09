@@ -8,8 +8,10 @@
 > ### 下载 & 使用
 >
 > **Windows 11** —— 从 [Releases](https://github.com/AlvinAN-39/junli-quiz/releases) 下载 **`junli-quiz.html`**，
-> 双击即用（Edge / Chrome 均可）。想变成桌面应用：打开后点浏览器右上角 `…` → **应用** → **安装此站点为应用**，
-> 之后从开始菜单就能直接启动。
+> 双击即用（Edge / Chrome 均可；`file://` 下题库、进度、音效都正常）。
+> ⚠️ 但 `file://` 属于**非安全来源**，浏览器不会给出「安装此站点为应用」（实测 Chrome / Edge 的可安装性
+> 检查都报 `no-manifest` + `not-from-secure-origin`）。想变成桌面应用，请用下面 iPhone 那条里的
+> **网页版网址**：在 Edge/Chrome 打开后 `…` → **应用** → **安装此站点为应用**，之后从开始菜单启动。
 >
 > **iPhone** —— 下载 **`junli-quiz-web.zip`**，用 Safari 打开 https://app.netlify.com/drop 上传该 zip，
 > 得到网址后在 Safari 里「分享 → **添加到主屏幕**」。首次打开后页面与题库会缓存到本机，之后断网可用。
@@ -97,6 +99,7 @@ junli-quiz/                    ← 公开仓库根目录
 ├─ tools/                      构建与质检脚本（Python 3.12+，零第三方依赖）
 │  ├─ bundle.py                组装单文件版 + PWA 版 + 一键部署 zip
 │  ├─ verify_app.py            产物静态体检 + Node 沙箱（缺 Playwright 时自动降级）
+│  ├─ make_icons.py            生成 iOS/Android 用的 PNG 图标（纯标准库，可复现）
 │  ├─ parse_questions.py       文本 → 题库 JSON（需要 build/text 语料）
 │  └─ …                        其余为题库生成与核查脚本
 ├─ docs/
@@ -119,7 +122,8 @@ junli-quiz/                    ← 公开仓库根目录
 
 ```powershell
 python tools/bundle.py       # 生成 dist/军理刷题.html、dist/web/、dist/军理刷题-网页版.zip
-python tools/verify_app.py   # 产物体检（29 项 + Node 沙箱）
+python tools/verify_app.py   # 产物体检（31 项 + Node 沙箱）
+python tools/make_icons.py   # 可选：重新生成 app/icons 下的 PNG 图标（已随仓库提交）
 ```
 
 > 想重新从 PDF 解析题库（`tools/parse_questions.py`）需要 `build/text/` 语料，
@@ -130,13 +134,15 @@ python tools/verify_app.py   # 产物体检（29 项 + Node 沙箱）
 每次 `push` / PR 会自动跑 `python tools/bundle.py` + `python tools/verify_app.py`
 （配置见 [.github/workflows/verify.yml](.github/workflows/verify.yml)），结果就是仓库顶部那个徽章。
 
-**clone 下来就能跑、不需要额外数据的检查**（2026-10-09 实测）：
+**clone 下来就能跑、不需要额外数据的检查**（2026-10-10 实测）：
 
 | 检查 | 命令（在仓库根执行） | 实测结果 |
 |------|--------------------|---------|
 | 生成产物 | `python tools/bundle.py` | 退出码 0 |
-| **产物体检** | `python tools/verify_app.py` | **29/29 通过、0 失败**（缺 Playwright 时浏览器部分降级为 WARN） |
-| 解析质量 | `python tools/qa_explanations.py` | 0 问题 |
+| **产物体检** | `python tools/verify_app.py` | **31 项：30 通过 / 0 失败 / 1 警告**（缺 Playwright 时浏览器部分降级为 WARN） |
+| **回归套件** | `python -m unittest discover -s tests -t .` | **138 项通过**（数据契约 / 打包器 / 内容质量） |
+| **行为回归** | `node tests/js/app_regression.mjs` | **40 项通过**（练习会话 / 错题重做 / 导入导出 / 考试计分 / 答题卡分页） |
+| 解析质量 | `python tools/qa_explanations.py` | 0 阻断项（`tooLong` 19：解析偏长，不影响判分） |
 | 解析质量诊断 | `python tools/diag_explanations.py` | 退出码 0 |
 | 存疑盘点 | `python tools/audit_disputed.py` | 3 道待人工确认；**退出码 1 表示「有待处置项」，不是脚本故障** |
 | 自洽性复核 | `python tools/audit_selfconsistent.py` | 待处置 0 |
@@ -163,7 +169,14 @@ python tools/verify_app.py   # 产物体检（29 项 + Node 沙箱）
 4. **仓库源码不含提纲正文数据**：`data/outline-2026.json`（第三方整理的约 4.9 万字提纲全文）与
    `build/` 同理**不入库**；但 **Release 里的成品已内嵌该数据**，下载即可直接用「复习提纲」页。
    自己从源码构建时若不放该文件，`tools/bundle.py` 会注入 `null`，App 的「复习提纲」页会提示数据缺失
-   ——**其余功能完全不受影响**。
+   ——**其余功能完全不受影响**。部署包（`dist/web`）**不再夹带** `data/` 目录：题库与提纲都已内联，
+   那两个文件在正常产物里永远不会被请求（实测占部署 zip 约 45%）。需要「不重新打包、只替换提纲」时，
+   按 [docs/04-outline-data.md](docs/04-outline-data.md) 的方式二自行把文件放进 `data/`，
+   Service Worker 对该文件是**网络优先**。
+5. **少数解析正文仍是教材原文的机械截断**：题库由 PDF 语料抽取，个别题目的「为什么」行会在句子中间断开，
+   也有 25 题没有「为什么」行；本轮已补齐**已定位**的 52 处缺失年份、修正 6 处与答案矛盾的解析、
+   清理内部质检措辞与题干异体字，并用 `tests/test_questions_data.py::TestUserFacingText` 固化为测试；
+   彻底重抽需要 `build/text/` 语料，因此仍有个别句子读起来生硬。
 
 ## 自己准备提纲数据
 
