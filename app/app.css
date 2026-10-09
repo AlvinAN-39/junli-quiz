@@ -731,20 +731,12 @@ kbd {
   word-break:break-all;
 }
 
-/* ---------- 11.5 字号系统（2026-10-09 修复） ----------
-   根字号必须随 data-fs 缩放：此前 html 固定 font-size:16px，而组件用的是 rem，
-   于是「调字号」只影响少数显式写死的字号，大量文字纹丝不动（用户报告的 bug）。
-   现在把基础字号接到 --fs，并给写死 px 的组件补一条统一缩放规则。 */
+/* ---------- 11.5 字号系统 ----------
+   根字号随 data-fs 缩放，其余组件**一律用 rem**，于是全站同比缩放一次。
+   ⚠ 不要再给个别组件补 calc(Xrem * var(--fs))：rem 已经跟着根字号缩放过，
+   再乘一次 --fs 就是双重缩放 —— 实测「小」档题干 13.74px 反而比正文 14.4px 小、
+   「特大」档实际 1.64×（分段按钮被迫换行）。 */
 html { font-size: calc(16px * var(--fs)); }
-/* 写死 px 的组件随字号同比缩放；最大档 xl(--fs:1.28) 下移动端仍有 390px 宽度余量 */
-html[data-fs] .topbar-title { font-size: calc(1.02rem * var(--fs)); }
-html[data-fs] .card-title { font-size: calc(.98rem * var(--fs)); }
-html[data-fs] .btn { font-size: calc(.95rem * var(--fs)); }
-html[data-fs] .seg button { font-size: calc(.86rem * var(--fs)); }
-html[data-fs] .nav-item { font-size: calc(.95rem * var(--fs)); }
-html[data-fs] .tab-item { font-size: calc(.68rem * var(--fs)); }
-html[data-fs] .q-stem { font-size: calc(1.06rem * var(--fs)); }
-html[data-fs] .opt { font-size: calc(.98rem * var(--fs)); }
 /* 防溢出：字号拉大时，长按钮文案允许换行而不是撑破卡片 */
 html[data-fs="xl"] .btn, html[data-fs="l"] .btn { white-space:normal; height:auto; }
 html[data-fs="xl"] .entry-txt strong, html[data-fs="l"] .entry-txt strong { overflow-wrap:anywhere; }

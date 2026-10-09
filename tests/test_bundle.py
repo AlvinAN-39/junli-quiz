@@ -274,6 +274,25 @@ class TestBuildEndToEnd(unittest.TestCase):
         self.assertIn("manifest.webmanifest", names)
         self.assertFalse(any(n.startswith("web/") for n in names))
 
+class TestFontScaling(unittest.TestCase):
+    """字号四档必须只缩放一次：根字号接 --fs，组件一律用 rem。
+
+    2026-10-10 修的真实 bug：根字号已经随 --fs 缩放，又给 8 个组件补了
+    calc(Xrem * var(--fs))，于是双重缩放 ——「小」档题干 13.74px 反而比正文 14.4px 小、
+    「特大」档实际 1.64×。这里防止它再回来。
+    """
+
+    def test_root_font_size_follows_fs(self):
+        css = (ROOT / "app" / "app.css").read_text(encoding="utf-8")
+        self.assertIn("html { font-size: calc(16px * var(--fs)); }", css)
+
+    def test_no_double_scaling_rules(self):
+        css = (ROOT / "app" / "app.css").read_text(encoding="utf-8")
+        # 只认「数字 + rem」的写法：注释里举反例写的 calc(Xrem * var(--fs)) 不算
+        bad = re.findall(r"calc\(\s*[\d.]+\s*rem\s*\*\s*var\(--fs\)\s*\)", css)
+        self.assertEqual(bad, [], f"组件字号被双重缩放：{bad[:3]}")
+
+
 class TestAppIcons(unittest.TestCase):
     """iOS 的 apple-touch-icon 只认位图：必须有 180×180 PNG，manifest 也要 PNG。
 

@@ -306,6 +306,23 @@ class TestOptionalFields(unittest.TestCase):
                     self.assertIsInstance(v, str)
                     self.assertTrue(v.strip())
 
+    def test_distractor_why_only_covers_wrong_options(self):
+        """distractorWhy 只描述**错误选项**。
+
+        界面「你选的选项为什么不对」按用户勾选的字母逐条输出；键落在正确选项上时，
+        用户会看到正确选项被列成「为什么不对」（2026-10-10 实测 71 道多选受影响）。
+        只看文案词表会漏掉「该说法属于本题的正确选项」这类写法，所以这里按答案集合判断。
+        """
+        bad = []
+        for q in QUESTIONS:
+            dw = q.get("distractorWhy") or {}
+            ans = q["answer"]
+            ans_set = {str(x).strip().upper() for x in (ans if isinstance(ans, list) else [ans])}
+            hit = sorted(ans_set & set(dw.keys()))
+            if hit:
+                bad.append((q["id"], hit))
+        self.assertEqual(bad, [], f"distractorWhy 覆盖了正确选项：{bad[:5]}")
+
     def test_keywords_is_list_of_strings(self):
         for q in QUESTIONS:
             with self.subTest(qid=q["id"]):
