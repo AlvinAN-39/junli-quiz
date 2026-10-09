@@ -79,3 +79,10 @@ jobs:
 
       - name: app.js 核心逻辑契约（Node 沙箱）
         run: node tests/js/app_contract.mjs
+
+      # PWA 离线更新机制的静态契约（纯 Node 标准库，不依赖 dist/build/qa/网络）。
+      # 覆盖「联网看到新版本、断网重开仍是旧版本」那个故障的修法：缓存键统一、
+      # 缓存名随内容哈希变化、预缓存精简、cache-status 消息接口；产物存在时另校验
+      # 标识已注入且与当前内容哈希一致。
+      - name: PWA 离线更新契约（静态检查，Node）
+        run: node tests/pwa_version_test.mjs
