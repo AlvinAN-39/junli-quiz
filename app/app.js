@@ -16,7 +16,7 @@
   var KEY_META     = 'jlx.meta.v1';
   // 练习会话（用于「继续上次练习」）：只持久化**练习模式**，背题与考试各有自己的机制
   var KEY_SESSION  = 'jlx.session.v1';
-  var SESSION_VER  = 1;
+  var SESSION_VER  = 2;   // v2：会话里新增 wrongMode / perm / draft（见 sessionPayload）
 
   var APP_NAME = '军理刷题';
   var EXPORT_VER = 1;
@@ -417,7 +417,12 @@
     return {
       ver: SESSION_VER, ts: Date.now(), title: s.title || '',
       seed: toInt(s.seed, 0), order: s.order || 'seq', i: toInt(s.i, 0),
-      ids: s.ids.slice(), res: res
+      ids: s.ids.slice(), res: res,
+      // 错题重做标记、「选项乱序」排列、未提交草稿必须一起恢复：
+      // 否则续练后答对不再移出错题本、选项顺序会变、半填的答案会丢。
+      wrongMode: !!s.wrongMode,
+      perm: (s.perm && typeof s.perm === 'object') ? s.perm : {},
+      draft: (s.draft && typeof s.draft === 'object') ? s.draft : {}
     };
   }
   function saveSession() {
@@ -457,7 +462,10 @@
       ids: ids, i: clamp(toInt(d.i, 0), 0, ids.length - 1),
       title: d.title || '继续练习', order: d.order, mode: 'practice',
       res: (d.res && typeof d.res === 'object') ? d.res : {},
-      draft: {}, perm: {}, startedAt: Date.now(),
+      draft: (d.draft && typeof d.draft === 'object') ? d.draft : {},
+      perm: (d.perm && typeof d.perm === 'object') ? d.perm : {},
+      wrongMode: !!d.wrongMode,
+      startedAt: Date.now(),
       gridOpen: false, gridPage: 1, seed: toInt(d.seed, 0)
     };
     State.sess = s; State.lastSess = s; State.lastOrder = d.order;
@@ -727,7 +735,14 @@
       var c = d.byChapter[q.chapter];
       c.total += 1;
       var p = State.progress[q.id];
-      if (!p || !p.seen) { d.untouched += 1; return; }
+      if (!p || !p.seen) {
+        // 未作答（seen=0）也要统计收藏 / 错题标记：
+        // 「只收藏不答题」（背题模式点收藏）或导入得到 wrongFlag 的题，
+        // 否则徽章与统计数字会比收藏夹 / 错题本少，两边对不上。
+        d.untouched += 1;
+        if (p) { if (p.fav) d.fav += 1; if (p.wrongFlag) d.wrong += 1; }
+        return;
+      }
       d.done += 1; d.attempts += p.seen; d.correct += p.correct;
       if (p.correct > 0) d.uniqueCorrect += 1;
       t.done += 1; t.attempts += p.seen; t.correct += p.correct;
@@ -937,7 +952,7 @@
     var side = $('#side-stat');
     if (side) {
       side.innerHTML = '题库 <b>' + d.total + '</b> 题 · 已做 <b>' + d.done + '</b><br>' +
-        '正确率 <b>' + d.rate + '%</b> · 错题 <b>' + d.wrong + '</b><br>' +
+        '作答正确率 <b>' + d.rate + '%</b> · 错题 <b>' + d.wrong + '</b><br>' +
         '来源：' + esc(State.from || '—');
     }
     var sub = $('#brand-sub');
@@ -1017,7 +1032,7 @@
     var meta = '';
     var strip = false, cur = 0, tot = 0, stripTip = '';
 
-    if (r === 'practice' && State.sess) {
+    if (r === 'practice' && State.sess && State.sess.mode === 'practice') {
       // 进度标度 = **已作答去重计数**（不是「走到第几题」）。
       // 原实现用 i+1 当进度，前后跳题都会让百分比虚高，用户报告「题号当进度」即此。
       title = State.sess.title;
@@ -1026,7 +1041,7 @@
       strip = true;
       stripTip = '正确率 ' + sessRate(State.sess) + '%';
       meta = State.sess.order === 'rand' ? '随机' : '顺序';
-    } else if (r === 'recite' && State.sess) {
+    } else if (r === 'recite' && State.sess && State.sess.mode === 'recite') {
       // 背题模式不计对错，进度只能是「浏览到第几题」
       title = State.sess.title; cur = State.sess.i + 1; tot = State.sess.ids.length; strip = true;
       meta = '背题';
@@ -1489,6 +1504,9 @@
 
   function submitBtn(q, ctx) {
     if (ctx.reveal || ctx.locked || ctx.showSelf) return '';
+    // 考试态没有「单题提交」这个动作：多选/填空在输入时已存入 draft，
+    // 简答也不该在考试中看参考答案。此前这里会渲染出一个点了没反应的按钮。
+    if (State.route === 'exam') return '';
     if (q.type === 'multi') return '<div class="btn-row mt16"><button class="btn primary block" type="button" data-act="ans:submit">提交答案</button></div>';
     if (q.type === 'fill') return '<div class="btn-row mt16"><button class="btn primary block" type="button" data-act="ans:submit">提交答案</button></div>';
     if (q.type === 'short') {
@@ -1508,6 +1526,8 @@
 
   function hintLine(q, ctx) {
     if (ctx.reveal || ctx.locked) return '';
+    // 考试不判对错，不能沿用练习的「点选即判分 / 提交答案」提示。
+    if (State.route === 'exam') return '<div class="note mt10">考试中不判定对错，交卷后统一评分</div>';
     if (q.type === 'single') return '<div class="note mt10">点选即判分（快捷键 <kbd>1</kbd>–<kbd>' + Math.min(9, q.options.length) + '</kbd>）</div>';
     if (q.type === 'multi') return '<div class="note mt10">多选，选好后点「提交答案」（快捷键 <kbd>1</kbd>–<kbd>' + Math.min(9, q.options.length) + '</kbd> 选择，<kbd>Enter</kbd> 提交）</div>';
     if (q.type === 'judge') return '<div class="note mt10">判断对错（快捷键 <kbd>1</kbd> 正确 / <kbd>2</kbd> 错误）</div>';
@@ -1604,7 +1624,7 @@
     });
     pages += '</div>';
     return '<div class="card"><div class="card-title">答题卡<span class="card-sub">' +
-      from + 1 + '-' + to + ' / 共 ' + total + ' 题</span></div>' +
+      (from + 1) + '-' + to + ' / 共 ' + total + ' 题</span></div>' +
       cells + pages +
       '<div class="legend mt10"><span><i class="done"></i>已答</span><span><i class="todo"></i>未答</span>' +
       '<span><i class="cur"></i>当前</span>' + (ctx.revealRes ? '<span><i class="right"></i>正确</span><span><i class="wrong"></i>错误</span>' : '') +
@@ -1636,6 +1656,8 @@
   VIEWS.home = function () {
     var d = derive();
     var qs = State.questions;
+    // 提纲数据可能没随源码一起打包（公开仓库不含正文）：入口卡要如实说明，别承诺有内容
+    var olReady = !!(loadOutlineData().chapters || []).length;
     var html = '';
 
     if (!qs.length) {
@@ -1649,7 +1671,7 @@
       '<div class="grid grid-4">' +
       '<div class="stat pri"><b>' + d.total + '</b><span>总题数</span></div>' +
       '<div class="stat"><b>' + d.done + '</b><span>已做</span></div>' +
-      '<div class="stat ' + (d.rate >= 60 ? 'ok' : (d.attempts ? 'bad' : '')) + '"><b>' + d.rate + '%</b><span>正确率</span></div>' +
+      '<div class="stat ' + (d.rate >= 60 ? 'ok' : (d.attempts ? 'bad' : '')) + '"><b>' + d.rate + '%</b><span>作答正确率</span></div>' +
       '<div class="stat"><b>' + d.wrong + '</b><span>错题</span></div>' +
       '</div>' +
       '<div class="chips mt10">' +
@@ -1676,7 +1698,7 @@
       entryCard('recite:start', ICO.recite, '背题模式', '直接看题干、答案与解析') +
       entryCard('', ICO.search, '题目搜索', '按题干关键词查找', ' data-nav="search"') +
       entryCard('hard:start', '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.6 5.4 5.9.8-4.3 4.1 1 5.9L12 16.4 6.8 19.2l1-5.9L3.5 9.2l5.9-.8z"/></svg>', '难题挑战', hardIds().length ? '共 ' + hardIds().length + ' 道易错/易混题' : '题库尚未标记难题') +
-      entryCard('', '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16M4 12h16M4 19h10"/><circle cx="19" cy="19" r="1.6"/></svg>', '复习提纲', '最新提纲 · 章节/小节 · 可导出 Markdown', ' data-nav="outline"') +
+      entryCard('', '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16M4 12h16M4 19h10"/><circle cx="19" cy="19" r="1.6"/></svg>', '复习提纲', (olReady ? '最新提纲 · 章节/小节 · 可导出 Markdown' : '当前构建未包含提纲数据'), ' data-nav="outline"') +
       entryCard('', ICO.sync, '导入 / 导出', 'iPhone ↔ Windows 手动同步', ' data-nav="sync"') +
       entryCard('', ICO.gear, '设置', '文字大小 · 主题 · 声音与震动', ' data-nav="settings"') +
       '</div>';
@@ -1685,7 +1707,7 @@
       '<div class="small dim">' +
       '· 答题进度自动保存在本机（localStorage），关闭页面不会丢失。<br>' +
       '· iPhone 上可「添加到主屏幕」，离线全屏使用。<br>' +
-      '· 音效与震动可在「导入 / 导出 · 声音与震动」里开关。' +
+      '· 音效与震动可在「设置 · 声音与震动」里开关。' +
       '</div>' +
       '<div class="btn-row mt10"><button class="btn sm" type="button" data-act="notice:show">查看本次更新公告</button></div>' +
       '</div>';
@@ -1744,7 +1766,7 @@
       '<div class="btn-row mt16">' +
       '<button class="btn primary block" type="button" data-act="prac:start" data-mode="all">开始练习（全部 ' + d.total + ' 题）</button>' +
       '</div>' +
-      '<div class="small muted mt6">已做 ' + d.done + ' / ' + d.total + ' 题 · 累计作答 ' + d.attempts + ' 次 · 正确率 ' + d.rate + '%</div>' +
+      '<div class="small muted mt6">已做 ' + d.done + ' / ' + d.total + ' 题 · 累计作答 ' + d.attempts + ' 次 · 作答正确率 ' + d.rate + '%</div>' +
       '</div>';
 
     // 断点续练：有可恢复的练习会话（内存或磁盘）就能接着练，不必非得答过题
@@ -1957,6 +1979,7 @@
       if (i >= 0) cur.splice(i, 1); else cur.push(k);
       cur.sort();
       setDraft(s, q.id, cur);
+      saveSessionSoon();          // 勾选也要落盘：刷新/退出后继续时草稿还在
       // 差量更新：只切换选项按钮的选中态，不重建整张卡片。
       // 选项按钮用 data-k 携带**原始选项字母**，与 draft 内部使用的字母同一套，
       // 因此可以直接比对。原先每次勾选都 render(false) 整卡重建，
@@ -1980,6 +2003,7 @@
     if (!Array.isArray(cur)) cur = [];
     cur[i] = el.value;
     setDraft(s, q.id, cur);
+    if (State.route === 'practice') saveSessionSoon();
     updateGridCell();
   });
 
@@ -1989,6 +2013,7 @@
     var q = State.route === 'exam' ? examCurrent() : sessCurrent();
     if (!q) return;
     setDraft(s, q.id, el.value);
+    if (State.route === 'practice') saveSessionSoon();
     updateGridCell();
   });
 
@@ -2042,7 +2067,8 @@
     var c = State.route === 'exam' ? State.exam : State.sess;
     if (!c) return;
     c.gridPage = clamp(toInt(el.getAttribute('data-v'), 1), 1, 9999);
-    render(true);      // 滚回页面顶部：翻页后置顶才看得见新一页
+    // 保持滚动位置：答题卡在题目卡下方，滚回顶部反而看不到刚翻的那一页
+    render(false);
   });
 
   function activeContainer() {
@@ -2054,11 +2080,11 @@
   function updateGridCell() {
     var c = activeContainer();
     if (!c || !c.ids || !c.ids.length) return;
-    var cells = $$('#view .qcell');
-    if (!cells.length) return;
     var q = qById(c.ids[c.i]);
     if (!q) return;
-    var el = cells[c.i];
+    // 必须按 data-i（全局题号）定位：答题卡分页后 DOM 里只有本页 ≤100 个格子，
+    // 用 cells[c.i] 在第二页起会越界或点到别的格子（页首偏移 from 没减掉）。
+    var el = document.querySelector('#view .qcell[data-i="' + c.i + '"]');
     if (!el) return;
     el.classList.toggle('done', hasAnswer(q, getDraft(c, q.id)));
   }
@@ -2120,6 +2146,9 @@
     var sp = btn.querySelector('span');
     if (sp) sp.textContent = on ? '已收藏' : '收藏';
     updateBadges();
+    // 收藏夹列表里点「取消」必须把条目移掉、页头计数跟着变；
+    // 题目卡片上的收藏按钮则只原地切换，避免整卡重建。
+    if (State.route === 'fav') render(false);
   });
 
   /* ---- 练习入口动作 ---- */
@@ -2350,7 +2379,7 @@
       '</div></div>';
 
     var cards = '';
-    chapters.forEach(function (c) {
+    chapters.forEach(function (c, ci) {
       if (focus && c.chapter !== focus) return;
       cards += '<div class="card"><div class="card-title">' + esc(c.chapter) +
         '<span class="card-sub">' + ((c.sections || []).length) + ' 节</span></div>';
@@ -2358,7 +2387,7 @@
         cards += '<div class="ol-sec"><div class="ol-sec-t">' + esc(s.section) + '</div>';
         var units = (s.subs && s.subs.length) ? s.subs : [{ title: '', text: s.text || '' }];
         units.forEach(function (u, ui) {
-          var uid = 'ol-' + si + '-' + ui;
+          var uid = 'ol-' + ci + '-' + si + '-' + ui;   // 必须含章节下标，否则跨章小节 id 会重复
           cards += '<div class="explain fold">' +
             '<button type="button" class="ex-head" data-act="ol:toggle" data-v="' + uid + '"' +
             ' aria-expanded="false" aria-controls="' + uid + '">' +
@@ -2704,8 +2733,11 @@
       var r = e.res[id];
       if (!r) return;
       var q = qById(id);
-      // 考试中「未作答」计为错分，但不进错题本（只有真正答错才进）
-      record(id, !!r.ok, { inWrongMode: false, markWrong: !!(q && hasAnswer(q, r.picked)) });
+      // 未作答的题不计入学习进度 / 累计作答 / 每日做题量：
+      // 它们只在本次考试里计错分（e.score 由 e.res 独立算出）。
+      // 此前未作答也会 record()，于是「10 题只答 1 题」的考试会把「已做」从 1 直接拉到 10。
+      if (!q || !hasAnswer(q, r.picked)) return;
+      record(id, !!r.ok, { inWrongMode: false, markWrong: !r.ok });
     });
   }
 
@@ -2916,7 +2948,9 @@
     var ids = kw ? wrongFilter(all, kw).slice(0, 999) : all;
     if (!ids.length) { toast(kw ? '没有匹配的错题' : '错题本是空的', '', 1400); return; }
     startSession(ids, '错题重做 · ' + ids.length + ' 题', State.settings.order, 'practice');
-    if (State.sess) State.sess.wrongMode = true;
+    // startSession 里已经 saveSession() 过一次，那时 wrongMode 还是 false ——
+    // 必须改完再落一次盘，否则刷新续练会丢掉「错题重做」语义（答对不再出库）。
+    if (State.sess) { State.sess.wrongMode = true; saveSession(); }
   });
   reg('wrong:recite', function () {
     var ids = wrongIds();
@@ -3036,7 +3070,7 @@
 
     html += '<div class="card"><div class="card-title">总览</div>' +
       '<div class="grid grid-4">' +
-      '<div class="stat pri"><b>' + d.uniqueRate + '%</b><span>总正确率</span></div>' +
+      '<div class="stat pri"><b>' + d.uniqueRate + '%</b><span>题目正确率</span></div>' +
       '<div class="stat ok"><b>' + d.mastered + '</b><span>已掌握</span></div>' +
       '<div class="stat bad"><b>' + d.review + '</b><span>待复习</span></div>' +
       '<div class="stat"><b>' + d.untouched + '</b><span>未做过</span></div>' +
@@ -3045,6 +3079,7 @@
       '<div class="report-row"><span>做对过的题</span><b>' + d.uniqueCorrect + ' / ' + d.done + '</b></div>' +
       '<div class="report-row"><span>累计作答</span><b>' + d.attempts + ' 次</b></div>' +
       '<div class="report-row"><span>错题本 / 收藏</span><b>' + d.wrong + ' / ' + d.fav + '</b></div>' +
+      '<div class="small muted mt6">「题目正确率」按题去重（做对过的题 ÷ 做过的题）；首页「作答正确率」按作答次数计，两者口径不同。</div>' +
       '<div class="small muted mt6">掌握度规则：连续答对使「熟练度」累积到 3 以上记为已掌握；答错后回到待复习。</div>' +
       '</div>';
 
@@ -3115,9 +3150,12 @@
       }).join('') +
       '</div>' +
       '<div class="small muted mt6">当前：' + FONT_NAME[st.fontSize] + '。调大后若发现个别地方拥挤，可切回「标准」。</div>' +
-      '<div class="switch-row mt10"><div class="sw-txt"><strong>外观主题</strong><small>跟随系统 / 浅色 / 深色</small></div>' +
-      '<button type="button" class="switch" role="switch" aria-checked="' + (st.theme !== 'auto' ? 'true' : 'false') +
-      '" data-act="set:theme" aria-label="切换主题"></button></div>' +
+      '<div class="field mt10"><label>外观主题</label><div class="seg" role="group" aria-label="外观主题">' +
+      ['auto', 'light', 'dark'].map(function (k) {
+        return '<button type="button" class="' + (st.theme === k ? 'active' : '') +
+          '" data-act="set:theme" data-v="' + k + '">' + THEME_NAME[k] + '</button>';
+      }).join('') +
+      '</div></div>' +
       '<div class="small muted">当前主题：' + THEME_NAME[st.theme] + '</div>' +
       '</div>' +
 
@@ -3150,6 +3188,16 @@
   var offlineState = { checked: false, ready: false, buildId: '', cacheName: '' };
   var offlinePending = false;
 
+  /**
+   * 安全取 ServiceWorkerContainer。
+   * 不能只写「'serviceWorker' in navigator」：在部分环境（file:// / 老 WebView）里
+   * 该属性**存在但值为 undefined**，in 判定为 true，紧接着读 .controller 就会抛错，
+   * 整个设置页会变成「页面渲染出错」。
+   */
+  function swContainer() {
+    try { return navigator.serviceWorker || null; } catch (e) { return null; }
+  }
+
   function checkOfflineReady(cb) {
     var finish = function (payload) {
       offlineState = {
@@ -3160,7 +3208,8 @@
       };
       if (cb) cb(offlineState);
     };
-    if (!('serviceWorker' in navigator) || !navigator.serviceWorker.controller) {
+    var swc = swContainer();
+    if (!swc || !swc.controller) {
       finish(null);
       return;
     }
@@ -3169,7 +3218,7 @@
     var once = function (payload) { if (done) return; done = true; finish(payload); };
     ch.port1.onmessage = function (e) { once(e.data); };
     try {
-      navigator.serviceWorker.controller.postMessage({ type: 'cache-status' }, [ch.port2]);
+      swc.controller.postMessage({ type: 'cache-status' }, [ch.port2]);
     } catch (e) {
       once(null);
       return;
@@ -3189,14 +3238,15 @@
   }
 
   function offlineText() {
-    if (!('serviceWorker' in navigator)) {
-      return '当前环境不支持离线缓存（单文件版或 file:// 打开时属正常）';
-    }
-    if (!navigator.serviceWorker.controller && !offlineState.checked) return '正在检查…';
-    if (!offlineState.checked) return '尚未接管：刷新一次即可启用离线缓存';
+    var swc = swContainer();
+    if (!swc) return '当前环境不支持离线缓存（单文件版或 file:// 打开时属正常）';
+    if (!swc.controller) return offlineState.checked ? '尚未接管：刷新一次即可启用离线缓存' : '正在检查…';
+    if (!offlineState.checked) return '正在检查…';
     if (offlineState.ready) {
-      var id = offlineState.buildId ? 'v' + offlineState.buildId : '当前版本';
-      return '已就绪（' + id + '）';
+      // 显示与首页一致的日期版本号；「是否已写入缓存」由 SW 的 cache-status 回答，不靠猜。
+      // （SW 回传的 buildId 是内容哈希，直接显示会与首页版本号对不上。）
+      var pv = buildTagTextSafe();
+      return '已就绪（' + (pv ? 'v' + pv : '缓存 ' + offlineState.buildId) + '）';
     }
     return '尚未就绪：请联网打开一次本页以完成缓存';
   }
@@ -3223,9 +3273,11 @@
     saveSettings(); applyTheme(); render(false);
     toast('文字大小：' + FONT_NAME[v], '', 1200);
   });
-  reg('set:theme', function () {
-    cycleTheme();
-    render(false);
+  reg('set:theme', function (el) {
+    var v = el.getAttribute('data-v');
+    if (['auto', 'light', 'dark'].indexOf(v) < 0) { cycleTheme(); render(false); return; }
+    State.settings.theme = v;
+    saveSettings(); applyTheme(); render(false);
   });
 
   /* ======================================================================
@@ -3345,15 +3397,21 @@
       });
       State.progress[KEY_DAILY] = incomingDaily;
       State.exams = Array.isArray(data.exams) ? data.exams.slice(0, 50) : [];
+      // 覆盖导入等于换了一份进度：旧练习会话里的作答已不属于新进度，必须一并作废，
+      // 否则首页「继续上次练习」会恢复出一份已不存在的会话。
+      rawDel(KEY_SESSION);
+      State.lastSess = null;
       if (data.settings && typeof data.settings === 'object') {
         State.settings = Object.assign({}, DEFAULT_SETTINGS, data.settings);
         syncSettings(); saveSettings(); applyTheme();
       }
     } else {
+      // 合并导入：先把本机的「按日期作答记录」取出来再合并 ——
+      // mergeProgress 会跳过保留键 __daily，不先取出的话本机那部分会被导入文件覆盖。
+      var localDaily = State.progress[KEY_DAILY];
       State.progress = mergeProgress(State.progress, data.progress || {});
-      // 合并导入：按天求和，保留两边的每日作答量（这是「近 7 天」口径的唯一来源）
-      State.progress[KEY_DAILY] = mergeDaily(State.progress[KEY_DAILY], incomingDaily);
-      n = Object.keys(data.progress || {}).length;
+      State.progress[KEY_DAILY] = mergeDaily(localDaily, incomingDaily);
+      n = Object.keys(data.progress || {}).filter(function (k) { return k !== KEY_DAILY; }).length;
       var seen = {};
       State.exams.concat(Array.isArray(data.exams) ? data.exams : []).forEach(function (x) {
         if (!x || !x.ts || seen[x.ts]) return;
@@ -3363,6 +3421,7 @@
       State.exams = State.exams.slice(0, 50);
     }
     saveProgress(); saveExams();
+    invalidateStats();          // 进度整批换过：统计缓存必须作废，否则首页/侧栏还是导入前的旧数字
     State.meta.lastExportTs = Date.now(); saveMeta();
     updateBadges();
     render(false);
@@ -3380,7 +3439,7 @@
       '用于备份或在 iPhone ↔ Windows 之间手动同步。按日期的记录让「近 7 天做题量」在换设备后仍然准确。</div>' +
       '<div class="grid grid-3 mt10">' +
       '<div class="stat"><b>' + d.done + '</b><span>已做</span></div>' +
-      '<div class="stat"><b>' + d.rate + '%</b><span>正确率</span></div>' +
+      '<div class="stat"><b>' + d.rate + '%</b><span>作答正确率</span></div>' +
       '<div class="stat"><b>' + Object.keys(State.progress[KEY_DAILY] || {}).length + '</b><span>作答天数</span></div>' +
       '</div>' +
       '<div class="btn-row mt16">' +
@@ -3431,7 +3490,7 @@
     if (!ta || !ta.value.trim()) { toast('请先粘贴 JSON 文本或选择文件', 'bad', 2000); return; }
     var data = parseImport(ta.value);
     if (!data) return;
-    var n = Object.keys(data.progress || {}).length;
+    var n = Object.keys(data.progress || {}).filter(function (k) { return k !== KEY_DAILY; }).length;
     confirmBox(mode === 'replace' ? '覆盖导入' : '合并导入',
       (mode === 'replace' ? '将清空本机现有进度并写入 ' : '将与本机现有进度合并，共 ') + n + ' 条记录，确定吗？',
       '确定导入', function () { applyImport(data, mode); });
@@ -3443,9 +3502,16 @@
     reader.onload = function () {
       var data = parseImport(reader.result);
       if (data) {
-        var n = Object.keys(data.progress || {}).length;
-        confirmBox('从文件导入', '文件包含 ' + n + ' 条进度记录。选择导入方式：' +
-          '（合并＝保留本机数据并累加；覆盖＝清空本机数据）', '合并导入', function () { applyImport(data, 'merge'); });
+        var n = Object.keys(data.progress || {}).filter(function (k) { return k !== KEY_DAILY; }).length;
+        openModal({
+          title: '从文件导入',
+          html: '<p>文件包含 ' + n + ' 条进度记录。选择导入方式：合并＝保留本机数据并累加；覆盖＝清空本机数据。</p>',
+          buttons: [
+            { label: '取消', cls: 'ghost' },
+            { label: '合并导入', cls: 'primary', onClick: function () { applyImport(data, 'merge'); } },
+            { label: '覆盖导入', cls: 'danger', onClick: function () { applyImport(data, 'replace'); } }
+          ]
+        });
       }
       var f = $('#import-file');
       if (f) f.value = '';
@@ -3459,7 +3525,10 @@
       State.progress = { __daily: {} }; State.exams = []; State.settings = Object.assign({}, DEFAULT_SETTINGS);
       State.meta = { bankHash: State.meta.bankHash, ver: EXPORT_VER, lastExportTs: 0 };
       saveProgress(); saveExams(); saveSettings(); saveMeta();
-      State.sess = null; State.exam = null;
+      // 会话也要一起清：否则首页仍显示「继续上次练习」，点进去还能恢复已被清掉的作答。
+      rawDel(KEY_SESSION);
+      State.sess = null; State.lastSess = null; State.exam = null;
+      invalidateStats();
       applyTheme(); updateBadges(); render(false);
       toast('已清空本机数据', 'ok', 2000);
     });
@@ -3697,6 +3766,23 @@
 
   var touchInfo = { t: 0, x: 0, y: 0, long: false, moved: false };
 
+  /**
+   * 考试进行中离开本页面前先确认。
+   * 考试状态不落盘（刷新即失效），而计时器会一直跑到自动交卷，
+   * 所以「随手点首页」既可能丢考试，也可能让它在后台悄悄交卷写成绩。
+   * 返回 true 表示已拦截（确认框会负责后续跳转）。
+   */
+  function leaveRunningExam(nav) {
+    if (State.route !== 'exam' || nav === 'exam') return false;
+    var e = State.exam;
+    if (!e || e.phase !== 'run') return false;
+    confirmBox('考试进行中', '离开本页后考试会继续计时，时间到会自动交卷。确定离开吗？', '离开', function () {
+      if (nav === 'practice') State.p = {};
+      go(nav);
+    });
+    return true;
+  }
+
   function bindGlobal() {
     // 错题本搜索：**输入即过滤**（300ms 防抖）。
     // 为什么必须单加 input 监听：全局只委托了 click，光靠 data-act 要「点别处」才触发过滤，
@@ -3721,6 +3807,7 @@
       if (el.hasAttribute('data-nav')) {
         var nav = el.getAttribute('data-nav');
         Feedback.fire('nav:go');
+        if (leaveRunningExam(nav)) return;      // 考试进行中：先确认，确认后再跳
         if (nav === 'practice') State.p = {};
         go(nav);
         return;
@@ -3739,6 +3826,9 @@
         renderSearchResults();
         return;
       }
+      // wrong:search 由上方带 280ms 防抖的监听器专门处理；
+      // 若这里再派发一次，会在每个按键上立即整页重绘，防抖形同虚设。
+      if (act === 'wrong:search') return;
       if (act && typeof ACT[act] === 'function') ACT[act](el, e);
     }, false);
 
@@ -3759,13 +3849,19 @@
     var back = $('#btn-back');
     if (back) back.addEventListener('click', function () {
       Feedback.fire('nav:go');
-      if (State.route === 'practice' || State.route === 'recite') { go('home'); return; }
+      if (leaveRunningExam('home')) return;
       go('home');
     });
     var themeBtn = $('#btn-theme');
-    if (themeBtn) themeBtn.addEventListener('click', function () { Feedback.play('tap'); cycleTheme(); });
+    if (themeBtn) themeBtn.addEventListener('click', function () {
+      Feedback.play('tap'); cycleTheme();
+      if (State.route === 'settings') render(false);   // 设置页上有「当前主题」，不重绘会与真实值不符
+    });
     var fontBtn = $('#btn-font');
-    if (fontBtn) fontBtn.addEventListener('click', function () { Feedback.play('tap'); cycleFont(); });
+    if (fontBtn) fontBtn.addEventListener('click', function () {
+      Feedback.play('tap'); cycleFont();
+      if (State.route === 'settings') render(false);
+    });
 
     var back2 = $('#modal-backdrop');
     if (back2) back2.addEventListener('click', function (e) {
@@ -3781,7 +3877,12 @@
     }, false);
 
     document.addEventListener('visibilitychange', function () {
-      if (!document.hidden) tickClock();
+      if (!document.hidden) { tickClock(); return; }
+      // 切后台 / 锁屏：把未提交的草稿落盘（iOS 常在此回收页面）
+      if (State.sess && State.sess.mode === 'practice') saveSession();
+    }, false);
+    window.addEventListener('pagehide', function () {
+      if (State.sess && State.sess.mode === 'practice') saveSession();
     }, false);
 
     // 误触防护：禁止 iOS 双击缩放手势
@@ -3892,7 +3993,14 @@
         if (q2.type === 'short' && s2.revealedRef && s2.revealedRef[q2.id]) return;
       }
       Feedback.fire('ans:pick');
-      if (q2.type === 'judge') { ACT['ans:pick']({ getAttribute: function () { return n === 1 ? 'true' : (n === 2 ? 'false' : null); }, classList: { toggle: function () {} }, querySelector: function () { return null; } }, e); return; }
+      // 判断题只有「1 = 正确 / 2 = 错误」两个有效键，3~9 一律忽略。
+      // 此前 n>=3 被映射成 null，ans:pick 里 (k === 'true') 得 false，
+      // 于是「随手按个数字」就把题判成错误、锁定并记进错题本（考试中更会被悄悄改成「错误」）。
+      if (q2.type === 'judge') {
+        if (n > 2) return;
+        ACT['ans:pick']({ getAttribute: function () { return n === 1 ? 'true' : 'false'; }, classList: { toggle: function () {} }, querySelector: function () { return null; } }, e);
+        return;
+      }
       var opts = dispOpts(q2, cont2);
       if (n > opts.length) return;
       var letter = opts[n - 1].orig;
@@ -3911,11 +4019,12 @@
    * 20. Service Worker 注册（仅 http/https；file:// 直接跳过）
    * ==================================================================== */
   function registerSW() {
-    if (!('serviceWorker' in navigator)) return;
+    var swc = swContainer();
+    if (!swc) return;
     var proto = (window.location && window.location.protocol) || '';
     if (proto !== 'http:' && proto !== 'https:') return;
     var doReg = function () {
-      navigator.serviceWorker.register('sw.js')['catch'](function () { /* 离线注册失败不影响使用 */ });
+      swc.register('sw.js')['catch'](function () { /* 离线注册失败不影响使用 */ });
     };
     if (document.readyState === 'complete') doReg();
     else window.addEventListener('load', doReg);
