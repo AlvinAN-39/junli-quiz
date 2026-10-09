@@ -84,6 +84,11 @@ html[data-theme="dark"] {
 
 /* ---------- 2. 基础与重置 ---------- */
 *, *::before, *::after { box-sizing:border-box; }
+/* [hidden] 必须真的隐藏（2026-10-09 修的真实 bug）：
+   浏览器 UA 自带的 `[hidden]{display:none}` 优先级极低，会被 `.icon-btn{display:flex}`
+   这类类选择器盖掉 —— 于是首页本该隐藏的返回箭头（#btn-back 设了 hidden）一直露在标题旁边，
+   其它带 hidden 的控件同理。这里用 !important 一次性兜住：任何写了 hidden 的元素都真的不显示。 */
+[hidden] { display:none !important; }
 html {
   -webkit-text-size-adjust:100%;
   text-size-adjust:100%;
@@ -715,6 +720,24 @@ kbd {
   border:1px solid var(--border-strong); border-radius:var(--radius-sm); resize:vertical;
   word-break:break-all;
 }
+
+/* ---------- 11.5 字号系统（2026-10-09 修复） ----------
+   根字号必须随 data-fs 缩放：此前 html 固定 font-size:16px，而组件用的是 rem，
+   于是「调字号」只影响少数显式写死的字号，大量文字纹丝不动（用户报告的 bug）。
+   现在把基础字号接到 --fs，并给写死 px 的组件补一条统一缩放规则。 */
+html { font-size: calc(16px * var(--fs)); }
+/* 写死 px 的组件随字号同比缩放；最大档 xl(--fs:1.28) 下移动端仍有 390px 宽度余量 */
+html[data-fs] .topbar-title { font-size: calc(1.02rem * var(--fs)); }
+html[data-fs] .card-title { font-size: calc(.98rem * var(--fs)); }
+html[data-fs] .btn { font-size: calc(.95rem * var(--fs)); }
+html[data-fs] .seg button { font-size: calc(.86rem * var(--fs)); }
+html[data-fs] .nav-item { font-size: calc(.95rem * var(--fs)); }
+html[data-fs] .tab-item { font-size: calc(.68rem * var(--fs)); }
+html[data-fs] .q-stem { font-size: calc(1.06rem * var(--fs)); }
+html[data-fs] .opt { font-size: calc(.98rem * var(--fs)); }
+/* 防溢出：字号拉大时，长按钮文案允许换行而不是撑破卡片 */
+html[data-fs="xl"] .btn, html[data-fs="l"] .btn { white-space:normal; height:auto; }
+html[data-fs="xl"] .entry-txt strong, html[data-fs="l"] .entry-txt strong { overflow-wrap:anywhere; }
 
 /* ---------- 12. 响应式（Windows 11 桌面双栏） ---------- */
 /* 居中栏宽度随视口放大：820（窄窗）→ 980（≥1120px）→ 1120（≥1400px）。

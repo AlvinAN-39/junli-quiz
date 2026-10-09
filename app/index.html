@@ -97,6 +97,9 @@
       <h1 class="topbar-title" id="page-title">首页</h1>
       <div class="topbar-meta" id="topbar-meta"></div>
       <div class="topbar-actions">
+        <!-- 2026-10-09：字号与主题按钮**保留显示**（用户澄清：首页要去掉的是左侧的返回箭头，
+             不是这两个）。真正要处理的是返回按钮 —— 它本应在首页隐藏，但被 .icon-btn{display:flex}
+             覆盖了 [hidden]，所以一直露在首页；修复见 app.css 的 [hidden] 规则。 -->
         <button class="icon-btn" type="button" id="btn-font" aria-label="调整字号" title="字号">
           <span class="font-glyph">A</span>
         </button>

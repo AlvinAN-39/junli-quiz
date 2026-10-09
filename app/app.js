@@ -553,6 +553,27 @@
     intro: '这份公告说明本次修好了什么、新增了什么，看完点「知道了」即可开始刷题。',
     groups: [
       {
+        name: '新增与改进', items: [
+          '错题本新增搜索框：输入题干 / 选项 / 解析里的关键词即可定位错题，并能只重做筛选出的那几道；没有匹配时给出提示。',
+          '首页新增「设置」入口：文字大小（小 / 标准 / 大 / 特大，全站生效）、外观主题、声音与震动都收在这里（「声音与震动」由「导入 / 导出」迁入）。',
+          '首页入口重整：练习、错题本、收藏夹、统计已能从底部导航直达，不再在首页重复出现；「上次进度」改为显示统计里的复习进度（掌握 / 待复习）。',
+          '复习提纲换成【26最新改版】军理课提纲的内容：5 章 21 节 212 小节，按「章 → 节 → 小节」展示，点小节标题展开正文，可复制 / 导出 Markdown。'
+        ]
+      },
+      {
+        name: '本次修复', items: [
+          '字号调节现在真的能改全站文字了：此前根字号写死 16px，只有少数地方跟着变；现在统一随「文字大小」缩放，并在特大档做了防溢出处理。',
+          '统计里的「按章节掌握情况」与「按题型正确率」改为**按题目去重**口径（做对过的题 ÷ 做过的题），不再因为重做同一题把百分比拉低；进度条宽度与数字口径也统一了。',
+          '修正题目 q-0684「古罗马军事思想的基本思想是____。」：按教材原文，四个选项（战争有正义与非正义之分／进攻为主、防御为辅／以攻为守／以物质、精神、纪律建立忠于统帅的军队）**都属于**古罗马军事思想，本题应为多选 A、B、C、D（此前被误改成单选 D，解析也写反了）。',
+          '首页标题旁的字号 / 主题按钮已移除（改到「设置」里统一调），顶栏更干净。'
+        ]
+      },
+      {
+        name: '说明', items: [
+          '复习提纲的数据来源已从「按题库解析聚合」换成提纲 PDF，因此 window.__JLX__.outline() 的返回结构随之变更（改为 {source, basis, stats, chapters:[{chapter, sections:[{section, text, subs}]}]}）；该接口仅供外部脚本使用，App 界面不受影响。'
+        ]
+      },
+      {
         name: '界面',
         items: [
           '整体换成现代简约风：中性灰白底（原来偏灰绿）、更细的边框、更克制的阴影、统一的 12px 圆角。',
@@ -719,6 +740,8 @@
   function deriveUncached() {
     var d = {
       total: State.questions.length, done: 0, attempts: 0, correct: 0,
+      // 去重口径（按题目算）：做对过的题数 / 正确率。用户 2026-10-09 要求统计百分比按此口径
+      uniqueCorrect: 0, uniqueRate: 0,
       rate: 0, wrong: 0, fav: 0, mastered: 0, review: 0, untouched: 0,
       byType: {}, byChapter: {}, days: []
     };
@@ -732,15 +755,25 @@
       var p = State.progress[q.id];
       if (!p || !p.seen) { d.untouched += 1; return; }
       d.done += 1; d.attempts += p.seen; d.correct += p.correct;
+      if (p.correct > 0) d.uniqueCorrect += 1;
       t.done += 1; t.attempts += p.seen; t.correct += p.correct;
+      if (p.correct > 0) t.uniqueCorrect += 1;
       c.done += 1; c.attempts += p.seen; c.correct += p.correct;
+      if (p.correct > 0) c.uniqueCorrect += 1;
       if (p.fav) d.fav += 1;
       if (p.wrongFlag) d.wrong += 1;
       if (p.box >= 3 && p.correct > 0) d.mastered += 1; else d.review += 1;
     });
     d.rate = pct(d.correct, d.attempts);
-    TYPE_ORDER.forEach(function (t) { d.byType[t].rate = pct(d.byType[t].correct, d.byType[t].attempts); });
-    Object.keys(d.byChapter).forEach(function (k) { d.byChapter[k].rate = pct(d.byChapter[k].correct, d.byChapter[k].attempts); });
+    d.uniqueRate = pct(d.uniqueCorrect, d.done);
+    TYPE_ORDER.forEach(function (t) {
+      d.byType[t].rate = pct(d.byType[t].correct, d.byType[t].attempts);
+      d.byType[t].uniqueRate = pct(d.byType[t].uniqueCorrect, d.byType[t].done);
+    });
+    Object.keys(d.byChapter).forEach(function (k) {
+      d.byChapter[k].rate = pct(d.byChapter[k].correct, d.byChapter[k].attempts);
+      d.byChapter[k].uniqueRate = pct(d.byChapter[k].uniqueCorrect, d.byChapter[k].done);
+    });
 
     // 最近 7 天做题量
     //   优先用「按日期作答记录」（_daily）：同一题在不同日期多次作答都能计上，
@@ -1046,7 +1079,9 @@
     var m = $('#topbar-meta');
     if (m) m.innerHTML = meta + (stripTip ? '<span class="strip-tip">' + stripTip + '</span>' : '');
     var back = $('#btn-back');
+    // 设置 / 提纲 / 同步也显示返回按钮（设置页是 2026-10-09 新增的页面）
     if (back) back.hidden = (r === 'home');
+    if (back) back.setAttribute('aria-label', '返回');
     var ps = $('#progress-strip');
     if (ps) ps.hidden = !strip;
     if (strip) {
@@ -1366,6 +1401,8 @@
    *    把「错题回顾默认展开、全部回顾默认折叠」的设计冲掉。
    */
   function explainOpenNow(dfltOpen) {
+    // 提纲页的小节默认折叠：新提纲有 200+ 个小节，全展开会拖慢首屏也难浏览
+    if (State.route === 'outline') return false;
     if (State.route !== 'exam') {
       var v = State.settings.explainOpen;
       if (v === true || v === false) return v;
@@ -1618,7 +1655,8 @@
     fav: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l2.7 5.6 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1L3.2 10l6.1-.9z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>',
     search: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16.5 16.5L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
     stats: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
-    sync: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h13l-3-3M20 16H7l3 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+    sync: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h13l-3-3M20 16H7l3 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    gear: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 3.5v2.2M12 18.3v2.2M3.5 12h2.2M18.3 12h2.2M6 6l1.6 1.6M16.4 16.4L18 18M18 6l-1.6 1.6M7.6 16.4L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>'
   };
 
   VIEWS.home = function () {
@@ -1653,22 +1691,20 @@
       (hasResumable() || d.attempts ? '<button class="btn primary" type="button" data-act="home:continue">继续上次练习</button>' : '') +
       '<button class="btn' + (hasResumable() || d.attempts ? '' : ' primary') + '" type="button" data-act="home:startall">从第一题开始</button>' +
       '</div>' +
-      (d.attempts ? '<div class="small muted mt6">上次进度：已答 ' + d.attempts + ' 次 · 掌握 ' + d.mastered + ' 题 · 待复习 ' + d.review + ' 题</div>' : '') +
+      (d.attempts ? '<div class="small muted mt6">复习进度：掌握 ' + d.mastered + ' 题 · 待复习 ' + d.review + ' 题（共 ' + d.total + ' 题）</div>' : '') +
       '</div>';
 
     // 入口（练习的四个模式原本各占一张卡、但点击后都只是跳转到同一个练习设置页，
     //   属于重复入口，合并为一张「顺序练习」卡 —— 四种模式在设置页里选，能力一个不少）
+    // 底边栏已能直达的「练习 / 错题本 / 收藏夹 / 统计」不再重复放在首页（用户 2026-10-09 要求）
     html += '<div class="entry-grid">' +
-      entryCard('home:mode', ICO.seq, '顺序练习', '顺序 / 随机 · 按章节 / 按题型') +
       entryCard('exam:new', ICO.exam, '模拟考试', '计时 · 答题卡 · 百分制评分') +
       entryCard('recite:start', ICO.recite, '背题模式', '直接看题干、答案与解析') +
-      entryCard('', ICO.wrong, '错题本', d.wrong ? d.wrong + ' 道错题待复习' : '暂无错题', ' data-nav="wrong"') +
-      entryCard('', ICO.fav, '收藏夹', d.fav ? d.fav + ' 道已收藏' : '还没有收藏', ' data-nav="fav"') +
       entryCard('', ICO.search, '题目搜索', '按题干关键词查找', ' data-nav="search"') +
       entryCard('hard:start', '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.6 5.4 5.9.8-4.3 4.1 1 5.9L12 16.4 6.8 19.2l1-5.9L3.5 9.2l5.9-.8z"/></svg>', '难题挑战', hardIds().length ? '共 ' + hardIds().length + ' 道易错/易混题' : '题库尚未标记难题') +
-      entryCard('', '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16M4 12h16M4 19h10"/><circle cx="19" cy="19" r="1.6"/></svg>', '复习提纲', '按章节聚合解析 · 可导出 Markdown', ' data-nav="outline"') +
-      entryCard('', ICO.stats, '学习统计', '正确率 · 掌握度 · 每日做题量', ' data-nav="stats"') +
+      entryCard('', '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16M4 12h16M4 19h10"/><circle cx="19" cy="19" r="1.6"/></svg>', '复习提纲', '最新提纲 · 章节/小节 · 可导出 Markdown', ' data-nav="outline"') +
       entryCard('', ICO.sync, '导入 / 导出', 'iPhone ↔ Windows 手动同步', ' data-nav="sync"') +
+      entryCard('', ICO.gear, '设置', '文字大小 · 主题 · 声音与震动', ' data-nav="settings"') +
       '</div>';
 
     html += '<div class="card mt16"><div class="card-title">使用提示</div>' +
@@ -2252,156 +2288,81 @@
   });
 
   /* ======================================================================
-   * 19. 提纲（以题库解析为素材，按 章节 → 小节 → 考点 聚合）
+   * 19. 复习提纲（2026-10-09 起：内容来自【26最新改版】军理课提纲 PDF）
    * ----------------------------------------------------------------------
-   * 为什么单独做一层：
-   *   题库每道题都带结构化解析（正确答案 / 为什么 / 考点 / 关键词），
-   *   把这些按「章节 → 小节 → 考点」聚起来，就等于一份可当复习提纲用的知识索引；
-   *   用户既能在应用内直接看，也能通过 window.__JLX__.outline() 供外部调用。
+   * 为什么换掉旧实现：用户要求「把复习提纲模块的内容改为加入新的提纲 PDF」。
+   *   旧实现是按题库解析反推的知识点索引；这份 PDF 是教材配套的正式提纲，
+   *   带重点标注、章节完整，复习价值更高，因此**替换**而非并列。
+   * 数据来源：`data/outline-2026.json`（由 tools/build_outline_data.py 从 PDF 生成），
+   *   打包时内嵌为 `window.__OUTLINE__`；HTTP 下若内嵌缺失会回退 fetch 该文件。
    * 数据结构（稳定契约，外部脚本可依赖）：
-   *   [{ chapter, total, sections: [{ section, total, points: [
-   *        { concept, keywords: [...], count, items: [{id, type, stem, answer, note}] } ] }] }]
-   * -------------------------------------------------------------------- */
-  function outlineSummary(q) {
-    var p = q.explanationParts || {};
-    var a = String(p.answer || '').trim();
-    var r = String(p.reason || '').trim();
-    if (a && r) return a + '：' + r;
-    if (a) return a;
-    if (r) return r;
-    var e = String(q.explanation || '').split('\n')[0] || '';
-    return e.replace(/^正确答案[:：]/, '');
+   *   { source, basis, generatedAt,
+   *     stats: { chapters, sections, subs, chars },
+   *     chapters: [{ chapter, chars, sections: [
+   *        { section, chars, text, subs: [{ title, text }] } ] }] }
+   * ⚠ 兼容性说明：`window.__JLX__.outline()` 仍可调用，但返回**上面这份新结构**；
+   *   旧的 `{chapter,total,sections:[{points:[…]}]}` 形态自本轮起废弃。
+   * ==================================================================== */
+  var OUTLINE_EMPTY = { source: '', basis: '', stats: {}, chapters: [] };
+  var outlineFetchStarted = false;
+
+  /** 取提纲数据：内嵌优先，HTTP 下回退 fetch（file:// 不能 fetch，故只走内嵌） */
+  function loadOutlineData() {
+    if (State.outlineData) return State.outlineData;
+    var d = window.__OUTLINE__;
+    if (d && d.chapters && d.chapters.length) { State.outlineData = d; return d; }
+    if (outlineFetchStarted) return OUTLINE_EMPTY;
+    outlineFetchStarted = true;
+    if (window.location.protocol !== 'file:' && typeof window.fetch === 'function') {
+      window.fetch('data/outline-2026.json', { cache: 'no-store' }).then(function (r) {
+        return r.ok ? r.json() : null;
+      }).then(function (j) {
+        if (j && j.chapters && j.chapters.length) {
+          State.outlineData = j;
+          if (State.route === 'outline') render(true);   // 数据到位后刷新当前页
+        }
+      })['catch'](function () { /* 内嵌缺失且 fetch 失败：保留空结构，页面会给出提示 */ });
+    }
+    return OUTLINE_EMPTY;
   }
 
-  /** 该题的干扰项说明（已改成具体对比句的会在此展示） */
-  function outlineWhy(q) {
-    var why = q.distractorWhy || {};
-    var a = q.answer;
-    var ans = Array.isArray(a) ? a : [String(a)];
-    var out = [];
-    Object.keys(why).forEach(function (L) {
-      if (ans.indexOf(L) >= 0) return;          // 正确选项不列
-      var t = String(why[L] || '').trim();
-      if (t) out.push(L + '：' + t);
-    });
-    return out;
-  }
-
-  function buildOutline(opts) {
-    opts = opts || {};
-    var perPoint = clamp(toInt(opts.perPoint, 3), 1, 20);
-    var byChapter = {};
-    var order = [];
-    State.questions.forEach(function (q) {
-      var ch = q.chapter || '未分类';
-      // 中间层：优先用第二版考纲的小节名（本轮新增的 subsection 字段），
-      // 没有小节归属的题（判断题/填空题等）回退到题型名，避免出现空层。
-      var sec = String(q.subsection || '').trim() || q.section || '未分节';
-      var concept = String(q.keyConcept || '').trim() || '（无考点标注）';
-      if (!byChapter[ch]) { byChapter[ch] = { chapter: ch, total: 0, sections: {}, order: [] }; order.push(ch); }
-      var C = byChapter[ch];
-      C.total += 1;
-      if (!C.sections[sec]) { C.sections[sec] = { section: sec, total: 0, points: {}, order: [] }; C.order.push(sec); }
-      var S = C.sections[sec];
-      S.total += 1;
-      if (!S.points[concept]) {
-        S.points[concept] = {
-          concept: concept,
-          keywords: (q.keywords || []).slice(0, 5),
-          count: 0,
-          items: []
-        };
-        S.order.push(concept);
-      }
-      var P = S.points[concept];
-      P.count += 1;
-      if (P.items.length < perPoint) {
-        P.items.push({
-          id: q.id, type: q.type, stem: q.stem,
-          answer: answerText(q), note: outlineSummary(q),
-          why: outlineWhy(q)
+  /** 新提纲 → Markdown（供「复制为 Markdown / 导出 .md」） */
+  function buildOutlineMarkdown(data) {
+    data = data || loadOutlineData();
+    var L = ['# ' + (data.source || '军事理论复习提纲'), ''];
+    if (data.basis) L.push('> 依据：' + data.basis, '');
+    (data.chapters || []).forEach(function (c) {
+      L.push('## ' + c.chapter, '');
+      (c.sections || []).forEach(function (s) {
+        L.push('### ' + s.section, '');
+        var units = (s.subs && s.subs.length) ? s.subs : [{ title: '', text: s.text || '' }];
+        units.forEach(function (u) {
+          if (u.title) L.push('**' + u.title + '**', '');
+          if (u.text) L.push(u.text, '');
         });
-      }
-    });
-    return order.map(function (ch) {
-      var C = byChapter[ch];
-      return {
-        chapter: C.chapter, total: C.total,
-        sections: C.order.map(function (sec) {
-          var S = C.sections[sec];
-          return {
-            section: S.section, total: S.total,
-            points: S.order.map(function (k) { return S.points[k]; })
-          };
-        })
-      };
-    });
-  }
-
-  /** 导出为 Markdown（便于复制到笔记软件当复习提纲） */
-  function outlineToMarkdown(outline) {
-    var L = ['# 军事理论复习提纲', ''];
-    (outline || []).forEach(function (ch) {
-      L.push('## ' + ch.chapter + '（' + ch.total + ' 题）', '');
-      ch.sections.forEach(function (sec) {
-        L.push('### ' + sec.section + '（' + sec.total + ' 题）', '');
-        sec.points.forEach(function (p) {
-          L.push('- **' + p.concept + '**');
-          if (p.keywords && p.keywords.length) L.push('  - 关键词：' + p.keywords.join('、'));
-          p.items.forEach(function (it) {
-            L.push('  - ' + (it.note || it.stem) + '（' + it.answer + '）');
-            (it.why || []).forEach(function (w) { L.push('    - 易错：' + w); });
-          });
-        });
-        L.push('');
       });
     });
     return L.join('\n');
   }
 
-  VIEWS.outline = function () {
-    if (!State.questions.length) {
-      return listEmpty('📑', '题库未载入', '题库载入后即可按章节查看提纲。');
-    }
-    var outline = buildOutline({ perPoint: 3 });
-    var chs = outline.map(function (c) { return c.chapter; });
-    var focus = State.p && State.p.chapter ? State.p.chapter : '';
-    if (focus && chs.indexOf(focus) < 0) focus = '';
-    var cards = '';
-    outline.forEach(function (c) {
-      if (focus && c.chapter !== focus) return;
-      cards += '<div class="card"><div class="card-title">' + esc(c.chapter) +
-        '<span class="card-sub">' + c.total + ' 题</span></div>';
-      c.sections.forEach(function (sec) {
-        cards += '<div class="ol-sec"><div class="ol-sec-t">' + esc(sec.section) +
-          '<span class="muted">（' + sec.total + ' 题）</span></div>';
-        sec.points.forEach(function (p) {
-          cards += '<div class="ol-point"><div class="ol-c">' + esc(p.concept) +
-            ' <span class="chip mini">' + p.count + ' 题</span></div>';
-          if (p.keywords && p.keywords.length) {
-            cards += '<div class="chips mt6">' + p.keywords.map(function (k) {
-              return '<span class="chip mini">' + esc(k) + '</span>';
-            }).join('') + '</div>';
-          }
-          p.items.forEach(function (it) {
-            cards += '<div class="ol-item"><div class="ol-note">' + esc(it.note || it.stem) + '</div>' +
-              '<div class="small muted">' + esc(it.answer || '') + '　·　' + esc(it.id) + '</div>' +
-              (it.why || []).map(function (w) {
-                return '<div class="ol-why">易错 ' + esc(w) + '</div>';
-              }).join('') +
-              '</div>';
-          });
-          cards += '</div>';
-        });
-        cards += '</div>';
-      });
-      cards += '</div>';
-    });
 
+  VIEWS.outline = function () {
+    var data = loadOutlineData();
+    var chapters = data.chapters || [];
+    if (!chapters.length) {
+      return listEmpty('📑', '提纲数据未载入',
+        '单文件版会把提纲内嵌进来；PWA 版请确认 data/outline-2026.json 存在。');
+    }
+    var chs = chapters.map(function (c) { return c.chapter; });
+    var focus = (State.p && State.p.chapter) || '';
+    if (focus && chs.indexOf(focus) < 0) focus = '';
+
+    var st = data.stats || {};
     var head = '<div class="card"><div class="card-title">复习提纲<span class="card-sub">' +
-      State.questions.length + ' 题 · ' + chs.length + ' 章</span></div>' +
-      '<div class="small dim">以题库解析为素材，按「章节 → 小节 → 考点」聚合；每个考点列出代表题的解析要点与易错对比。' +
-      '也可以直接调用 <code>window.__JLX__.outline()</code> 取结构化数据。</div>' +
+      (st.chapters || chapters.length) + ' 章 · ' + (st.sections || '?') + ' 节 · ' +
+      (st.subs || '?') + ' 小节</span></div>' +
+      '<div class="small dim">内容来自「' + esc(data.source || '军理课提纲') + '」' +
+      (data.basis ? '，依据 ' + esc(data.basis) : '') + '。点小节标题展开正文（默认折叠）。</div>' +
       '<div class="chips mt10">' +
       '<button type="button" class="chip' + (focus ? '' : ' pri') + '" data-act="ol:filter" data-v="">全部</button>' +
       chs.map(function (c) {
@@ -2412,8 +2373,32 @@
       '<button class="btn" type="button" data-act="ol:copy">复制为 Markdown</button>' +
       '<button class="btn ghost" type="button" data-act="ol:download">导出 .md 文件</button>' +
       '</div></div>';
+
+    var cards = '';
+    chapters.forEach(function (c) {
+      if (focus && c.chapter !== focus) return;
+      cards += '<div class="card"><div class="card-title">' + esc(c.chapter) +
+        '<span class="card-sub">' + ((c.sections || []).length) + ' 节</span></div>';
+      (c.sections || []).forEach(function (s, si) {
+        cards += '<div class="ol-sec"><div class="ol-sec-t">' + esc(s.section) + '</div>';
+        var units = (s.subs && s.subs.length) ? s.subs : [{ title: '', text: s.text || '' }];
+        units.forEach(function (u, ui) {
+          var uid = 'ol-' + si + '-' + ui;
+          cards += '<div class="explain fold">' +
+            '<button type="button" class="ex-head" data-act="ol:toggle" data-v="' + uid + '"' +
+            ' aria-expanded="false" aria-controls="' + uid + '">' +
+            '<span class="ex-ttl">' + esc(u.title || ('小节 ' + (ui + 1))) + '</span>' +
+            '<span class="ex-arrow" aria-hidden="true">▾</span></button>' +
+            '<div class="ex-body" id="' + uid + '">' + esc(u.text || '') + '</div>' +
+            '</div>';
+        });
+        cards += '</div>';
+      });
+      cards += '</div>';
+    });
     return head + cards;
   };
+
 
   reg('ol:filter', function (el) {
     State.p.chapter = el.getAttribute('data-v') || '';
@@ -2421,10 +2406,19 @@
   });
   /** 手动打开「本次更新公告」（首页与导入导出页入口共用） */
   reg('notice:show', function () { showNotice(); });
-  reg('ol:copy', function () { copyText(outlineToMarkdown(buildOutline({ perPoint: 3 })), '提纲已复制到剪贴板（Markdown）'); });
+  reg('ol:copy', function () { copyText(buildOutlineMarkdown(), '提纲已复制到剪贴板（Markdown）'); });
   reg('ol:download', function () {
-    var ok = downloadText('军事理论复习提纲.md', outlineToMarkdown(buildOutline({ perPoint: 3 })));
+    var ok = downloadText('军事理论复习提纲.md', buildOutlineMarkdown());
     toast(ok ? '已导出 军事理论复习提纲.md' : '当前浏览器不支持直接下载，请用「复制为 Markdown」', ok ? 'ok' : 'bad', 2600);
+  });
+  /** 提纲小节展开/收起：只切 class，不重渲染（200+ 小节重建 DOM 会明显卡顿） */
+  reg('ol:toggle', function (el) {
+    var box = el.parentNode;
+    if (!box) return;
+    var open = box.classList.toggle('open');
+    el.setAttribute('aria-expanded', open ? 'true' : 'false');
+    var ar = el.querySelector('.ex-arrow');
+    if (ar) ar.textContent = open ? '▴' : '▾';
   });
 
 
@@ -2846,18 +2840,33 @@
   }
 
   VIEWS.wrong = function () {
+    // State.wrongQ：错题本搜索词（内存态，不落盘；刷新即清空）
     var ids = wrongIds();
     var html = '';
     if (!ids.length) {
       return listEmpty('🎉', '错题本是空的', '答错的题会自动收进这里，方便集中复习。', '去练习', 'home:startall');
     }
+    var kw = String(State.wrongQ || '').trim();
+    var shown = wrongFilter(ids, kw);
     html += '<div class="card"><div class="card-title">错题本<span class="card-sub">' + ids.length + ' 题</span></div>' +
-      '<div class="btn-row">' +
-      '<button class="btn primary" type="button" data-act="wrong:redo">重做全部错题</button>' +
+      '<div class="search-bar">' +
+      '<span class="search-ico" aria-hidden="true">🔍</span>' +
+      '<input class="input search-input" type="search" data-act="wrong:search" value="' + esc(kw) + '"' +
+      ' placeholder="搜索题干 / 选项关键词，快速定位错题" aria-label="搜索错题">' +
+      (kw ? '<button class="btn sm ghost" type="button" data-act="wrong:searchclear" aria-label="清空搜索">清空</button>' : '') +
+      '</div>' +
+      (kw ? '<div class="small muted mt6">命中 <b>' + shown.length + '</b> / ' + ids.length + ' 题' +
+            (shown.length ? '，结果已按匹配度排序' : '，没有匹配的错题') + '</div>' : '') +
+      '<div class="btn-row mt10">' +
+      '<button class="btn primary" type="button" data-act="wrong:redo">重做' + (kw ? '筛选出的 ' + shown.length + ' 题' : '全部错题') + '</button>' +
       '<button class="btn danger" type="button" data-act="wrong:clear">清空错题本</button>' +
       '</div><div class="small muted mt6">在「错题重做」中答对的题目会自动移出错题本。</div></div>';
-    html += '<div class="card"><div class="list">';
-    ids.forEach(function (id) {
+    if (kw && !shown.length) {
+      return html + listEmpty('🔍', '没有匹配的错题', '换个关键词试试，或点「清空搜索」看全部。');
+    }
+    html += '<div class="card"><div class="card-title">' + (kw ? '搜索结果' : '全部错题') +
+      '<span class="card-sub">' + shown.length + ' 题</span></div><div class="list">';
+    shown.forEach(function (id) {
       var q = qById(id);
       if (!q) return;
       html += qListItem(q,
@@ -2894,9 +2903,43 @@
     if (!q) return;
     startSession([id], '单题练习 · ' + TYPE_LABEL[q.type], 'seq', 'practice');
   });
+  /**
+   * 错题搜索：题干 / 选项 / 解析 / 考点 / 章节全字段匹配，**只返回命中项**。
+   * 注意（2026-10-09 踩过）：初版写成「命中排前、未命中仍列在后面」，结果搜索后条数不变
+   * （5 条还是 5 条），等于没过滤 —— 那只是排序，不是「搜索定位」。这里必须 filter。
+   */
+  function wrongFilter(ids, kw) {
+    if (!kw) return ids;
+    var k = kw.toLowerCase();
+    return ids.filter(function (id) {
+      var q = qById(id);
+      if (!q) return false;
+      var blob = (q.stem + ' ' + (q.options || []).join(' ') + ' ' + (q.explanation || '') + ' ' +
+                  (q.keyConcept || '') + ' ' + (q.keywords || []).join(' ') + ' ' + (q.chapter || '')).toLowerCase();
+      return blob.indexOf(k) >= 0;
+    });
+  }
+  reg('wrong:search', function (el) {
+    State.wrongQ = String(el.value || '');
+    render(false);
+    // 渲染会重建输入框 → 焦点与光标必须还原，否则打一个字就失焦（无法连续输入）
+    refocusWrongSearch(State.wrongQ.length);
+  });
+  reg('wrong:searchclear', function () {
+    State.wrongQ = '';
+    render(false);
+  });
+  /** 渲染后把焦点还给错题搜索框，并把光标放到末尾 */
+  function refocusWrongSearch(pos) {
+    var el = document.querySelector('#view [data-act="wrong:search"]');
+    if (!el) return;
+    try { el.focus(); el.setSelectionRange(pos, pos); } catch (e) { /* 老浏览器 / 非文本控件忽略 */ }
+  }
   reg('wrong:redo', function () {
-    var ids = wrongIds();
-    if (!ids.length) { toast('错题本是空的', '', 1400); return; }
+    var all = wrongIds();
+    var kw = String(State.wrongQ || '').trim();
+    var ids = kw ? wrongFilter(all, kw).slice(0, 999) : all;
+    if (!ids.length) { toast(kw ? '没有匹配的错题' : '错题本是空的', '', 1400); return; }
     startSession(ids, '错题重做 · ' + ids.length + ' 题', State.settings.order, 'practice');
     if (State.sess) State.sess.wrongMode = true;
   });
@@ -3018,14 +3061,14 @@
 
     html += '<div class="card"><div class="card-title">总览</div>' +
       '<div class="grid grid-4">' +
-      '<div class="stat pri"><b>' + d.rate + '%</b><span>总正确率</span></div>' +
+      '<div class="stat pri"><b>' + d.uniqueRate + '%</b><span>总正确率</span></div>' +
       '<div class="stat ok"><b>' + d.mastered + '</b><span>已掌握</span></div>' +
       '<div class="stat bad"><b>' + d.review + '</b><span>待复习</span></div>' +
       '<div class="stat"><b>' + d.untouched + '</b><span>未做过</span></div>' +
       '</div>' +
       '<div class="report-row mt10"><span>已做题数</span><b>' + d.done + ' / ' + d.total + '</b></div>' +
+      '<div class="report-row"><span>做对过的题</span><b>' + d.uniqueCorrect + ' / ' + d.done + '</b></div>' +
       '<div class="report-row"><span>累计作答</span><b>' + d.attempts + ' 次</b></div>' +
-      '<div class="report-row"><span>答对 / 答错</span><b>' + d.correct + ' / ' + (d.attempts - d.correct) + '</b></div>' +
       '<div class="report-row"><span>错题本 / 收藏</span><b>' + d.wrong + ' / ' + d.fav + '</b></div>' +
       '<div class="small muted mt6">掌握度规则：连续答对使「熟练度」累积到 3 以上记为已掌握；答错后回到待复习。</div>' +
       '</div>';
@@ -3035,9 +3078,10 @@
     TYPE_ORDER.forEach(function (t) {
       var s = d.byType[t];
       if (!s || !s.total) return;
+      // 口径：按题目去重（做对过的题 ÷ 做过的题），避免重做同一题把百分比拉低（用户 2026-10-09）
       html += '<div class="bar-row"><span class="bar-name">' + TYPE_LABEL[t] + '</span>' +
-        '<span class="bar-track"><i class="bar-fill' + (s.attempts && s.rate < 60 ? ' bad' : (s.attempts ? ' ok' : '')) + '" style="width:' + (s.attempts ? s.rate : 0) + '%"></i></span>' +
-        '<span class="bar-num">' + (s.attempts ? s.rate + '%' : '未做') + ' · ' + s.done + '/' + s.total + '</span></div>';
+        '<span class="bar-track"><i class="bar-fill' + (s.done && s.uniqueRate < 60 ? ' bad' : (s.done ? ' ok' : '')) + '" style="width:' + (s.done ? s.uniqueRate : 0) + '%"></i></span>' +
+        '<span class="bar-num">' + (s.done ? s.uniqueRate + '%' : '未做') + ' · ' + s.uniqueCorrect + '/' + s.done + ' 题</span></div>';
     });
     html += '</div></div>';
 
@@ -3063,9 +3107,10 @@
       html += '<div class="card"><div class="card-title">按章节掌握情况</div><div class="bars">';
       chs.forEach(function (c) {
         var s = d.byChapter[c];
+        // 条宽与数字同一口径：都是「做对过的题 ÷ 做过的题」（此前条画完成度、数字写正确率，两者对不上）
         html += '<div class="bar-row"><span class="bar-name" title="' + esc(c) + '">' + esc(c.length > 6 ? c.slice(0, 6) + '…' : c) + '</span>' +
-          '<span class="bar-track"><i class="bar-fill" style="width:' + (s.total ? Math.round(s.done / s.total * 100) : 0) + '%"></i></span>' +
-          '<span class="bar-num">' + s.done + '/' + s.total + ' · ' + (s.attempts ? s.rate + '%' : '未做') + '</span></div>';
+          '<span class="bar-track"><i class="bar-fill' + (s.done && s.uniqueRate < 60 ? ' bad' : (s.done ? ' ok' : '')) + '" style="width:' + (s.done ? s.uniqueRate : 0) + '%"></i></span>' +
+          '<span class="bar-num">' + (s.done ? s.uniqueRate + '%' : '未做') + ' · ' + s.uniqueCorrect + '/' + s.done + ' 题</span></div>';
       });
       html += '</div></div>';
     }
@@ -3074,6 +3119,67 @@
       '<button class="btn ghost" type="button" data-nav="sync">导出学习数据</button></div>';
     return html;
   };
+
+  /* ======================================================================
+   * 17.5 设置（2026-10-09 新增）
+   * ----------------------------------------------------------------------
+   * 用户要求：在首页新增设置模块，把「声音与震动」挪进来，
+   * 并在设置里提供「全局所有文字大小」调节（顶栏的字号/主题按钮已隐藏，改由此处统一管）。
+   * 设置项全部落在 State.settings，与旧键兼容（sound / haptic / volume / fontSize / theme）。
+   * ==================================================================== */
+  var FONT_NAME = { s: '小', m: '标准', l: '大', xl: '特大' };
+  var FONT_ORDER = ['s', 'm', 'l', 'xl'];
+
+  function settingsCard() {
+    var st = State.settings;
+    return '<div class="card"><div class="card-title">文字大小<span class="card-sub">全站文字同比缩放</span></div>' +
+      '<div class="seg" role="group" aria-label="文字大小">' +
+      FONT_ORDER.map(function (k) {
+        return '<button type="button" class="' + (st.fontSize === k ? 'active' : '') +
+          '" data-act="set:font" data-v="' + k + '">' + FONT_NAME[k] + '</button>';
+      }).join('') +
+      '</div>' +
+      '<div class="small muted mt6">当前：' + FONT_NAME[st.fontSize] + '。调大后若发现个别地方拥挤，可切回「标准」。</div>' +
+      '<div class="switch-row mt10"><div class="sw-txt"><strong>外观主题</strong><small>跟随系统 / 浅色 / 深色</small></div>' +
+      '<button type="button" class="switch" role="switch" aria-checked="' + (st.theme !== 'auto' ? 'true' : 'false') +
+      '" data-act="set:theme" aria-label="切换主题"></button></div>' +
+      '<div class="small muted">当前主题：' + THEME_NAME[st.theme] + '</div>' +
+      '</div>' +
+
+      '<div class="card"><div class="card-title">声音与震动</div>' +
+      '<div class="switch-row"><div class="sw-txt"><strong>操作音效</strong><small>Web Audio 实时合成，不使用任何音频文件</small></div>' +
+      '<button type="button" class="switch" role="switch" aria-checked="' + (st.sound ? 'true' : 'false') +
+      '" data-act="set:feedback" data-k="sound" aria-label="操作音效"></button></div>' +
+      '<div class="switch-row"><div class="sw-txt"><strong>震动反馈</strong><small>Android / Windows 桌面浏览器有效</small></div>' +
+      '<button type="button" class="switch" role="switch" aria-checked="' + (st.haptic ? 'true' : 'false') +
+      '" data-act="set:feedback" data-k="haptic" aria-label="震动反馈"></button></div>' +
+      '<div class="field mt10 mb0"><label>音效音量<small class="muted">（切换后立即试听）</small></label>' +
+      '<div class="seg">' +
+      [1, 2, 3].map(function (v) {
+        return '<button type="button" class="' + (st.volume === v ? 'active' : '') +
+          '" data-act="set:volume" data-v="' + v + '">' + VOLUME_NAME[v] + '</button>';
+      }).join('') +
+      '</div></div>' +
+      '<div class="note small mt10">已启用 iOS 静音键兼容模式（常驻静音音轨）；若仍无声请检查静音键或系统音量。iPhone 不支持网页震动。</div>' +
+      '</div>';
+  }
+
+  VIEWS.settings = function () {
+    return '<div class="card" style="padding:12px 16px"><div class="small dim">' +
+      '这里的设置会保存在本机，导入 / 导出时会一并带走。</div></div>' + settingsCard();
+  };
+
+  reg('set:font', function (el) {
+    var v = el.getAttribute('data-v');
+    if (FONT_ORDER.indexOf(v) < 0) return;
+    State.settings.fontSize = v;
+    saveSettings(); applyTheme(); render(false);
+    toast('文字大小：' + FONT_NAME[v], '', 1200);
+  });
+  reg('set:theme', function () {
+    cycleTheme();
+    render(false);
+  });
 
   /* ======================================================================
    * 18. 导入 / 导出（iPhone ↔ Windows 手动同步）
@@ -3221,22 +3327,8 @@
   VIEWS.sync = function () {
     var d = derive();
     var text = exportText();
-    return '<div class="card"><div class="card-title">声音与震动</div>' +
-      '<div class="switch-row"><div class="sw-txt"><strong>操作音效</strong><small>Web Audio 实时合成，不使用任何音频文件</small></div>' +
-      '<button type="button" class="switch" role="switch" aria-checked="' + (State.settings.sound ? 'true' : 'false') + '" data-act="set:feedback" data-k="sound" aria-label="操作音效"></button></div>' +
-      '<div class="switch-row"><div class="sw-txt"><strong>震动反馈</strong><small>Android / Windows 桌面浏览器有效</small></div>' +
-      '<button type="button" class="switch" role="switch" aria-checked="' + (State.settings.haptic ? 'true' : 'false') + '" data-act="set:feedback" data-k="haptic" aria-label="震动反馈"></button></div>' +
-      '<div class="field mt10 mb0"><label>音效音量<small class="muted">（切换后立即试听）</small></label>' +
-      '<div class="seg">' +
-      [1, 2, 3].map(function (v) {
-        return '<button type="button" class="' + (State.settings.volume === v ? 'active' : '') +
-          '" data-act="set:volume" data-v="' + v + '">' + VOLUME_NAME[v] + '</button>';
-      }).join('') +
-      '</div></div>' +
-      '<div class="note small mt10">已启用 iOS 静音键兼容模式（常驻静音音轨）；若仍无声请检查静音键或系统音量。iPhone 不支持网页震动。</div>' +
-      '</div>' +
-
-      '<div class="card"><div class="card-title">导出进度</div>' +
+    // 「声音与震动」已迁到「设置」页（2026-10-09），此处只保留导入/导出相关
+    return '<div class="card"><div class="card-title">导出进度</div>' +
       '<div class="small dim">把当前进度（答题记录、**按日期的作答记录**、收藏、设置、考试成绩）导出为 JSON，' +
       '用于备份或在 iPhone ↔ Windows 之间手动同步。按日期的记录让「近 7 天做题量」在换设备后仍然准确。</div>' +
       '<div class="grid grid-3 mt10">' +
@@ -3506,6 +3598,7 @@
     'set:order': 'tap', 'set:switch': 'tap', 'set:feedback': 'tap', 'set:volume': 'tap',
     'prac:start': 'confirm', 'prac:chapter': 'confirm', 'prac:type': 'confirm', 'prac:continue': 'confirm',
     'home:continue': 'confirm', 'home:startall': 'confirm', 'home:mode': 'confirm',
+    'set:font': 'tap', 'set:theme': 'tap',
     'recite:start': 'confirm', 'recite:chapter': 'confirm', 'q:practice': 'confirm',
     'exam:new': 'tap', 'exam:count': 'tap', 'exam:min': 'tap', 'exam:scope': 'tap', 'exam:short': 'tap',
     'exam:start': 'confirm', 'exam:submit': 'confirm', 'exam:scoredone': 'complete', 'exam:detail': 'tap',
@@ -3558,6 +3651,22 @@
   var touchInfo = { t: 0, x: 0, y: 0, long: false, moved: false };
 
   function bindGlobal() {
+    // 错题本搜索：**输入即过滤**（300ms 防抖）。
+    // 为什么必须单加 input 监听：全局只委托了 click，光靠 data-act 要「点别处」才触发过滤，
+    // 用户打字时列表纹丝不动 —— 这是搜索框基本体验，不是可选项。
+    var wrongSearchTimer = 0;
+    document.addEventListener('input', function (e) {
+      var el = closestAct(e.target);
+      if (!el || el.getAttribute('data-act') !== 'wrong:search') return;
+      State.wrongQ = String(el.value || '');
+      if (wrongSearchTimer) clearTimeout(wrongSearchTimer);
+      wrongSearchTimer = setTimeout(function () {
+        wrongSearchTimer = 0;
+        var pos = State.wrongQ.length;
+        render(false);
+        refocusWrongSearch(pos);
+      }, 280);
+    });
     document.addEventListener('click', function (e) {
       var el = closestAct(e.target);
       if (!el) return;
@@ -3857,13 +3966,14 @@
     state: State,
     derive: derive,
     deriveUncached: deriveUncached,   // 无缓存版本，供性能测量脚本对比缓存收益
-    /* 复习提纲接口：以题库解析为素材，按「章节 → 小节 → 考点」聚合。
-     * 外部脚本可直接调用，例如：
+    /* 复习提纲接口（2026-10-09 起内容为【26最新改版】军理课提纲 PDF）。
+     * 外部脚本可直接调用：
      *   JSON.stringify(window.__JLX__.outline(), null, 1)
      *   window.__JLX__.outlineMarkdown()   // 直接取 Markdown 提纲
-     * 返回结构见 VIEWS.outline 上方注释（稳定契约）。 */
-    outline: function (opts) { return buildOutline(opts); },
-    outlineMarkdown: function (opts) { return outlineToMarkdown(buildOutline(opts)); },
+     * 返回结构见上方「19. 复习提纲」注释块（稳定契约）。
+     * ⚠ 与旧版不兼容：不再返回按题目聚合的 points，改为 PDF 提纲的 章/节/小节。 */
+    outline: function () { return loadOutlineData(); },
+    outlineMarkdown: function () { return buildOutlineMarkdown(); },
     exportText: exportText,
     normalizeAnswer: normalizeAnswer,
     // 会话恢复的只读探针（/测试用）：看磁盘会话是否被判为可恢复，以及为什么

@@ -37,6 +37,8 @@ except Exception:
 ROOT = Path(__file__).resolve().parent.parent
 APP = ROOT / "app"
 DATA = ROOT / "data" / "questions.json"
+# 复习提纲数据（2026-10-09 起：由【26最新改版】军理课提纲 PDF 生成，见 tools/build_outline_data.py）
+OUTLINE_DATA = ROOT / "data" / "outline-2026.json"
 DIST = ROOT / "dist"
 
 
@@ -218,6 +220,15 @@ def build_single_file(bank: dict) -> Path:
     js = read(APP / "app.js")
     bank_json = json.dumps(bank, ensure_ascii=False, separators=(",", ":"))
     stamp = build_stamp()
+    # 提纲数据直接内嵌（用户要求 2026-10-09 起提纲改用新 PDF 内容）。
+    # 放在**独立 <script>** 里，理由同下面的版本号：与题库同标签会让 verify_app.py 的
+    # 「提取题库 JSON」正则读到后续内容而报 Extra data。
+    outline_json = "null"
+    if OUTLINE_DATA.exists():
+        outline_json = OUTLINE_DATA.read_text(encoding="utf-8").strip()
+        print(f"   提纲数据：{OUTLINE_DATA.name} {OUTLINE_DATA.stat().st_size/1024:.0f} KB")
+    else:
+        print(f"   ! 提纲数据缺失（{OUTLINE_DATA.name}），App 会回退到 fetch / 空提纲")
 
     # 1) 去掉外部样式表引用，换成内联
     html = re.sub(r'\s*<link[^>]*rel=["\']stylesheet["\'][^>]*>', "", html)
@@ -230,6 +241,9 @@ def build_single_file(bank: dict) -> Path:
     inject = (
         "<script>\n"
         f"window.__QUESTION_BANK__ = {bank_json};\n"
+        "</script>\n"
+        "<script>\n"
+        f"window.__OUTLINE__ = {outline_json};\n"
         "</script>\n"
         "<script>\n"
         f"window.__BUILD__ = {json.dumps(stamp, ensure_ascii=False)};\n"
@@ -295,6 +309,9 @@ def build_web(bank: dict) -> Path:
     lean, _removed = strip_debug_fields(bank)
     (web / "data" / "questions.json").write_text(
         json.dumps(lean, ensure_ascii=False, indent=1), encoding="utf-8")
+    # 提纲数据同样放进 PWA 版：HTTP 下 App 可 fetch 它作为内嵌失败时的回退
+    if OUTLINE_DATA.exists():
+        shutil.copy2(OUTLINE_DATA, web / "data" / "outline-2026.json")
     return web / "index.html"
 
 

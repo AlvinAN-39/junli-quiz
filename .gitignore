@@ -26,6 +26,10 @@
 # ── 质检脚本的输出目录（verify_new_questions.py 等会写这里）────
 /work/
 
+# ── 提纲全文数据：第三方整理的 4.8 万字提纲正文，与 build/ 同理不入库 ──
+#    公开版缺此文件时 tools/bundle.py 会注入 null，App 的「复习提纲」降级为空。
+/data/outline-2026.json
+
 # ── Python 缓存 ────────────────────────────────────────────────
 __pycache__/
 *.py[cod]
