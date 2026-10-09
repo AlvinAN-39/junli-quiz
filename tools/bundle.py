@@ -22,6 +22,7 @@ bundle.py — 把 app/ + data/questions.json 组装成可交付产物
 
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 import shutil
@@ -265,6 +266,33 @@ def build_single_file(bank: dict) -> Path:
     return out
 
 
+def content_hash(paths: list[Path]) -> str:
+    """把若干文件的内容合成一个短哈希（用作 SW 构建标识 / 缓存名的一部分）。"""
+    h = hashlib.sha256()
+    for p in paths:
+        h.update(p.name.encode("utf-8"))
+        h.update(p.read_bytes())
+    return h.hexdigest()[:12]
+
+
+def render_sw(web: Path) -> str:
+    """生成 PWA 版 sw.js：把源码里的 __BUILD_ID__ 占位符替换为内容哈希。
+
+    替换后**当场校验占位符确实消失** —— 否则会把 'jlx-cache-__BUILD_ID__' 发到线上，
+    缓存名不再随内容变化，等于这一条修复完全失效；这种静默失败必须在这里就拦住。
+    """
+    src = read(APP / "sw.js")
+    if "__BUILD_ID__" not in src:
+        raise SystemExit("!! app/sw.js 缺少 __BUILD_ID__ 占位符，无法注入构建标识")
+    stamp = content_hash([web / "index.html", web / "manifest.webmanifest",
+                          APP / "icons" / "icon.svg"])
+    out = src.replace("__BUILD_ID__", stamp)
+    if "__BUILD_ID__" in out:
+        raise SystemExit("!! sw.js 占位符替换后仍有残留")
+    print(f"   sw.js 构建标识：{stamp}（缓存名 jlx-cache-{stamp}）")
+    return out
+
+
 def build_web(bank: dict) -> Path:
     """PWA 版：**在单文件版基础上**加静态 manifest + SW 注册。
 
@@ -301,9 +329,16 @@ def build_web(bank: dict) -> Path:
         "</script>\n</body>", 1)
     (web / "index.html").write_text(html, encoding="utf-8")
 
-    for name in ("app.css", "app.js", "sw.js", "manifest.webmanifest"):
+    for name in ("app.css", "app.js", "manifest.webmanifest"):
         shutil.copy2(APP / name, web / name)
     shutil.copy2(APP / "icons" / "icon.svg", web / "icons" / "icon.svg")
+    # sw.js 不直接拷：要把 BUILD_ID 占位符换成**内容哈希**（必须在 index.html 写盘之后做）。
+    #   为什么必须做：旧版缓存名写死 'jlx-cache-v2'，内容发布多版后 sw.js 字节没变，
+    #   浏览器就不认为 Worker 有更新 → 旧 HTML 永远留在缓存里，正是用户反馈的
+    #   「联网看到新版本、断网仍显示旧版本」。
+    #   哈希取自「内联后的 index.html + manifest + 图标」，已覆盖 CSS/JS/题库的全部内容：
+    #   任何一处变化都会改变缓存名 → 触发安装新 Worker 并清理旧缓存。
+    (web / "sw.js").write_text(render_sw(web), encoding="utf-8")
     # PWA 的 data/questions.json 只作「外部核对 / SW 预缓存」用，App 一律优先读内嵌题库，
     # 因此这里同样做字段精简 —— 否则会白占 SW 缓存与部署包体积（实测该文件 2.0 MB）。
     lean, _removed = strip_debug_fields(bank)

@@ -548,68 +548,28 @@
    * 判重依据取 `window.__BUILD__.v`（打包时注入的版本号，形如 2026.10.08-2140）；
    * 取不到版本号时**不弹**，避免在没有版本概念的环境里反复弹。
    * -------------------------------------------------------------------- */
+  /**
+   * 本次更新公告 —— **只描述当前版本**。
+   * 用户 2026-10-09 要求：每次版本更新时清除上一版的公告内容、补充当版内容，
+   * 并在公告左上角标注版本号；因此这里不再累积历史版本（此前累积了 8 组，越看越乱）。
+   * 发新版时：把 groups 换成该版的改动即可，noticeHtml() 会自动带上版本号。
+   */
   var NOTICE = {
     title: '本次更新',
-    intro: '这份公告说明本次修好了什么、新增了什么，看完点「知道了」即可开始刷题。',
+    intro: '这份公告只说明当前这一个版本改了什么 —— 每个版本发布时会替换为当版内容，不再累积历史版本。',
     groups: [
       {
-        name: '新增与改进', items: [
-          '错题本新增搜索框：输入题干 / 选项 / 解析里的关键词即可定位错题，并能只重做筛选出的那几道；没有匹配时给出提示。',
-          '首页新增「设置」入口：文字大小（小 / 标准 / 大 / 特大，全站生效）、外观主题、声音与震动都收在这里（「声音与震动」由「导入 / 导出」迁入）。',
-          '首页入口重整：练习、错题本、收藏夹、统计已能从底部导航直达，不再在首页重复出现；「上次进度」改为显示统计里的复习进度（掌握 / 待复习）。',
-          '复习提纲换成【26最新改版】军理课提纲的内容：5 章 21 节 212 小节，按「章 → 节 → 小节」展示，点小节标题展开正文，可复制 / 导出 Markdown。'
-        ]
-      },
-      {
-        name: '本次修复', items: [
-          '字号调节现在真的能改全站文字了：此前根字号写死 16px，只有少数地方跟着变；现在统一随「文字大小」缩放，并在特大档做了防溢出处理。',
-          '统计里的「按章节掌握情况」与「按题型正确率」改为**按题目去重**口径（做对过的题 ÷ 做过的题），不再因为重做同一题把百分比拉低；进度条宽度与数字口径也统一了。',
-          '修正题目 q-0684「古罗马军事思想的基本思想是____。」：按教材原文，四个选项（战争有正义与非正义之分／进攻为主、防御为辅／以攻为守／以物质、精神、纪律建立忠于统帅的军队）**都属于**古罗马军事思想，本题应为多选 A、B、C、D（此前被误改成单选 D，解析也写反了）。',
-          '首页标题旁的字号 / 主题按钮已移除（改到「设置」里统一调），顶栏更干净。'
-        ]
-      },
-      {
-        name: '说明', items: [
-          '复习提纲的数据来源已从「按题库解析聚合」换成提纲 PDF，因此 window.__JLX__.outline() 的返回结构随之变更（改为 {source, basis, stats, chapters:[{chapter, sections:[{section, text, subs}]}]}）；该接口仅供外部脚本使用，App 界面不受影响。'
-        ]
-      },
-      {
-        name: '界面',
-        items: [
-          '整体换成现代简约风：中性灰白底（原来偏灰绿）、更细的边框、更克制的阴影、统一的 12px 圆角。',
-          '亮色与暗色两套都重做：暗色改为中性炭灰（不再是偏蓝的深色），并调高次要文字的对比度，暗底下更清楚。',
-          '按钮、标签、输入框、列表项的悬停与选中态统一，操作反馈更明确。'
-        ]
-      },
-      {
         name: '修复', items: [
-          '宽屏（Windows 大窗口）下内容不再贴左：顶栏、进度条、正文共用同一条居中栏，卡片、网格与内容左右边线完全对齐（修掉了窄窗口下卡片比网格宽一圈、右边多空一截的问题）。',
-          '随机练习中途退出（或刷新、关掉页面）后，从首页点“继续上次练习”会回到**同一道题、同一个随机顺序**，不会再变成顺序练习或重新洗牌。',
-          '练习设置页的“从下一题继续”在退出练习后也能用了（此前退出后这个入口不出现）。',
-          '从底部导航直接离开练习页，同样会记住位置与顺序。'
+          '统计页的「按题型正确率」「按章节掌握情况」此前整列显示 NaN%（上一版引入的回归：统计分桶少初始化了一个字段，累加时 undefined + 1 变成 NaN）—— 已修好，现在显示真实百分比。',
+          '离线更新失效：此前「联网能看到新版本、断网重开仍是旧版本」。根因是离线缓存的键不一致（写入用导航地址 `/`、回退却查 `./index.html`，两者不是同一条目），且缓存名固定不变导致浏览器不认为 Service Worker 有更新。现在写入与回退统一用同一个键，构建标识也写进缓存名，断网重开拿到的必然是最新版本。',
+          '缓存写入改为纳入事件生命周期：此前写缓存的 Promise 没有被等待，存在竞态 —— 页面已经显示出新内容，但缓存还没落盘，关掉页面就等于没更新。',
+          '预缓存精简：PWA 版页面已把 CSS / JS / 题库全部内联，不再重复缓存这些文件；同时关键资源缓存失败会让新 Worker 安装失败、保留旧 Worker，不会再出现「新 Worker 装上了却没有可用 HTML」的半残状态。'
         ]
       },
       {
         name: '新增', items: [
-          '题库扩容到 1531 题：从第二版题库补入 321 道新题，并按第一版题库补上 2011 年真题 39 道（判断 20 + 单选 19）。',
-          '新增“难题挑战”：把需要记精确数字、易混概念辨析、多选易漏的题单独挑出来练（全库标记 584 道难题），首页与练习页都能进。',
-          '题目卡片新增“难题”标记，一眼看出这题是不是易错题。',
-          '复习提纲并入第二版考纲的章 → 节 → 小节结构（1116 道题已挂到 103 个小节），新增题目直接挂进对应考点。'
-        ]
-      },
-      {
-        name: '修复', items: [
-          '答错时的说明不再说“容易混淆”这类套话，改为点出你选的选项错在哪、和哪个概念搞混了。',
-          '背题模式不再显示“回答错误”（背题本来就没有作答）。',
-          '随机练习中途刷新页面后，从首页或练习页继续，会回到随机顺序而不是变成顺序练习。',
-          '导出文件新增“按日期的作答记录”，导入到另一台设备后“近 7 天做题量”不再失真；旧导出文件照常可用。'
-        ]
-      },
-      {
-        name: '说明', items: [
-          '新增题目与既有题目若有答案冲突，本轮**不改动既有题目**，冲突题保持原样并在核查报告里列明。',
-          '新增题目的解析依据优先取教材与真题语料；三道语料都查不到的，如实标注“本题库未收录直接出处”，不编造。',
-          '本轮实测发现第一版题库里除 2011 年外的历年真题都已在本题库中，故未重复收录。'
+          '设置页新增「离线与更新」：显示当前版本的离线缓存是否已就绪 —— 只有真的写入成功才显示「已就绪」，不再靠推测（页面显示新内容 ≠ 缓存已更新，这正是之前那个故障的迷惑之处）。',
+          '公告改为只显示当前版本内容，并在左上角标注版本号。'
         ]
       }
     ]
@@ -623,7 +583,10 @@
   }
 
   function noticeHtml() {
-    var h = '<div class="notice-intro">' + esc(NOTICE.intro) + '</div>';
+    var v = buildTagTextSafe();
+    // 左上角版本标识（用户要求：公告左上角标注版本号）
+    var h = '<div class="notice-ver">本次更新' + (v ? ' · ' + esc(v) : '') + '</div>';
+    h += '<div class="notice-intro">' + esc(NOTICE.intro) + '</div>';
     NOTICE.groups.forEach(function (g) {
       h += '<div class="notice-group"><div class="notice-gt">' + esc(g.name) + '</div><ul class="notice-ul">';
       g.items.forEach(function (t) { h += '<li>' + esc(t) + '</li>'; });
@@ -737,6 +700,17 @@
     return statsCache;
   }
 
+  /**
+   * 统计分桶（按题型 / 按章节）的空对象 —— **字段必须与顶层 `d` 一致**。
+   * 2026-10-09 踩过的真实坑：分桶对象漏了 `uniqueCorrect`，而累加处写 `t.uniqueCorrect += 1`，
+   * `undefined + 1` 得到 NaN，于是统计页「按题型正确率」「按章节掌握情况」整列显示 `NaN%`／`NaN/x 题`
+   * （顶层总正确率却正常，因为顶层字段初始化过）。
+   * 抽成这一处工厂，避免下次再加字段时又漏掉某个分桶（铁律 40：逻辑只留一处）。
+   */
+  function emptyBucket() {
+    return { total: 0, attempts: 0, correct: 0, done: 0, rate: 0, uniqueCorrect: 0, uniqueRate: 0 };
+  }
+
   function deriveUncached() {
     var d = {
       total: State.questions.length, done: 0, attempts: 0, correct: 0,
@@ -745,11 +719,11 @@
       rate: 0, wrong: 0, fav: 0, mastered: 0, review: 0, untouched: 0,
       byType: {}, byChapter: {}, days: []
     };
-    TYPE_ORDER.forEach(function (t) { d.byType[t] = { total: 0, attempts: 0, correct: 0, done: 0, rate: 0 }; });
+    TYPE_ORDER.forEach(function (t) { d.byType[t] = emptyBucket(); });
     State.questions.forEach(function (q) {
-      var t = d.byType[q.type] || (d.byType[q.type] = { total: 0, attempts: 0, correct: 0, done: 0, rate: 0 });
+      var t = d.byType[q.type] || (d.byType[q.type] = emptyBucket());
       t.total += 1;
-      if (!d.byChapter[q.chapter]) d.byChapter[q.chapter] = { total: 0, attempts: 0, correct: 0, done: 0, rate: 0 };
+      if (!d.byChapter[q.chapter]) d.byChapter[q.chapter] = emptyBucket();
       var c = d.byChapter[q.chapter];
       c.total += 1;
       var p = State.progress[q.id];
@@ -3165,9 +3139,81 @@
       '</div>';
   }
 
+  /**
+   * 离线版本就绪状态（2026-10-09 新增，对应外部审查报告的「验证后提示」建议）。
+   *
+   * 为什么需要有这么一块：**页面显示了新内容 ≠ 离线缓存已经更新**。
+   * 用户遇到的正是这个差异——联网时看到新版，断网重开还是旧版。
+   * 所以这里不靠自己推断，而是向 Service Worker 发消息问：
+   * 「当前构建标识对应的缓存里，到底有没有写入 HTML？」只有拿到肯定答复才显示「已就绪」。
+   */
+  var offlineState = { checked: false, ready: false, buildId: '', cacheName: '' };
+  var offlinePending = false;
+
+  function checkOfflineReady(cb) {
+    var finish = function (payload) {
+      offlineState = {
+        checked: true,
+        ready: !!(payload && payload.hasHtml),
+        buildId: (payload && payload.buildId) || '',
+        cacheName: (payload && payload.cacheName) || ''
+      };
+      if (cb) cb(offlineState);
+    };
+    if (!('serviceWorker' in navigator) || !navigator.serviceWorker.controller) {
+      finish(null);
+      return;
+    }
+    var ch = new MessageChannel();
+    var done = false;
+    var once = function (payload) { if (done) return; done = true; finish(payload); };
+    ch.port1.onmessage = function (e) { once(e.data); };
+    try {
+      navigator.serviceWorker.controller.postMessage({ type: 'cache-status' }, [ch.port2]);
+    } catch (e) {
+      once(null);
+      return;
+    }
+    // 兜底：旧版本 Worker 没有 message 处理时会一直不回复，不能让界面卡在「正在检查」
+    setTimeout(function () { once(null); }, 1500);
+  }
+
+  /** 只在「本页尚未查过」时查一次并发起一次重绘，避免 render → 检查 → render 的自激循环 */
+  function maybeCheckOffline() {
+    if (offlinePending || offlineState.checked) return;
+    offlinePending = true;
+    checkOfflineReady(function () {
+      offlinePending = false;
+      if (State.route === 'settings') render(false);
+    });
+  }
+
+  function offlineText() {
+    if (!('serviceWorker' in navigator)) {
+      return '当前环境不支持离线缓存（单文件版或 file:// 打开时属正常）';
+    }
+    if (!navigator.serviceWorker.controller && !offlineState.checked) return '正在检查…';
+    if (!offlineState.checked) return '尚未接管：刷新一次即可启用离线缓存';
+    if (offlineState.ready) {
+      var id = offlineState.buildId ? 'v' + offlineState.buildId : '当前版本';
+      return '已就绪（' + id + '）';
+    }
+    return '尚未就绪：请联网打开一次本页以完成缓存';
+  }
+
+  function offlineRow() {
+    maybeCheckOffline();
+    return '<div class="switch-row"><div class="sw-txt"><strong>离线版本</strong>' +
+      '<small>' + esc(offlineText()) + '</small></div></div>';
+  }
+
   VIEWS.settings = function () {
     return '<div class="card" style="padding:12px 16px"><div class="small dim">' +
-      '这里的设置会保存在本机，导入 / 导出时会一并带走。</div></div>' + settingsCard();
+      '这里的设置会保存在本机，导入 / 导出时会一并带走。</div></div>' + settingsCard() +
+      '<div class="card"><div class="card-title">离线与更新<span class="card-sub">PWA / 添加到主屏幕时生效</span></div>' +
+      offlineRow() +
+      '<div class="small muted mt6">「已就绪」表示当前版本的页面已经写入离线缓存，' +
+      '断网重开也会看到这一版；显示「尚未就绪」时联网打开一次即可。</div></div>';
   };
 
   reg('set:font', function (el) {

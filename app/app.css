@@ -789,3 +789,6 @@ html[data-fs="xl"] .entry-txt strong, html[data-fs="l"] .entry-txt strong { over
   .tabbar { --tab-h:50px; }
 }
 @media print { .sidebar, .tabbar, .topbar, .toast-wrap { display:none !important; } }
+
+/* 公告左上角的版本标识（2026-10-09：公告随版本号变动） */
+.notice-ver { font-size:.76rem; color:var(--muted); letter-spacing:.02em; margin:0 0 6px; }
