@@ -284,8 +284,13 @@ def render_sw(web: Path) -> str:
     src = read(APP / "sw.js")
     if "__BUILD_ID__" not in src:
         raise SystemExit("!! app/sw.js 缺少 __BUILD_ID__ 占位符，无法注入构建标识")
-    stamp = content_hash([web / "index.html", web / "manifest.webmanifest",
-                          APP / "icons" / "icon.svg"])
+    # 哈希输入必须是**源码**，绝不能拿 dist 产物来算：
+    #   dist/web/index.html 里嵌着 window.__BUILD__（含打包时刻），把它算进哈希的话，
+    #   同一份源码每次打包都会得到不同标识 —— 缓存名每次都变，等于「每次构建都强制用户更新」，
+    #   既丢掉了「内容没变就不该变」的语义，也让「同一份源码连续构建两次标识稳定」无法成立。
+    #   （实测踩过：连续两次 bundle.py，标识从 62aa65ac 变成 28c8cc45。）
+    stamp = content_hash([APP / "index.html", APP / "app.css", APP / "app.js", DATA,
+                          APP / "manifest.webmanifest", APP / "icons" / "icon.svg"])
     out = src.replace("__BUILD_ID__", stamp)
     if "__BUILD_ID__" in out:
         raise SystemExit("!! sw.js 占位符替换后仍有残留")

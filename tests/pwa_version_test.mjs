@@ -179,11 +179,17 @@ if (!fs.existsSync(DIST_SW)) {
   check('产物 sw.js 的 CACHE_NAME 形如 jlx-cache-<12 位十六进制>',
     !!cacheNameMatch && !!idMatch, idMatch ? `jlx-cache-${idMatch[1]}` : '');
 
-  // 稳定性：按 bundle.py 的算法**静态重算**当前内容哈希，与产物里注入的标识比对。
-  //  内容未变 → 标识必然一致；这也顺带验证了 bundle.py 的算法与 Node 复刻一致。
+  // 稳定性：按 bundle.py 的算法**静态重算**内容哈希，与产物里注入的标识比对。
+  //   重算输入必须与 tools/bundle.py 的 render_sw 完全一致：**源码文件**，不含 dist 产物。
+  //   这同时是「构建时间戳没被算进哈希」的守卫 —— 若 bundle.py 改回用 dist/web/index.html
+  //   （它内嵌 window.__BUILD__，含打包时刻），重算结果就与产物标识对不上，本项立刻失败。
+  //   内容未变 → 标识必然一致；这正是「同一份源码重复构建标识稳定」的等价验证。
   const hashInputs = [
-    path.join(ROOT, 'dist', 'web', 'index.html'),
-    path.join(ROOT, 'dist', 'web', 'manifest.webmanifest'),
+    path.join(ROOT, 'app', 'index.html'),
+    path.join(ROOT, 'app', 'app.css'),
+    path.join(ROOT, 'app', 'app.js'),
+    path.join(ROOT, 'data', 'questions.json'),
+    path.join(ROOT, 'app', 'manifest.webmanifest'),
     path.join(ROOT, 'app', 'icons', 'icon.svg')
   ];
   const missing = hashInputs.filter((f) => !fs.existsSync(f));
