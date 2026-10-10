@@ -620,30 +620,26 @@
    */
   var NOTICE = {
     "title": "本次更新",
-    "intro": "合并PR #3的59道题修订；难题584→536道，总题数仍为1531。",
+    "intro": "完成1531题逐题检查，修订114题；参考答案调整12题。",
     "groups": [
-        {
-            "name": "修复",
-            "items": [
-                "校订政治安全、战争根源、混合战争等答案与解析；清理页眉混入、截断和错误错因。",
-                "时事题区分预算申请额与批准额，删除旧答案遗留的增长年数。"
-            ]
-        },
-        {
-            "name": "新增",
-            "items": [
-                "本次复核移出48道明显基础题及其派生题，难题挑战保留536道。"
-            ]
-        },
-        {
-            "name": "说明",
-            "items": [
-                "题目仍保留在完整题库中，原作答、收藏和错题记录保留。",
-                "技术细节、相近概念辨析与论述题继续保留难题标记。"
-            ]
-        }
+      {
+        "name": "修复",
+        "items": [
+          "补回多选漏项，修正军事思想层次、战斧制导和简答答案缺项。",
+          "清除错题解析和错误错因，修复单选重复正确项，补充法规版本与历史时间范围。",
+          "修复存疑提示被打包丢弃、网页依据不显示的问题。"
+        ]
+      },
+      {
+        "name": "说明",
+        "items": [
+          "六道题仍需进一步核查，解析已说明疑点，多选恢复存疑提示。",
+          "题目总数1531、难题536，原有作答、收藏和错题记录保留。",
+          "逐题阅读完成；证据不足的题已另列清单，不将自洽检查当成知识全部正确的证明。"
+        ]
+      }
     ]
-};
+  };
 
   function buildTagTextSafe() {
     try {
@@ -1378,11 +1374,12 @@
   }
 
   /* ---- 解析出处标注----------------------------------------------
-   * explanationSrc: textbook | manual | bank | template（题库 1171/1171 全覆盖）
+   * explanationSrc: textbook | web | manual | bank | template
    *   textbook → 显示教材引用位置 explanationRef
    *   manual   → 显示「已人工校订」小 chip
    *   template → 灰字「本题库未收录直接出处」
-   *   bank / 空 → 不显示任何出处行
+   *   web → 显示网页出处；bank → 有明确出处时标为参考出处，不冒充独立证明
+   *   空 → 不显示任何出处行
    * 纯展示，不影响判分/统计/进度。
    * ------------------------------------------------------------------ */
   var ICO_BOOK = '<svg class="ex-ico" viewBox="0 0 24 24" width="13" height="13" aria-hidden="true">' +
@@ -1390,11 +1387,14 @@
 
   function explainSrcLine(q) {
     var src = q.explanationSrc || '';
-    if (src === 'textbook') {
+    if (src === 'textbook' || src === 'web' || src === 'bank') {
       // 出处文本优先取 explanationRef；的 explanationParts.ref 是它的冗余副本，作兜底
       var parts = q.explanationParts || {};
       var ref = String(q.explanationRef || parts.ref || '').trim();
-      return '<div class="ex-src">' + ICO_BOOK + '<span>依据：' + esc(ref || '教材') + '</span></div>';
+      // 原卷说明可能没有具体引用；网页和已填写的参考出处不能在交付界面静默消失。
+      if (src === 'bank' && !ref) return '';
+      var label = src === 'bank' ? '参考出处：' : '依据：';
+      return '<div class="ex-src">' + ICO_BOOK + '<span>' + label + esc(ref || (src === 'web' ? '网页来源' : '教材')) + '</span></div>';
     }
     if (src === 'manual') {
       var manualRef = q.explanationRef || (q.explanationParts || {}).ref || '';
@@ -1404,7 +1404,7 @@
     if (src === 'template') {
       return '<div class="ex-src muted">本题库未收录直接出处</div>';
     }
-    return '';   // bank / 空值：判断题、填空题自带说明，不再加出处行
+    return '';   // 未提供来源类型时不猜测出处。
   }
 
   /**

@@ -175,8 +175,8 @@ def strip_debug_fields(bank: dict) -> tuple[dict, dict]:
     * `relatedSection`（0 次引用）—— 语料定位信息，前端不显示。
     * `lawCitationIssue` / `lawCitationStatus`（各 0 次引用）—— 法条复核标记，
       前端不显示；结论文字已写在 `explanation` / `note` 里，不丢信息。
-    * `answerUncertain`（前端仅 `q.answerUncertain === true` 一处判定，全库均为
-      false）—— 原「多选答案切分存疑」标记，已随复核解除，删除后界面不变。
+    * `answerUncertain` —— 仅省略非 true 的默认值；true 会驱动生产题卡的
+      存疑提示，必须保留，不能依据某一版题库的全 false 假设永久删除。
     * `explanationParts.ref` —— 与顶层 `explanationRef` 逐字重复，
       前端 `explainSrcLine()` 取 `q.explanationRef || parts.ref`，删掉零影响。
 
@@ -193,9 +193,13 @@ def strip_debug_fields(bank: dict) -> tuple[dict, dict]:
                "answerUncertain": 0, "parts.ref": 0}
     for q in bank.get("questions", []):
         for field in ("raw", "webSourceUrl", "relatedSection",
-                      "lawCitationIssue", "lawCitationStatus", "answerUncertain"):
+                      "lawCitationIssue", "lawCitationStatus"):
             if q.pop(field, None) is not None:
                 removed[field] += 1
+        # 真正的存疑标记参与渲染，只有默认值可以精简。
+        if q.get("answerUncertain") is not True:
+            if q.pop("answerUncertain", None) is not None:
+                removed["answerUncertain"] += 1
         parts = q.get("explanationParts")
         if isinstance(parts, dict) and parts.get("ref") == q.get("explanationRef"):
             parts.pop("ref", None)

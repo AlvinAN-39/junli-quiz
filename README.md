@@ -80,8 +80,7 @@
   并以**徐亮、李隽隽、刘捷 主编．《普通高校军事课教程》［M］．广州：中山大学出版社，2023 年 8 月第 1 版．
   ISBN 978-7-306-07893-3** 为章节框架与答案核校依据（App 首页底部有同一张「参考书目」卡片，
   详细说明见 [docs/03-reference.md](docs/03-reference.md)）。
-- **每题都有解析并标注依据**：有依据 **1514 / 1531** —— 教材原文 794 · 权威网页 404 · 题库自带说明 309 ·
-  人工校订 7；其余如实标注「教材中未收录与该题直接对应的内容」，不硬凑依据。
+- **每题都有解析文字**：来源标签为教材807、网页433、原卷说明268、人工10、模板13。来源标签存在不等于全部知识已核实，详见质量说明。
 - **判断题与填空题是派生题**（300 道）：由「题干恰好含一个空格 + 4 个选项」的单选题自动生成，
   解析里注明原题号，方便回溯核对。
 - **不确定的地方如实标注**：多选题答案在原卷里被排版成连续字母串，区间切分存在固有歧义——
@@ -158,12 +157,12 @@ python tools/make_icons.py   # 可选：重新生成 app/icons 下的 PNG 图标
 | 检查 | 命令（在仓库根执行） | 实测结果 |
 |------|--------------------|---------|
 | 生成产物 | `python tools/bundle.py` | 退出码 0 |
-| **产物体检** | `python tools/verify_app.py` | **31 项：30 通过 / 0 失败 / 1 警告**（缺 Playwright 时浏览器部分降级为 WARN） |
-| **回归套件** | `python -m unittest discover -s tests -t .` | **138 项通过**（数据契约 / 打包器 / 内容质量） |
-| **行为回归** | `node tests/js/app_regression.mjs` | **66 项通过**（练习 / 背题 / 考试会话恢复、错题重做、导入导出、考试计分、答题卡分页） |
-| 解析质量 | `python tools/qa_explanations.py` | 0 阻断项（`tooLong` 19：解析偏长，不影响判分） |
+| **产物体检** | `python tools/verify_app.py` | **本地32项通过**（缺 Playwright 时浏览器部分降级为 WARN） |
+| **回归套件** | `python -m unittest discover -s tests -t .` | **142 项通过**（数据契约 / 打包器 / 内容质量） |
+| **行为回归** | `node tests/js/app_regression.mjs` | **85 项通过**（练习 / 背题 / 考试会话恢复、错题重做、导入导出、考试计分、答题卡分页） |
+| 解析质量 | `python tools/qa_explanations.py` | 0 阻断项（`tooLong` 17：解析偏长，不影响判分） |
 | 解析质量诊断 | `python tools/diag_explanations.py` | 退出码 0 |
-| 存疑盘点 | `python tools/audit_disputed.py` | 3 道待人工确认；**退出码 1 表示「有待处置项」，不是脚本故障** |
+| 存疑盘点 | `python tools/audit_disputed.py` | 2 道多选答案待核，另4道同源题法规名称待补；**退出码 1 表示「有待处置项」，不是脚本故障** |
 | 自洽性复核 | `python tools/audit_selfconsistent.py` | 待处置 0 |
 | 依据相关性独立复核 | `python tools/verify_relevance.py` | 退出码 0 |
 | 多选答案 / 选项冲突 | `python tools/check_multi_answers.py`、`tools/check_answer_conflicts.py` | 退出码 0 |
@@ -180,8 +179,7 @@ python tools/make_icons.py   # 可选：重新生成 app/icons 下的 PNG 图标
    `counts` / `sources` 四个字段，而实际顶层只有 `questions`。这会让独立质检脚本报出两类 P0
    （顶层字段缺失、`counts` 与实际题量不一致），但**对 App 运行没有影响**：前端不读这四个字段，
    `bundle.py` 也只在日志里打印它们。
-2. **题库仍有一处待人工确认**：`tools/audit_disputed.py` 盘点出 3 道题的依据与答案存在出入可能，
-   正在逐条核实（该脚本因此返回退出码 1）。
+2. **六道题仍有明确疑点**：四道同源题缺法规完整名称，两道多选分类依据不足。题面与解析已提示；存疑盘点保留2道多选标记并返回1。全题已逐批阅读，仍有题未完成独立来源证明，不宣称全库答案已保证正确。
 3. **依赖语料的脚本无法开箱运行**：`build/text/`（教材全文）因版权不随仓库发布，因此
    `parse_questions.py`、`gen_explanations.py`、`audit_corpus.py` 等在 clone 后无法直接运行；
    `qa_explanations.py`、`audit_textbook.py` 等在无语料时仍能跑完，但结论范围受限。
@@ -236,3 +234,7 @@ python tools/make_icons.py   # 可选：重新生成 app/icons 下的 PNG 图标
 ### 2026-10-10 PR #3与基础题难度调整
 
 PR #3使用Squash合并，接入59道题的答案与解析修订。复核移出48道基础题及同源派生题，难题584→536；全部1531题及原作答记录保留。保留相近概念辨析、专业细节和论述题。
+
+## 2026-10-10 全题检查与修正
+
+逐批阅读1531题，修订114题，其中12题参考答案调整；同步题干、解析、错因、出处及同源派生题。初始直接或回溯取证通过233题，其余初始记录包含73题问题和1225题证据不足；修正后仍如实保留证据边界。六道明确未决题见上文，详见[质量说明](docs/题目质量与依据说明.md)。总题数1531、难题536，学习记录保留。

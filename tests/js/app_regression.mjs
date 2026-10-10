@@ -612,6 +612,27 @@ const pendingExam = () => JSON.stringify({
   input(h, 'ans:fill', { 'data-i': 0, value: '' });
   check('巡检：清空实时减少考试已答题数', h.elById('exam-answered').textContent === '已答 0/1 题');
 }
+{
+  // 使用生产题卡：网页出处不能消失，原卷参考出处不能冒充独立依据，空引用不造出处。
+  const h = await build(new Map());
+  click(h, 'home:startall');
+  const st = h.J.state;
+  st.settings.shuffleOptions = false;
+  st.settings.explainOpen = true;
+  st.settings.autoNext = false;
+  st.sess.ids = ['q-0145']; st.sess.i = 0;
+  const q = st.byId['q-0145'];
+  q.explanationSrc = 'web'; q.explanationRef = '官方资料<与>&出处';
+  click(h, 'nav:jump', { 'data-i': 0 });
+  click(h, 'ans:pick', { 'data-k': q.qa });
+  check('题库复核：网页出处实际显示并转义', html(h).includes('依据：官方资料&lt;与&gt;&amp;出处'));
+  q.explanationSrc = 'bank'; q.explanationRef = '原卷完整名称待核';
+  click(h, 'nav:jump', { 'data-i': 0 });
+  check('题库复核：原卷说明显示为参考出处', html(h).includes('参考出处：原卷完整名称待核'));
+  q.explanationRef = ''; q.explanationParts.ref = '';
+  click(h, 'nav:jump', { 'data-i': 0 });
+  check('题库复核：原卷无引用时不编造出处', !html(h).includes('class="ex-src"'));
+}
 const failed = checks.filter((c) => !c.ok);
 console.log(JSON.stringify({ suite: 'app_regression', pass: checks.length - failed.length, fail: failed.length, checks }, null, 1));
 process.exit(failed.length ? 1 : 0);

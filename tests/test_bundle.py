@@ -57,6 +57,15 @@ class TestSafeInline(unittest.TestCase):
 
 
 class TestStripDebugFields(unittest.TestCase):
+    def test_preserves_uncertainty_needed_by_question_card(self):
+        # 已确认无疑点可以省略；真实存疑必须进入交付题库，否则生产题卡不会提示。
+        source = self.crafted()
+        source["questions"][1]["answerUncertain"] = True
+        bank, removed = bundle.strip_debug_fields(source)
+        self.assertIs(bank["questions"][1].get("answerUncertain"), True)
+        self.assertNotIn("answerUncertain", bank["questions"][0])
+        self.assertEqual(removed["answerUncertain"], 1)
+
     @staticmethod
     def crafted():
         return {
