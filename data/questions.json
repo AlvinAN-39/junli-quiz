@@ -268,7 +268,7 @@
     "reason": "㈢现代国防：新中国成立以来的国防建设分为四个阶段"
    },
    "relatedSection": "边海防建设",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH01_S01_U03",
    "sectionName": "MT_CH01_S01"
   },
@@ -506,7 +506,7 @@
     "reason": "因此，捍卫主权是国防根本的目的和任务",
     "ref": "教材《普通高校军事课教程》·中国国防"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH01_S01_U01",
    "sectionName": "MT_CH01_S01"
   },
@@ -817,7 +817,7 @@
     "ref": "教材《普通高校军事课教程》·中国国防"
    },
    "relatedSection": "兵役制度",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH01_S01_U03",
    "sectionName": "MT_CH01_S01"
   },
@@ -898,7 +898,7 @@
     "ref": "教材《普通高校军事课教程》·中国国防"
    },
    "relatedSection": "兵役制度",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH01_S01_U03",
    "sectionName": "MT_CH01_S01"
   },
@@ -975,7 +975,7 @@
     "reason": "《中华人民共和国国防教育法》(以下简称 《国防教育法》) 于2001年4月28日由第九届全国人民代表大会常务委员会第二十一次会议通过并实施；2018年4月27日第十三届全国人民代表大会常务委员会第二次会议对其做出修改",
     "ref": "教材《普通高校军事课教程》·中国国防"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH01_S02_U01",
    "sectionName": "MT_CH01_S02"
   },
@@ -1015,7 +1015,7 @@
     "note": "待核查：参考答案暂保留原卷，不能作为已确认的法规结论。",
     "answer": "B、国务院、中央军委"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH01_S02_U01",
    "sectionName": "MT_CH01_S02"
   },
@@ -1053,7 +1053,7 @@
     "answer": "C、第三个星期六"
    },
    "webSourceUrl": "https://www.mod.gov.cn/gfbw/fgwx/16338253.html",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH01_S02_U01",
    "sectionName": "MT_CH01_S02"
   },
@@ -1090,7 +1090,7 @@
     "reason": "《中华人民共和国国防法》 (以下简称 《国防法》) 于1997年3月14日由中华人民共和国第八届全国人民代表大会第五次会议审议通过并实施，2020年12月26日中华人民共和国第十三届全国人民代表大会常务委员会第二十四次会议对其进行了修订",
     "ref": "教材《普通高校军事课教程》·中国国防"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -1128,7 +1128,7 @@
     "reason": "《普通高等学校军事课教学大纲》（教体艺〔2019〕1号）规定军事课“为实施军民融合发展战略和建设国防后备力量服务”，课程目标是增强国防观念、国家安全意识和忧患危机意识、提高学生综合国防素质，学生军训的意义在于履行兵役义务、加强国防后备力量建设和提高学生素质，而非“准备战争”"
    },
    "webSourceUrl": "https://www.gov.cn/zhengce/zhengceku/2019-10/23/content_5443949.htm",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S02_U02",
    "sectionName": "MT_CH01_S02"
   },
@@ -1449,7 +1449,7 @@
     "ref": "教材《普通高校军事课教程》·我国的国防政策",
     "answer": "A、防御性国防政策"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH01_S03_U03",
    "sectionName": "MT_CH01_S03"
   },
@@ -1602,7 +1602,7 @@
     "ref": "教材《普通高校军事课教程》·军事思想"
    },
    "relatedSection": "人民军队的性质",
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -1719,7 +1719,7 @@
     "reason": "《国防法》第十二条规定全国人民代表大会常务委员会“决定战争状态的宣布”；第十三条规定“中华人民共和国主席根据全国人民代表大会的决定和全国人民代表大会常务委员会的决定，宣布战争状态，发布动员令”。因此有权宣布（战争状态）的是国家主席"
    },
    "webSourceUrl": "http://www.furong.gov.cn/affairs/xxgk/gov1/tyjrsw/docs/202102/t20210205_9771148.html",
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -1798,7 +1798,7 @@
     "ref": "教材《普通高校军事课教程》·中国国防"
    },
    "relatedSection": "全国人民代表大会的国防职权",
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -1877,7 +1877,7 @@
     "reason": "中国人民解放军海军主要由水面舰艇部队、潜艇部队、海军航空兵、海军岸防部队、海军陆战队等兵种和各专业勤务部队组成",
     "ref": "教材《普通高校军事课教程》·中国国防"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH01_S04_U01",
    "sectionName": "MT_CH01_S04"
   },
@@ -1918,7 +1918,7 @@
     "reason": "中国人民解放军空军由航空兵、地空导弹兵、高射炮兵、空降兵、雷达兵、电子对抗兵、通信兵等兵种和其他专业勤务部队组成，担负着维护国家主权、保卫祖国领空安全的重大使命，还负有抢险救灾、参加国家社会主义建设的任务",
     "ref": "教材《普通高校军事课教程》·中国国防"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH01_S04_U01",
    "sectionName": "MT_CH01_S04"
   },
@@ -2003,7 +2003,7 @@
     "answer": "D、公务员"
    },
    "relatedSection": "武装力量体制",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S04_U02",
    "sectionName": "MT_CH01_S04"
   },
@@ -2044,7 +2044,7 @@
     "reason": "教材“武装警察部队的体制”载明：武警部队“在北京设立总部，在各省（自治区、直辖市）设立总队，在地区（市、州、盟）设立支队……即编制序列为总部、总队、支队、大队、中队”，其中“武警总部是中国人民武装警察部队的最高领导机关”，总队、支队设领导机关，大队、中队为基层，故领导机关为总部、总队、支队三级"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=83460695&knowledgeId=83460729&nohead=1",
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -2085,7 +2085,7 @@
     "reason": "武警部队是中华人民共和国武装力量的重要组成部分，自2018年1月1日起，武警部队由党中央、中央军委集中统一领导，实行中央军委—武警部队—部队领导指挥体制"
    },
    "relatedSection": "武装力量体制",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S04_U02",
    "sectionName": "MT_CH01_S04"
   },
@@ -2209,7 +2209,7 @@
     "reason": "《国防法》第二十二条规定：“中国人民武装警察部队担负执勤、处置突发社会安全事件、防范和处置恐怖活动、海上维权执法、抢险救援和防卫作战以及中央军事委员会赋予的其他任务。”即防范和处置恐怖活动（含处置恐怖袭击事件）属于武警部队主要职能任务"
    },
    "webSourceUrl": "http://www.furong.gov.cn/affairs/xxgk/gov1/tyjrsw/docs/202102/t20210205_9771148.html",
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -2290,7 +2290,7 @@
     "answer": "A、基干民兵"
    },
    "relatedSection": "参加学生军事训练",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH01_S04_U03",
    "sectionName": "MT_CH01_S04",
    "webSourceUrl": "https://jjjcz.mee.gov.cn/djfg/gjflfg/fl/199812/t19981201_444218.html"
@@ -2338,7 +2338,7 @@
   {
    "id": "q-0060",
    "type": "single",
-   "stem": "____成立了国家国防动员委员会。",
+   "stem": "国家国防动员委员会成立于____。",
    "options": [
     "1994年11月",
     "2001年10月",
@@ -2368,7 +2368,7 @@
     "answer": "A、1994年11月",
     "reason": "1994年11月，国务院、中央军委决定成立国家国防动员委员会。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH01_S03_U04",
    "sectionName": "MT_CH01_S03"
   },
@@ -2524,7 +2524,7 @@
     "answer": "A、B（阶级；国家）",
     "reason": "第一节国防概述国防是一个历史概念，随着阶级和国家的产生而产生"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH01_S01_U00",
    "sectionName": "MT_CH01_S01"
   },
@@ -2567,7 +2567,7 @@
    "webSourceUrl": "http://www.furong.gov.cn/affairs/xxgk/gov1/tyjrsw/docs/202102/t20210205_9771148.html",
    "lawCitationIssue": "unsupported",
    "lawCitationStatus": "已复核并注明正确条文",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S01_U01",
    "sectionName": "MT_CH01_S01"
   },
@@ -2611,7 +2611,7 @@
     "reason": "上海交通大学钱学森图书馆资料明确记载“‘两弹一星’最初是指原子弹、导弹和人造卫星”，即核弹（原子弹）、导弹、人造卫星，不包括化学弹"
    },
    "webSourceUrl": "http://www.qianxslib.sjtu.edu.cn/tess//upload/1431265467_Z4V.pdf",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S01_U03",
    "sectionName": "MT_CH01_S01"
   },
@@ -2651,7 +2651,7 @@
     "answer": "B、C、D（军事技术的落后；武器装备的落后；经济的落后）",
     "reason": "国防历史表明，“落后就要挨打”，这里的“落后”，除了指政治、经济的落后，还包括军事技术和武器装备的落后"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S01_U04",
    "sectionName": "MT_CH01_S01"
   },
@@ -2807,7 +2807,7 @@
     "reason": "《国防法》第二条规定国防是“国家为防备和抵抗侵略，制止武装颠覆和分裂，保卫国家主权、统一、领土完整、安全和发展利益所进行的军事活动，以及与军事有关的政治、经济、外交、科技、教育等方面的活动”，故国防手段包括与军事有关的政治、经济、外交、教育等方面的活动"
    },
    "webSourceUrl": "http://www.furong.gov.cn/affairs/xxgk/gov1/tyjrsw/docs/202102/t20210205_9771148.html",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S01_U01",
    "sectionName": "MT_CH01_S01"
   },
@@ -2848,7 +2848,7 @@
     "answer": "A、B、C（经济发展是国防强大的基础；政治开明是国防巩固的根本；国家的统一和民族的团结是国防强大的关键。）",
     "reason": "中国国防历史的启示（P12）㈠经济发展是国防强大的基础㈡政治开明是国防巩固的根本㈢国家统一和民族团结是国防强大的关键㈣先进的科学技术是国防强大的重要保证五、现代国防的基本特征（P13）现代国防是对传统国防的继承和发展，是在综合国力的基础上。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S01_U04",
    "sectionName": "MT_CH01_S01"
   },
@@ -2889,7 +2889,7 @@
    },
    "relatedSection": "注记的规定",
    "webSourceUrl": "http://www.furong.gov.cn/affairs/xxgk/gov1/tyjrsw/docs/202102/t20210205_9771148.html",
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -2931,7 +2931,7 @@
     "note": "来源：《中华人民共和国国防法》（2020年修订）第五十三条、第五十五条、第五十六条"
    },
    "webSourceUrl": "http://www.furong.gov.cn/affairs/xxgk/gov1/tyjrsw/docs/202102/t20210205_9771148.html",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S02_U02",
    "sectionName": "MT_CH01_S02"
   },
@@ -2972,7 +2972,7 @@
     "reason": "《国防动员法》均为全国人大常委会制定的国防领域专门法律（军事课教学大纲即依据《国防法》《兵役法》等制订），而《民法典》是调整民事关系的民事法律，不属于国防法律"
    },
    "webSourceUrl": "https://www.gov.cn/zhengce/zhengceku/2019-10/23/content_5443949.htm",
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -3014,7 +3014,7 @@
     "reason": "《国防教育法》第二条规定国防教育是“与国防和军队建设有关的理论、知识、技能以及科技、法律、心理等方面的国防教育”；第三条规定其目的是使公民“增强国防观念、强化忧患意识、掌握国防知识、提高国防技能，依法履行国防义务”，涵盖国防理论、国防精神、国防知识和战备形势教育"
    },
    "webSourceUrl": "https://www.spp.gov.cn/spp/tt/202409/t20240913_666071.shtml",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S02_U02",
    "sectionName": "MT_CH01_S02"
   },
@@ -3096,7 +3096,7 @@
     "reason": "《国防法》第二条规定“国家为防备和抵抗侵略，制止武装颠覆和分裂，保卫国家主权、统一、领土完整、安全和发展利益所进行的军事活动，以及与军事有关的政治、经济、外交、科技、教育等方面的活动，适用本法”，与A、B、C、D四项表述一致"
    },
    "webSourceUrl": "http://www.furong.gov.cn/affairs/xxgk/gov1/tyjrsw/docs/202102/t20210205_9771148.html",
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -3177,7 +3177,7 @@
     "reason": "超星《大学生军事理论与技能训练教程》第二节国防法规「（二）国防法规体系的内容」原文：『在横向关系上，依据国防活动的领域，可以将国防法律规范划分为若干个方面的内容，也就是若干方面的国防法律制度，主要包括国防领导、武装力量建设、国防建设事业、军事刑事等方面的制度。』随后分列1.国防领导方面的法律制度2.武装力量建设方面的法律制度3.国防建设事业与相关活动方面的法律制度4.军事刑事方面的法律制度。原文明确为四个方面，A国防领导亦属其中"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=82439650&knowledgeId=82439655",
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -3217,7 +3217,7 @@
     "ref": "教材《普通高校军事课教程》·中国国防"
    },
    "relatedSection": "武装力量体制",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S04_U02",
    "sectionName": "MT_CH01_S04"
   },
@@ -3261,7 +3261,7 @@
    },
    "relatedSection": "兵役制度",
    "webSourceUrl": "https://jjjcz.mee.gov.cn/djfg/gjflfg/fl/201110/t20111001_444436.html",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH01_S04_U03",
    "sectionName": "MT_CH01_S04"
   },
@@ -3304,7 +3304,7 @@
     "note": "来源：中国军网（来源：国防部网）《信息支援部队是全新打造的战略性兵种》；该页确认信息支援部队为新型军兵种结构布局中的战略性兵种；四个兵种并列的完整表述见国防部2024年4月19日记者会答问。"
    },
    "webSourceUrl": "http://www.81.cn/fyr/16302064.html",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S04_U01",
    "sectionName": "MT_CH01_S04"
   },
@@ -3380,7 +3380,7 @@
     "reason": "国务院新闻办《2004年中国的国防》白皮书“国防动员”部分将国民经济动员界定为工业、农业、交通运输、邮电通信、科技、医疗卫生、城市建设、商业贸易、财政金融等领域的动员，即财政金融动员、医疗卫生动员、工业动员均属国民经济动员"
    },
    "webSourceUrl": "https://www.cctv.cn/news/china/20041227/100656_3.shtml",
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -3500,7 +3500,7 @@
     "note": "本题库收录的是原卷参考答案要点，见下方",
     "reason": "经过数千年发展，国防的范畴已从一城一池的防卫转向内涵丰富、手段多样、范畴广泛、体系完善的“大国防”一、国防的内涵（P4）国防是国家为防备和抵抗外来侵略，制止武装颠覆。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH01_S01",
    "sectionName": "MT_CH01_S01"
   },
@@ -3561,7 +3561,7 @@
    "webSourceUrl": "http://www.furong.gov.cn/affairs/xxgk/gov1/tyjrsw/docs/202102/t20210205_9771148.html",
    "lawCitationIssue": "wrong_article",
    "lawCitationStatus": "已复核并注明正确条文",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH01_S02",
    "sectionName": "MT_CH01_S02"
   },
@@ -3592,7 +3592,7 @@
     "reason": "《国防法》第五十七条规定公民和组织有对国防建设提出建议的权利、对危害国防利益的行为进行制止或者检举的权利；第五十八条规定因国防建设和军事活动在经济上受到直接损失的可以依照国家有关规定获得补偿。履行兵役义务的途径为服现役、服预备役和参加学生军事训练；《普通高等学校军事课教学大纲》规定《军事理论》36学时记2学分，《军事技能》训练2—3周、实际训练不少于14天112学时、记2学分"
    },
    "webSourceUrl": "https://www.gov.cn/zhengce/zhengceku/2019-10/23/content_5443949.htm",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH01_S02",
    "sectionName": "MT_CH01_S02"
   },
@@ -3620,7 +3620,7 @@
     "reason": "㈢现代国防：新中国成立以来的国防建设分为四个阶段"
    },
    "relatedSection": "边海防建设",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH01_S03",
    "sectionName": "MT_CH01_S03"
   },
@@ -3651,7 +3651,7 @@
     "reason": "㈡军种及兵种概况⒈陆军：解放军最早建立和领导的武装力量，由步兵、装甲兵、炮兵、防空兵、陆军航空兵、工程兵、防化兵、通信兵等专业兵种组成"
    },
    "relatedSection": "武装力量体制",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH01_S04",
    "sectionName": "MT_CH01_S04"
   },
@@ -3704,7 +3704,7 @@
     "note": "本题库收录的是原卷参考答案要点，见下方",
     "reason": "㈣交通动员㈤装备动员㈥信息动员：信息资源是信息化战争的重要物质基础，信息动员成为整个国防动员的制高点，主要包括信息基础设施动员、信息情报资源动员、信息专业力量动员和信息产业动员"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH01_S05",
    "sectionName": "MT_CH01_S05"
   },
@@ -4090,7 +4090,7 @@
     "reason": "我国地缘环境概况（P52）我国陆地领土面积约960万平方千米，居世界第三位；陆地边界.2万多千米，与14个国家陆地接壤（蒙古、俄罗斯、朝鲜、越南、老挝、缅甸、尼泊尔、不丹、印度、巴基斯坦、阿富汗、塔吉克斯坦、吉尔吉斯斯坦、哈萨克斯坦）。",
     "ref": "教材《普通高校军事课教程》·国家安全"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH02_S02_U01",
    "sectionName": "MT_CH02_S02"
   },
@@ -4170,7 +4170,7 @@
     "reason": "广西壮族自治区海洋局网站文章载：“很多人耳熟能详的是我国拥有960万平方公里的国土，却往往忽略了300万平方公里的主张管辖海域。”即我国主张管辖的海洋国土面积约为300万平方千米"
    },
    "webSourceUrl": "http://hyj.gxzf.gov.cn/gzdt/mtgc_66843/t3190916.shtml",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH02_S02_U01",
    "sectionName": "MT_CH02_S02"
   },
@@ -4284,7 +4284,7 @@
     "reason": "在2022年《美国国家安全战略报告》中，拜登政府将中国列为意图重塑国际秩序的唯一竞争对手，也是重塑国际秩序的经济、外交、军事和技术力量的唯一竞争对手",
     "ref": "教材《普通高校军事课教程》·国家安全"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH02_S02_U02",
    "sectionName": "MT_CH02_S02"
   },
@@ -4479,7 +4479,7 @@
    },
    "relatedSection": "五大要素",
    "webSourceUrl": "https://file.henan.gov.cn/4500000010/2019-04-18/1555558915399Nugf25JR.pdf",
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -4519,7 +4519,7 @@
     "reason": "2001年上海合作组织成立时，六国元首在上海签署《打击恐怖主义、分裂主义和极端主义上海公约》，即成员国相继批准打击恐怖主义、分裂主义、极端主义“三股势力”的公约"
    },
    "webSourceUrl": "https://www.gov.cn/gongbao/content/2004/content_62856.htm",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH02_S02_U03",
    "sectionName": "MT_CH02_S02"
   },
@@ -4563,7 +4563,7 @@
     "reason": "非传统安全问题主要指经济安全、生态环境安全、恐怖主义、跨国犯罪、信息安全等领域的威胁，军事冲突属于传统安全范畴，故A、B、D为非传统安全问题"
    },
    "webSourceUrl": "https://jgk.ccps.gov.cn/item/itemDetail/download/8539/8014.shtml",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH02_S02_U05",
    "sectionName": "MT_CH02_S02"
   },
@@ -4602,14 +4602,14 @@
     "reason": "我国需要长期和平、稳定的周边环境，把同周边国家发展睦邻友好关系作为既定国策，积极参与构建地区安全体制，营造良好的周边安全环境",
     "note": "本题答案为原卷答案串解析所得，已按教材/来源核对"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH02_S02_U03",
    "sectionName": "MT_CH02_S02"
   },
   {
    "id": "q-0120",
    "type": "multi",
-   "stem": "以下哪个国家属于与我国陆地接壤？",
+   "stem": "以下哪些国家与我国陆地接壤？",
    "options": [
     "日本",
     "俄罗斯",
@@ -4646,7 +4646,7 @@
     "reason": "中国政府网《中华人民共和国版图》载明：中国“东北邻俄罗斯，西北邻哈萨克斯坦、吉尔吉斯斯坦、塔吉克斯坦，西和西南与阿富汗、巴基斯坦、印度、尼泊尔、不丹等国家接壤”，俄罗斯、不丹、哈萨克斯坦均为陆上邻国，日本则与我国隔海相望而非陆地接壤"
    },
    "webSourceUrl": "https://www.gov.cn/guoqing/2005-06/15/content_2615215.html",
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -4691,7 +4691,7 @@
    },
    "relatedSection": "五大要素",
    "webSourceUrl": "https://gaoxinqu.weinan.gov.cn/ztzl/qmgjaqjyr/1666341346243493889.html",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH02_S02_U05",
    "sectionName": "MT_CH02_S02"
   },
@@ -4731,7 +4731,7 @@
     "answer": "A、B、C、D（泰国；新加坡；柬埔寨；孟加拉）",
     "note": "本题库未收录与该题直接对应的教材或权威来源内容，答案依据原卷给出；本题答案为原卷答案串解析所得，已按教材/来源核对"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH02_S02_U01",
    "sectionName": "MT_CH02_S02"
   },
@@ -4772,7 +4772,7 @@
     "ref": "教材《普通高校军事课教程》·国家安全"
    },
    "relatedSection": "五大要素",
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": "",
    "distractorWhy": {
@@ -4816,7 +4816,7 @@
     "reason": "海外利益安全主要涉及海外中国公民和法人安全、海外能源资源安全、海上战略通道安全以及海外市场安全等，A、B、C均属其内容"
    },
    "webSourceUrl": "https://www.studytimes.cn/xytd/202210/t20221023_53340.html",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH02_S02_U05",
    "sectionName": "MT_CH02_S02"
   },
@@ -4856,7 +4856,7 @@
     "answer": "A、B、C、D（技术缺陷；网络黑客；电脑病毒；信息污染）",
     "note": "本题库未收录与该题直接对应的教材或权威来源内容，答案依据原卷给出；本题答案为原卷答案串解析所得，已按教材/来源核对"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH02_S02_U05",
    "sectionName": "MT_CH02_S02"
   },
@@ -4894,7 +4894,7 @@
     "reason": "中国政府网《中华人民共和国版图》载明：“东部和东南部同韩国、日本、菲律宾、文莱、马来西亚、印度尼西亚隔海相望”，即六个隔海相望国家中包含菲律宾和印度尼西亚"
    },
    "webSourceUrl": "https://www.gov.cn/guoqing/2005-06/15/content_2615215.html",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH02_S02_U01",
    "sectionName": "MT_CH02_S02"
   },
@@ -4937,7 +4937,7 @@
     "reason": "只有站在时代的高度，从各主要国家或政治集团的战略利益关系入手，较系统地考察一个时期内国际战略格局的状况和国际战略形势的发展趋势，综合分析影响国家安全和发展的各种国际化条件，判明本国遭受威慑的可能、方向、性质和程度，才能提出正确的战略对策",
     "note": "本题答案为原卷答案串解析所得，已按教材/来源核对"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH02_S03_U00",
    "sectionName": "MT_CH02_S03"
   },
@@ -5174,7 +5174,7 @@
     "reason": "《新时代的中国国防》白皮书指出，中国周边安全形势总体稳定，同时面临地缘安全环境复杂、部分国家强化军事同盟、周边热点问题与海洋权益争端、外部势力干涉台湾问题等不稳定因素，并强调中国坚持“与邻为善、以邻为伴”的周边外交方针"
    },
    "webSourceUrl": "https://ex.chinadaily.com.cn/exchange/partners/82/rss/channel/language/columns/v0m20b/stories/WS5d37f2aea310d83056400bef.html",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH02_S02",
    "sectionName": "MT_CH02_S02"
   },
@@ -5211,14 +5211,14 @@
    "type": "short",
    "stem": "我国周边主要国家的战略动向是什么？",
    "options": [],
-   "answer": "①美国以“遏制战略”应对崛起大国。美国现役部队规模约140万人，2025财年国防预算高达8952亿美元、占全球军费总额的40%，拥有374个海外基地、控制16条全球海域咽喉要道，其战略框架从“亚太再平衡”“印太战略” 演变为“一体化威慑”战略，核心目标依然是应对中国的“反介入/区域拒止”能力，并强化美日印澳“四方安全对话” 等联盟体系。②俄罗斯紧握“撒手锏”、彰显大国地位。俄罗斯武装力量由陆军、海军、空天军三大军种和空降兵、战略导弹兵两个独立兵种组成，将战略核力量和常规力量作为实现军事战略目标的主要军事手段，加快战略核力量现代化，成功研发第五代战斗机苏-57，加速部署“匕首”“锆石” 高超音速导弹，以强大核力量和常备力量遏止北约压缩其战略空间。③日本借美国“重返亚太”打造“军事强国” 。日本防卫预算连续12年增长，在2022年版《国家安全保障战略》中首次提出发展“反击能力” ，在2024年版《防卫白皮书》中删除“专守防卫”表述、明确“主动先制”原则，强化西南诸岛军事存在，采购美制“战斧” 巡航导弹，其核心目标是实现“正常国家”化。④印度突出“惩戒威慑”、提升军事实力。印度现役总兵力约140万人，军事战略实现从陆上战略向海洋战略、从常规战略向核战略、从消极防御向“攻势防御” 的重大转变，2024年成功试射多弹头“烈火-5”导弹，核打击能力显著提升。",
-   "explanation": "世界其他主要国家的军事力量与战略动向（P80）“冷战”结束后世界军事力量的总体规模呈减小趋势，但多数国家军队的质量水平仍在不断提高，加强军事力量仍是各国争夺多极化格局中重要地位的战略筹码",
+   "answer": "①美国以“遏制战略”应对崛起大国。美国现役部队规模约140万人，2025财年国家防务预算申请约8952亿美元，拥有374个海外基地、控制16条全球海域咽喉要道，其战略框架从“亚太再平衡”“印太战略” 演变为“一体化威慑”战略，核心目标依然是应对中国的“反介入/区域拒止”能力，并强化美日印澳“四方安全对话” 等联盟体系。②俄罗斯紧握“撒手锏”、彰显大国地位。俄罗斯武装力量由陆军、海军、空天军三大军种和空降兵、战略导弹兵两个独立兵种组成，将战略核力量和常规力量作为实现军事战略目标的主要军事手段，加快战略核力量现代化，成功研发第五代战斗机苏-57，加速部署“匕首”“锆石” 高超音速导弹，以强大核力量和常备力量遏止北约压缩其战略空间。③日本借美国“重返亚太”打造“军事强国” 。日本防卫预算连续12年增长，在2022年版《国家安全保障战略》中首次提出发展“反击能力” ，2024年版《防卫白皮书》仍将“专守防卫”列为基本政策，同时推进反击能力建设，强化西南诸岛军事存在，采购美制“战斧” 巡航导弹，其核心目标是实现“正常国家”化。④印度突出“惩戒威慑”、提升军事实力。印度现役总兵力约140万人，军事战略实现从陆上战略向海洋战略、从常规战略向核战略、从消极防御向“攻势防御” 的重大转变，2024年成功试射多弹头“烈火-5”导弹，核打击能力显著提升。",
+   "explanation": "日本防卫省2024年白皮书仍列有专守防卫章节，不能将政策实质的分析写成官方已删除该表述的事实。美国财政年度预算申请与日历年度全球军事支出是不同口径，不能直接拼接全球占比40%。\n依据：日本防卫省2024年《防卫白皮书》基本政策：https://www.mod.go.jp/j/press/wp/wp2024/html/n210203000.html\n提示：预算口径另见美国CBO https://www.cbo.gov/publication/61017 。保留其他原卷分析，374个海外基地等统计未取得同口径证明，不当作当前已核实数字；不盲换报告中的33%。",
    "source": "真题",
    "chapter": "第二章国家安全",
    "section": "论述题",
    "raw": "40.我国周边主要国家的战略动向是什么？",
-   "explanationSrc": "bank",
-   "explanationRef": "",
+   "explanationSrc": "web",
+   "explanationRef": "日本防卫省2024年《防卫白皮书》基本政策：https://www.mod.go.jp/j/press/wp/wp2024/html/n210203000.html",
    "keyConcept": "我国周边主要国家的战略动向",
    "keywords": [
     "我国周边主要",
@@ -5228,11 +5228,14 @@
     "略动向是什么"
    ],
    "explanationParts": {
-    "reason": "世界其他主要国家的军事力量与战略动向（P80）“冷战”结束后世界军事力量的总体规模呈减小趋势，但多数国家军队的质量水平仍在不断提高，加强军事力量仍是各国争夺多极化格局中重要地位的战略筹码"
+    "reason": "日本防卫省2024年白皮书仍列有专守防卫章节，不能将政策实质的分析写成官方已删除该表述的事实。美国财政年度预算申请与日历年度全球军事支出是不同口径，不能直接拼接全球占比40%。",
+    "ref": "日本防卫省2024年《防卫白皮书》基本政策：https://www.mod.go.jp/j/press/wp/wp2024/html/n210203000.html",
+    "note": "预算口径另见美国CBO https://www.cbo.gov/publication/61017 。保留其他原卷分析，374个海外基地等统计未取得同口径证明，不当作当前已核实数字；不盲换报告中的33%。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH02_S03",
-   "sectionName": "MT_CH02_S03"
+   "sectionName": "MT_CH02_S03",
+   "webSourceUrl": "https://www.mod.go.jp/j/press/wp/wp2024/html/n210203000.html"
   },
   {
    "id": "q-0137",
@@ -5291,7 +5294,7 @@
     "reason": "当今世界正经历百年未有之大变局，“一超多强”并立、多极化深入发展。我国安全形势总体稳定并朝着有利方向发展，但美国对华战略遏制的根本态势没有改变，大国博弈明显加剧；朝鲜半岛、中印边界、南海与东海等周边热点和地缘摩擦仍在；民族分裂势力、国际恐怖势力和宗教极端势力“三股势力”合流渗透，生态、信息、生物安全等非传统安全威胁上升；外部势力干涉台湾问题、干扰祖国统一大业。",
     "ref": "教材《普通高校军事课教程》·国家安全"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH02_S02",
    "sectionName": "MT_CH02_S02"
   },
@@ -5525,7 +5528,7 @@
     "ref": "教材《普通高校军事课教程》·军事思想的内容（语料第861行）",
     "answer": "D、军事实践基本指导原则"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S01_U01",
    "sectionName": "MT_CH03_S01"
   },
@@ -5883,7 +5886,7 @@
     "ref": "教材《普通高校军事课教程》·军事思想"
    },
    "relatedSection": "五大要素",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S02_U03",
    "sectionName": "MT_CH03_S02"
   },
@@ -6076,7 +6079,7 @@
     "reason": "英国军事理论家富勒、利德尔•哈特、法国军事理论家戴高乐、德国军事理论家古德里安等人提出了机械化战争论，认为高度装甲化、机械化的机动突击力量是战争制胜的决定性手段",
     "ref": "教材《普通高校军事课教程》·军事思想"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -6238,7 +6241,7 @@
     "answer": "C、谋求和平",
     "note": "本题库未收录与该题直接对应的教材或权威来源内容，答案依据原卷给出"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -6275,7 +6278,7 @@
     "reason": "资产阶级军事思想形成于17世纪中叶至19世纪中叶，代表人物及其著作主要有俄国苏沃洛夫的《制胜的科学》、瑞士若米尼的《战争艺术概论》、普鲁士克劳塞维茨的《战争论》和比洛的《新战术》《最新战法要旨》、法",
     "ref": "教材《普通高校军事课教程》·军事思想"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S02_U01",
    "sectionName": "MT_CH03_S02"
   },
@@ -6467,7 +6470,7 @@
     "reason": "战争与政治《孙子兵法》指出，“善用兵者，修道而保法，故能为胜败之政”",
     "ref": "教材《普通高校军事课教程》·军事思想"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S03_U02",
    "sectionName": "MT_CH03_S03"
   },
@@ -6543,7 +6546,7 @@
     "reason": "《尉缭子》指出，“兵者，以武为植，以文为种；武为表，文为里”",
     "ref": "教材《普通高校军事课教程》·军事思想"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S03_U02",
    "sectionName": "MT_CH03_S03"
   },
@@ -6775,7 +6778,7 @@
     "reason": "学习时报《〈孙子兵法〉言战更言“慎战”》指出：《孙子兵法》始计篇中“孙武提纲挈领指出应对道、天、地、将、法五事进行‘庙算’，认为多算胜，少算不胜”，即“庙算”是孙子强调人的主观谋划作用的重要概念，与“诡道”（兵不厌诈）同属重视主观能动性的思想"
    },
    "webSourceUrl": "https://www.studytimes.cn/wscy/202311/t20231127_62324.html",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S03_U03",
    "sectionName": "MT_CH03_S03"
   },
@@ -6855,7 +6858,7 @@
     "reason": "权威表述为军队建设要实现“由数量规模型向质量效能型、由人力密集型向科技密集型转变”，与题目答案“质量效能型”一致"
    },
    "webSourceUrl": "http://dangjian.people.com.cn/n1/2017/0911/c117092-29527935.html",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S04_U05",
    "sectionName": "MT_CH03_S04"
   },
@@ -6976,7 +6979,7 @@
    },
    "relatedSection": "实行积极防御",
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/nodedetailcontroller/visitnodedetail?courseId=209616365&knowledgeId=270222024",
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -7439,7 +7442,7 @@
     "reason": "教材“按照‘五句话’总要求全面加强军队建设”原文：“江泽民提出，军队建设的总要求是‘政治合格、军事过硬、作风优良、纪律严明、保障有力’。”故空缺处为“保障有力”"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/nodedetailcontroller/visitnodedetail?courseId=209616365&knowledgeId=270222024",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S04_U03",
    "sectionName": "MT_CH03_S04"
   },
@@ -7476,7 +7479,7 @@
     "reason": "教材载“毛泽东军事思想萌芽于土地革命战争前期，形成于土地革命战争后期和抗日战争时期，成熟于解放战争时期”，《论持久战》为抗日战争时期的代表作，而《将革命进行到底》《目前的形势和我们的任务》均为解放战争时期文献，故属形成时期代表作的是《论持久战》"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/nodedetailcontroller/visitnodedetail?courseId=209616365&knowledgeId=270222024",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S04_U01",
    "sectionName": "MT_CH03_S04"
   },
@@ -7551,7 +7554,7 @@
     "reason": "国防教育网“军事思想”栏目介绍：军事思想是关于战争、军队和国防基本问题的理性认识，内容涵盖战争观与方法论、战争指导思想（作战指导思想）、军队建设思想（基本方针原则）以及国防建设思想等，与A、B、C、D四项吻合"
    },
    "webSourceUrl": "https://gfjyw.ncst.edu.cn/col/1423098514946/2017/10/01/1507724892645.html",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH03_S01_U01",
    "sectionName": "MT_CH03_S01"
   },
@@ -7594,7 +7597,7 @@
     "ref": "教材《普通高校军事课教程》·军事思想",
     "note": "本题答案已按依据复核确认；本题答案已经逐题复核确认"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH03_S01_U01",
    "sectionName": "MT_CH03_S01"
   },
@@ -7634,7 +7637,7 @@
     "reason": "按地域和国家划分，可分为外国军事思想和中国军事思想；按时代划分，可分为古代军事思想、近代军事思想和现代军事思想；按阶级性质划分，可分为奴隶主阶级军事思想、封建地主阶级军事思想、资产阶级军事思想和无产阶级军事思想等",
     "ref": "教材《普通高校军事课教程》·国家安全"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH03_S01_U01",
    "sectionName": "MT_CH03_S01"
   },
@@ -7675,7 +7678,7 @@
     "reason": "教材“军事思想的基本概念”载：军事思想“是关于战争、军队和国防的基本问题的理性认识”（A）；内容分两个层次——军事哲学问题（战争观、军事问题的认识论和方法论）与军事实践基本指导原则问题（战争指导、军队建设、国防建设的基本方针和原则）（B）；“主要来源于战争与军事活动的实践，又给战争和军事实践以理论指导”（C错误）；具有“鲜明的阶级性”（D）"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/nodedetailcontroller/visitnodedetail?courseId=209616365&knowledgeId=270222014",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH03_S01_U01",
    "sectionName": "MT_CH03_S01"
   },
@@ -7885,7 +7888,7 @@
     "answer": "A、C（富勒；古德里安）",
     "reason": "英国的富勒、德国的古德里安等提出了 “机械化战争 ”理论，又称 “坦克制胜论”，认为装甲坦克是战争的决定性力量，是陆军的主体，应大量集中使用坦克和航空兵，实施突然有力的突击，迅速突破对方主要集团的防线，深入敌国纵深，摧毁战备不足的国家"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -8010,7 +8013,7 @@
     "reason": "信息作战要求实施的作战行动包括心理战、电子战、电脑（网络）战和作战保密：教材载“软杀伤”型信息化武器装备“一般由三部分组成，即网络战武器、电子战武器及心理战武器”，信息作战的行动范围还包括作战保密。"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/nodedetailcontroller/visitnodedetail?courseId=209616365&knowledgeId=270222016",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH03_S02_U02",
    "sectionName": "MT_CH03_S02"
   },
@@ -8170,7 +8173,7 @@
     "reason": "《吴子·图国》原文：“其名又有五：一曰义兵，二曰强兵，三曰刚兵，四曰暴兵，五曰逆兵。”即义兵、暴兵属《吴子》对战争性质的分类，而“贪兵”不是其分类名称（“贪利”是“暴兵”的释义）"
    },
    "webSourceUrl": "https://ctext.org/wu-zi/tu-guo/zhs",
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -8332,7 +8335,7 @@
     "reason": "人民网称《孙子兵法》为“古代第一兵书”，在世界军事史上享有盛誉、流传广泛；国家图书馆介绍《武经七书》将其列为七部兵书之首，故A（兵学圣典、世界军事史地位突出）、D（武经七书之一）正确"
    },
    "webSourceUrl": "http://paper.people.com.cn/fcyymwap/html/2023-10/27/content_26025910.htm",
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -8372,7 +8375,7 @@
     "reason": "教材《孙子兵法》部分载：“在哲学方面，《孙子兵法》被公认为是一部很有价值的著作，全书充满了朴素的唯物主义和辩证法思想”（对应B），并明确其为主张“以谋胜敌”“不战而屈人之兵”的兵学理论著作而非记载军事历史为主的著作（排除D）"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=83460695&knowledgeId=83460739&nohead=1",
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -8415,7 +8418,7 @@
    },
    "relatedSection": "服从命令",
    "webSourceUrl": "https://zh.wikisource.org/zh-hant/%E4%B8%AD%E5%9C%8B%E4%BA%BA%E6%B0%91%E8%A7%A3%E6%94%BE%E8%BB%8D%E5%AE%A3%E8%A8%80",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH03_S04_U01",
    "sectionName": "MT_CH03_S04"
   },
@@ -8453,7 +8456,7 @@
     "reason": "教材“邓小平新时期军队建设思想·战争与和平思想”载：“霸权主义、强权政治严重威胁着世界和平”，即霸权主义、强权政治是威胁世界和平的主要根源（对应B、C）"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/nodedetailcontroller/visitnodedetail?courseId=209616365&knowledgeId=270222024",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH03_S04_U01",
    "sectionName": "MT_CH03_S04"
   },
@@ -8493,7 +8496,7 @@
     "answer": "A、D（正义战争；非正义战争）",
     "reason": "⒈无产阶级的战争观和军事方法论：战争是阶级社会的产物、是政治的继续；战争只有正义战争和非正义战争两类，共产党人要拥护正义战争、反对非正义战争，用革命战争消灭反革命战争；霸权主义和强权政治是威胁世界和平的主要根源；研究战争的目的是消灭战争。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH03_S04_U01",
    "sectionName": "MT_CH03_S04"
   },
@@ -8703,7 +8706,7 @@
     "reason": "世纪的新阶段，以胡锦涛同志为总书记的党中央坚持把科学发展观作为国防和军队建设的重要指导方针，主动适应世界军事发展新趋势，适应打赢信息化条件下局部战争的要求，在更高起点上推进国防和军队现代化建设",
     "note": "本题答案为原卷答案串解析所得，已按教材/来源核对"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -8740,7 +8743,7 @@
     "answer": "A、B、C、D（是毛泽东思想的重要组成部分；是以毛泽东为代表的老一代革命家、军事家集体经验和智慧的结晶；是马克思列宁主义普遍原理同中国革命战争实践相结合的产物；是在⻓期革命战争中产生的具有中国特色的军事理论）",
     "reason": "毛泽东关于中国革命战争、人民军队和国防建设及军事领域一般规律问题的科学理论体系，是毛泽东思想的重要组成部分，是马克思列宁主义普遍原理与中国革命战争实践和国防建设实际相结合的产物"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH03_S04_U01",
    "sectionName": "MT_CH03_S04"
   },
@@ -8824,7 +8827,7 @@
     "reason": "人民网《〈孙子兵法〉：古代第一兵书》介绍《孙子兵法》的内容与思想价值，其开篇“兵者，国之大事，死生之地，存亡之道，不可不察也”，以及“知彼知己，百战不殆”“上兵伐谋”“令之以文，齐之以武”等均为该书主要观点"
    },
    "webSourceUrl": "http://paper.people.com.cn/fcyymwap/html/2023-10/27/content_26025910.htm",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S03",
    "sectionName": "MT_CH03_S03"
   },
@@ -8856,7 +8859,7 @@
    },
    "relatedSection": "建设现代化",
    "webSourceUrl": "http://www.mod.gov.cn/gfbw/jmsd/4925199.html",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S04",
    "sectionName": "MT_CH03_S04"
   },
@@ -8911,7 +8914,7 @@
     "reason": "人民日报海外版《习近平谈强军兴军》集中阐述习近平强军思想的地位作用，包括党对人民军队的绝对领导是建军之本、强军之魂，强国必须强军，党在新时代的强军目标等，是国防和军队建设的科学指南"
    },
    "webSourceUrl": "http://paper.people.com.cn/rmrbhwb/images/2020-07/29/05/rmrbhwb2020072905.pdf",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S04",
    "sectionName": "MT_CH03_S04"
   },
@@ -9000,7 +9003,7 @@
     "note": "本题库收录的是原卷参考答案要点，见下方",
     "reason": "毛泽东军事思想博大精深，是一个完整的科学体系，内容非常丰富；主要包括无产阶级的战争观和军事方法论、人民军队建设思想、人民战争思想、人民战争的战略战术和国防建设思想五部分"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S04",
    "sectionName": "MT_CH03_S04"
   },
@@ -9029,7 +9032,7 @@
     "reason": "教材“全面领会习近平强军思想的精神实质和丰富内涵”逐条列出：“明确强国必须强军”“明确党在新时代的强军目标是建设一支听党指挥、能打胜仗、作风优良的人民军队……力争到2035年基本实现国防和军队现代化，到本世纪中叶把人民军队全面建成世界一流军队”“明确党对军队绝对领导是人民军队建军之本、强军之魂”“明确军队是要准备打仗的……有效塑造态势、管控危机、遏制战争、打赢战争”“明确推进强军事业必须坚持政治建军、改革强军、科技兴军、依法治军”“明确改革是强军的必由之路”“明确军民融合发展是兴国之举、强军之策”“明确作风优良是人民军队的鲜明特色和政治优势”等，与参考答案各项一致"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/nodedetailcontroller/visitnodedetail?courseId=209616365&knowledgeId=270222024",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S04",
    "sectionName": "MT_CH03_S04"
   },
@@ -9146,7 +9149,7 @@
     "reason": "创新体制编制，重组军队组织结构一场军事革命的完成，以军队组织结构调整的最终实现为标志",
     "ref": "教材《普通高校军事课教程》·现代战争"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH04_S02_U01",
    "sectionName": "MT_CH04_S02"
   },
@@ -9185,7 +9188,7 @@
     "reason": "中共中央党史和文献研究院刊文原文：中国特色军事变革是『以建设信息化军队、打赢信息化战争为战略目标，走以信息化带动机械化、以机械化促进信息化的跨越式发展道路』；并述『将中国特色军事变革的战略目标确立为建设信息化军队，打赢信息化战争』『实现我军现代化的跨越式发展的重大战略决策』，与题干『作出了\"____\"、实现军队跨越式发展的战略决策』对应"
    },
    "webSourceUrl": "https://www.dswxyjy.org.cn/n1/2026/0820/c423724-40783231.html",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH04_S02_U01",
    "sectionName": "MT_CH04_S02"
   },
@@ -9264,7 +9267,7 @@
     "reason": "被誉为“世界新军事变革首倡者”的苏军总参谋长奥加尔科夫认为，核武器和常规武器的不断完善、电子技术的飞速发展、新式武器的不断出现以及武装斗争手段的极大改进，将引起军事上的深刻革命",
     "ref": "教材《普通高校军事课教程》·现代战争"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH04_S02_U02",
    "sectionName": "MT_CH04_S02"
   },
@@ -9571,7 +9574,7 @@
     "answer": "D、海湾战争、科索沃战争、阿富汗战争、伊拉克战争",
     "reason": "（战略防御倡议，源于格雷厄姆“高边疆”理论）。年：美国批准实施“星球大战计划”。年：海湾战争爆发，预示战争的信息化时代来临。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH04_S02_U04",
    "sectionName": "MT_CH04_S02"
   },
@@ -9849,7 +9852,7 @@
     "reason": "电磁脉冲炸弹作为美军信息作战的主要武器之一，在伊拉克战场进行了试验",
     "ref": "教材《普通高校军事课教程》·现代战争"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH04_S04_U06",
    "sectionName": "MT_CH04_S04"
   },
@@ -9930,7 +9933,7 @@
     "reason": "大量使用精确制导武器，实施“点穴式”打击美军为缩小打击范围，降低附带损伤，避免政治上的被动，超常使用了精确制导炸弹，对伊拉克重要军事、政治目标进行了全时段、全纵深“重心点击战”",
     "ref": "教材《普通高校军事课教程》·现代战争"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH04_S04_U06",
    "sectionName": "MT_CH04_S04"
   },
@@ -9971,7 +9974,7 @@
     "reason": "先进的侦察监视技术使美英联军保持了战场的单向透明侦察监视技术的飞速发展以及在军事领域的广泛运用，使得美英联军在保持战场单向透明方面拥有绝对优势",
     "ref": "教材《普通高校军事课教程》·现代战争"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH04_S04_U06",
    "sectionName": "MT_CH04_S04"
   },
@@ -10084,7 +10087,7 @@
     "reason": "电磁战场被称作继陆、海、空、天之后的“第五维战场”，是信息化战争的重要作战空间",
     "ref": "教材《普通高校军事课教程》·现代战争"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH04_S04_U02",
    "sectionName": "MT_CH04_S04"
   },
@@ -10325,7 +10328,7 @@
     "reason": "广泛实施精确作战，毁伤效能剧增海湾战争期间多国部队发射的精确制炸弹虽然只占发射炮弹总量的8%、却摧毁了约80% 的重要目标",
     "ref": "教材《普通高校军事课教程》·现代战争"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH04_S04_U02",
    "sectionName": "MT_CH04_S04"
   },
@@ -10367,7 +10370,7 @@
     "reason": "教材“信息化战争的演变及主要形态”称“20世纪90年代以来先后发生的海湾战争、科索沃战争、阿富汗战争和伊拉克战争……既是工业时代机械化战争的延续，更是孕育信息化战争雏形的‘母体’”，把20世纪90年代战争（含海湾战争）作为信息化战争雏形/萌芽"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/nodedetailcontroller/visitnodedetail?courseId=220282573&knowledgeId=479393700",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH04_S01_U03",
    "sectionName": "MT_CH04_S01"
   },
@@ -10404,7 +10407,7 @@
     "reason": "教材“信息化战争的基本特征”列为：战争动因更趋复杂、战争概念内涵扩大、战争目的更加有限、战争力量趋于信息化智能化、战争模式趋于体系化精确化、战争持续时间短、战争毁伤破坏小；并指出“国家行为主体之间发生大规模战争的可能性不大”。可见“战争规模扩大化”不属于信息化战争特点"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/nodedetailcontroller/visitnodedetail?courseId=209616365&knowledgeId=270222025",
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -10484,7 +10487,7 @@
     "reason": "教材“信息化战争形态发展趋势”明确：“按照侦察监视、指挥控制、精确打击和支援保障四大作战职能，建成探测预警子系统、指挥控制子系统、精确打击与作战子系统和支援保障子系统”，与选项B一致"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/nodedetailcontroller/visitnodedetail?courseId=220282573&knowledgeId=479393702",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH04_S04_U04",
    "sectionName": "MT_CH04_S04"
   },
@@ -10608,7 +10611,7 @@
     "reason": "教材“战争的内涵”载：“在阶级社会，战争是用以解决民族和民族、国家和国家、阶级和阶级、政治集团和政治集团之间矛盾的最高斗争形式”，与B（阶级）、C（民族）、D（国家）直接对应"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/nodedetailcontroller/visitnodedetail?courseId=209616365&knowledgeId=270222015",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH04_S01_U01",
    "sectionName": "MT_CH04_S01"
   },
@@ -10648,7 +10651,7 @@
     "reason": "中央党校《学习时报》文章按战争形态演进梳理为冷兵器战争、热兵器战争、机械化战争、信息化战争并向智能化战争演进，四个阶段均在其中"
    },
    "webSourceUrl": "https://www.studytimes.cn/dsgs/202412/t20241223_68325.html",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH04_S01_U03",
    "sectionName": "MT_CH04_S01"
   },
@@ -10732,7 +10735,7 @@
     "reason": "世界新军事变革对我国军队建设提出的要求包括加速组建新型部队、加速研制新型武器、加速建立新型指挥、加速造就新型人才四项。"
    },
    "webSourceUrl": "https://www.gzst.edu.cn/uploadfiles/2024/11/20241122144509255.docx",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH04_S02_U02",
    "sectionName": "MT_CH04_S02"
   },
@@ -10848,7 +10851,7 @@
     "reason": "中央党校《学习时报》文章把战争形态的演变表述为冷兵器时代、火器时代（热兵器时代）、机械化战争时代以及信息化、智能化战争时代，其中“火器时代”是公认阶段之一"
    },
    "webSourceUrl": "https://www.studytimes.cn/dsgs/202412/t20241223_68325.html",
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -10890,7 +10893,7 @@
     "reason": "《新编大学生军事理论教程》\"新军事变革的主要动因\"原文：『当代科学技术，特别是以信息技术为核心的高新技术的飞速发展是新军事变革最直接的推动力…成为推动世界新军事变革最有力的杠杆』，直接支撑选项A『以信息技术为核心的高新军事技术迅猛发展』"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=227637426&knowledgeId=632767528",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH04_S04_U03",
    "sectionName": "MT_CH04_S04"
   },
@@ -10933,7 +10936,7 @@
     "ref": "教材《普通高校军事课教程》·现代战争"
    },
    "relatedSection": "心理空间",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH04_S04_U02",
    "sectionName": "MT_CH04_S04"
   },
@@ -11092,7 +11095,7 @@
     "reason": "教材“信息化战争的主要特征”把信息化战争新增的作战样式列为“精确战、网络战、电子战、情报战和心理战”，并指出信息化战争是在机械化战争原有作战样式之外增添这些新样式"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/nodedetailcontroller/visitnodedetail?courseId=220282573&knowledgeId=479393701",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH04_S04_U02",
    "sectionName": "MT_CH04_S04"
   },
@@ -11128,7 +11131,7 @@
     "answer": "A、B、C、D（KH-11、KH-12“锁眼”系列照相侦察卫星；无人侦察机；激光光标定位仪；全球卫星定位导航系统）",
     "note": "本题库未收录与该题直接对应的教材或权威来源内容，答案依据原卷给出；本题答案为原卷答案串解析所得，已按教材/来源核对"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH04_S04_U06",
    "sectionName": "MT_CH04_S04"
   },
@@ -11166,7 +11169,7 @@
     "reason": "高校《军事理论》考试题文档中本题以完全相同题干与四个选项出现，并给出答案解析：『现代侦察监视技术按照侦察监视所采取的手段可分为观察、窃听、火力侦察、雷达侦察。』正确答案ABCD"
    },
    "webSourceUrl": "https://www.gzst.edu.cn/uploadfiles/2024/11/20241122144509255.docx",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH04_S04_U06",
    "sectionName": "MT_CH04_S04"
   },
@@ -11282,7 +11285,7 @@
     "answer": "A、B、C（战争目的有限；战争规模不大；战争持续时间短）",
     "note": "本题库未收录与该题直接对应的教材或权威来源内容，答案依据原卷给出；本题答案为原卷答案串解析所得，已按教材/来源核对"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH04_S04_U02",
    "sectionName": "MT_CH04_S04"
   },
@@ -11476,7 +11479,7 @@
     "reason": "教材“信息化战争的基本特征”所列要点（战争力量趋于信息化智能化、战争模式趋于体系化精确化、战争持续时间短、战争毁伤破坏小等）与参考答案中“武器装备信息化、作战节奏快速化、作战要素一体化、作战行动精确化”等要点方向一致"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/nodedetailcontroller/visitnodedetail?courseId=209616365&knowledgeId=270222025",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH04_S04",
    "sectionName": "MT_CH04_S04"
   },
@@ -11601,7 +11604,7 @@
     "reason": "教材“伊拉克战争简介”指出：伊拉克战争是“一场高度信息化的战争”，“代表了战争形态的发展方向，集中体现了世界新军事变革的最新成果”，并述美军为确保战场单向透明动用各类卫星90余颗、大量有人和无人侦察机、数字化地图与战况显示系统，攻击行动“目标信息获取—传输—反馈作战平台”整个火力攻击过程仅约10秒"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/nodedetailcontroller/visitnodedetail?courseId=220282573&knowledgeId=479393702",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH04_S04",
    "sectionName": "MT_CH04_S04"
   },
@@ -11633,7 +11636,7 @@
    },
    "relatedSection": "混合战争涉及政治",
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/nodedetailcontroller/visitnodedetail?courseId=220282573&knowledgeId=479393680",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH04_S05",
    "sectionName": "MT_CH04_S05"
   },
@@ -12072,7 +12075,7 @@
    },
    "relatedSection": "武器装备",
    "webSourceUrl": "https://www.kepuchina.cn/kpcs/qyz/jskj1/201604/t20160406_6984.shtml",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH05_S04_U01",
    "sectionName": "MT_CH05_S04"
   },
@@ -12111,7 +12114,7 @@
     "reason": "因此，洲际弹道导弹、潜地弹道导弹、远程巡航导弹和大型运载火箭基本上都采用平台式惯性制导",
     "ref": "教材《普通高校军事课教程》·信息化装备"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH05_S04_U01",
    "sectionName": "MT_CH05_S04"
   },
@@ -12194,7 +12197,7 @@
     "reason": "《新编大学生军事理论教程》\"核化生武器威胁客观存在\"发展趋势原文：『核武器向小型化、多样化方向发展……核武器小型化，缩小了核弹与常规弹威力的差距，降低了\"核门槛\"，增强了核武器使用的广泛性和灵活性。』教材把小型化列为世界核武器首要发展趋势"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=227637426&knowledgeId=632767492",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH05_S04_U02",
    "sectionName": "MT_CH05_S04"
   },
@@ -12394,7 +12397,7 @@
    },
    "relatedSection": "武器装备",
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/nodedetailcontroller/visitnodedetail?courseId=209616365&knowledgeId=270222020",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH05_S01_U01",
    "sectionName": "MT_CH05_S01"
   },
@@ -12437,7 +12440,7 @@
    },
    "relatedSection": "武器装备",
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/nodedetailcontroller/visitnodedetail?courseId=220282573&knowledgeId=479393702",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH05_S01_U01",
    "sectionName": "MT_CH05_S01"
   },
@@ -12597,7 +12600,7 @@
     "reason": "预警探测系统是运用信息获取技术装备，为早期发现、定位、跟踪识别来袭武器并发出相应警报的持续运行系统，主要包括陆基、海基、空基和天基预警探测系统，预警机、预警侦察、探测雷达、监视和探测卫星、飞船及天基红外系统是该系统的主要技术装备与平台"
    },
    "relatedSection": "陆基预警探测系统",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH05_S03_U01",
    "sectionName": "MT_CH05_S03"
   },
@@ -12637,7 +12640,7 @@
     "note": "原答案漏选 A（太空侦察系统），已按教材原文补全。"
    },
    "relatedSection": "空中情报侦察系统",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH05_S03_U01",
    "sectionName": "MT_CH05_S03"
   },
@@ -12793,7 +12796,7 @@
     "reason": "按作战使命或使用目标，可分战略与战术；海射、陆射是发射平台分类，属于另一个维度。惯性制导是制导方式，不能代替使命分类依据。",
     "ref": "福建理工大学武装部《导弹知识》·按作战使用分类"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH05_S04_U02",
    "sectionName": "MT_CH05_S04",
    "webSourceUrl": "https://bwc.fjut.edu.cn/2016/0117/c11555a248406/page.htm"
@@ -12833,7 +12836,7 @@
     "note": "本题库未收录与该题直接对应的教材或权威来源内容，答案依据原卷给出；本题答案为原卷答案串解析所得，已按教材/来源核对"
    },
    "relatedSection": "武器装备",
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -12888,7 +12891,7 @@
     "reason": "信息化装备是指采用现代信息技术，具有单一或多种信息功能的装备，是信息化战争的重要物质技术基础；主要有五个特征：⒈利用网络化技术实现武器装备的整体联动⒉利用综合集成技术实现武器装备功能一体化⒊精确化是信息化武器装备追求的主要目标⒋隐身化是信息…"
    },
    "relatedSection": "武器装备",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH05_S01",
    "sectionName": "MT_CH05_S01"
   },
@@ -12915,7 +12918,7 @@
     "reason": "信息化装备是指采用现代信息技术，具有单一或多种信息功能的装备，是信息化战争的重要物质技术基础；主要有五个特征：⒈利用网络化技术实现武器装备的整体联动⒉利用综合集成技术实现武器装备功能一体化⒊精确化是信息化武器装备追求的主要目标⒋隐身化是信息…"
    },
    "relatedSection": "武器装备",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH05_S01",
    "sectionName": "MT_CH05_S01"
   },
@@ -12943,7 +12946,7 @@
     "reason": "信息化装备是指采用现代信息技术，具有单一或多种信息功能的装备，是信息化战争的重要物质技术基础；主要有五个特征：⒈利用网络化技术实现武器装备的整体联动⒉利用综合集成技术实现武器装备功能一体化⒊精确化是信息化武器装备追求的主要目标⒋隐身化是信息…"
    },
    "relatedSection": "武器装备",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH05_S01",
    "sectionName": "MT_CH05_S01"
   },
@@ -12972,7 +12975,7 @@
    "explanationParts": {
     "reason": "综合电子信息系统主要由指挥控制系统、情报侦察系统、预警探测系统、通信系统和综合保障系统等组成"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH05_S03",
    "sectionName": "MT_CH05_S03"
   },
@@ -13116,7 +13119,7 @@
     "reason": "唐朝把火药运用于军事；宋朝发明“突火枪”，是现代管状喷射武器的鼻祖；元朝开始使用金属炮弹，明代火炮发射的弹丸有实心弹、霰弹、开花弹三种",
     "ref": "教材《普通高校军事课教程》·中国国防"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -13385,7 +13388,7 @@
     "reason": "元朝军队开始使用金属炮弹，明代火炮发射的弹丸有实心弹、霰弹",
     "ref": "教材《普通高校军事课教程》·中国国防"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -13422,7 +13425,7 @@
     "reason": "第一阶段: 恢复阶段 (1949年10月 — 1953年11月) 这一阶段是中国抵御帝国主义侵略、内治战争创伤和恢复经济时期"
    },
    "relatedSection": "边海防建设",
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -13463,7 +13466,7 @@
     "reason": "〔知识链接：两弹一星〕“两弹一星”是指导弹、核弹（原子弹、氢弹）和人造卫星。1960年11月5日，中国仿制的第一枚导弹发射成功；1964年10月16日，中国第一颗原子弹爆炸成功，成为世界上第五个拥有原子弹的国家。",
     "ref": "教材《普通高校军事课教程》·中国国防"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -13500,7 +13503,7 @@
     "reason": "“1970年4月24日，我国第一颗人造地球卫星‘东方红一号’发射成功”；2016年党中央批准、国务院批复，将4月24日设立为“中国航天日”"
    },
    "webSourceUrl": "https://www.cnsa.gov.cn/n6758823/n6758838/c6809337/content.html",
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -14127,7 +14130,7 @@
     "reason": "教材明确我国国防历史的启示“主要有三点”：政治昌明是国防巩固的保证、经济发展是国防强大的基础、只有国家的统一和民族的团结才能有强大的国防；“只有军队强大才能有强大的国防”不在这三点启示之列"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=83837768&knowledgeId=83837873",
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -14282,7 +14285,7 @@
     "reason": "教材“国防的要素”列国防的主体、国防的目的、国防的对象、国防的手段四项（另有“国防的类型”一节），其中经济是国防的物质基础而非国防基本要素，故“经济力量”不属国防四个基本要素"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/nodedetailcontroller/visitnodedetail?courseId=209616365&knowledgeId=270222012",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S01_U01",
    "sectionName": "MT_CH01_S01"
   },
@@ -14357,7 +14360,7 @@
     "reason": "根据当前世界各国的国防政策和目标，国防可划分为以下四种类型",
     "ref": "教材《普通高校军事课教程》·中国国防"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S01_U02",
    "sectionName": "MT_CH01_S01"
   },
@@ -14397,7 +14400,7 @@
    },
    "relatedSection": "兵役制度",
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=83837768&knowledgeId=83837873",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH01_S01_U03",
    "sectionName": "MT_CH01_S01"
   },
@@ -14517,7 +14520,7 @@
     "answer": "B、18～35岁"
    },
    "relatedSection": "服预备役",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH01_S02_U02",
    "sectionName": "MT_CH01_S02",
    "webSourceUrl": "https://jjjcz.mee.gov.cn/djfg/gjflfg/fl/201110/t20111001_444436.html"
@@ -14559,7 +14562,7 @@
    },
    "relatedSection": "服预备役",
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=83837768&knowledgeId=83837878",
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -14803,7 +14806,7 @@
     "reason": "《国防法》第五十七条规定公民和组织“有对国防建设提出建议的权利，有对危害国防利益的行为进行制止或者检举的权利”，第五十八条规定“因国防建设和军事活动在经济上受到直接损失的，可以依照国家有关规定获得补偿”；而第五十五条规定“公民应当接受国防教育”，接受国防教育是义务而非权利"
    },
    "webSourceUrl": "https://www.nanyanggx.jcy.gov.cn/sitesources/fcxjcy/page_pc/flfg/article1fcb12a34530458c81eb9f3f7ac8bc2d.html",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S02_U02",
    "sectionName": "MT_CH01_S02"
   },
@@ -14840,7 +14843,7 @@
     "reason": "《中华人民共和国国防教育法》(以下简称 《国防教育法》) 于2001年4月28日由第九届全国人民代表大会常务委员会第二十一次会议通过并实施；2018年4月27日第十三届全国人民代表大会常务委员会第二次会议对其做出修改",
     "ref": "教材《普通高校军事课教程》·中国国防"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -14914,7 +14917,7 @@
     "reason": "《国防法》文本标明“1997年3月14日第八届全国人民代表大会第五次会议通过”，2020年12月26日第十三届全国人大常委会第二十四次会议修订"
    },
    "webSourceUrl": "https://gdb.gxzf.gov.cn/ztjj_46964/bfhfzt_00998/zcfw_00441/t10513111.shtml",
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -14952,7 +14955,7 @@
     "answer": "A、1984"
    },
    "relatedSection": "兵役制度",
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -15080,7 +15083,7 @@
   {
    "id": "q-0394",
    "type": "single",
-   "stem": "战略支援部队被称为什么的重要增长点？",
+   "stem": "在2015年成立时，战略支援部队被定位为何种能力的重要增长点？",
    "options": [
     "我军新质作战能力",
     "空军远洋打击",
@@ -15088,7 +15091,7 @@
     "炮兵火力突击"
    ],
    "answer": "A",
-   "explanation": "正确答案：A、我军新质作战能力\n2015年12月31日中央军委主席习近平向战略支援部队授旗并致训词：“战略支援部队是维护国家安全的新型作战力量，是我军新质作战能力的重要增长点”\n提示：来源：新华网《全国人大代表、战略支援部队政委刘福连：高标准高起点建设强大的现代化战略支援部队》；已联网核验新华网（xinhuanet.com）原文含“2015年12月31日，习主席亲自为战略支援部队授予军旗并致训词，宣告战略支援部队正式成立”及“战略支援部队是维护国家安全的新型作战力量，是我军新质作战能力的重要增长点”。",
+   "explanation": "正确答案：A、我军新质作战能力\n2015年12月31日中央军委主席习近平向战略支援部队授旗并致训词：“战略支援部队是维护国家安全的新型作战力量，是我军新质作战能力的重要增长点”\n提示：来源：新华网《全国人大代表、战略支援部队政委刘福连：高标准高起点建设强大的现代化战略支援部队》；已联网核验新华网（xinhuanet.com）原文含“2015年12月31日，习主席亲自为战略支援部队授予军旗并致训词，宣告战略支援部队正式成立”及“战略支援部队是维护国家安全的新型作战力量，是我军新质作战能力的重要增长点”。 本题为历史称谓；2024年4月19日撤销战略支援部队番号，相应调整军事航天部队、网络空间部队领导管理关系。来源：https://www.mod.gov.cn/gfbw/qwfb/16320941.html\n依据：新华网《全国人大代表、战略支援部队政委刘福连：高标准高起点建设强大的现代化战略支援部队》（联网核查）",
    "source": "模拟题",
    "chapter": "第一章中国国防",
    "section": "单选题",
@@ -15108,7 +15111,7 @@
    },
    "explanationParts": {
     "answer": "A、我军新质作战能力",
-    "note": "来源：新华网《全国人大代表、战略支援部队政委刘福连：高标准高起点建设强大的现代化战略支援部队》；已联网核验新华网（xinhuanet.com）原文含“2015年12月31日，习主席亲自为战略支援部队授予军旗并致训词，宣告战略支援部队正式成立”及“战略支援部队是维护国家安全的新型作战力量，是我军新质作战能力的重要增长点”。",
+    "note": "来源：新华网《全国人大代表、战略支援部队政委刘福连：高标准高起点建设强大的现代化战略支援部队》；已联网核验新华网（xinhuanet.com）原文含“2015年12月31日，习主席亲自为战略支援部队授予军旗并致训词，宣告战略支援部队正式成立”及“战略支援部队是维护国家安全的新型作战力量，是我军新质作战能力的重要增长点”。 本题为历史称谓；2024年4月19日撤销战略支援部队番号，相应调整军事航天部队、网络空间部队领导管理关系。来源：https://www.mod.gov.cn/gfbw/qwfb/16320941.html",
     "reason": "2015年12月31日中央军委主席习近平向战略支援部队授旗并致训词：“战略支援部队是维护国家安全的新型作战力量，是我军新质作战能力的重要增长点”"
    },
    "webSourceUrl": "http://www.xinhuanet.com/mil/2016-03/09/c_128786871.htm",
@@ -15268,7 +15271,7 @@
    },
    "relatedSection": "边海防建设",
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=83837768&knowledgeId=83837871",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S03_U03",
    "sectionName": "MT_CH01_S03"
   },
@@ -15346,7 +15349,7 @@
     "answer": "A、100",
     "reason": "现代前期 (1945—1990年) 第二次世界大战结束到20世纪90年代初期，以美国和苏联为首的两大国际政治、军事集团之间进行了长期的冷战，一大批军事理论家，如美国的布罗迪、康恩、基辛格和苏联的索科洛夫斯基、戈尔什科夫等人。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -15385,7 +15388,7 @@
     "reason": "《国防法》第六条规定“中华人民共和国奉行防御性国防政策……实行积极防御”，第九条规定“中华人民共和国积极推进国际军事交流与合作，维护世界和平，反对侵略扩张行为”，故“干涉别国内政”不属于我国军事战略的根本职能"
    },
    "webSourceUrl": "https://gdb.gxzf.gov.cn/ztjj_46964/bfhfzt_00998/zcfw_00441/t10513111.shtml",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S03_U03",
    "sectionName": "MT_CH01_S03"
   },
@@ -15540,7 +15543,7 @@
     "reason": "教材“国防领导体制”载：“国防领导体制是指国防领导的组织体系及相应制度。它包括国防领导机构的设置、职权划分、相互关系等。”即国防体制构成要素为组织形式、机构设置、领导隶属关系（职权划分），不含“领导能力”"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/nodedetailcontroller/visitnodedetail?courseId=209616365&knowledgeId=270222017",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S03_U01",
    "sectionName": "MT_CH01_S03"
   },
@@ -15770,7 +15773,7 @@
     "reason": "联勤保障部队成立于2016年9月13日，直属于中央军事委员会",
     "ref": "教材《普通高校军事课教程》·中国国防"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH01_S04_U01",
    "sectionName": "MT_CH01_S04"
   },
@@ -16167,7 +16170,7 @@
     "reason": "1949年4月23日，中国人民解放军华东军区海军在江苏泰州白马庙宣告成立",
     "ref": "教材《普通高校军事课教程》·中国国防"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH01_S04_U01",
    "sectionName": "MT_CH01_S04"
   },
@@ -16208,7 +16211,7 @@
     "reason": "1949年4月23日，中国人民解放军华东军区海军在江苏泰州白马庙宣告成立",
     "ref": "教材《普通高校军事课教程》·中国国防"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH01_S04_U01",
    "sectionName": "MT_CH01_S04"
   },
@@ -16245,7 +16248,7 @@
     "reason": "第四节武装力量武装力量是国家或政治集团的各种武装组织的总称，一般以军队为主体，由军队和其他正规的、非正规的武装组织构成，是国防力量的主体"
    },
    "relatedSection": "武装力量体制",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S04_U00",
    "sectionName": "MT_CH01_S04"
   },
@@ -16484,7 +16487,7 @@
     "ref": "教材《普通高校军事课教程》·中国国防"
    },
    "relatedSection": "武装力量体制",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S01_U03",
    "sectionName": "MT_CH01_S01"
   },
@@ -16526,7 +16529,7 @@
     "reason": "教材记载春秋战国时期产生的兵书包括“《孙子兵法》《吴子》《司马法》《孙膑兵法》《六韬》《尉缭子》等”，它们都是中国古代军事思想中的巨著，而《相对论》是物理学著作、不属于古代军事理论著作"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=83837768&knowledgeId=83837807",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S01_U03",
    "sectionName": "MT_CH01_S01"
   },
@@ -16568,7 +16571,7 @@
    },
    "relatedSection": "边海防建设",
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=83837768&knowledgeId=83837876",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S01_U03",
    "sectionName": "MT_CH01_S01"
   },
@@ -16608,7 +16611,7 @@
    },
    "relatedSection": "人民军队的性质",
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=83837768&knowledgeId=83837817",
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -16650,7 +16653,7 @@
    "webSourceUrl": "https://gdb.gxzf.gov.cn/ztjj_46964/bfhfzt_00998/zcfw_00441/t10513111.shtml",
    "lawCitationIssue": "wrong_article",
    "lawCitationStatus": "已复核并注明正确条文",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S04_U02",
    "sectionName": "MT_CH01_S04"
   },
@@ -16692,7 +16695,7 @@
     "reason": "《国防法》第二条把国防活动界定为“防备和抵抗侵略，制止武装颠覆和分裂，保卫国家主权、统一、领土完整、安全和发展利益”，即对外防备和抵抗侵略、对内制止武装颠覆和分裂，国防不只承担对外职能"
    },
    "webSourceUrl": "https://gdb.gxzf.gov.cn/ztjj_46964/bfhfzt_00998/zcfw_00441/t10513111.shtml",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S01_U01",
    "sectionName": "MT_CH01_S01"
   },
@@ -16729,7 +16732,7 @@
     "answer": "A、B、C、D（经济发展是国防强大的基础；政治昌明是国防巩固的根本；国家统一和民族团结是国防强大的关键；科技进步是国防强大的重要保证）",
     "reason": "中国国防历史的启示（P12）㈠经济发展是国防强大的基础㈡政治开明是国防巩固的根本㈢国家统一和民族团结是国防强大的关键㈣先进的科学技术是国防强大的重要保证五、现代国防的基本特征（P13）现代国防是对传统国防的继承和发展，是在综合国力的基础上。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S01_U04",
    "sectionName": "MT_CH01_S01"
   },
@@ -16769,7 +16772,7 @@
     "reason": "国防的目的是保卫国家的主权、统一、领土完整和安全",
     "ref": "教材《普通高校军事课教程》·中国国防"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S01_U01",
    "sectionName": "MT_CH01_S01"
   },
@@ -16806,7 +16809,7 @@
     "answer": "A、B、C、D（军事；政治；经济；外交）",
     "reason": "国防的目的而需要采取的方法和措施，包括军事活动以及与军事相关的政治、经济、外交、科技、教育等方面的活动"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S01_U01",
    "sectionName": "MT_CH01_S01"
   },
@@ -16846,7 +16849,7 @@
     "reason": "教材记载中国古代军事思想的载体是兵书，“出现早、数量大、种类多、内容丰富、哲理性强”（系统的军事理论）；兵制建设包括武装力量体制、军事领导体制和兵役制度（军事制度）；并修筑了“数量众多、规模庞大的国防工程”如城池、长城、京杭运河和海防要塞；而近代中国“有国无防”，故选项A、B、C属于古代国防成就"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=83837768&knowledgeId=83837807",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S01_U03",
    "sectionName": "MT_CH01_S01"
   },
@@ -16886,7 +16889,7 @@
     "answer": "A、B、C（提出建议权；制止和检举权；取得补偿权）",
     "reason": "㈡公民的国防权利⒈提出建议权⒉制止权和检举权⒊取得补偿权：因国防建设和军事活动在经济上受到直接损失，可依法获得补偿"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S02_U02",
    "sectionName": "MT_CH01_S02"
   },
@@ -16967,7 +16970,7 @@
     "answer": "A、B、C、D（履行兵役的义务；接受国防教育的义务；保护国防设施的义务；支持国防建设、协助军事活动的义务）",
     "reason": "支持国防建设、协助军事活动的义务我们的国防是全民国防，因此，公民应当积极参与和支持国防建设"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S02_U02",
    "sectionName": "MT_CH01_S02"
   },
@@ -17049,7 +17052,7 @@
     "reason": "教材“公民的国防权利和义务”载：“每一个公民都享有相应的国防权利，也必须履行相应的国防义务”，体现国防义务与国防权利的平等性与统一性；权利与义务不存在“等价交换”关系"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/nodedetailcontroller/visitnodedetail?courseId=209616365&knowledgeId=270222017",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH01_S02_U02",
    "sectionName": "MT_CH01_S02"
   },
@@ -17174,7 +17177,7 @@
     "reason": "《国防法》（2020年修订）目录设有第一章总则、第二章国家机构的国防职权、第九章公民、组织的国防义务和权利、第十一章对外军事关系，即“规定对外军事关系”同样是该法的主要内容"
    },
    "webSourceUrl": "https://gdb.gxzf.gov.cn/ztjj_46964/bfhfzt_00998/zcfw_00441/t10513111.shtml",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S02_U01",
    "sectionName": "MT_CH01_S02"
   },
@@ -17214,7 +17217,7 @@
     "reason": "《国防教育法》专门设置了“学校国防教育”“社会国防教育”“国防教育保障”等章，即“学校国防教育”“社会国防教育”“国防教育的保障”属《国防教育法》的章节结构；而“公民、组织的国防义务和权利”是《国防法》第九章的内容"
    },
    "webSourceUrl": "https://www.spp.gov.cn/spp/tt/202409/t20240913_666071.shtml",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S02_U02",
    "sectionName": "MT_CH01_S02"
   },
@@ -17253,7 +17256,7 @@
     "reason": "服现役指公民在军队中所服的兵役，包括参加中国人民解放军和人民武装警察部队",
     "ref": "教材《普通高校军事课教程》·中国国防"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S04_U00",
    "sectionName": "MT_CH01_S04"
   },
@@ -17338,7 +17341,7 @@
     "reason": "《国防法》第二条明确国防是国家为“防备和抵抗侵略，制止武装颠覆和分裂，保卫国家主权、统一、领土完整、安全和发展利益”所进行的军事活动，四个选项均与该条表述相符"
    },
    "webSourceUrl": "https://gdb.gxzf.gov.cn/ztjj_46964/bfhfzt_00998/zcfw_00441/t10513111.shtml",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S02_U02",
    "sectionName": "MT_CH01_S02"
   },
@@ -17379,7 +17382,7 @@
     "answer": "A、B、C（强化大局意识；强化改革创新；强化法治保障）",
     "note": "本题库未收录与该题直接对应的教材或权威来源内容，答案依据原卷给出；本题答案为原卷答案串解析所得，已按教材/来源核对"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S03_U05",
    "sectionName": "MT_CH01_S03"
   },
@@ -17417,7 +17420,7 @@
     "reason": "教材“人民战争思想”部分指出：人民战争是“发动和依靠广大人民群众所进行的战争”，“革命战争是群众的战争，只有动员依靠群众，才能进行战争”；必须“组织最广泛的革命统一战线”；实行“以人民军队为骨干的三结合的武装力量体制”，与四个选项相合"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=83837768&knowledgeId=83837817",
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -17455,7 +17458,7 @@
     "answer": "A、B、C、D（组织形式；管理权限划分；领导隶属关系；机构设置）",
     "reason": "国防体制是国家防务的组织形式、机构设置、领导隶属关系和管理权限划分等方面制度的总称，主要包括国防领导体制、国防动员体制、国防科技工业体制"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S03_U01",
    "sectionName": "MT_CH01_S03"
   },
@@ -17498,7 +17501,7 @@
     "reason": "教材载：大革命失败后“南昌起义、秋收起义、广州起义以及其他许多地区的武装起义，标志着中国共产党独立领导革命战争、创建人民军队的开端”；湘南起义、黄麻起义同属这一时期党领导的武装起义，而平型关战役是抗日战争时期的战役"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/nodedetailcontroller/visitnodedetail?courseId=209616365&knowledgeId=270222022",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S04_U01",
    "sectionName": "MT_CH01_S04"
   },
@@ -17620,7 +17623,7 @@
     "ref": "教材《普通高校军事课教程》·中国国防"
    },
    "relatedSection": "边海防建设",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S03_U04",
    "sectionName": "MT_CH01_S03"
   },
@@ -17662,7 +17665,7 @@
     "note": "本题答案已按依据复核",
     "ref": "教材《普通高校军事课教程》·中国国防"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S04_U02",
    "sectionName": "MT_CH01_S04"
   },
@@ -17748,7 +17751,7 @@
     "reason": "教材载国防动员主要内容为“人民武装动员、国民经济动员、人民防空动员、交通战备动员和政治动员”；另一教材列“武装力量动员、经济动员、人民防空动员、交通战备动员和国防教育”，其中经济动员含工业动员、信息产业动员等。据此武装力量动员、人民防空动员、装备（工业）动员、信息动员均属国防动员内容"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=227637426&knowledgeId=632767480&nohead=1",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S05_U03",
    "sectionName": "MT_CH01_S05"
   },
@@ -17790,7 +17793,7 @@
     "reason": "教材载人民防空动员“主要任务是：依据国家有关法律法令，动员社会力量，进行防空设施建设，组建防空专业队伍，普及防空知识教育，组织隐蔽疏散，配合防空作战，消除空袭后果”，与A建立健全方案、C组建城市防空专业队伍、D组织演练相符；“加强人民防空物资器材储备”属动员准备的常规内容"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=83460695&knowledgeId=83460716&nohead=1",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S05_U03",
    "sectionName": "MT_CH01_S05"
   },
@@ -17827,7 +17830,7 @@
     "reason": "教材记载我军建设走精兵之路：1985年宣布裁军100万、党的十五大又决定裁军50万，“军队体制向精兵、合成、高效迈进”，即减少数量、提高质量，与选项D“大型化”相悖；信息化战争条件下军队发展方向通常概括为小型化、一体化、智能化"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=83837768&knowledgeId=83837876",
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -17868,7 +17871,7 @@
     "reason": "根据动员领域的不同，国防动员的内容可分为武装力量动员、国民经济动员、人民防空动员、交通动员、装备动员、信息动员、政治动员",
     "ref": "教材《普通高校军事课教程》·中国国防"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S05_U03",
    "sectionName": "MT_CH01_S05"
   },
@@ -17908,7 +17911,7 @@
     "reason": "教材“国防动员的内容”明确：“人民防空动员主要包括人防预警动员、群众防护动员、重要经济目标防护动员、人防专业队伍动员等”"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/nodedetailcontroller/visitnodedetail?courseId=227637426&knowledgeId=632767480",
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -17951,7 +17954,7 @@
     "note": "来源：《中华人民共和国国防法》（2020年修订）第十四条、第十五条；已核验全文第十四、十五条原文与依据一致。"
    },
    "webSourceUrl": "https://gdb.gxzf.gov.cn/ztjj_46964/bfhfzt_00998/zcfw_00441/t10513111.shtml",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S05_U03",
    "sectionName": "MT_CH01_S05"
   },
@@ -17993,7 +17996,7 @@
     "note": "来源：广东工程职业技术学院《军事理论》课程平台题库·国防动员章节；命中为『信息资源动员』的构成清单，与题干四个选项并非逐字对应。"
    },
    "webSourceUrl": "http://web.gdep.edu.cn/skills/portal/blob?key=10545622",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S05_U03",
    "sectionName": "MT_CH01_S05"
   },
@@ -18185,7 +18188,7 @@
     "reason": "《国防法》第二条明确国防是“所进行的军事活动，以及与军事有关的政治、经济、外交、科技、教育等方面的活动”，即军事手段为主，政治、经济、外交、科技、教育等同样构成国防手段"
    },
    "webSourceUrl": "https://gdb.gxzf.gov.cn/ztjj_46964/bfhfzt_00998/zcfw_00441/t10513111.shtml",
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -18238,7 +18241,7 @@
     "ref": "教材《普通高校军事课教程》·国防的内涵与现代国防基本特征",
     "answer": "（简答题，见参考答案要点）"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -18563,7 +18566,7 @@
     "note": "本题库收录的是原卷参考答案要点，见下方",
     "reason": "国防动员是国家根据国防需要，使社会诸领域从平时状态转为战时状态或紧急状态所进行的活动，需把握以下三点"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -19038,7 +19041,7 @@
     "ref": "商务部贸易救济信息网：中国—东盟连续六年互为最大贸易伙伴（2026-02）",
     "answer": "D、东盟"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH02_S02_U03",
    "sectionName": "MT_CH02_S02",
    "webSourceUrl": "https://cacs.mofcom.gov.cn/article/gnwjmdt/db/dbqt/202602/187177.html"
@@ -19127,7 +19130,7 @@
   {
    "id": "q-0503",
    "type": "single",
-   "stem": "目前对我国安全影响较大的周边热点问题是？",
+   "stem": "位于朝鲜半岛、对我国安全影响较大的周边热点问题是？",
    "options": [
     "印巴对立",
     "朝核问题",
@@ -19318,7 +19321,7 @@
     "answer": "C、2022年1月1日",
     "reason": "2022年1月1日，R C E P正式生效，这是全球和区域一体化进程中一个新的里程碑"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH02_S02_U04",
    "sectionName": "MT_CH02_S02"
   },
@@ -19355,7 +19358,7 @@
     "answer": "C、2019年",
     "reason": "中国与俄罗斯领土相连，拥有超过4000公里的边界线，两国均为领土面积大、人口众多的国家，且同为联合国安理会常任理事国，在国际关系和地区安全中占据重要地位。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -19549,7 +19552,7 @@
     "reason": "⒊边界和海洋权益争端尚存：陆地边界问题尤以中印边界争议较为突出；与朝鲜、韩国之间黄海、东海大陆架划分争议，与日本之间东海大陆架划分和钓鱼岛归属问题存在纷争；南沙群岛部分岛礁被侵占、海域被分割、资源被掠夺",
     "ref": "教材《普通高校军事课教程》·国家安全"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -19669,7 +19672,7 @@
     "reason": "我国地缘环境概况我国陆地领土面积约960万平方千米，居世界第三位，陆地边界2.2万多千米，与14个国家陆地接壤，分别是蒙古、俄罗斯、朝鲜、越南、老挝、缅甸、尼泊尔、不丹、印度、巴基斯坦、阿富汗、塔吉克斯坦、吉尔吉斯斯坦、哈萨克斯坦",
     "ref": "教材《普通高校军事课教程》·国家安全"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -19747,7 +19750,7 @@
     "reason": "教材记述美国对华遏制举措：政治上“屡屡以所谓人权为借口，干涉我国内政”，在统一问题上“插手台湾问题……极力阻挠我统一大业”，军事上“明确表示……对我遏制”；而“同我国建立新时代中俄全面战略协作伙伴关系”是俄罗斯（中俄之间）的举措，不属于美国对我国的遏制举措"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=83837768&knowledgeId=83837882",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH02_S02_U03",
    "sectionName": "MT_CH02_S02"
   },
@@ -19907,7 +19910,7 @@
     "reason": "教材原文：“2001年7月16日，中俄两国元首在莫斯科签署了《中俄睦邻友好合作条约》。条约总结了发展中俄关系最主要的方针和原则，将两国‘世代友好、永不为敌’的和平思想……以法律形式加以确定。”"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=83837768&knowledgeId=83837882",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH02_S02_U03",
    "sectionName": "MT_CH02_S02"
   },
@@ -20187,7 +20190,7 @@
     "ref": "教材《普通高校军事课教程》·日本（PDF第86页）",
     "answer": "A、日本"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -20226,7 +20229,7 @@
     "reason": "印度新军事战略的核心正在由消极防御转变为积极防御、强调主动出击，打“有限战争”，争取以较小的代价取得最佳的效果"
    },
    "relatedSection": "实行积极防御",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH02_S03_U01",
    "sectionName": "MT_CH02_S03"
   },
@@ -20457,7 +20460,7 @@
     "reason": "教材记述中国“不与任何国家结盟，不干涉别国的内部事务”“反对以大欺小、以强凌弱和以富压贫的强权政治，致力于建立公正合理的国际新秩序”，经济飞速发展令世人瞩目；即中国在反对霸权主义强权政治、经济发展示范、维护第三世界权益方面起作用，不包括“建立单极霸权秩序”"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=83837768&knowledgeId=83837881",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH02_S03_U01",
    "sectionName": "MT_CH02_S03"
   },
@@ -21049,7 +21052,7 @@
     "ref": "教材《普通高校军事课教程》·现代战争"
    },
    "relatedSection": "心理空间",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH02_S01_U01",
    "sectionName": "MT_CH02_S01"
   },
@@ -21091,7 +21094,7 @@
    },
    "relatedSection": "五大要素",
    "webSourceUrl": "http://nydi.gov.cn/sitesources/sqlzw/page_pc/xsqjw/xyx/djfg/article2d736a625f0347c6bfc24aeb17781ac6.html",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH02_S01_U03",
    "sectionName": "MT_CH02_S01"
   },
@@ -21132,7 +21135,7 @@
     "reason": "《国家安全法》第四条规定“坚持中国共产党对国家安全工作的领导”；第七条规定“维护国家安全，应当遵守宪法和法律，坚持社会主义法治原则”；第八条规定“国家安全工作应当统筹内部安全和外部安全、国土安全和国民安全、传统安全和非传统安全、自身安全和共同安全”，分别对应选项A、B、C，法条中无“军事手段优先”原则"
    },
    "webSourceUrl": "http://nydi.gov.cn/sitesources/sqlzw/page_pc/xsqjw/xyx/djfg/article2d736a625f0347c6bfc24aeb17781ac6.html",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH02_S01_U02",
    "sectionName": "MT_CH02_S01"
   },
@@ -21169,7 +21172,7 @@
     "reason": "教材在“我国周边安全环境仍存在威胁和挑战”中列出：西方大国对我国的综合压力在上升（美国“作为世界超级大国，在我国周边地区有强大的势力和影响”）；“我国与邻国之间的领土、领海争端大部分悬而未决”；“还有一些历史争端尚未解决，并产生了一些新的争端”。故A、B、C符合，“周边无任何争端”与事实不符"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=83837768&knowledgeId=83837882",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH02_S02_U03",
    "sectionName": "MT_CH02_S02"
   },
@@ -21207,7 +21210,7 @@
     "reason": "教材小标题「(二)相对稳定的安全环境中存在着不安全因素」下列出四项：西方军事强国对我国安全环境影响深远（美国尤甚）、周边热点地区仍有发生情况突变的可能、恐怖主义和民族分裂活动威胁我国安全、外国势力插手台湾问题。四个选项与之一一对应。",
     "note": "原答案只列 A、C 两项，漏选 B、D，已按教材小标题下的四项补全。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH02_S02_U03",
    "sectionName": "MT_CH02_S02"
   },
@@ -21293,7 +21296,7 @@
     "note": "来源：《中华人民共和国国家安全法》（2015年7月1日通过）第二十四条、第二十五条、第三十三条；本题答案已按依据复核确认；本题答案已经逐题复核确认"
    },
    "webSourceUrl": "http://nydi.gov.cn/sitesources/sqlzw/page_pc/xsqjw/xyx/djfg/article2d736a625f0347c6bfc24aeb17781ac6.html",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH02_S02_U05",
    "sectionName": "MT_CH02_S02"
   },
@@ -21373,7 +21376,7 @@
     "reason": "《国家安全法》第十条规定：“维护国家安全，应当坚持互信、互利、平等、协作，积极同外国政府和国际组织开展安全交流合作，履行国际安全义务，促进共同安全”，支持“互信、互利、平等、协作”为核心；《国防法》第六十七条规定我国“坚持互相尊重主权和领土完整、互不侵犯、互不干涉内政、平等互利、和平共处五项原则”，构成新安全观的政治基础"
    },
    "webSourceUrl": "http://nydi.gov.cn/sitesources/sqlzw/page_pc/xsqjw/xyx/djfg/article2d736a625f0347c6bfc24aeb17781ac6.html",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH02_S02_U04",
    "sectionName": "MT_CH02_S02"
   },
@@ -21491,7 +21494,7 @@
     "reason": "教材将我国周边不安全因素概括为三方面：“西方大国对我国的综合压力在上升”；“我国与邻国之间的领土、领海争端大部分悬而未决”；“个别地区热点仍对我构成间接威胁”，并明确美国“插手台湾问题……极力阻挠我统一大业”，与选项A、B、C相符；教材及《国家安全法》第二十六条、第二十八条同时明确防范民族分裂活动、反对恐怖主义，选项D亦属我国周边安全环境中的不安全因素"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=83837768&knowledgeId=83837882",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH02_S02_U03",
    "sectionName": "MT_CH02_S02"
   },
@@ -21739,7 +21742,7 @@
     "reason": "教材“激烈竞争中的军事战略调整”一节记载：美国“在冷战结束后的短短9年时间内……主动进行了4次大的军事战略调整”，目标是“确保美国军事力量在21世纪的绝对优势，继续称霸世界”；欧盟“逐步实行具有联合一致的外交和防务政策，加强自身防务建设”“法、德军团已建立”。故美国、欧盟的战略动向同样属于该题所问内容"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=83837768&knowledgeId=83837881",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH02_S03_U03",
    "sectionName": "MT_CH02_S03"
   },
@@ -21783,7 +21786,7 @@
     "note": "来源：超星课程《普通高等学校军事理论与技能训练教程》第二章第三节国际战略形势·二、国际战略形势的发展趋势；教材用“引领作用”，与选项B“示范作用”义近。"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/nodedetailcontroller/visitnodedetail?courseId=209616365&knowledgeId=270222023",
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -21825,7 +21828,7 @@
    },
    "relatedSection": "武装力量体制",
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=83837768&knowledgeId=83837881",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH02_S03_U03",
    "sectionName": "MT_CH02_S03"
   },
@@ -21870,7 +21873,7 @@
     "note": "来源：中国外文局当代中国与世界研究院《推动构建人类命运共同体》（中国网“中国关键词”专题）"
    },
    "webSourceUrl": "http://keywords.china.org.cn/m/2026-02/12/content_118330861.html",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH02_S03_U02",
    "sectionName": "MT_CH02_S03"
   },
@@ -22473,7 +22476,7 @@
     "reason": "教材载：军事思想“是关于战争、军队和国防的基本问题的理性认识”（A正确）；内容含军事哲学（战争观、方法论）与军事实践基本指导原则（B正确）；“主要来源于战争与军事活动的实践，又给战争和军事实践以理论指导”（C错误，即“不能指导军事实践”不成立）；具有“鲜明的阶级性”（D正确）"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/nodedetailcontroller/visitnodedetail?courseId=209616365&knowledgeId=270222014",
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -22552,7 +22555,7 @@
     "reason": "按地域和国家划分，可分为外国军事思想和中国军事思想；按时代划分，可分为古代军事思想、近代军事思想和现代军事思想；按阶级性质划分，可分为奴隶主阶级军事思想、封建地主阶级军事思想、资产阶级军事思想和无产阶级军事思想等",
     "ref": "教材《普通高校军事课教程》·军事思想"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S01_U01",
    "sectionName": "MT_CH03_S01"
   },
@@ -22671,7 +22674,7 @@
     "reason": "德国的鲁登道夫提出了“总体战”理论，认为现代战争是总体战，它既针对军队也针对平民，战争具有全民性，强调民族的团结在战争中的重要性；主张实行国民经济军事化；要建设好一支平时就准备好的军队；重视统帅在总体战中的作用。",
     "ref": "教材《普通高校军事课教程》·军事思想"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S02_U01",
    "sectionName": "MT_CH03_S02"
   },
@@ -22708,7 +22711,7 @@
     "reason": "法国元帅贝当根据第一次世界大战的经验，提出了依靠坚固防御工事制胜的“阵地战”理论",
     "ref": "教材《普通高校军事课教程》·军事思想"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S01_U02",
    "sectionName": "MT_CH03_S01"
   },
@@ -22749,7 +22752,7 @@
     "reason": "英国的军事理论家利德尔•哈特提出了“间接路线战略”，主张避免正面强攻，要采取迂回路线，营造",
     "ref": "教材《普通高校军事课教程》·军事思想"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S02_U01",
    "sectionName": "MT_CH03_S02"
   },
@@ -22785,7 +22788,7 @@
     "reason": "近代军事思想从1640年英国资产阶级革命至1917年俄国十月革命，这277年为世界近代史",
     "ref": "教材《普通高校军事课教程》·军事思想"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -22946,7 +22949,7 @@
     "reason": "教材载机械化战争时期西方主要作战理论为：杜黑的“空军制胜论”（《制空权》）、富勒的“机械化战争论”、鲁登道夫的“总体战”等；“信息制胜论”属信息化战争（新军事革命）时期理论，不属机械化战争时期"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/nodedetailcontroller/visitnodedetail?courseId=209616365&knowledgeId=270222025",
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -23024,7 +23027,7 @@
     "reason": "现代外国军事思想现代是指第二次世界大战结束至今，军事上处于从核威慑条件下的机械化战争向信息化战争过渡的时期"
    },
    "relatedSection": "第二部分",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH03_S02_U01",
    "sectionName": "MT_CH03_S02"
   },
@@ -23295,7 +23298,7 @@
     "reason": "《尉缭子》则明确指出，“故兵者，所以诛暴乱，禁不义也”",
     "ref": "教材《普通高校军事课教程》·军事思想"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S03_U02",
    "sectionName": "MT_CH03_S03"
   },
@@ -23333,7 +23336,7 @@
     "answer": "A、政",
     "reason": "《淮南子•兵略训》指出，“兵之胜败，本在于政"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S03_U02",
    "sectionName": "MT_CH03_S03"
   },
@@ -23370,7 +23373,7 @@
     "reason": "备战思想“用兵之法，无恃其不来，恃吾有以待也；无恃其不攻，恃吾有所不可攻也",
     "ref": "教材《普通高校军事课教程》·军事思想"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S03_U03",
    "sectionName": "MT_CH03_S03"
   },
@@ -23406,7 +23409,7 @@
     "answer": "A、以消耗制胜",
     "reason": "如一部分军事理论(三) 以谋略制胜为核心的用兵思想谋略，是指用兵的计谋"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH03_S03_U03",
    "sectionName": "MT_CH03_S03"
   },
@@ -23442,7 +23445,7 @@
     "answer": "A、用兵（谋略制胜）思想",
     "reason": "㈠重战、慎战和备战思想㈡“知彼知己，百战不殆”的战争指导思想㈢以谋略制胜为核心的用兵思想：核心是谋略制胜——“庙算”制胜（运筹于帷幄之中，决胜于千里之外）、“诡道”制胜（“兵者，诡道也”，归纳为十二法）、不战而屈人之兵（“上兵伐谋。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH03_S03_U03",
    "sectionName": "MT_CH03_S03"
   },
@@ -23681,7 +23684,7 @@
     "reason": "教材在“萌生时期”称“西周时期已出现《军志》《军政》等军事著作……这些均标志着我国古代军事思想已处于萌芽状态”；在“形成时期（春秋战国）”则称“这一时期产生的兵书——《孙子兵法》《吴子》《司马法》……全面奠定了我国古代军事思想的基础，标志着我国古代军事思想已基本形成”"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=83837768&knowledgeId=83837807",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S03_U01",
    "sectionName": "MT_CH03_S03"
   },
@@ -23722,7 +23725,7 @@
     "reason": "在公元前8世纪至公元前3世纪春秋战国的社会大变革时期，中国古代军事思想取得了辉煌的成就，涌现出许多杰出的军事家及军事著作，如孙武及其所著的《孙子兵法》等",
     "ref": "教材《普通高校军事课教程》·军事思想"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S03_U01",
    "sectionName": "MT_CH03_S03"
   },
@@ -23799,7 +23802,7 @@
     "reason": "公元前8世纪（夏、商、西周）：古代军事思想初步形成，战争以天命观为指导，西周出现《军志》《军政》等著作",
     "ref": "教材《普通高校军事课教程》·军事思想"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S03_U01",
    "sectionName": "MT_CH03_S03"
   },
@@ -23839,7 +23842,7 @@
     "reason": "公元前3世纪末（春秋战国）：军事思想趋向成熟，《孙子兵法》等兵书涌现，全面奠定古代军事思想基础",
     "ref": "教材《普通高校军事课教程》·军事思想"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S03_U01",
    "sectionName": "MT_CH03_S03"
   },
@@ -23876,7 +23879,7 @@
     "reason": "教材“《孙子兵法》13篇”载：“13篇可分为三个部分：第一部分由《计》、《作战》、《谋攻》、《形》、《势》和《虚实》组成”，即第一篇是《计篇》"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=83460695&knowledgeId=83460739&nohead=1",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S03_U03",
    "sectionName": "MT_CH03_S03"
   },
@@ -23951,7 +23954,7 @@
     "reason": "教材原文：“孙子名武，字长卿……生于春秋末期……齐国乐安（今山东省惠民县境内）人。”"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=83837768&knowledgeId=83837807",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S03_U03",
    "sectionName": "MT_CH03_S03"
   },
@@ -24031,7 +24034,7 @@
     "reason": "学习时报载：“《孙子兵法》强调的‘慎战’不是畏战，而是‘重战’‘止战’”；“在作战篇中，孙武认为要从兵、车、粮、材等方面加强备战”。即《孙子兵法》的言战思想为慎战、重战、备战，“好战”不属于其思想"
    },
    "webSourceUrl": "https://www.studytimes.cn/wscy/202311/t20231127_62324.html",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH03_S03_U03",
    "sectionName": "MT_CH03_S03"
   },
@@ -24110,7 +24113,7 @@
     "reason": "它有两个基本特征：一是战争的正义性，这是实行人民战争的首要条件和政治基础；二是广泛的群众性，是指战争必须有广大人民群众支持和参加，这是人民战争的一个重要标志",
     "ref": "教材《普通高校军事课教程》·军事思想"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S04_U01",
    "sectionName": "MT_CH03_S04"
   },
@@ -24464,7 +24467,7 @@
     "reason": "中国军网（解放军报）载文指出：毛泽东1928年《井冈山前委对中央的报告》系统总结了“尤其是在三湾改编中实践的‘支部建在连上’原则”，“它确立了党对军队绝对领导的组织基础”"
    },
    "webSourceUrl": "http://www.81.cn/yljnt_208627/lsda_208656/16417651.html",
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -24625,7 +24628,7 @@
     "reason": "教材“人民战争的战略战术”列有：战略上藐视敌人、战术上重视敌人；实行积极防御，反对消极防御；集中优势兵力，各个歼灭敌人；三种作战形式密切配合并适时转移；不打无准备、无把握之仗；实行有利决战等，其中不含“全力进攻”；教材另述战争目的是“保存自己，消灭敌人”"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=83837768&knowledgeId=83837817",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH03_S04_U01",
    "sectionName": "MT_CH03_S04"
   },
@@ -24830,7 +24833,7 @@
     "reason": "题库原题逐字命中：『哪一项不是《论持久战》所阐述的内容。A、抗日战争为什么是持久战B、批判\"亡国论\"和\"速胜论\" C、怎样进行持久战D、对第一次世界大战的总结正确答案：D』，与本题题干、选项、答案完全一致"
    },
    "webSourceUrl": "https://www.gzst.edu.cn/uploadfiles/2024/11/20241122144509255.docx",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH03_S04_U05",
    "sectionName": "MT_CH03_S04"
   },
@@ -25459,7 +25462,7 @@
     "reason": "新世纪新阶段军队建设面临的主要矛盾，是现代化水平与信息化战争需要不相适应的矛盾",
     "ref": "教材《普通高校军事课教程》·军事思想"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S04_U04",
    "sectionName": "MT_CH03_S04"
   },
@@ -25768,7 +25771,7 @@
     "reason": "强军目标是建设一支听党指挥、能打胜仗、作风优良的人民军队，到2027年实现建军一百年奋斗目标，到2035年基本实现国防和军队现代化，到21世纪中叶把人民军队全面建成世界一流军队"
    },
    "relatedSection": "人民军队的性质",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH03_S04_U05",
    "sectionName": "MT_CH03_S04"
   },
@@ -25928,7 +25931,7 @@
     "reason": "教材“军事思想的发展历程及地位作用”明确列出三点：1.军事思想是军事实践的指南；2.军事思想是研究具体军事学科的理论基础（对具体军事学科的研究提供方法论）；3.军事思想对其他社会实践有着重要的借鉴意义"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/nodedetailcontroller/visitnodedetail?courseId=220282573&knowledgeId=479393679",
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -26014,7 +26017,7 @@
     "reason": "教材述及《孙子兵法·虚实》篇“主要论述在作战指导上须‘避实而击虚’，‘因敌而制胜’，灵活主动地争取战争的胜利”，并列出“攻其无备，出其不意”“知彼知己”“兵不厌诈（兵者诡道也，兵以诈立）”等思想，即“避实击虚”亦属《孙子兵法》军事思想"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=83837768&knowledgeId=83837807",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH03_S03_U03",
    "sectionName": "MT_CH03_S03"
   },
@@ -26177,7 +26180,7 @@
     "reason": "《普通高等学校军事课教学大纲》将“机械化战争”列为《军事理论》教学内容（“机械化战争的基本内涵、主要形态、特征和代表性战例”），表明“机械化战争”理论是公认的战争与作战理论形态；“核武器制胜”亦属核武器时代的代表性军事理论"
    },
    "webSourceUrl": "http://www.moe.gov.cn:8080/srcsite/A17/moe_1061/s3289/201902/t20190201_368799.html",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH03_S02_U01",
    "sectionName": "MT_CH03_S02"
   },
@@ -26302,7 +26305,7 @@
     "reason": "㈥存在时代和阶级的局限：战争观方面未能区分战争的性质，治军方面有愚兵政策，军队补给方面有抢掠政策以及作战原则方面存在某些片面性",
     "ref": "教材《普通高校军事课教程》·军事思想"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH03_S03_U03",
    "sectionName": "MT_CH03_S03"
   },
@@ -26384,7 +26387,7 @@
     "reason": "教材述《计》篇“兵者，国之大事”（重战）、《火攻》篇“同时提出了慎战的思想”、《九变》篇“提出了有备无患的备战思想”、《谋攻》篇“知彼知己，百战不殆”“上兵伐谋”（以谋略制胜）；杜黑的“空中战争论”属外国军事思想，不属《孙子兵法》"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=83837768&knowledgeId=83837807",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH03_S03_U03",
    "sectionName": "MT_CH03_S03"
   },
@@ -26427,7 +26430,7 @@
     "note": "来源：高校军事理论教材《大学生军事理论教程》第二章第三节“人民战争思想”“战争观与方法论”（超星课程页面）；来源为高校军事理论教材课程页面，非官方文件。"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=83837768&knowledgeId=83837817",
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -26472,7 +26475,7 @@
    },
    "relatedSection": "边海防建设",
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=83837768&knowledgeId=83837817",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH03_S04_U01",
    "sectionName": "MT_CH03_S04"
   },
@@ -26512,7 +26515,7 @@
     "reason": "教材载毛泽东军事思想“指导中国革命战争从胜利走向胜利”，《关于建国以来党的若干历史问题的决议》称毛泽东军事理论“是对马克思列宁主义军事理论的极为杰出的贡献”；教材并明确邓小平新时期军队建设思想“继承和发展了毛泽东军事思想”，说明毛泽东军事思想在新的历史条件下仍然被坚持和发展"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=83837768&knowledgeId=83837820",
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -26554,7 +26557,7 @@
     "ref": "教材《普通高校军事课教程》（PDF第129页）",
     "answer": "A、B、C、D（保存自己，消灭敌人；坚持积极防御，反对消极防御；力求实现歼灭战；采取恰当的作战形式）"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -26634,7 +26637,7 @@
     "reason": "教材《毛泽东军事思想概述》载：毛泽东军事思想“是马列主义的基本原理同中国革命战争实践相结合的产物”“是中国革命战争经验的科学总结和理论升华”“是中国共产党集体智慧的结晶”，且《基本内容》一节称其“是一个科学、完整的无产阶级军事理论体系”；而“只是毛泽东个人研究军事问题的产物”与“集体智慧的结晶”直接矛盾"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=83837768&knowledgeId=83837813",
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -26676,7 +26679,7 @@
     "answer": "A、B、C（战争从不可避免到可以避免；和平与发展是当今世界的两大主题；霸权主义是当代战争的主要根源）",
     "reason": "㈡基本内容⒈对战争与和平的新认识：战争从不可避免到可以避免；和平与发展是当今世界的两大主题；霸权主义是当代战争的主要根源；未来战争是现代条件下的局部战争；用和平方式解决国际争端"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -26713,7 +26716,7 @@
     "reason": "教材载毛泽东军事思想“指导中国革命战争从胜利走向胜利”，《关于建国以来党的若干历史问题的决议》认为毛泽东军事理论“是对马克思列宁主义军事理论的极为杰出的贡献”；教材并称“国外许多有识之士普遍认为，共产党军事思想的最好阐述见诸于中国”，与A、B、C相符"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=83837768&knowledgeId=83837813",
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -26789,7 +26792,7 @@
     "reason": "教材“人民军队思想”载：我军“必须是中国共产党绝对领导下的、代表人民根本利益和执行无产阶级革命政治任务的武装集团”“中国共产党对军队的绝对领导是保证人民军队无产阶级性质的根本领导制度”；“全心全意为人民服务的宗旨，是我军建军原则的核心”；“我军在革命战争和保卫祖国的长期斗争中，始终遵循这一宗旨……从而赢得人民群众的拥护和爱戴”"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=83837768&knowledgeId=83837817",
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -27042,7 +27045,7 @@
     "answer": "A、B（边斗争、边备战、边建设；更加注重聚焦实战、创新驱动、体系建设、集约高效、军民融合）",
     "reason": "必须贯彻新时代党的强军思想，贯彻新时代军事战略方针，坚持党对人民军队的绝对领导，坚持政治建军、改革强军、科技强军、人才强军、依法治军，坚持边斗争、边备战、边建设，坚持机械化信息化智能化融合发展。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH03_S04_U05",
    "sectionName": "MT_CH03_S04"
   },
@@ -27176,7 +27179,7 @@
     "note": "本题库收录的是原卷参考答案要点，见下方",
     "reason": "中国古代军事思想的基本内容（P105）㈠战争的起因、性质和作用：《吴子》论起因——争名、争利、积恶、内乱、因饥五方面；性质分义兵、强兵、刚兵、暴兵、逆兵五类；《司马法》“以战止战，虽战可也”，《尉缭子》“兵者，所以诛暴乱，禁不义也”"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S03",
    "sectionName": "MT_CH03_S03"
   },
@@ -27205,7 +27208,7 @@
    "explanationParts": {
     "reason": "〔知识链接：“兵圣”孙武〕孙武（约公元前545—前470年），字长卿，春秋晚期齐国乐安（今山东惠民）人；以所著《兵法十三篇》进献吴王阖闾，被任命为将军；辅佐吴国西破强楚、威震齐晋诸大国。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S03",
    "sectionName": "MT_CH03_S03"
   },
@@ -27233,7 +27236,7 @@
     "reason": "教材原文：“宋朝还颁布《孙子兵法》《吴子》《司马法》《六韬》《尉缭子》《黄石公三略》和《李卫公问对》等所谓《武经七书》，并官定为武学教材。”并指出这一时期“兵书数量繁多，门类齐全，概括性强，自成体系”，是中国古代军事思想走上体系化的重要标志"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=83837768&knowledgeId=83837807",
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -27298,27 +27301,30 @@
   {
    "id": "q-0714",
    "type": "short",
-   "stem": "《武经七书》编撰于____时期。",
+   "stem": "《武经七书》被官定为武学教材并颁行于什么时期？",
    "options": [],
-   "answer": "北宋时期。北宋令曾公亮等编纂《武经总要》，并将《孙子兵法》《吴子》《司马法》《六韬》《尉缭子》《黄石公三略》《李卫公问对》颁布为“武经七书” ，官定为武学教材。",
-   "explanation": "教材“《孙子兵法》影响”一节述及：《孙子》在唐、宋时期更受重视，“被列为‘武经七书’之首”，出现权威注释本《十一家注孙子》，即《武经七书》的编定在宋代（北宋）\n提示：来源：《广东培正学院军事理论》第十一章“《孙子兵法》影响”；该教材只写“唐、宋时期”，未直接写“北宋”；国家图书馆·国家典籍博物馆《武经七书》专题页亦介绍其为北宋颁行的七部兵书合称（https://www.nlc.cn/nmcb/jpww/gengu/20240826_2640890.shtml）。",
+   "answer": "北宋时期，具体为宋神宗元丰年间。",
+   "explanation": "《武经七书》汇集七部创作年代不同的兵书，北宋神宗元丰年间颁布并官定为武学教材。北宋是官定、颁行这套书的时期，不是七部原著共同的创作年代；《武经总要》是另一部兵书。\n依据：国家图书馆国家典籍博物馆《武经七书》：https://www.nlc.cn/nmcb/jpww/gengu/20240826_2640890.shtml\n提示：不把编定颁行与原著创作混写。",
    "source": "模拟题",
    "chapter": "第三章军事思想",
    "section": "简答题",
    "raw": "133.《武经七书》编撰于____时期。",
    "explanationSrc": "web",
-   "explanationRef": "《广东培正学院军事理论》第十一章“《孙子兵法》影响”（联网核查）",
-   "keyConcept": "《武经七书》编撰于时期",
+   "explanationRef": "国家图书馆国家典籍博物馆《武经七书》：https://www.nlc.cn/nmcb/jpww/gengu/20240826_2640890.shtml",
+   "keyConcept": "武经七书的官定颁行",
    "keywords": [
     "武经七书",
-    "书编",
-    "于时"
+    "北宋",
+    "元丰",
+    "颁行",
+    "武学教材"
    ],
    "explanationParts": {
-    "note": "来源：《广东培正学院军事理论》第十一章“《孙子兵法》影响”；该教材只写“唐、宋时期”，未直接写“北宋”；国家图书馆·国家典籍博物馆《武经七书》专题页亦介绍其为北宋颁行的七部兵书合称（https://www.nlc.cn/nmcb/jpww/gengu/20240826_2640890.shtml）。",
-    "reason": "教材“《孙子兵法》影响”一节述及：《孙子》在唐、宋时期更受重视，“被列为‘武经七书’之首”，出现权威注释本《十一家注孙子》，即《武经七书》的编定在宋代（北宋）"
+    "note": "不把编定颁行与原著创作混写。",
+    "reason": "《武经七书》汇集七部创作年代不同的兵书，北宋神宗元丰年间颁布并官定为武学教材。北宋是官定、颁行这套书的时期，不是七部原著共同的创作年代；《武经总要》是另一部兵书。",
+    "ref": "国家图书馆国家典籍博物馆《武经七书》：https://www.nlc.cn/nmcb/jpww/gengu/20240826_2640890.shtml"
    },
-   "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/nodedetailcontroller/visitnodedetail?courseId=220282573&knowledgeId=479393686",
+   "webSourceUrl": "https://www.nlc.cn/nmcb/jpww/gengu/20240826_2640890.shtml",
    "isHard": false,
    "subsection": "",
    "sectionName": ""
@@ -27486,7 +27492,7 @@
    "explanationParts": {
     "reason": "第四节当代中国军事思想当代中国军事思想是中国共产党在创建人民军队、领导武装斗争和社会主义现代化建设的长期实践中，坚持把马克思列宁主义基本原理同中国革命和军队建设实际相结合，创造出的具有中国特色的军事理论体系。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S04",
    "sectionName": "MT_CH03_S04"
   },
@@ -27575,7 +27581,7 @@
     "reason": "教材原文：「解决好打得赢、不变质两个历史性课题，必须按照『五句话』总要求全面加强军队建设」，即新时期我军必须解决的两大历史性课题为打得赢、不变质"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=82439650&knowledgeId=82439662&_from=&rtag=",
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -27633,7 +27639,7 @@
     "reason": "”抗日战争时期，为了战胜日军的野蛮进攻和国民党顽固派的包围封锁所造成的财政和经济困难，毛泽东发出“自己动手、丰衣足食”的号召，要求“这支军队也要当两支用，一方面打仗，一方面生产”，从而明确了我军战斗队、工作队和生产队的三大任务"
    },
    "relatedSection": "人民军队的三大任务",
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -27814,7 +27820,7 @@
     "reason": "“多数人认为，直接命中概率高于50%的制导武器才称为精确制导武器。”"
    },
    "webSourceUrl": "https://www.kepuchina.cn/article/articleinfo?business_type=100&classify=0&ar_id=179409",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH04_S01_U03",
    "sectionName": "MT_CH04_S01"
   },
@@ -27972,7 +27978,7 @@
     "ref": "教材《普通高校军事课教程》·新军事革命的主要内容（PDF第153页）",
     "answer": "B、战争形态由机械化战争向智能化战争转变"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH04_S02_U01",
    "sectionName": "MT_CH04_S02"
   },
@@ -28132,7 +28138,7 @@
     "reason": "教材原文：「20世纪90年代以来发生的世界性的军事变革，是在表现为军事技术和武器装备的根本性变化基础之上的，包括作战理论、作战方法、军队体制编制等军事领域各方面的全面变革。」"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=82439650&knowledgeId=82439669&_from=&_fromV2_=&rtag=",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH04_S02_U04",
    "sectionName": "MT_CH04_S02"
   },
@@ -28672,7 +28678,7 @@
     "answer": "D、军事工程革命",
     "reason": "军队将向小型化、一体化和智能化方向发展在未来信息化战争中，伴随着新军事革命的步伐，军队的发展趋势将是高度的小型化、一体化和智能化"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH04_S04_U04",
    "sectionName": "MT_CH04_S04"
   },
@@ -28946,7 +28952,7 @@
     "reason": "多份高校《军事理论》课件与题库显示单兵数字化装备按功能划分为头盔、计算机/无线电、防护服等多个分系统（题库：『下列哪一项不属于单兵数字化装备。A、卫星定位系统B、一体化头盔系统C、单兵计算机和无线电分系统D、防护服分系统正确答案：A』），教材亦载『单兵数字化装备由武器、综合头盔、计算机、通信、软件和防护、携行装备等分系统组成』"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/nodedetailcontroller/visitnodedetail?courseId=204238272&knowledgeId=154945240",
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -29027,7 +29033,7 @@
     "reason": "教材载：“信息化战争最突出的特点是作战体系、作战行动和指挥控制的一体化……通过各级C4ISR系统等信息平台和数据链，将战场上各种武器系统、作战平台、保障装备联为一体，使战区内外的作战部队、火力单位和作战保障协调行动。”作战要素一体化强调体系与联合，与“单兵单打独斗”相反"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=82439650&knowledgeId=82439670",
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -29300,7 +29306,7 @@
     "answer": "D、精确制导武器",
     "reason": "硬杀伤型信息武器主要是指精确制导武器和各种信息化作战平台"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -29338,7 +29344,7 @@
     "reason": "《大学军事理论教程（第二版）》第五章第八节「新概念武器」下辖三目：「一、定向能武器」「二、动能武器」「三、非致命性武器和新概念弹药」，即除定向能武器、动能武器外还有非致命性武器"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/zt/83460695.html",
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -29627,21 +29633,23 @@
     "侦察"
    ],
    "answer": "A",
-   "explanation": "正确答案：A、计算机\nC4ISR系统：美军提出的21世纪一体化信息系统新概念，主要包括指挥、控制、通信、计算机、情报、杀伤、监视、侦察和目标捕获系统\n依据：教材《普通高校军事课教程》·现代战争",
+   "explanation": "正确答案：A、计算机\nC4ISR由指挥、控制、通信、计算机、情报、监视、侦察七项组成。C4的第四项是计算机，R对应侦察；杀伤、目标捕获不属于这个缩写的独立组成项。\n依据：美国国防安全合作局C4ISR术语释义：https://samm.dsca.mil/acronym/c4isr\n提示：保留原参考答案，只校正缩写释义。",
    "source": "模拟题",
    "chapter": "第四章现代战争",
    "section": "单选题",
    "raw": "51.美军提出的21世纪一体化信息系统新概念“C4ISR”中，“C4”指指挥、控制、通信和____。 A.计算机 B.情报 C.监视 D.侦察",
-   "explanationSrc": "textbook",
-   "explanationRef": "教材《普通高校军事课教程》·现代战争",
-   "keyConcept": "侦察和目标捕获系统",
+   "explanationSrc": "web",
+   "explanationRef": "美国国防安全合作局C4ISR术语释义：https://samm.dsca.mil/acronym/c4isr",
+   "keyConcept": "C4的第四项计算机",
    "keywords": [
-    "侦察和目标捕获系统",
-    "主要包括指挥",
     "C4ISR",
+    "指挥",
+    "控制",
+    "通信",
     "计算机",
+    "情报",
     "监视",
-    "情报"
+    "侦察"
    ],
    "distractorWhy": {
     "B": "题干问的是指挥、控制、通信之外的第四项，该填计算机，情报归在后面那组字母里。",
@@ -29650,12 +29658,14 @@
    },
    "explanationParts": {
     "answer": "A、计算机",
-    "reason": "C4ISR系统：美军提出的21世纪一体化信息系统新概念，主要包括指挥、控制、通信、计算机、情报、杀伤、监视、侦察和目标捕获系统",
-    "ref": "教材《普通高校军事课教程》·现代战争"
+    "reason": "C4ISR由指挥、控制、通信、计算机、情报、监视、侦察七项组成。C4的第四项是计算机，R对应侦察；杀伤、目标捕获不属于这个缩写的独立组成项。",
+    "ref": "美国国防安全合作局C4ISR术语释义：https://samm.dsca.mil/acronym/c4isr",
+    "note": "保留原参考答案，只校正缩写释义。"
    },
    "isHard": true,
    "subsection": "MT_CH04_S04_U06",
-   "sectionName": "MT_CH04_S04"
+   "sectionName": "MT_CH04_S04",
+   "webSourceUrl": "https://samm.dsca.mil/acronym/c4isr"
   },
   {
    "id": "q-0778",
@@ -30162,7 +30172,7 @@
     "reason": "2014年2月24日，俄军第31独立近卫空降突击旅抵达克里米亚，为避免给西方干涉提供口实，“小绿人”进入克里米亚时便摘掉所有俄军标识，对外宣称是“当地安全力量”，向克里米亚亲俄势力提供武器、培训，由克里米亚亲俄势力做“先锋”。",
     "ref": "教材《普通高校军事课教程》·现代战争"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH04_S05_U04",
    "sectionName": "MT_CH04_S05"
   },
@@ -30239,7 +30249,7 @@
     "reason": "中国军网（解放军报）评论原文：『美国司法部长帕姆·邦迪……称马杜罗犯有\"毒品恐怖主义阴谋罪、可卡因走私阴谋罪\"等多项罪名』；新华时评亦载：『彻底撕下了之前所谓\"打击毒品恐怖主义\"的虚伪面具，将资源帝国主义真实面目暴露无遗』。可证美国把委内瑞拉领导人马杜罗定性为『毒品恐怖分子』以掩饰其石油霸权本质"
    },
    "webSourceUrl": "http://www.81.cn/pl_208541/16436249.html",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH04_S05_U05",
    "sectionName": "MT_CH04_S05"
   },
@@ -30279,7 +30289,7 @@
     "answer": "B、通过安理会实施制裁"
    },
    "webSourceUrl": "https://www.news.cn/20251130/06116883b6e049e59058e123f7f7c7b6/c.html",
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -30357,7 +30367,7 @@
     "reason": "新军事革命的重要影响（P146）㈠进一步加剧了世界战略力量对比的失衡态势㈡进一步推动了世界各国军事战略的全面调整㈢进一步拉大了世界各国军队武器装备和作战能力上的“时代差”",
     "note": "本题答案为原卷答案串解析所得，已按教材/来源核对"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -30477,7 +30487,7 @@
     "reason": "信息化战争的产生与形成（P159）㈠社会经济形态发展的必然结果㈡高技术的发展是信息化战争产生的直接动因㈢相对和平的国际环境提供了外部条件㈣近年局部战争的实践是基础",
     "ref": "教材《普通高校军事课教程》·现代战争"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH04_S04_U03",
    "sectionName": "MT_CH04_S04"
   },
@@ -30516,7 +30526,7 @@
     "answer": "A、B、C（是信息时代的产物；主要在军事、政治、经济三条战线进行；核心资源是信息和知识）",
     "reason": "其内涵包括：㈠信息化战争是信息时代的产物，是信息时代经济、科技、生产力水平和生产方式在战争领域的客观反映；㈡战争工具决定战争形态，战争工具的信息化、智能化和综合化，信息武器装备体系的形成，必然促使信息化战争的出现。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH04_S04_U01",
    "sectionName": "MT_CH04_S04"
   },
@@ -30558,7 +30568,7 @@
     "reason": "教材原文：「信息化武器已经能够通过对纵深重要目标的打击，直接达成战略目的，这样也就避免了战争的久拖不决，缩短了战争的进程」，即信息化条件下战争时间缩短与信息流动加快、突然性提高、精确作战相关"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=83460695&knowledgeId=83460816&_from=&rtag=",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH04_S04_U02",
    "sectionName": "MT_CH04_S04"
   },
@@ -30601,7 +30611,7 @@
    },
    "relatedSection": "五大要素",
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=82439650&knowledgeId=82439670",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH04_S04_U02",
    "sectionName": "MT_CH04_S04"
   },
@@ -30644,14 +30654,14 @@
    },
    "relatedSection": "边海防建设",
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=82439650&knowledgeId=82439673&_from=&rtag=",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH04_S04_U05",
    "sectionName": "MT_CH04_S04"
   },
   {
    "id": "q-0803",
    "type": "multi",
-   "stem": "单兵数字化装备（信息士兵系统）由哪些分系统组成？",
+   "stem": "下列哪些属于单兵数字化装备（信息士兵系统）的分系统？",
    "options": [
     "综合头盔分系统",
     "武器分系统",
@@ -30687,7 +30697,7 @@
    },
    "relatedSection": "武器装备",
    "webSourceUrl": "https://www.kepuchina.cn/kpcs/qyz/jskj1/201604/t20160406_7012.shtml",
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -30857,7 +30867,7 @@
    },
    "relatedSection": "武器装备",
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=82439650&knowledgeId=82439670",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH04_S04_U02",
    "sectionName": "MT_CH04_S04"
   },
@@ -30898,7 +30908,7 @@
     "ref": "教材《普通高校军事课教程》·现代战争"
    },
    "relatedSection": "混合战争涉及政治",
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -30941,7 +30951,7 @@
     "reason": "混合战争的主要特征（P175）㈠涉及政治、经济、技术、信息、社会、文化、心理等广泛的领域和维度㈡行为体倾向于在“灰色地带”行动。"
    },
    "relatedSection": "混合战争涉及政治",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH04_S05_U02",
    "sectionName": "MT_CH04_S05"
   },
@@ -30981,7 +30991,7 @@
     "ref": "教材《普通高校军事课教程》·现代战争"
    },
    "relatedSection": "混合战争涉及政治",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH04_S05_U01",
    "sectionName": "MT_CH04_S05"
   },
@@ -31024,7 +31034,7 @@
    },
    "relatedSection": "混合战争涉及政治",
    "webSourceUrl": "http://www.81.cn/2021zt/2021-08/05/content_10071324.htm",
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -31349,7 +31359,7 @@
     "reason": "㈡形成的动因⒈国际格局深刻变革：多极化加速，传统军事优势难以直接转化为政治胜利；⒉非传统安全威胁上升：恐怖主义、网络攻击、经济制裁等成为博弈工具；⒊技术扩散与门槛降低：互联网、商业卫星、人工智能使非国家行为体具备影响力。"
    },
    "relatedSection": "混合战争涉及政治",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH04_S05",
    "sectionName": "MT_CH04_S05"
   },
@@ -31406,7 +31416,7 @@
    },
    "relatedSection": "边海防建设",
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=82439650&knowledgeId=82439673&_from=&rtag=",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH04_S04",
    "sectionName": "MT_CH04_S04"
   },
@@ -31556,7 +31566,7 @@
    },
    "relatedSection": "武器装备",
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=83837768&knowledgeId=83837863",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH05_S01_U02",
    "sectionName": "MT_CH05_S01"
   },
@@ -31959,7 +31969,7 @@
     "reason": "按动力装置可分为常规动力航空母舰和核动力航空母舰；按排水量可分为大型航空母舰 (6万吨以上)、中型航空母舰 (3万 ~ 6万吨) 和小型航空母舰 (3万吨以下)；按战斗使命可分为攻击航空母",
     "ref": "教材《普通高校军事课教程》·信息化装备"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH05_S02_U02",
    "sectionName": "MT_CH05_S02"
   },
@@ -32078,7 +32088,7 @@
     "reason": "新概念武器，是指与传统武器相比，在基本原理、杀伤破坏机理和作战方式上都有本质区别，尚处于研制或探索之中的一类新型武器",
     "ref": "教材《普通高校军事课教程》·信息化装备"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -32349,14 +32359,14 @@
     "reason": "“精确制导武器是采用高精度探测、控制及制导技术，能够有效地从复杂背景中探测、识别及跟踪目标，能从多个目标中选择攻击对象并高精度命中其要害部位，最终摧毁目标的武器装备。”"
    },
    "webSourceUrl": "https://www.kepuchina.cn/article/articleinfo?business_type=100&classify=0&ar_id=179409",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH05_S04_U01",
    "sectionName": "MT_CH05_S04"
   },
   {
    "id": "q-0849",
    "type": "single",
-   "stem": "1991年海湾战争中，哪种防空导弹成功地拦截住了伊拉克的“飞毛腿”导弹？",
+   "stem": "1991年海湾战争中，哪种防空导弹被用于拦截伊拉克的“飞毛腿”导弹？",
    "options": [
     "“毒刺”",
     "“海麻雀”",
@@ -32364,7 +32374,7 @@
     "“爱国者”"
    ],
    "answer": "D",
-   "explanation": "正确答案：D、“爱国者”\n“爱国者- 2 ”曾在海湾战争中被用于拦截伊拉克的“飞毛腿”导弹\n依据：教材《普通高校军事课教程》·信息化装备",
+   "explanation": "正确答案：D、“爱国者”\n“爱国者- 2 ”曾在海湾战争中被用于拦截伊拉克的“飞毛腿”导弹\n提示：GAO1992年报告指出，现有数据不足以确证爱国者系统的实际拦截效果；本题只问被用于拦截的系统，不作成功率断言。https://www.gao.gov/products/nsiad-92-340\n依据：教材《普通高校军事课教程》·信息化装备",
    "source": "模拟题",
    "chapter": "第五章信息化装备",
    "section": "单选题",
@@ -32385,7 +32395,8 @@
    "explanationParts": {
     "answer": "D、“爱国者”",
     "reason": "“爱国者- 2 ”曾在海湾战争中被用于拦截伊拉克的“飞毛腿”导弹",
-    "ref": "教材《普通高校军事课教程》·信息化装备"
+    "ref": "教材《普通高校军事课教程》·信息化装备",
+    "note": "GAO1992年报告指出，现有数据不足以确证爱国者系统的实际拦截效果；本题只问被用于拦截的系统，不作成功率断言。https://www.gao.gov/products/nsiad-92-340"
    },
    "isHard": true,
    "subsection": "",
@@ -32423,7 +32434,7 @@
     "answer": "C、激光束以光速射向目标，激光武器具有速度快、不受外界电磁干扰、每次使用费用低等优点",
     "reason": "㈠各式新概念武器⒈激光武器：利用沿一定方向发射的激光束直接毁伤目标或使之失效的定向能武器，是当前新概念武器中理论成熟、发展迅速、具有实战价值的前卫武器。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH05_S04_U03",
    "sectionName": "MT_CH05_S04"
   },
@@ -32460,7 +32471,7 @@
     "answer": "A、惯性制导属于自主式制导，不易受人、自然环境及气象条件的干扰和影响，主要缺点是制导误差随时间积累",
     "reason": "其主要缺点是制导误差随时间积累，因此对工作时间较长的惯性制导系统，要用其他制导方式进行修正，构成复合制导"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH05_S04_U01",
    "sectionName": "MT_CH05_S04"
   },
@@ -32500,7 +32511,7 @@
     "answer": "A、B、C、D（利用网络化技术实现武器装备的整体联动；利用综合集成技术实现武器装备功能一体化；隐身化是发展的重要方向；智能化是发展的主要趋势）"
    },
    "relatedSection": "武器装备",
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -32703,7 +32714,7 @@
    },
    "relatedSection": "武器装备",
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/zt/227637426.html",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH05_S04_U03",
    "sectionName": "MT_CH05_S04"
   },
@@ -32820,7 +32831,7 @@
     "reason": "㈡新概念武器的发展趋势：⒈激光武器、动能武器将获得优先发展⒉配套的作战理论研究更受重视⒊衍生技术有更好的应用与推广",
     "ref": "教材《普通高校军事课教程》·信息化装备"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -32859,7 +32870,7 @@
     "reason": "⒉惯性制导武器：洲际弹道导弹、潜地弹道导弹、远程巡航导弹和大型运载火箭基本上都采用平台式惯性制导；惯性制导是自主式制导，不易受干扰，主要缺点是制导误差随时间积累，常用惯性/GPS制导、惯性加地形匹配制导、星光惯性制导等复合制导",
     "ref": "教材《普通高校军事课教程》·信息化装备"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH05_S04_U01",
    "sectionName": "MT_CH05_S04"
   },
@@ -33016,25 +33027,34 @@
    "answer": [
     "侦察"
    ],
-   "explanation": "正确答案：侦察\nC4ISR系统：美军提出的21世纪一体化信息系统新概念，主要包括指挥、控制、通信、计算机、情报、杀伤、监视、侦察和目标捕获系统",
+   "explanation": "正确答案：侦察\nC4ISR由指挥、控制、通信、计算机、情报、监视、侦察七项组成。C4的第四项是计算机，R对应侦察；杀伤、目标捕获不属于这个缩写的独立组成项。\n依据：美国国防安全合作局C4ISR术语释义：https://samm.dsca.mil/acronym/c4isr\n提示：保留原参考答案，只校正缩写释义。",
    "source": "模拟题",
    "chapter": "第五章信息化装备",
    "section": "填空题（由简答区识别）",
    "raw": "41.美军正在建设的C4ISR系统中，‘R’指的是____。",
-   "explanationSrc": "textbook",
-   "explanationRef": "",
-   "keyConcept": "ISR",
+   "explanationSrc": "web",
+   "explanationRef": "美国国防安全合作局C4ISR术语释义：https://samm.dsca.mil/acronym/c4isr",
+   "keyConcept": "C4ISR中的侦察",
    "keywords": [
-    "ISR",
+    "C4ISR",
+    "指挥",
+    "控制",
+    "通信",
+    "计算机",
+    "情报",
+    "监视",
     "侦察"
    ],
    "explanationParts": {
     "answer": "侦察",
-    "reason": "C4ISR系统：美军提出的21世纪一体化信息系统新概念，主要包括指挥、控制、通信、计算机、情报、杀伤、监视、侦察和目标捕获系统"
+    "reason": "C4ISR由指挥、控制、通信、计算机、情报、监视、侦察七项组成。C4的第四项是计算机，R对应侦察；杀伤、目标捕获不属于这个缩写的独立组成项。",
+    "ref": "美国国防安全合作局C4ISR术语释义：https://samm.dsca.mil/acronym/c4isr",
+    "note": "保留原参考答案，只校正缩写释义。"
    },
    "isHard": true,
    "subsection": "",
-   "sectionName": ""
+   "sectionName": "",
+   "webSourceUrl": "https://samm.dsca.mil/acronym/c4isr"
   },
   {
    "id": "q-0867",
@@ -33059,7 +33079,7 @@
    "explanationParts": {
     "reason": "㈠各式新概念武器⒈激光武器：利用沿一定方向发射的激光束直接毁伤目标或使之失效的定向能武器，是当前新概念武器中理论成熟、发展迅速、具有实战价值的前卫武器。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH05_S04",
    "sectionName": "MT_CH05_S04"
   },
@@ -33273,7 +33293,7 @@
   {
    "id": "q-0875",
    "type": "fill",
-   "stem": "下列属于双边军事同盟组织的是____。",
+   "stem": "下列属于双边军事同盟组织的是____。\n备选范围：北约；欧盟；美日军事同盟；华约。请填入其中一项的完整内容。",
    "options": [],
    "answer": [
     "美日军事同盟"
@@ -33422,7 +33442,7 @@
     "answer": "开始沦为半殖民地半封建社会",
     "reason": "近代中国自1840年鸦片战争后逐步沦为半殖民地半封建社会，当时许多有识之士看到武器装备对于战争胜负的重要性，因而从西方引进先进技术，开办工厂制造枪械，当时的军事理论课程主要是介绍武器性能、操作使用指南。年甲午战争后。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S01_U04",
    "sectionName": "MT_CH01_S01"
   },
@@ -33794,7 +33814,7 @@
     "reason": "兵役制度：秦汉征兵制、隋唐府兵制、宋朝募兵制、明朝卫所兵役制、清初八旗制"
    },
    "relatedSection": "兵役制度",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH01_S01_U03",
    "sectionName": "MT_CH01_S01"
   },
@@ -33856,7 +33876,7 @@
     "reason": "兵役制度：秦汉征兵制、隋唐府兵制、宋朝募兵制、明朝卫所兵役制、清初八旗制"
    },
    "relatedSection": "兵役制度",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH01_S01_U03",
    "sectionName": "MT_CH01_S01"
   },
@@ -33888,7 +33908,7 @@
     "answer": "2001年",
     "reason": "《中华人民共和国国防教育法》(以下简称 《国防教育法》) 于2001年4月28日由第九届全国人民代表大会常务委员会第二十一次会议通过并实施；2018年4月27日第十三届全国人民代表大会常务委员会第二次会议对其做出修改"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH01_S02_U01",
    "sectionName": "MT_CH01_S02"
   },
@@ -33922,7 +33942,7 @@
     "note": "待核查：参考答案暂保留原卷，不能作为已确认的法规结论。",
     "answer": "国务院、中央军委"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH01_S02_U01",
    "sectionName": "MT_CH01_S02"
   },
@@ -33952,14 +33972,14 @@
     "answer": "第三个星期六"
    },
    "webSourceUrl": "https://www.mod.gov.cn/gfbw/fgwx/16338253.html",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH01_S02_U01",
    "sectionName": "MT_CH01_S02"
   },
   {
    "id": "q-0897",
    "type": "fill",
-   "stem": "以下不属于学生军训意义的是____。",
+   "stem": "以下不属于学生军训意义的是____。\n备选范围：履行兵役义务；准备战争；加强国防后备力量建设；提高学生素质。请填入其中一项的完整内容。",
    "options": [],
    "answer": [
     "准备战争"
@@ -34113,7 +34133,7 @@
     "ref": "国防部：新修订的《中国人民解放军海军舰艇条令（试行）》施行（2021-08-11）",
     "answer": "中央军委"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH01_S02_U01",
    "sectionName": "MT_CH01_S02",
    "webSourceUrl": "https://www.mod.gov.cn/gfbw/qwfb/4891648.html"
@@ -34121,7 +34141,7 @@
   {
    "id": "q-0902",
    "type": "fill",
-   "stem": "下列不属于履行兵役义务形式的是____。",
+   "stem": "下列不属于履行兵役义务形式的是____。\n备选范围：服现役；服预备役；参加学生军事训练；充当雇佣兵。请填入其中一项的完整内容。",
    "options": [],
    "answer": [
     "充当雇佣兵"
@@ -34531,7 +34551,7 @@
   {
    "id": "q-0915",
    "type": "fill",
-   "stem": "下列不属于《中华人民共和国国防法》规定的中华人民共和国武装力量的是____。",
+   "stem": "下列不属于《中华人民共和国国防法》规定的中华人民共和国武装力量的是____。\n备选范围：中国人民解放军现役部队；预备役部队；中国人民武装警察部队；公务员。请填入其中一项的完整内容。",
    "options": [],
    "answer": [
     "公务员"
@@ -34558,7 +34578,7 @@
     "answer": "公务员"
    },
    "relatedSection": "武装力量体制",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S04_U02",
    "sectionName": "MT_CH01_S04"
   },
@@ -34592,7 +34612,7 @@
     "reason": "教材“武装警察部队的体制”载：“中国人民武装警察部队……在北京设立总部，在各省（自治区、直辖市）设立总队，在地区（市、州、盟）设立支队……即武装警察部队的编制序列为总部、总队、支队、大队、中队”；“武警总部是中国人民武装警察部队的最高领导机关”，总队、支队为下级领导机关，即设总部、总队、支队三级领导机关"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=83460695&knowledgeId=83460729",
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -34625,7 +34645,7 @@
     "reason": "武警部队是中华人民共和国武装力量的重要组成部分，自2018年1月1日起，武警部队由党中央、中央军委集中统一领导，实行中央军委—武警部队—部队领导指挥体制"
    },
    "relatedSection": "武装力量体制",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S04_U02",
    "sectionName": "MT_CH01_S04"
   },
@@ -34718,7 +34738,7 @@
     "answer": "基干民兵"
    },
    "relatedSection": "参加学生军事训练",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH01_S04_U03",
    "sectionName": "MT_CH01_S04",
    "webSourceUrl": "https://jjjcz.mee.gov.cn/djfg/gjflfg/fl/199812/t19981201_444218.html"
@@ -34781,14 +34801,14 @@
     "answer": "1994年11月",
     "reason": "1994年11月，国务院、中央军委决定成立国家国防动员委员会。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH01_S03_U04",
    "sectionName": "MT_CH01_S03"
   },
   {
    "id": "q-0923",
    "type": "fill",
-   "stem": "就其动员内容来讲，下列不属于国防动员的是____。",
+   "stem": "就其动员内容来讲，下列不属于国防动员的是____。\n备选范围：人民武装力量动员；人民防空动员；国库储备金动用；国防交通动员。请填入其中一项的完整内容。",
    "options": [],
    "answer": [
     "国库储备金动用"
@@ -34971,7 +34991,7 @@
     "answer": "国家利益",
     "reason": "《国家安全法》对国家安全的任务作出了明确规定，要求在所有的安全领域捍卫国家利益，为实现国家安全目标提供有力保障"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH02_S01_U03",
    "sectionName": "MT_CH02_S01"
   },
@@ -35123,7 +35143,7 @@
     "answer": "14",
     "reason": "我国地缘环境概况（P52）我国陆地领土面积约960万平方千米，居世界第三位；陆地边界.2万多千米，与14个国家陆地接壤（蒙古、俄罗斯、朝鲜、越南、老挝、缅甸、尼泊尔、不丹、印度、巴基斯坦、阿富汗、塔吉克斯坦、吉尔吉斯斯坦、哈萨克斯坦）。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH02_S02_U01",
    "sectionName": "MT_CH02_S02"
   },
@@ -35190,7 +35210,7 @@
     "reason": "广西壮族自治区海洋局网站转载《人民日报》文章载：“中国拥有约300万平方公里的主张管辖海域，海岸线18000多公里”；并指出“很多人认为中国的版图只有960万平方公里，约300万平方公里的主张管辖海域面积被忘至脑后”"
    },
    "webSourceUrl": "http://hyj.gxzf.gov.cn/gzdt/mtgc_66843/t3191613.shtml",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH02_S02_U01",
    "sectionName": "MT_CH02_S02"
   },
@@ -35284,7 +35304,7 @@
     "answer": "中国",
     "reason": "在2022年《美国国家安全战略报告》中，拜登政府将中国列为意图重塑国际秩序的唯一竞争对手，也是重塑国际秩序的经济、外交、军事和技术力量的唯一竞争对手"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH02_S02_U02",
    "sectionName": "MT_CH02_S02"
   },
@@ -35436,7 +35456,7 @@
     "ref": "教材《普通高校军事课教程》·军事思想的内容（语料第861行）",
     "answer": "军事实践基本指导原则"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S01_U01",
    "sectionName": "MT_CH03_S01"
   },
@@ -35506,7 +35526,7 @@
   {
    "id": "q-0946",
    "type": "fill",
-   "stem": "下列著作属于外国古代军事思想著作的是____。",
+   "stem": "下列著作属于外国古代军事思想著作的是____。\n备选范围：《高卢战记》；《共产党宣言》；《制空权》；《机械化战争论》。请填入其中一项的完整内容。",
    "options": [],
    "answer": [
     "《高卢战记》"
@@ -35529,7 +35549,7 @@
     "reason": "原文：『恺撒（前100—前44），古罗马共和国的领袖和军事统帅……他曾与幕僚共同著书立说，主要有《高卢战记》、《内战记》等。』古罗马属外国古代，《高卢战记》为外国古代军事著作"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=92004686&knowledgeId=92004707",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S02_U01",
    "sectionName": "MT_CH03_S02"
   },
@@ -35557,7 +35577,7 @@
     "answer": "克劳塞维茨",
     "reason": "《战争论》的作者克劳塞维茨亲身经历了法国资产阶级革命时期的军事改革和战争实践，对法国资产阶级革命和拿破仑战争的经验教训进行了系统总结"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S02_U03",
    "sectionName": "MT_CH03_S02"
   },
@@ -35589,7 +35609,7 @@
     "answer": "古希腊军事思想",
     "reason": "古希腊军事思想的主要观点有：①战争是由根本利害矛盾引起的；②战争的目的是征服，谋求城邦、国家利益和霸主地位；③战争的胜败取决于政治、军事、经济、精神等条件；④作战前必须对双方的军力、财力、人力等方面的长处和短处进行认真分析与对比。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S02_U01",
    "sectionName": "MT_CH03_S02"
   },
@@ -35653,7 +35673,7 @@
     "reason": "克劳塞维茨把决定战争胜负的要素分为精神、物质、数学、地理、统计五类，并将精神列为首要因素"
    },
    "relatedSection": "五大要素",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S02_U03",
    "sectionName": "MT_CH03_S02"
   },
@@ -35715,7 +35735,7 @@
     "answer": "消灭敌人的军队",
     "reason": "但是，“在战争所能追求的目的中，消灭敌人的军队永远是最高目的”"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S02_U03",
    "sectionName": "MT_CH03_S02"
   },
@@ -35754,7 +35774,7 @@
   {
    "id": "q-0954",
    "type": "fill",
-   "stem": "以下属于多边军事联盟的是____。",
+   "stem": "以下属于多边军事联盟的是____。\n备选范围：美日军事同盟；美韩军事同盟；北约；俄白联盟。请填入其中一项的完整内容。",
    "options": [],
    "answer": [
     "北约"
@@ -35808,7 +35828,7 @@
     "answer": "若米尼",
     "reason": "资产阶级军事思想形成于17世纪中叶至19世纪中叶，代表人物及其著作主要有俄国苏沃洛夫的《制胜的科学》、瑞士若米尼的《战争艺术概论》、普鲁士克劳塞维茨的《战争论》和比洛的《新战术》《最新战法要旨》、法"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S02_U01",
    "sectionName": "MT_CH03_S02"
   },
@@ -35930,7 +35950,7 @@
     "answer": "《孙子兵法》",
     "reason": "战争与政治《孙子兵法》指出，“善用兵者，修道而保法，故能为胜败之政”"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S03_U02",
    "sectionName": "MT_CH03_S03"
   },
@@ -35988,7 +36008,7 @@
     "answer": "《尉缭子》",
     "reason": "《尉缭子》指出，“兵者，以武为植，以文为种；武为表，文为里”"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S03_U02",
    "sectionName": "MT_CH03_S03"
   },
@@ -36080,7 +36100,7 @@
     "answer": "重战",
     "reason": "重战思想《孙子兵法》开宗明义地指出，“兵者，国之大事，死生之地，存亡之道，不可不察也”"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH03_S03_U03",
    "sectionName": "MT_CH03_S03"
   },
@@ -36143,7 +36163,7 @@
     "reason": "“1995年，我们提出质量建军和科技强军的口号，要求军队建设实现由数量规模型向质量效能型、由人力密集型向科技密集型（原依据作‘技术密集型’）的两个转变。”"
    },
    "webSourceUrl": "http://dangjian.people.com.cn/n1/2017/0911/c117092-29527935.html",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S04_U05",
    "sectionName": "MT_CH03_S04"
   },
@@ -36414,7 +36434,7 @@
     "reason": "全心全意为人民服务的宗旨，是我军建军原则的核心，是我军区别于其他任何军队的本质特征"
    },
    "relatedSection": "土质特征符号",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH03_S04_U01",
    "sectionName": "MT_CH03_S04"
   },
@@ -36594,7 +36614,7 @@
     "answer": "军队组织结构",
     "reason": "创新体制编制，重组军队组织结构一场军事革命的完成，以军队组织结构调整的最终实现为标志"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH04_S02_U01",
    "sectionName": "MT_CH04_S02"
   },
@@ -36624,7 +36644,7 @@
     "reason": "教材原文：「新军事变革的本质与核心是信息化。其目的是建设信息化军队，打赢信息化战争。」"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=227637426&knowledgeId=632767530&_from_=&_fromV2_=&rtag=",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH04_S02_U01",
    "sectionName": "MT_CH04_S02"
   },
@@ -36652,7 +36672,7 @@
     "answer": "奥加尔科夫",
     "reason": "被誉为“世界新军事变革首倡者”的苏军总参谋长奥加尔科夫认为，核武器和常规武器的不断完善、电子技术的飞速发展、新式武器的不断出现以及武装斗争手段的极大改进，将引起军事上的深刻革命"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH04_S02_U02",
    "sectionName": "MT_CH04_S02"
   },
@@ -36712,7 +36732,7 @@
     "answer": "军事理论的创新",
     "reason": "军事理论的创新是新军事革命产生与发展的基础和先导军事理论的创新，对新军事革命的产生与发展起着基础性和先导性作用"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH04_S02_U03",
    "sectionName": "MT_CH04_S02"
   },
@@ -36741,7 +36761,7 @@
     "reason": "调整改革军队的体制编制，是实现人与武器有机结合，最终完成军事革命的关键"
    },
    "relatedSection": "武器装备",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH04_S02_U01",
    "sectionName": "MT_CH04_S02"
   },
@@ -36892,7 +36912,7 @@
     "answer": "《波茨坦公告》",
     "reason": "7月，美、英、苏三国首脑在波茨坦召开会议，并以中、美、英三国名义发表敦促日本投降的《波茨坦公告》"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH04_S03_U05",
    "sectionName": "MT_CH04_S03"
   },
@@ -36992,7 +37012,7 @@
     "reason": "1942年1月1日，26个国家在华盛顿签署《联合国家宣言》（联合国家共同宣言），标志着世界反法西斯联盟正式形成"
    },
    "webSourceUrl": "https://www.studytimes.cn/wscy/202509/t20250905_82816.html",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH04_S03_U05",
    "sectionName": "MT_CH04_S03"
   },
@@ -37082,7 +37102,7 @@
     "answer": "电磁脉冲炸弹",
     "reason": "电磁脉冲炸弹作为美军信息作战的主要武器之一，在伊拉克战场进行了试验"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH04_S04_U06",
    "sectionName": "MT_CH04_S04"
   },
@@ -37144,7 +37164,7 @@
     "answer": "精确制导炸弹",
     "reason": "大量使用精确制导武器，实施“点穴式”打击美军为缩小打击范围，降低附带损伤，避免政治上的被动，超常使用了精确制导炸弹，对伊拉克重要军事、政治目标进行了全时段、全纵深“重心点击战”"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH04_S04_U06",
    "sectionName": "MT_CH04_S04"
   },
@@ -37262,7 +37282,7 @@
     "answer": "电磁战场",
     "reason": "电磁战场被称作继陆、海、空、天之后的“第五维战场”，是信息化战争的重要作战空间"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH04_S04_U02",
    "sectionName": "MT_CH04_S04"
   },
@@ -37327,7 +37347,7 @@
     "answer": "扁平网络化",
     "reason": "在信息化战争中，自动化指挥系统为作战指挥提供了准确的战场情报、快速的通信联络、科学的辅助决策、实时的反馈监控，从而使树状的指挥体制逐渐被扁平为网络化的指挥体制，使作战指挥实现一体化"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH04_S04_U02",
    "sectionName": "MT_CH04_S04"
   },
@@ -37425,14 +37445,14 @@
     "answer": "8%",
     "reason": "广泛实施精确作战，毁伤效能剧增海湾战争期间多国部队发射的精确制炸弹虽然只占发射炮弹总量的8%、却摧毁了约80% 的重要目标"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH04_S04_U02",
    "sectionName": "MT_CH04_S04"
   },
   {
    "id": "q-1009",
    "type": "fill",
-   "stem": "下列战争中，____是信息化战争萌芽期的代表性战争之一。",
+   "stem": "下列战争中，____是信息化战争萌芽期的代表性战争之一。\n备选范围：朝鲜战争；海湾战争；越南战争；马岛战争。请填入其中一项的完整内容。",
    "options": [],
    "answer": [
     "越南战争"
@@ -37459,7 +37479,7 @@
     "reason": "教材《高技术战争概述》载：“高技术战争的萌芽期，可以追溯到20世纪60年代末。美国在越南战争中首次使用了高技术装备，出现了高技术战法，依稀可见高技术战争的影子”，并具体列举激光制导炸弹、电视制导炸弹、反雷达导弹和武装直升机等高技术兵器"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=83837768&knowledgeId=83837863",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH04_S01_U03",
    "sectionName": "MT_CH04_S01"
   },
@@ -37488,7 +37508,7 @@
     "reason": "教材「信息化战争的特征·战争实施可控化」原文：「能有效控制战争的规模。在战场上，交战双方都追求较高的军事经济效益……双方就无须投入更多的兵力兵器」，即信息化战争的特征是规模可控而非「战争规模扩大化」"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=83460695&knowledgeId=83460816&_from=&rtag=",
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -37549,7 +37569,7 @@
     "reason": "教材原文：「军队组织的编成，将打破传统的陆、海、空、天等军种体制，而按照侦察监视、指挥控制、精确打击和支援保障四大作战职能，建成探测预警子系统、指挥控制子系统、精确作战子系统和支援保障子系统。」"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=83460695&knowledgeId=83460816&_from=&rtag=",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH04_S04_U04",
    "sectionName": "MT_CH04_S04"
   },
@@ -37621,7 +37641,7 @@
   {
    "id": "q-1015",
    "type": "fill",
-   "stem": "下列不属于单兵数字化装备的是____",
+   "stem": "下列不属于单兵数字化装备的是____\n备选范围：卫星定位系统；一体化头盔系统；单兵计算机和无线电分系统；防护服分系统。请填入其中一项的完整内容。",
    "options": [],
    "answer": [
     "卫星定位系统"
@@ -37641,7 +37661,7 @@
    ],
    "explanationParts": {
     "answer": "卫星定位系统",
-    "note": "来源：科普中国网《【微视频】数字化士兵》（中国科协主办）；来源列举为“武器、综合头盔、计算机、通信、软件和防护、携行装备”，与选项文字不完全对应。",
+    "note": "来源：科普中国网《【微视频】数字化士兵》（中国科协主办）；来源列举为“武器、综合头盔、计算机、通信、软件和防护、携行装备”，与选项文字不完全对应。 分类口径仍需指定教材原页核对，本轮只修复缺少备选范围的结构问题。",
     "reason": "科普中国《【微视频】数字化士兵》列举数字化士兵系统的组成：“它由武器、综合头盔、计算机、通信、软件和防护、携行装备等组成的”，其中不含“卫星定位系统”，故不属于单兵数字化装备的是卫星定位系统"
    },
    "relatedSection": "武器装备",
@@ -37768,7 +37788,7 @@
     "answer": "信息化作战平台",
     "reason": "信息化作战平台是指装有大量电子信息设备，以信息和信息技术为核心的坦克、火炮、飞机、舰艇等武器载体，是信息化弹药所依托的平台，是综合电子信息系统的节点和发挥打击威力的重要物质基础"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH05_S01_U01",
    "sectionName": "MT_CH05_S01"
   },
@@ -37799,7 +37819,7 @@
     "ref": "国防部：中国飞鲨已长大——歼-15舰载机战力生成记（2024-11-13）",
     "answer": "歼-15"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH05_S02_U02",
    "sectionName": "MT_CH05_S02",
    "webSourceUrl": "https://www.mod.gov.cn/gfbw/qwfb/16351566.html"
@@ -37830,7 +37850,7 @@
     "reason": "人民网报道称祝榆生为99式坦克总设计师、“独臂总师”，99坦克研制历时15年，为我国自主研制的第三代主战坦克"
    },
    "webSourceUrl": "http://military-app.people.cn/n1/2016/0405/c1011-28250078.html",
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH05_S02_U02",
    "sectionName": "MT_CH05_S02"
   },
@@ -38162,7 +38182,7 @@
     "reason": "“我国的国防历史，大致经历了三个阶段。第二阶段：从1840年鸦片战争爆发到1949年中华人民共和国成立前夕的近代国防史。”"
    },
    "webSourceUrl": "http://wsadmin.ynws.gov.cn:20004/fnxrmzf/ynfnxqmgfj/pc/content/content_1856571594312593408.html",
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -38288,7 +38308,7 @@
     "reason": "“1840年，帝国主义列强强行打开中国国门。从鸦片战争开始，我国多次受到西方列强入侵……被迫签订了《南京条约》《马关条约》《辛丑条约》等一系列丧权辱国的不平等条约……抗日战争期间，我国大片领土沦陷”，该时期被称为民族屈辱史、抗争史和探索史"
    },
    "webSourceUrl": "http://wsadmin.ynws.gov.cn:20004/fnxrmzf/ynfnxqmgfj/pc/content/content_1856571594312593408.html",
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -38320,7 +38340,7 @@
     "reason": "同q-1036：鸦片战争是中国近代屈辱史的开端，中国由此“开始”沦为半殖民地半封建社会，而“完全沦为”是在此后不平等条约（如《辛丑条约》）之后"
    },
    "webSourceUrl": "http://wsadmin.ynws.gov.cn:20004/fnxrmzf/ynfnxqmgfj/pc/content/content_1856571594312593408.html",
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -38416,7 +38436,7 @@
     "reason": "古代海防工程建设始于明朝"
    },
    "relatedSection": "边海防建设",
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -38449,7 +38469,7 @@
    },
    "relatedSection": "边海防建设",
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=83460695&knowledgeId=83460706&_from=&rtag=",
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -38481,7 +38501,7 @@
     "reason": "教材述长城「是中国古代构筑的以长城城墙为主体……的连续线式防御工程体系。它是城池筑城体系的发展和运用」，说明城墙（长城）由城池筑城体系发展而来，城池才是出现更早、数量最多的国防设施"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=83460695&knowledgeId=83460706&_from=&rtag=",
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -38513,7 +38533,7 @@
     "reason": "教材原文：长城「是城池筑城体系的发展和运用」，即长城并非建造时间最早、数量最多的国防设施，城池才是"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=83460695&knowledgeId=83460706&_from=&rtag=",
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -38544,7 +38564,7 @@
     "reason": "教材「国防的目的」原文：「捍卫国家主权，是国防的首要目的和任务」，故国防第一位的、根本的目的和任务是捍卫国家主权"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=82439650&knowledgeId=82439653&_from=&_fromV2_=&rtag=",
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -38576,7 +38596,7 @@
     "reason": "教材将国防目的依次列为「捍卫国家的主权（首要目的和任务）」「保卫国家的统一（重要任务）」「捍卫国家领土完整」「保障国家的安全」，维护国家统一属重要任务而非第一位目的"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=82439650&knowledgeId=82439653&_from=&_fromV2_=&rtag=",
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -38726,7 +38746,7 @@
     "note": "本题由单选题派生，判断该表述是否与教材原文一致",
     "reason": "〔知识链接：两弹一星〕“两弹一星”是指导弹、核弹（原子弹、氢弹）和人造卫星。1960年11月5日，中国仿制的第一枚导弹发射成功；1964年10月16日，中国第一颗原子弹爆炸成功，成为世界上第五个拥有原子弹的国家。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -38757,7 +38777,7 @@
     "note": "本题由单选题派生，判断该表述是否与教材原文一致",
     "reason": "〔知识链接：两弹一星〕“两弹一星”是指导弹、核弹（原子弹、氢弹）和人造卫星。1960年11月5日，中国仿制的第一枚导弹发射成功；1964年10月16日，中国第一颗原子弹爆炸成功，成为世界上第五个拥有原子弹的国家。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -39035,7 +39055,7 @@
     "reason": "备和发展军事力量的制度，包括武装力量体制、军事领导体制和兵役制度等，是国防力量的主要组成部分"
    },
    "relatedSection": "兵役制度",
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -39064,7 +39084,7 @@
     "reason": "备和发展军事力量的制度，包括武装力量体制、军事领导体制和兵役制度等，是国防力量的主要组成部分"
    },
    "relatedSection": "兵役制度",
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -39157,7 +39177,7 @@
     "reason": "备和发展军事力量的制度，包括武装力量体制、军事领导体制和兵役制度等，是国防力量的主要组成部分"
    },
    "relatedSection": "兵役制度",
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -39186,7 +39206,7 @@
     "reason": "备和发展军事力量的制度，包括武装力量体制、军事领导体制和兵役制度等，是国防力量的主要组成部分"
    },
    "relatedSection": "兵役制度",
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -39280,7 +39300,7 @@
     "note": "待核查：参考答案暂保留原卷，不能作为已确认的法规结论。",
     "answer": "正确"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -39313,7 +39333,7 @@
     "answer": "错误"
    },
    "relatedSection": "全国人民代表大会的国防职权",
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -39344,7 +39364,7 @@
     "ref": "《中华人民共和国国防教育法》（2024年修订）第十二条",
     "answer": "正确"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": "",
    "webSourceUrl": "https://www.mod.gov.cn/gfbw/fgwx/16338253.html"
@@ -39376,7 +39396,7 @@
     "ref": "《中华人民共和国国防教育法》（2024年修订）第十二条",
     "answer": "错误"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": "",
    "webSourceUrl": "https://www.mod.gov.cn/gfbw/fgwx/16338253.html"
@@ -39588,7 +39608,7 @@
     "ref": "国防部：新修订的《中国人民解放军海军舰艇条令（试行）》施行（2021-08-11）",
     "answer": "正确"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": "",
    "webSourceUrl": "https://www.mod.gov.cn/gfbw/qwfb/4891648.html"
@@ -39620,7 +39640,7 @@
     "ref": "国防部：新修订的《中国人民解放军海军舰艇条令（试行）》施行（2021-08-11）",
     "answer": "错误"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": "",
    "webSourceUrl": "https://www.mod.gov.cn/gfbw/qwfb/4891648.html"
@@ -40028,7 +40048,7 @@
     "reason": "古田会议确立了思想建党、政治建军的原则，是人民军队发展史上的一个重要里程碑"
    },
    "relatedSection": "人民军队的性质",
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -40060,7 +40080,7 @@
     "reason": "古田会议确立了思想建党、政治建军的原则，是人民军队发展史上的一个重要里程碑"
    },
    "relatedSection": "人民军队的性质",
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -40345,7 +40365,7 @@
     "reason": "武警部队实行“中央军委—武警部队—部队”领导指挥体制，设总部、总队、支队三级领导机关，故该表述正确。",
     "note": "本题由单选题派生，判断该表述是否与教材原文一致"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -40376,7 +40396,7 @@
     "reason": "武警部队设总部、总队、支队三级领导机关，不是二级，故该表述错误。",
     "note": "本题由单选题派生，判断该表述是否与教材原文一致"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -40597,7 +40617,7 @@
     "answer": "正确"
    },
    "relatedSection": "参加学生军事训练",
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": "",
    "webSourceUrl": "https://jjjcz.mee.gov.cn/djfg/gjflfg/fl/199812/t19981201_444218.html"
@@ -40627,7 +40647,7 @@
     "answer": "错误"
    },
    "relatedSection": "参加学生军事训练",
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": "",
    "webSourceUrl": "https://jjjcz.mee.gov.cn/djfg/gjflfg/fl/199812/t19981201_444218.html"
@@ -40782,7 +40802,7 @@
     "note": "本题由单选题派生，判断该表述是否与教材原文一致",
     "reason": "国民经济动员是战争动员的基础，目的是充分发挥国家的经济潜力，提高军品生产能力，保障战争或应急需要，通常包括工业动员、农业动员、财政金融动员、邮电通信动员、医疗卫生动员等"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -40811,7 +40831,7 @@
     "reason": "国民经济动员是战争动员的基础，目的是充分发挥国家的经济潜力，提高军品生产能力，保障战争或应急需要，通常包括工业动员、农业动员、财政金融动员、邮电通信动员、医疗卫生动员等"
    },
    "relatedSection": "武装力量体制",
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -41643,7 +41663,7 @@
     "note": "本题由单选题派生，判断该表述是否与教材原文一致",
     "reason": "在2022年《美国国家安全战略报告》中，拜登政府将中国列为意图重塑国际秩序的唯一竞争对手，也是重塑国际秩序的经济、外交、军事和技术力量的唯一竞争对手"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -41674,7 +41694,7 @@
     "note": "本题由单选题派生，判断该表述是否与教材原文一致",
     "reason": "在2022年《美国国家安全战略报告》中，拜登政府将中国列为意图重塑国际秩序的唯一竞争对手，也是重塑国际秩序的经济、外交、军事和技术力量的唯一竞争对手"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -41946,7 +41966,7 @@
     "answer": "正确"
    },
    "relatedSection": "边海防建设",
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -41977,7 +41997,7 @@
     "ref": "教材《普通高校军事课教程》·军事思想的内容（语料第861行）",
     "answer": "错误"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -42187,7 +42207,7 @@
     "reason": "古希腊军事思想的主要观点包括：战争的目的是征服，谋求城邦、国家利益和霸主地位，故该表述正确。",
     "note": "本题由单选题派生，判断该表述是否与教材原文一致"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -42218,7 +42238,7 @@
     "reason": "“战争的目的就是征服，谋求城邦、国家利益和霸主地位”出自古希腊军事思想，不是古罗马军事思想，故该表述错误。",
     "note": "本题由单选题派生，判断该表述是否与教材原文一致"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -42306,7 +42326,7 @@
     "reason": "克劳塞维茨把决定战争胜负的要素分为精神、物质、数学、地理、统计五类，并将精神列为首要因素"
    },
    "relatedSection": "五大要素",
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -42338,7 +42358,7 @@
     "reason": "克劳塞维茨把决定战争胜负的要素分为精神、物质、数学、地理、统计五类，并将精神列为首要因素"
    },
    "relatedSection": "五大要素",
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -42431,7 +42451,7 @@
     "note": "本题由单选题派生，判断该表述是否与教材原文一致",
     "reason": "但是，“在战争所能追求的目的中，消灭敌人的军队永远是最高目的”"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -42463,7 +42483,7 @@
     "reason": "教材述克劳塞维茨《战争论》原文：「同拿破仑一样，他认为战争的最终目的在于彻底消灭敌人，而会战是歼灭敌人的最好方法」，并未主张「占领敌人的地区永远是最高目的」"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=83460695&knowledgeId=83460743&_from=&rtag=",
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -43095,7 +43115,7 @@
     "ref": "提纲《军理课提纲》·中国国防·古代军事领导体制",
     "note": "记朝代＋官职的配对：秦—太尉，隋—兵部（尚书省），宋—枢密院。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH01_S01_U03",
    "sectionName": "MT_CH01_S01"
   },
@@ -43174,7 +43194,7 @@
     "ref": "教材《普通高校军事课教程》·中国国防·边海防建设",
     "note": "两个衙门别混：总理衙门管外交洋务，总理海军事务衙门管海军。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH01_S01_U03",
    "sectionName": "MT_CH01_S01"
   },
@@ -43528,7 +43548,7 @@
     "ref": "《中华人民共和国兵役法》立法沿革",
     "answer": "A、1984"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH01_S02_U01",
    "sectionName": "MT_CH01_S02"
   },
@@ -43685,7 +43705,7 @@
     "ref": "提纲《军理课提纲》·中国国防·国防领导体制",
     "note": "与之相对的是委员会制、首长分工负责制等一般领导制度。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH01_S03_U01",
    "sectionName": "MT_CH01_S03"
   },
@@ -43724,7 +43744,7 @@
     "ref": "提纲《军理课提纲》·中国国防·军事战略方针",
     "note": "积极防御＝防御、自卫、后发制人，与“消极防御”相对。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH01_S03_U02",
    "sectionName": "MT_CH01_S03"
   },
@@ -43809,7 +43829,7 @@
   {
    "id": "q-1206",
    "type": "single",
-   "stem": "战略支援部队被称为____的重要增长点。",
+   "stem": "2015年组建时，战略支援部队被称为____的重要增长点。",
    "options": [
     "我军新质作战能力",
     "空军远洋打击",
@@ -43817,7 +43837,7 @@
     "炮兵火力突击"
    ],
    "answer": "A",
-   "explanation": "正确答案：A、我军新质作战能力\n战略支援部队是2015年深化国防和军队改革中新组建的力量，承担新质作战能力建设任务，模拟题原题即以“我军新质作战能力的重要增长点”设问；2024年4月19日撤销战略支援部队番号，组建信息支援部队、军事航天部队、网络空间部队，形成新型军兵种结构布局。\n出处：模拟题集合·第一章中国国防（同题）；提纲·第一章中国国防·武装力量发展沿革。",
+   "explanation": "正确答案：A、我军新质作战能力\n2015年组建的战略支援部队曾被称为我军新质作战能力的重要增长点。2024年改革撤销其番号，新组建信息支援部队，并相应调整军事航天部队、网络空间部队领导管理关系，不是同日首次组建后二者。\n提示：2024年4月19日起不再有“战略支援部队”番号。 本题为历史称谓；2024年4月19日撤销战略支援部队番号，相应调整军事航天部队、网络空间部队领导管理关系。来源：https://www.mod.gov.cn/gfbw/qwfb/16320941.html\n依据：模拟题集合·第一章中国国防；提纲·中国国防·武装力量发展沿革",
    "source": "模拟题",
    "chapter": "第一章中国国防",
    "section": "单选题",
@@ -43837,11 +43857,11 @@
    },
    "explanationParts": {
     "answer": "A、我军新质作战能力",
-    "reason": "战略支援部队是新域新质作战力量的代表，被称为我军新质作战能力的重要增长点，2024年其番号撤销后职能由信息支援部队、军事航天部队、网络空间部队承接。",
+    "reason": "2015年组建的战略支援部队曾被称为我军新质作战能力的重要增长点。2024年改革撤销其番号，新组建信息支援部队，并相应调整军事航天部队、网络空间部队领导管理关系，不是同日首次组建后二者。",
     "ref": "模拟题集合·第一章中国国防（战略支援部队题）；提纲·中国国防·武装力量发展沿革",
-    "note": "2024年4月19日起不再有“战略支援部队”番号。"
+    "note": "2024年4月19日起不再有“战略支援部队”番号。 本题为历史称谓；2024年4月19日撤销战略支援部队番号，相应调整军事航天部队、网络空间部队领导管理关系。来源：https://www.mod.gov.cn/gfbw/qwfb/16320941.html"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S03_U04",
    "sectionName": "MT_CH01_S03"
   },
@@ -43919,7 +43939,7 @@
     "ref": "教材《普通高校军事课教程》·中国国防·改革调整体制编制",
     "note": "记忆口诀：军委管总（决策）、战区主战（打仗）、军种主建（建设）。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH01_S03_U04",
    "sectionName": "MT_CH01_S03"
   },
@@ -43958,7 +43978,7 @@
     "ref": "教材《普通高校军事课教程》·中国国防·国防后备力量建设",
     "note": "备选项中的“平战结合、军民结合、寓军于民”是动员建设原则，不是这一方针。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH01_S03_U04",
    "sectionName": "MT_CH01_S03"
   },
@@ -44036,7 +44056,7 @@
     "ref": "提纲《军理课提纲》·中国国防·武装力量发展沿革",
     "note": "记两组时间：2016年9月13日联勤保障部队成立；2024年4月19日三支新力量组建、战略支援部队番号撤销。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH01_S04_U01",
    "sectionName": "MT_CH01_S04"
   },
@@ -44319,7 +44339,7 @@
     "ref": "教材《普通高校军事课教程》·中国国防·清朝后期的国防军事统御制度",
     "note": "一“改”（总理衙门→外务部）、一“撤”（兵部）、一“立”（陆军部），三条要成组记忆。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH01_S01_U03",
    "sectionName": "MT_CH01_S01"
   },
@@ -44402,7 +44422,7 @@
     "ref": "教材《普通高校军事课教程》·中国国防·军民融合发展",
     "note": "三个维度记牢：全要素＝深度，多领域＝范围，高效益＝效果。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH01_S03_U05",
    "sectionName": "MT_CH01_S03"
   },
@@ -44443,7 +44463,7 @@
     "ref": "提纲《军理课提纲》·中国国防·军种及兵种概况",
     "note": "军种＝陆军、海军、空军、火箭军；兵种＝军事航天、网络空间、信息支援、联勤保障。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH01_S04_U01",
    "sectionName": "MT_CH01_S04"
   },
@@ -44484,7 +44504,7 @@
     "ref": "教材《普通高校军事课教程》·知识链接：火箭军",
     "note": "火箭军的定位表述要背全：战略威慑的核心力量、大国地位的战略支撑、维护国家安全的重要基石。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH01_S04_U01",
    "sectionName": "MT_CH01_S04"
   },
@@ -44524,7 +44544,7 @@
     "ref": "提纲《军理课提纲》·中国国防·国防动员的内容（人民防空动员）",
     "note": "注意与国民经济动员（工业、农业、财政金融、邮电通信、医疗卫生）、武装力量动员区分开。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S05_U03",
    "sectionName": "MT_CH01_S05"
   },
@@ -45013,7 +45033,7 @@
     "ref": "提纲《军理课提纲》·中国国防·国防法规体系",
     "note": "题面 C 的“国防法规”即“法规”这一层次（军事行政法规、军事法规）。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH01_S02_U01",
    "sectionName": "MT_CH01_S02"
   },
@@ -45175,7 +45195,7 @@
     "ref": "提纲《军理课提纲》·中国国防·国防动员的内容（国民经济动员）",
     "note": "国民经济动员的定位是“战争动员的基础”，武装力量动员才是“国防动员的核心”。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S05_U03",
    "sectionName": "MT_CH01_S05"
   },
@@ -45253,7 +45273,7 @@
     "ref": "教材《普通高校军事课教程》·军事思想·近代军事思想",
     "note": "两个端点要记牢：1640年英国资产阶级革命、1917年俄国十月革命。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH03_S01_U02",
    "sectionName": "MT_CH03_S01"
   },
@@ -45488,7 +45508,7 @@
     "ref": "提纲《军理课提纲》·军事思想·知识链接：星球大战计划",
     "note": "链条记牢：高边疆理论（1983）→星球大战计划（1984年批准实施）。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S02_U02",
    "sectionName": "MT_CH03_S02"
   },
@@ -45527,7 +45547,7 @@
     "ref": "提纲《军理课提纲》·军事思想·知识链接：网络中心战",
     "note": "美军规定新概念颁布18个月后全面评估，最终确定采用“网络中心战”理论。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S02_U02",
    "sectionName": "MT_CH03_S02"
   },
@@ -45765,7 +45785,7 @@
     "ref": "教材《普通高校军事课教程》·将帅修养",
     "answer": "B、知兵之将，民之司命，国家安危之主也"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH03_S03_U02",
    "sectionName": "MT_CH03_S03"
   },
@@ -45805,7 +45825,7 @@
     "ref": "教材《普通高校军事课教程》·第三章军事思想·中国古代军事思想·将帅修养",
     "note": "易与《吴子》的“理、备、果、戒、约”（将之所慎者五）混淆，后者是吴子提出的将帅应当慎重对待的五个方面。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S03_U02",
    "sectionName": "MT_CH03_S03"
   },
@@ -45883,7 +45903,7 @@
     "ref": "教材《普通高校军事课教程》·第三章军事思想·《孙子兵法》以谋略制胜为核心的用兵思想",
     "note": "同属《孙子兵法》的还有慎战思想（“非利不动，非得不用，非危不战”）、备战思想（“无恃其不来，恃吾有以待也”），要按题干引文对号入座。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH03_S03_U03",
    "sectionName": "MT_CH03_S03"
   },
@@ -45923,7 +45943,7 @@
     "ref": "教材《普通高校军事课教程》·第三章军事思想·毛泽东军事思想·人民军队建设思想",
     "note": "同处还强调坚持中国共产党对军队的绝对领导是确保人民军队无产阶级性质的根本原则。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH03_S04_U01",
    "sectionName": "MT_CH03_S04"
   },
@@ -46154,7 +46174,7 @@
     "ref": "教材《普通高校军事课教程》·第三章军事思想·毛泽东军事思想·人民军队建设思想",
     "note": "古田会议同时“重申”了党对红军实行绝对领导的原则，并宣示“中国的红军是一个执行革命的政治任务的武装集团”，但“确立”二字对应的是思想建党、政治建军。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S04_U01",
    "sectionName": "MT_CH03_S04"
   },
@@ -46194,7 +46214,7 @@
     "ref": "教材《普通高校军事课教程》·第三章军事思想·毛泽东军事思想·人民军队建设思想",
     "note": "《中国人民解放军宣言》要求全体指挥员、战斗员坚决执行“三大纪律八项注意，军民一致，军政一致，官兵一致，全军一致”，四个“一致”常与纪律条文一起考。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S04_U01",
    "sectionName": "MT_CH03_S04"
   },
@@ -46356,7 +46376,7 @@
     "ref": "教材《普通高校军事课教程》·第三章军事思想·毛泽东军事思想·人民军队政治工作的三大原则",
     "note": "政治工作三大原则为官兵一致、军民一致、瓦解敌军，三者各有固定评价，注意区分。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S04_U01",
    "sectionName": "MT_CH03_S04"
   },
@@ -46517,7 +46537,7 @@
     "ref": "教材《普通高校军事课教程》·第三章军事思想·习近平强军思想",
     "note": "新“三步走”三个时间节点是2027、2035、21世纪中叶，不要与2035基本实现国防和军队现代化混淆。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S04_U05",
    "sectionName": "MT_CH03_S04"
   },
@@ -46557,7 +46577,7 @@
     "ref": "教材《普通高校军事课教程》·第三章军事思想·习近平强军思想",
     "note": "答题时把三步走对应清楚：2027建军一百年、2035基本实现现代化、21世纪中叶全面建成世界一流军队。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S04_U05",
    "sectionName": "MT_CH03_S04"
   },
@@ -47312,7 +47332,7 @@
     "ref": "教材《普通高校军事课教程》·第三章军事思想·习近平强军思想（十一个明确）",
     "note": "“十一个明确”还包括强军目标（2027、2035、21世纪中叶）、军队要准备打仗、政治建军改革强军科技强军人才强军依法治军、改革是必由之路、强军之道要在得人、依法治军、军民融合发展等，可成组记忆。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH03_S04_U05",
    "sectionName": "MT_CH03_S04"
   },
@@ -47354,41 +47374,42 @@
     "ref": "教材《普通高校军事课教程》·第三章军事思想·习近平强军思想（地位与作用）",
     "note": "习近平强军思想是党的军事指导理论最新成果，是坚持走中国特色强军之路、全面推进国防和军队现代化的行动纲领。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH03_S04_U05",
    "sectionName": "MT_CH03_S04"
   },
   {
    "id": "q-1295",
    "type": "short",
-   "stem": "《武经七书》指哪些兵书？编撰于什么时期？",
+   "stem": "《武经七书》指哪些兵书？被官定为武学教材并颁行于什么时期？",
    "options": [],
-   "answer": "①《武经七书》指《孙子兵法》《吴子》《司马法》《六韬》《尉缭子》《黄石公三略》《李卫公问对》七部兵书；\n②编撰于北宋时期：北宋令曾公亮等编纂《武经总要》，并将上述七书颁布、官定为武学教材，成为当时及后世习武学兵的标准书目；\n③它是中国古代军事思想走上体系化的重要标志——兵书数量繁多、门类齐全、自成体系。",
-   "explanation": "正确答案：①《武经七书》指《孙子兵法》《吴子》《司马法》《六韬》《尉缭子》《黄石公三略》《李卫公问对》七部兵书；\n②编撰于北宋时期：北宋令曾公亮等编纂《武经总要》，并将上述七书颁布、官定为武学教材，成为当时及后世习武学兵的标准书目；\n③它是中国古代军事思想走上体系化的重要标志——兵书数量繁多、门类齐全、自成体系。\n出处：教材《普通高校军事课教程》·第三章军事思想（中国古代军事思想体系化）。",
+   "answer": "①《孙子兵法》《吴子》《司马法》《六韬》《尉缭子》《黄石公三略》《李卫公问对》七部兵书；\n②北宋神宗元丰年间颁布、官定为武学教材。各原著创作年代不同，不是七部原著都撰于北宋。",
+   "explanation": "正确答案：七部兵书名称与北宋官定颁行时期，详见参考答案。\n《武经七书》汇集七部创作年代不同的兵书，北宋神宗元丰年间颁布并官定为武学教材。北宋是官定、颁行这套书的时期，不是七部原著共同的创作年代；《武经总要》是另一部兵书。\n依据：国家图书馆国家典籍博物馆《武经七书》：https://www.nlc.cn/nmcb/jpww/gengu/20240826_2640890.shtml\n提示：《武经总要》不在这七部书中。",
    "source": "模拟题",
    "chapter": "第三章军事思想",
    "section": "简答题",
    "raw": "《武经七书》指哪些兵书？编撰于什么时期？",
-   "explanationSrc": "textbook",
-   "explanationRef": "教材《普通高校军事课教程》·第三章军事思想·中国古代军事思想体系化",
-   "keyConcept": "武经七书",
+   "explanationSrc": "web",
+   "explanationRef": "国家图书馆国家典籍博物馆《武经七书》：https://www.nlc.cn/nmcb/jpww/gengu/20240826_2640890.shtml",
+   "keyConcept": "武经七书的官定颁行",
    "keywords": [
     "武经七书",
-    "《武经总要》",
-    "官定为武学教材",
     "北宋",
-    "中国古代军事思想体系化"
+    "元丰",
+    "颁行",
+    "武学教材"
    ],
    "distractorWhy": {},
    "explanationParts": {
-    "answer": "《武经七书》指《孙子兵法》《吴子》《司马法》《六韬》《尉缭子》《黄石公三略》《李卫公问对》，编撰（颁定）于北宋时期",
-    "reason": "教材原文记载：北宋中叶开办武学，命令曾公亮等编纂《武经总要》，又颁布《孙子兵法》《吴子》《司马法》《六韬》《尉缭子》《黄石公三略》和《李卫公问对》为“武经七书”，并将其官定为武学教材。",
-    "ref": "教材《普通高校军事课教程》·第三章军事思想·中国古代军事思想体系化",
-    "note": "七部书的顺序与书名都要写全；容易漏掉《李卫公问对》或把《孙膑兵法》误列入。"
+    "answer": "七部兵书名称与北宋官定颁行时期，详见参考答案。",
+    "reason": "《武经七书》汇集七部创作年代不同的兵书，北宋神宗元丰年间颁布并官定为武学教材。北宋是官定、颁行这套书的时期，不是七部原著共同的创作年代；《武经总要》是另一部兵书。",
+    "ref": "国家图书馆国家典籍博物馆《武经七书》：https://www.nlc.cn/nmcb/jpww/gengu/20240826_2640890.shtml",
+    "note": "《武经总要》不在这七部书中。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S03",
-   "sectionName": "MT_CH03_S03"
+   "sectionName": "MT_CH03_S03",
+   "webSourceUrl": "https://www.nlc.cn/nmcb/jpww/gengu/20240826_2640890.shtml"
   },
   {
    "id": "q-1296",
@@ -47417,7 +47438,7 @@
     "ref": "教材《普通高校军事课教程》·第三章军事思想·《孙子兵法》重战思想",
     "note": "该句在教材第一章中国国防开篇也被引用，用来说明“国之大事，每个公民都必须关注”。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH03_S03",
    "sectionName": "MT_CH03_S03"
   },
@@ -47903,7 +47924,7 @@
     "ref": "教材《普通高校军事课教程》·第三章军事思想·中国古代军事思想（萌芽时期）",
     "note": "《军志》《军政》虽早已失传，却是我国古代军事思想形成的重要标志。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S03_U01",
    "sectionName": "MT_CH03_S03"
   },
@@ -47982,7 +48003,7 @@
     "ref": "教材《普通高校军事课教程》·第三章军事思想·外国近代军事思想（近代后期）",
     "note": "机械化战争论的代表人物还有利德尔·哈特、戴高乐；与此并列的还有意大利杜黑的空中战争论（空军制胜论）。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S02_U01",
    "sectionName": "MT_CH03_S02"
   },
@@ -48067,7 +48088,7 @@
     "ref": "教材《普通高校军事课教程》·第三章军事思想·中国古代军事思想（萌芽时期）",
     "note": "商周甲骨文、金文中已有大量军事活动记载，这是该时期军事思想萌芽的实物证据。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S03_U01",
    "sectionName": "MT_CH03_S03"
   },
@@ -48111,7 +48132,7 @@
     "ref": "教材《普通高校军事课教程》·第三章军事思想·中国古代军事思想体系化",
     "note": "武经七书为《孙子兵法》《吴子》《司马法》《六韬》《尉缭子》《黄石公三略》《李卫公问对》，记忆时注意没有《孙膑兵法》。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S03_U01",
    "sectionName": "MT_CH03_S03"
   },
@@ -48154,7 +48175,7 @@
     "ref": "题库资料·真题集合（同类题正确答案ABD）＋教材《普通高校军事课教程》·第三章军事思想（《孙子兵法》地位、武经七书）",
     "note": "C是本题最大的陷阱，它其实是教材对《战争论》的评价。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S03_U01",
    "sectionName": "MT_CH03_S03"
   },
@@ -48280,7 +48301,7 @@
     "ref": "教材《普通高校军事课教程》·第三章军事思想·《孙子兵法》朴素唯物论和原始辩证法思想",
     "note": "对《孙子兵法》要一分为二：既讲科学价值，也承认存有糟粕；D把它说成“记载军事历史为主”的史书，与教材“军事理论著作”的定位冲突。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S03_U03",
    "sectionName": "MT_CH03_S03"
   },
@@ -48322,7 +48343,7 @@
     "ref": "题库资料·第一版题库（实行人民战争的基本依据ABC）＋教材《普通高校军事课教程》·第三章军事思想·人民战争思想",
     "note": "“科学战略战术”属于打赢战争的方法与原则层面（教材讲“实行人民战争的主要原则”“人民战争的战略战术”），不是“基本依据”。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S04_U01",
    "sectionName": "MT_CH03_S04"
   },
@@ -48364,7 +48385,7 @@
     "ref": "教材《普通高校军事课教程》·第三章军事思想·胡锦涛国防和军队建设思想",
     "note": "“三个提供、一个发挥”的内容要能展开：为党巩固执政地位提供重要的力量保证、为维护国家发展的重要战略机遇期提供坚强的安全保障、为维护国家利益提供有力的战略支撑、为维护世界和平与促进共同发展发挥重要作用。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH03_S04_U04",
    "sectionName": "MT_CH03_S04"
   },
@@ -49158,7 +49179,7 @@
     "ref": "教材《普通高校军事课教程》·第二章国家安全·第三节国际战略形势",
     "note": "这是“亚太再平衡→印太战略→一体化威慑”的演进链条，考试常考链条末端。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH02_S03_U03",
    "sectionName": "MT_CH02_S03"
   },
@@ -49367,7 +49388,7 @@
     "ref": "教材《普通高校军事课教程》·第二章国家安全·第二节国家安全形势（知识链接：三沙市简介）",
     "note": "注意：三沙市管辖的是西沙、南沙、中沙诸群岛及海域，不含东沙群岛；且它以海域为主体，陆地面积最小而非最大。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH02_S02_U03",
    "sectionName": "MT_CH02_S02"
   },
@@ -49604,7 +49625,7 @@
     "ref": "教材《普通高校军事课教程》·第二章国家安全·第二节国家安全形势（我国地缘安全状况：南海方向）",
     "note": "答题要扣住“地缘安全状况”这一要求，把海洋权益争端、域外势力干涉、海上通道安全三条挑战与应对举措一一对应。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH02_S02",
    "sectionName": "MT_CH02_S02"
   },
@@ -49635,7 +49656,7 @@
     "ref": "教材《普通高校军事课教程》·第二章国家安全·第三节国际战略形势（走“对话而不对抗、结伴而不结盟、共赢而非零和”的新型安全之路；美国推行单边主义）",
     "note": "审题关键：既要写合作面，也要写遏制面，落脚在“如何运筹大国关系、维护国家安全和发展利益”。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH02_S03",
    "sectionName": "MT_CH02_S03"
   },
@@ -49753,7 +49774,7 @@
     "ref": "教材《普通高校军事课教程》·第二章国家安全·第三节国际战略形势（全球治理的中国方案：构建人类命运共同体）",
     "note": "真题同题选项为“下列哪一个不是构建人类命运共同体思想的根本目标与核心任务”，答案同样是“建立单极霸权主导的世界秩序”。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH02_S03_U02",
    "sectionName": "MT_CH02_S03"
   },
@@ -50156,7 +50177,7 @@
     "ref": "教材《普通高校军事课教程》·第五章信息化装备·第一节信息化装备概述（三、信息化装备的发展趋势）",
     "note": "题干限定语是“人工智能技术、无人控制技术的发展”，只有蜂群无人机、狼群无人艇属于无人化、智能化的新型武器。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH05_S01_U03",
    "sectionName": "MT_CH05_S01"
   },
@@ -50364,38 +50385,39 @@
    "options": [
     "“航母时代”",
     "“三航母时代”",
-    "“双舰时代”",
+    "“双航母时代”",
     "“多舰时代”"
    ],
    "answer": "C",
-   "explanation": "正确答案：C、“双舰时代”\n教材原文：2019年12月17日，经中央军委批准，我国第一艘国产航母命名为“中国人民解放军海军山东舰”，舷号为“17”，并正式交付人民海军。我国由此进入“双舰时代”。\n易错点：“三航母时代”对应的是2022年6月17日福建舰下水（辽宁舰、山东舰、福建舰三舰齐备），不要与山东舰入列的“双舰时代”混记。\n出处：教材《普通高校军事课教程》·第五章信息化装备·第二节信息化作战平台（知识链接：中国航母发展史）",
+   "explanation": "正确答案：C、“双航母时代”\n2019年12月17日山东舰交接入列，我国海军有了辽宁舰、山东舰两艘在役航母，进入双航母时代。\n依据：国防部《不负众望 大器渐成》：https://www.mod.gov.cn/gfbw/qwfb/16359220.html\n提示：这里以2019年入列事件为时间范围，不将下水与正式入列混为一谈；文案经官方表述校正，不冒称教材逐字原文。",
    "source": "模拟题",
    "chapter": "第五章信息化装备",
    "section": "单选题",
    "raw": "2019 年 12 月 17 日，山东舰交接入列。这标志着我国进入了____。",
-   "explanationSrc": "textbook",
-   "explanationRef": "教材《普通高校军事课教程》·第五章信息化装备·第二节信息化作战平台（知识链接：中国航母发展史）",
-   "keyConcept": "山东舰入列与双舰时代",
+   "explanationSrc": "web",
+   "explanationRef": "国防部《不负众望 大器渐成》：https://www.mod.gov.cn/gfbw/qwfb/16359220.html",
+   "keyConcept": "山东舰入列与双航母时代",
    "keywords": [
     "2019年12月17日",
     "山东舰",
-    "双舰时代",
-    "舷号为17"
+    "辽宁舰",
+    "双航母时代"
    ],
    "distractorWhy": {
     "A": "“航母时代”对应的是2012年辽宁舰交付、我国有了自己的航母，不是山东舰入列的标志。",
-    "B": "“三航母时代”是福建舰下水（2022年6月17日）后中国海军进入的阶段，题干问的是2019年山东舰入列。",
+    "B": "2019年山东舰入列时，辽宁舰与山东舰构成两艘在役航母。福建舰2022年下水是另一事件，下水不能等同于入列。",
     "D": "教材没有“多舰时代”的表述，属生造说法。"
    },
    "explanationParts": {
-    "answer": "C、“双舰时代”",
-    "reason": "教材原文：2019年12月17日，经中央军委批准，我国第一艘国产航母命名为“中国人民解放军海军山东舰”，舷号为“17”，并正式交付人民海军。我国由此进入“双舰时代”。",
-    "ref": "教材《普通高校军事课教程》·第五章信息化装备·第二节信息化作战平台（知识链接：中国航母发展史）",
-    "note": "“三航母时代”对应的是2022年6月17日福建舰下水（辽宁舰、山东舰、福建舰三舰齐备），不要与山东舰入列的“双舰时代”混记。"
+    "answer": "C、“双航母时代”",
+    "reason": "2019年12月17日山东舰交接入列，我国海军有了辽宁舰、山东舰两艘在役航母，进入双航母时代。",
+    "ref": "国防部《不负众望 大器渐成》：https://www.mod.gov.cn/gfbw/qwfb/16359220.html",
+    "note": "这里以2019年入列事件为时间范围，不将下水与正式入列混为一谈；文案经官方表述校正，不冒称教材逐字原文。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH05_S02_U02",
-   "sectionName": "MT_CH05_S02"
+   "sectionName": "MT_CH05_S02",
+   "webSourceUrl": "https://www.mod.gov.cn/gfbw/qwfb/16359220.html"
   },
   {
    "id": "q-1372",
@@ -50668,7 +50690,7 @@
     "ref": "教材《普通高校军事课教程》·第五章信息化装备·第四节信息化杀伤武器（指令制导武器）",
     "note": "注意：按“制导站与弹上设备的工作方式”还会谈到遥控制导、自主制导、寻的制导等分类，但教材对指令制导只按“指令传输方式”两分。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH05_S04_U01",
    "sectionName": "MT_CH05_S04"
   },
@@ -50785,7 +50807,7 @@
     "ref": "教材《普通高校军事课教程》·第五章信息化装备·第四节信息化杀伤武器（惯性制导武器）",
     "note": "平台式将加速度表装在惯性平台上，用陀螺仪保持平台稳定；按建立坐标系的不同又分空间稳定平台式与本地水平平台式。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH05_S04_U01",
    "sectionName": "MT_CH05_S04"
   },
@@ -50824,7 +50846,7 @@
     "ref": "教材《普通高校军事课教程》·第五章信息化装备·第四节信息化杀伤武器（有线指令制导）",
     "note": "有线指令制导分人工指令制导（射手目视观测、人工发送指令）和半自动指令制导（计算机自动发送指令）。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH05_S04_U01",
    "sectionName": "MT_CH05_S04"
   },
@@ -51138,7 +51160,7 @@
     "ref": "教材《普通高校军事课教程》·第五章信息化装备·第四节信息化杀伤武器（粒子束武器）",
     "note": "题干三个特征“能量高度集中、束流运行速度快、无放射性污染”是粒子束武器的标准描述，另有“以接近光速攻击目标”。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH05_S04_U03",
    "sectionName": "MT_CH05_S04"
   },
@@ -51177,7 +51199,7 @@
     "ref": "教材《普通高校军事课教程》·第五章信息化装备·第四节信息化杀伤武器（电磁炮）",
     "note": "电磁炮主体结构由两根平行导轨和一个沿导轨滑动的电枢组成，靠强大电磁力加速弹丸。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH05_S04_U03",
    "sectionName": "MT_CH05_S04"
   },
@@ -51216,7 +51238,7 @@
     "ref": "教材《普通高校军事课教程》·第五章信息化装备·第四节信息化杀伤武器（高功率微波武器）",
     "note": "高功率微波武器的效应是电磁效应、热效应和生物效应。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH05_S04_U03",
    "sectionName": "MT_CH05_S04"
   },
@@ -51378,7 +51400,7 @@
     "ref": "教材《普通高校军事课教程》·第五章信息化装备·第一节信息化装备概述（三、信息化装备的发展趋势）",
     "note": "教材讲“发展规模呈缩减趋势”“武器装备种类和型号在精减”，与“大型化”方向相反。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH05_S01_U03",
    "sectionName": "MT_CH05_S01"
   },
@@ -51419,7 +51441,7 @@
     "reason": "教材原文：根据信息化平台运用地点的不同，可将其分为陆上信息化平台、海上（水下）信息化平台、空中信息化平台、太空信息化作战平台；选项 C 即其中的太空信息化作战平台。",
     "ref": "教材《普通高校军事课教程》·第五章信息化装备·第二节信息化作战平台（一、信息化作战平台的定义）"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH05_S02_U01",
    "sectionName": "MT_CH05_S02"
   },
@@ -51543,7 +51565,7 @@
     "ref": "教材《普通高校军事课教程》·第五章信息化装备·第三节综合电子信息系统（指挥信息系统的组成）",
     "note": "数据链是“指挥控制系统”内部的组成部分。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH05_S03_U01",
    "sectionName": "MT_CH05_S03"
   },
@@ -51584,7 +51606,7 @@
     "ref": "教材《普通高校军事课教程》·第五章信息化装备·第三节综合电子信息系统（预警探测系统）",
     "note": "空基平台完整表述为固定翼飞机、直升机、无人机和高空系留气球。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH05_S03_U01",
    "sectionName": "MT_CH05_S03"
   },
@@ -51644,13 +51666,13 @@
     "A",
     "B"
    ],
-   "explanation": "正确答案：A、核武器；B、生物武器\n教材原文：核武器、生物武器和化学武器属于大规模杀伤性武器的范畴，由于其特殊的杀伤机理和大规模的杀伤破坏效能，从其开始出现在战场就挑战人类道德底线，一直被国际法和国际公约禁止使用。\n易错点：完整范畴是核武器、生物武器、化学武器三类，本题选项中出现了其中的核武器与生物武器。\n出处：教材《普通高校军事课教程》·第五章信息化装备·第四节信息化杀伤武器（二、核生化武器）",
+   "explanation": "正确答案：A、核武器；B、生物武器\n核武器、生物武器、化学武器通常归入大规模杀伤性武器范畴。本题选项中的核武器和生物武器属于该范畴，答案AB保留。不能将三类武器的不同条约制度概括为自出现以来一直受同一普遍全面禁令约束。\n依据：联合国条约库《禁止核武器条约》：https://treaties.un.org/doc/Publication/MTDSG/Volume%20II/Chapter%20XXVI/XXVI-9.en.pdf\n提示：《禁止核武器条约》于2017年通过、2021年1月22日生效，其条约义务适用于缔约国；化学武器和生物武器另有各自公约。",
    "source": "模拟题",
    "chapter": "第五章信息化装备",
    "section": "不定项选择题",
    "raw": "下列属于大规模杀伤性武器范畴的有____。",
-   "explanationSrc": "textbook",
-   "explanationRef": "教材《普通高校军事课教程》·第五章信息化装备·第四节信息化杀伤武器（二、核生化武器）",
+   "explanationSrc": "web",
+   "explanationRef": "联合国条约库《禁止核武器条约》：https://treaties.un.org/doc/Publication/MTDSG/Volume%20II/Chapter%20XXVI/XXVI-9.en.pdf",
    "keyConcept": "大规模杀伤性武器",
    "keywords": [
     "核武器、生物武器和化学武器属于大规模杀伤性武器的范畴",
@@ -51663,13 +51685,14 @@
    },
    "explanationParts": {
     "answer": "A、核武器；B、生物武器",
-    "reason": "教材原文：核武器、生物武器和化学武器属于大规模杀伤性武器的范畴，由于其特殊的杀伤机理和大规模的杀伤破坏效能，从其开始出现在战场就挑战人类道德底线，一直被国际法和国际公约禁止使用。",
-    "ref": "教材《普通高校军事课教程》·第五章信息化装备·第四节信息化杀伤武器（二、核生化武器）",
-    "note": "完整范畴是核武器、生物武器、化学武器三类，本题选项中出现了其中的核武器与生物武器。"
+    "reason": "核武器、生物武器、化学武器通常归入大规模杀伤性武器范畴。本题选项中的核武器和生物武器属于该范畴，答案AB保留。不能将三类武器的不同条约制度概括为自出现以来一直受同一普遍全面禁令约束。",
+    "ref": "联合国条约库《禁止核武器条约》：https://treaties.un.org/doc/Publication/MTDSG/Volume%20II/Chapter%20XXVI/XXVI-9.en.pdf",
+    "note": "《禁止核武器条约》于2017年通过、2021年1月22日生效，其条约义务适用于缔约国；化学武器和生物武器另有各自公约。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH05_S04_U02",
-   "sectionName": "MT_CH05_S04"
+   "sectionName": "MT_CH05_S04",
+   "webSourceUrl": "https://treaties.un.org/doc/Publication/MTDSG/Volume%20II/Chapter%20XXVI/XXVI-9.en.pdf"
   },
   {
    "id": "q-1404",
@@ -52131,7 +52154,7 @@
     "ref": "题库资料（真题集合第30题，原题答案ABCD；《军理考试900题库》第1题）＋教材《普通高校军事课教程》·第五章信息化装备",
     "note": "不定项全选，最易漏选D电子信息处理能力。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH05_S04_U03",
    "sectionName": "MT_CH05_S04"
   },
@@ -52209,7 +52232,7 @@
     "ref": "教材《普通高校军事课教程》·第四章现代战争·第二节新军事革命（军事革命的含义）",
     "note": "定义是固定表述，直接照记即可。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH04_S02_U00",
    "sectionName": "MT_CH04_S02"
   },
@@ -52287,7 +52310,7 @@
     "ref": "教材《普通高校军事课教程》·第四章现代战争·第二节新军事革命（创新军事理论）",
     "note": "记战法表述时抓住远程精确与小规模快速两个关键词。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH04_S02_U01",
    "sectionName": "MT_CH04_S02"
   },
@@ -52365,7 +52388,7 @@
     "ref": "教材《普通高校军事课教程》·第四章现代战争·第二节新军事革命（知识链接：智能化战争）",
     "note": "以网聚能＝信息化，以智驭能＝智能化。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH04_S02_U01",
    "sectionName": "MT_CH04_S02"
   },
@@ -52521,7 +52544,7 @@
     "ref": "教材《普通高校军事课教程》·第四章现代战争·第一节（战争的发展历程）",
     "note": "首次使用在越南战争，大量使用与经典数据在海湾战争。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH04_S02_U02",
    "sectionName": "MT_CH04_S02"
   },
@@ -52638,7 +52661,7 @@
     "ref": "教材《普通高校军事课教程》·第四章现代战争·第三节机械化战争（基本内涵）",
     "note": "四个特点连在一起记，缺一不可。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH04_S03_U01",
    "sectionName": "MT_CH04_S03"
   },
@@ -52716,7 +52739,7 @@
     "ref": "教材《普通高校军事课教程》·第四章现代战争·第三节机械化战争（形态和特点）",
     "note": "三个变化一起记。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH04_S03_U02",
    "sectionName": "MT_CH04_S03"
   },
@@ -52794,7 +52817,7 @@
     "ref": "教材《普通高校军事课教程》·第四章现代战争·第三节机械化战争（战争影响深远）",
     "note": "三类技术常考：电子计算机、互联网、卫星。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH04_S03_U02",
    "sectionName": "MT_CH04_S03"
   },
@@ -52835,7 +52858,7 @@
     "ref": "教材《普通高校军事课教程》·第四章现代战争·第三节机械化战争（形态和特点）",
     "note": "零伤亡属信息化战争追求，不属机械化战争特点。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH04_S03_U02",
    "sectionName": "MT_CH04_S03"
   },
@@ -52874,7 +52897,7 @@
     "ref": "教材《普通高校军事课教程》·第四章现代战争·第三节机械化战争（战争规模无限扩大）",
     "note": "总体战＝国家全部力量投入，无前后方之分。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH04_S03_U02",
    "sectionName": "MT_CH04_S03"
   },
@@ -52913,7 +52936,7 @@
     "ref": "教材《普通高校军事课教程》·第四章现代战争·第三节机械化战争",
     "note": "始于20世纪初，贯穿整个20世纪。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH04_S03_U03",
    "sectionName": "MT_CH04_S03"
   },
@@ -52952,7 +52975,7 @@
     "ref": "教材《普通高校军事课教程》·第五章信息化装备·第二节信息化作战平台（坦克／装甲车辆）",
     "note": "最早出现与大规模使用是两件事。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH04_S03_U03",
    "sectionName": "MT_CH04_S03"
   },
@@ -53030,7 +53053,7 @@
     "ref": "教材《普通高校军事课教程》·第四章现代战争·第三节机械化战争（典型案例：第二次世界大战）",
     "note": "区分二战整体转折点与太平洋战场转折点。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH04_S03_U05",
    "sectionName": "MT_CH04_S03"
   },
@@ -53382,7 +53405,7 @@
     "ref": "教材《普通高校军事课教程》·第四章现代战争·第四节信息化战争（作战空间多维化）",
     "note": "第一次变化的起因是飞机与航空技术。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH04_S04_U02",
    "sectionName": "MT_CH04_S04"
   },
@@ -53422,7 +53445,7 @@
     "ref": "教材《普通高校军事课教程》·第四章现代战争·第四节信息化战争（心理空间）",
     "note": "两种器材的名称是固定表述。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH04_S04_U02",
    "sectionName": "MT_CH04_S04"
   },
@@ -53461,7 +53484,7 @@
     "ref": "教材《普通高校军事课教程》·第四章现代战争·第四节信息化战争（信息空间多维广阔）",
     "note": "信息空间三部分要背全。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH04_S04_U02",
    "sectionName": "MT_CH04_S04"
   },
@@ -53578,7 +53601,7 @@
     "ref": "教材《普通高校军事课教程》·第四章现代战争·第四节信息化战争（高技术发展是直接动因）",
     "note": "四项骨干技术连记。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH04_S04_U03",
    "sectionName": "MT_CH04_S04"
   },
@@ -53901,11 +53924,11 @@
    "options": [
     "关闭委内瑞拉领空，并实施海上封锁",
     "通过安理会实施制裁",
-    "推动“去美元化”反制",
+    "针对委内瑞拉石油人民币结算施加经济胁迫",
     "扣押当地原油运输油轮"
    ],
    "answer": "B",
-   "explanation": "正确答案：B、通过安理会实施制裁\n解析：教材在讲述美国“南方之矛”军事行动时列出的美方做法包括：单方面宣布关闭委内瑞拉领空并实施海上封锁，隔离委内瑞拉海岸线；以经济援助为筹码逼迫拉美国家政治站队，并针对委内瑞拉以人民币结算石油推动“去美元化”反制；2025年对委内瑞拉实施扣押油轮等行动。教材并未记载美国通过联合国安理会实施制裁，该行动也是美国绕开联合国、以“打击毒品恐怖主义”为名单方面发起的。\n出处：教材《普通高校军事课教程》第四章现代战争第五节混合战争（典型案例：美国“南方之矛”军事行动）。\n易错：本题问的是没有实施的行动，凡教材明确列出的做法都属已实施。",
+   "explanation": "正确答案：B、通过安理会实施制裁\n按本题所引课程案例，C指美国针对委内瑞拉石油人民币结算施加的经济胁迫，不是美国主动推动去美元化。题目将关闭领空与海上封锁、此类经济胁迫、扣押油轮列为美方单方面行动，参考答案为未通过安理会实施制裁的B。\n依据：教材《普通高校军事课教程》·第四章现代战争·第五节混合战争（典型案例：美国“南方之矛”军事行动）\n提示：本题C的主体与反制对象已明确；本轮不据文案歧义认定B、C同时为正确答案。",
    "source": "模拟题",
    "chapter": "第四章现代战争",
    "section": "单选题",
@@ -53926,11 +53949,11 @@
    },
    "explanationParts": {
     "answer": "B、通过安理会实施制裁",
-    "reason": "教材记载的行动方式是关闭领空与海上封锁、经济胁迫与去美元化反制、扣押油轮、代理人运用等，均系美国单方面实施，未通过联合国安理会制裁程序。",
+    "reason": "按本题所引课程案例，C指美国针对委内瑞拉石油人民币结算施加的经济胁迫，不是美国主动推动去美元化。题目将关闭领空与海上封锁、此类经济胁迫、扣押油轮列为美方单方面行动，参考答案为未通过安理会实施制裁的B。",
     "ref": "教材《普通高校军事课教程》·第四章现代战争·第五节混合战争（典型案例：美国“南方之矛”军事行动）",
-    "note": "美国绕开联合国单方面行动，是本题的关键判据。"
+    "note": "本题C的主体与反制对象已明确；本轮不据文案歧义认定B、C同时为正确答案。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH04_S05_U05",
    "sectionName": "MT_CH04_S05"
   },
@@ -54010,7 +54033,7 @@
     "ref": "教材《普通高校军事课教程》·第四章现代战争·第二节新军事革命（创新军事技术）",
     "note": "教材原文三项连举，可整体记忆。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH04_S02_U01",
    "sectionName": "MT_CH04_S02"
   },
@@ -54051,7 +54074,7 @@
     "ref": "教材《普通高校军事课教程》·第四章现代战争·第二节新军事革命（创新体制编制）",
     "note": "总趋势是精干、高效、合成。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH04_S02_U01",
    "sectionName": "MT_CH04_S02"
   },
@@ -54134,7 +54157,7 @@
     "ref": "教材《普通高校军事课教程》·第四章现代战争·第二节新军事革命（战争形态转变）",
     "note": "四种新作战方式连记。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH04_S02_U01",
    "sectionName": "MT_CH04_S02"
   },
@@ -54175,7 +54198,7 @@
     "ref": "教材《普通高校军事课教程》·第四章现代战争·第二节新军事革命（战争形态转变）",
     "note": "关键判别词是“摒弃”与“迭代”。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH04_S02_U01",
    "sectionName": "MT_CH04_S02"
   },
@@ -54257,7 +54280,7 @@
     "ref": "教材《普通高校军事课教程》·第四章现代战争·第二节新军事革命（知识链接：智能化战争）",
     "note": "四个特点：制权、机理、力量形态、战斗力生成。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH04_S02_U01",
    "sectionName": "MT_CH04_S02"
   },
@@ -54591,7 +54614,7 @@
   {
    "id": "q-1478",
    "type": "multi",
-   "stem": "单兵数字化装备（信息士兵系统）由____组成。",
+   "stem": "以下列举的单兵数字化装备分系统中，哪些属于信息士兵系统？",
    "options": [
     "综合头盔分系统",
     "武器分系统",
@@ -54748,7 +54771,7 @@
     "ref": "教材《普通高校军事课教程》·第四章现代战争·第五节混合战争（主要特征）",
     "note": "三条特征：领域广、灰色地带、手段混合。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH04_S05_U01",
    "sectionName": "MT_CH04_S05"
   },
@@ -54789,7 +54812,7 @@
     "ref": "教材《普通高校军事课教程》·第四章现代战争·第五节混合战争（形成的动因）",
     "note": "动因共五点，选项中列了四点，全部选。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH04_S05_U03",
    "sectionName": "MT_CH04_S05"
   },
@@ -55079,18 +55102,23 @@
     "C4ISR 系统"
    ],
    "answer": "D",
-   "explanation": "正确答案：D、C4ISR系统\n解析：教材指出，C4ISR是美军提出的21世纪一体化信息系统新概念，主要包括指挥、控制、通信、计算机、情报、杀伤、监视、侦察和目标捕获系统；其实质是利用信息和信息技术将陆、海、空、天、电五维作战空间、各武器系统、各作战和保障部队、各数据库和用户终端连成一体，使战场完全趋于单向透明，被发现就意味着被摧毁。信息化战争中争夺信息资源的信息对抗是主旋律，因此敌对双方的主要作战目标指向这一体化信息系统。\n出处：教材《普通高校军事课教程》第四章现代战争第四节信息化战争（典型案例：伊拉克战争）；提纲·伊拉克战争·C4ISR系统。\n易错：通讯系统、发射系统、制导系统都只是被打击或被干扰的具体分系统，不能代表作战目标整体。",
+   "explanation": "正确答案：D、C4ISR系统\nC4ISR由指挥、控制、通信、计算机、情报、监视、侦察七项组成。C4的第四项是计算机，R对应侦察；杀伤、目标捕获不属于这个缩写的独立组成项。\n依据：美国国防安全合作局C4ISR术语释义：https://samm.dsca.mil/acronym/c4isr\n提示：本题按课程案例将一体化信息系统作为主要作战目标，答案D保留；信息优势不保证战场完全透明或发现即摧毁。",
    "source": "真题",
    "chapter": "第四章现代战争",
    "section": "单选题",
    "raw": "信息化战争中敌对双方的主要作战目标是____。",
-   "explanationSrc": "textbook",
-   "explanationRef": "教材《普通高校军事课教程》·第四章现代战争·第四节信息化战争（典型案例：伊拉克战争·C4ISR系统）；提纲提纲·伊拉克战争·C4ISR系统",
-   "keyConcept": "C4ISR系统",
+   "explanationSrc": "web",
+   "explanationRef": "美国国防安全合作局C4ISR术语释义：https://samm.dsca.mil/acronym/c4isr",
+   "keyConcept": "C4ISR一体化信息系统",
    "keywords": [
-    "C4ISR系统",
-    "美军提出的21世纪一体化信息系统新概念",
-    "使战场完全趋于单向透明，被发现就意味着被摧毁"
+    "C4ISR",
+    "指挥",
+    "控制",
+    "通信",
+    "计算机",
+    "情报",
+    "监视",
+    "侦察"
    ],
    "distractorWhy": {
     "A": "通讯系统只是C4ISR系统中通信这一部分，你把作为整体的一体化信息系统缩小成了单一的通信分系统。",
@@ -55099,13 +55127,14 @@
    },
    "explanationParts": {
     "answer": "D、C4ISR系统",
-    "reason": "教材明确美国在伊拉克战争中充分依托C4ISR系统实现一体化实时作战，该系统把五维作战空间、各武器系统与部队终端连成一体，战场趋于单向透明，因而成为敌对双方争夺的主要作战目标。",
-    "ref": "教材《普通高校军事课教程》·第四章现代战争·第四节信息化战争（典型案例：伊拉克战争）",
-    "note": "C4ISR含指挥、控制、通信、计算机、情报、杀伤、监视、侦察和目标捕获。"
+    "reason": "C4ISR由指挥、控制、通信、计算机、情报、监视、侦察七项组成。C4的第四项是计算机，R对应侦察；杀伤、目标捕获不属于这个缩写的独立组成项。",
+    "ref": "美国国防安全合作局C4ISR术语释义：https://samm.dsca.mil/acronym/c4isr",
+    "note": "本题按课程案例将一体化信息系统作为主要作战目标，答案D保留；信息优势不保证战场完全透明或发现即摧毁。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "MT_CH04_S04_U06",
-   "sectionName": "MT_CH04_S04"
+   "sectionName": "MT_CH04_S04",
+   "webSourceUrl": "https://samm.dsca.mil/acronym/c4isr"
   },
   {
    "id": "q-1491",
@@ -55215,7 +55244,7 @@
     "ref": "教材《普通高校军事课教程》·中国国防",
     "note": "原卷表述如此（教材作「防备和抵抗外来侵略」，本题为「防备和抵御侵略」，含义相同）。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -55246,7 +55275,7 @@
     "ref": "第一版题库《11年》真题参考答案",
     "note": "原卷备注「正确答案：主权和领土完整」，原卷表述如此。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -55340,7 +55369,7 @@
     "ref": "教材《普通高校军事课教程》·中国国防",
     "note": "原卷备注为「1840年的叶片战争」（应为「鸦片战争」的笔误），与题干表述冲突；本题按题干判错。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -55402,7 +55431,7 @@
     "ref": "教材《普通高校军事课教程》·中国国防",
     "note": "原卷备注「正确答案：1949年新中国成立」。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -55557,7 +55586,7 @@
     "ref": "教材《普通高校军事课教程》·中国国防",
     "note": "原卷表述如此。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -55933,7 +55962,7 @@
    "options": [
     "解放军、武装警察部队和民兵",
     "解放军、武装警察部队和预备役部队",
-    "解放军、预备役部队和武装警察部队"
+    "解放军、公安机关和民兵"
    ],
    "answer": "A",
    "explanation": "正确答案：A、解放军、武装警察部队和民兵\n根据《国防法》第二十二条，中华人民共和国的武装力量由中国人民解放军、中国人民武装警察部队、民兵组成，即「三结合」体制，故 A 正确。",
@@ -55952,7 +55981,7 @@
    ],
    "distractorWhy": {
     "B": "把「民兵」换成了「预备役部队」；预备役部队是武装力量的组成部分，但《国防法》规定的「三结合」体制是解放军、武装警察部队、民兵。",
-    "C": "同样把「民兵」误作「预备役部队」，还把武装警察部队与预备役部队的位次颠倒，是与 B 同源的概念混淆。"
+    "C": "公安机关不等同于中国人民武装警察部队，不能替换三结合体制中的武装警察部队。"
    },
    "explanationParts": {
     "answer": "A",
@@ -56149,7 +56178,7 @@
     "ref": "教材《普通高校军事课教程》·现代战争",
     "note": "原卷 3 个选项，原卷表述如此。"
    },
-   "isHard": false,
+   "isHard": true,
    "subsection": "",
    "sectionName": ""
   },
@@ -56196,17 +56225,17 @@
    "stem": "海军的五大兵种是：＿、＿、＿、＿、＿。",
    "options": [
     "水下潜艇、水面舰艇、海军空军、陆战队、岸防部队",
-    "水下潜艇、水面舰艇、航空兵、陆战队、岸防部队",
+    "潜艇部队、水面舰艇部队、海军航空兵、海军陆战队、海军岸防兵",
     "潜艇部队、舰艇部队、空军部队、陆战队、岸防部队"
    ],
    "answer": "B",
-   "explanation": "正确答案：B、水下潜艇、水面舰艇、航空兵、陆战队、岸防部队\n海军主要由水面舰艇部队、潜艇部队、海军航空兵、海军岸防部队、海军陆战队等兵种和各专业勤务部队组成，五项与 B 对应，故 B 正确。",
+   "explanation": "正确答案：B、潜艇部队、水面舰艇部队、海军航空兵、海军陆战队、海军岸防兵\n海军兵种包括潜艇部队、水面舰艇部队、海军航空兵、海军陆战队、海军岸防兵。本题问组织和兵种名称，不以潜艇、舰艇等装备俗称代替部队名称，答案B保留。\n依据：北京市国动办《中国人民解放军海军的组成》：https://gdb.beijing.gov.cn/rf_rfwh/rf_fkfzzs/201911/t20191129_726901.html\n提示：规范选项B用词，保留原题号与答案字母。",
    "source": "真题",
    "chapter": "第一章中国国防",
    "section": "单选题",
    "raw": "第一版题库《11年》选择题第 14 题（原卷有答案）",
-   "explanationSrc": "textbook",
-   "explanationRef": "教材《普通高校军事课教程》·中国国防",
+   "explanationSrc": "web",
+   "explanationRef": "北京市国动办《中国人民解放军海军的组成》：https://gdb.beijing.gov.cn/rf_rfwh/rf_fkfzzs/201911/t20191129_726901.html",
    "keyConcept": "海军五大兵种",
    "keywords": [
     "水面舰艇部队",
@@ -56220,14 +56249,15 @@
     "C": "把规范兵种名写成「潜艇部队、舰艇部队、空军部队」，既漏掉「水面」限定，又把「海军航空兵」误作「空军部队」，海军序列中没有空军部队。"
    },
    "explanationParts": {
-    "answer": "B",
-    "reason": "教材记载：中国人民解放军海军主要由水面舰艇部队、潜艇部队、海军航空兵、海军岸防部队、海军陆战队等兵种和各专业勤务部队组成，B 项五项与之对应。",
-    "ref": "教材《普通高校军事课教程》·中国国防",
-    "note": "原卷 3 个选项，原卷表述如此。"
+    "answer": "B、潜艇部队、水面舰艇部队、海军航空兵、海军陆战队、海军岸防兵",
+    "reason": "海军兵种包括潜艇部队、水面舰艇部队、海军航空兵、海军陆战队、海军岸防兵。本题问组织和兵种名称，不以潜艇、舰艇等装备俗称代替部队名称，答案B保留。",
+    "ref": "北京市国动办《中国人民解放军海军的组成》：https://gdb.beijing.gov.cn/rf_rfwh/rf_fkfzzs/201911/t20191129_726901.html",
+    "note": "规范选项B用词，保留原题号与答案字母。"
    },
    "isHard": true,
    "subsection": "",
-   "sectionName": ""
+   "sectionName": "",
+   "webSourceUrl": "https://gdb.beijing.gov.cn/rf_rfwh/rf_fkfzzs/201911/t20191129_726901.html"
   },
   {
    "id": "q-1524",
@@ -56342,7 +56372,7 @@
     "ref": "教材《普通高校军事课教程》·军事思想",
     "note": "原卷 4 个选项，原卷表述如此。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
