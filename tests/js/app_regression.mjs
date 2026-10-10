@@ -555,6 +555,63 @@ const pendingExam = () => JSON.stringify({
   check('乱序解析以显示A与融合发展保持一致', html(h).includes('A、融合发展'));
   check('存档作答仍保持原始字母A', st.sess.res['q-0047'].picked === 'A');
 }
+// 项目巡检：数据边界在CI里实际执行，浏览器分页、焦点另由完整界面套件覆盖。
+{
+  const h = await build(new Map());
+  const data = { progress: {}, exams: [{ ts: 123, total: 1, correct: 1, score: 100, detail: [] }] };
+  nav(h, 'sync');
+  for (let i = 0; i < 2; i++) {
+    h.elById('import-area').value = JSON.stringify(data);
+    click(h, 'sync:merge'); modalOk(h);
+  }
+  check('巡检：重复合并成绩去重', h.J.state.exams.length === 1);
+  click(h, 'home:startall'); nav(h, 'sync');
+  h.elById('import-area').value = JSON.stringify({ progress: {} });
+  click(h, 'sync:replace'); modalOk(h);
+  check('巡检：覆盖导入清空内存会话', h.J.state.sess === null && h.J.state.lastSess === null);
+  h.elById('import-area').value = JSON.stringify({ progress: [] });
+  click(h, 'sync:replace');
+  check('巡检：数组进度不能覆盖导入', !modalOpen(h));
+}
+{
+  const store = new Map([
+    [KEY_PROGRESS, JSON.stringify({ 'q-0001': { seen: '2', correct: '1', wrong: '1' }, 'q-0002': { seen: -2, correct: -1, wrong: 4, box: 99 }, __daily: { '2026-10-10': { n: 1, ok: 9 } } })],
+    ['jlx.exams.v1', JSON.stringify([null, {}])],
+  ]);
+  const h = await build(store);
+  check('巡检：字符串计数不拼接', h.J.state.progress['q-0001'].seen === 2 && h.J.state.progress['q-0001'].correct === 1);
+  const p = h.J.state.progress['q-0002'];
+  check('巡检：负数与熟练度统一归一化', p.seen === 4 && p.correct === 0 && p.box === 5);
+  check('巡检：每日正确次数不大于作答次数', h.J.state.progress.__daily['2026-10-10'].ok === 1);
+  nav(h, 'exam');
+  check('巡检：坏成绩不使考试设置页报错', h.J.state.exams.length === 0 && !html(h).includes('页面渲染出错'));
+  nav(h, 'settings');
+  check('巡检：设置页顶栏标题', h.elById('page-title').textContent === '设置');
+}
+{
+  const store = new Map([[KEY_SESSION, JSON.stringify({ ver: 1, ids: ['q-0913'], order: 'seq', i: 0, res: { 'q-0913': { picked: '坏数据', ok: false } } })]]);
+  const h = await build(store);
+  click(h, 'home:continue');
+  check('巡检：损坏填空结果安全恢复', !html(h).includes('页面渲染出错') && !h.J.state.sess.res['q-0913']);
+}
+{
+  const h = await build(new Map());
+  click(h, 'home:startall');
+  const original = h.sb.localStorage.setItem;
+  h.sb.localStorage.setItem = (k, v) => { if (k === KEY_SESSION) throw Error('测试额度耗尽'); return original(k, v); };
+  click(h, 'nav:next'); click(h, 'sess:exit'); modalOk(h);
+  nav(h, 'practice'); click(h, 'prac:continue');
+  check('巡检：存储失败后使用最新内存位置', h.J.state.sess.i === 1);
+}
+{
+  const h = await build(new Map());
+  nav(h, 'exam'); click(h, 'exam:start');
+  Object.assign(h.J.state.exam, { ids: ['q-0913'], i: 0, draft: {} });
+  input(h, 'ans:fill', { 'data-i': 0, value: '草稿' });
+  check('巡检：输入实时更新考试已答题数', h.elById('exam-answered').textContent === '已答 1/1 题');
+  input(h, 'ans:fill', { 'data-i': 0, value: '' });
+  check('巡检：清空实时减少考试已答题数', h.elById('exam-answered').textContent === '已答 0/1 题');
+}
 const failed = checks.filter((c) => !c.ok);
 console.log(JSON.stringify({ suite: 'app_regression', pass: checks.length - failed.length, fail: failed.length, checks }, null, 1));
 process.exit(failed.length ? 1 : 0);

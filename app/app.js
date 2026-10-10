@@ -44,7 +44,7 @@
 
   var NAV_TITLE = {
     home: '首页', practice: '练习', exam: '模拟考试', recite: '背题模式',
-    outline: '复习提纲', wrong: '错题本', fav: '收藏夹', search: '搜索', stats: '学习统计', sync: '导入 / 导出'
+    outline: '复习提纲', wrong: '错题本', fav: '收藏夹', search: '搜索', stats: '学习统计', sync: '导入 / 导出', settings: '设置'
   };
 
   var $  = function (sel, root) { return (root || document).querySelector(sel); };
@@ -63,25 +63,30 @@
     } catch (e) { return false; }
   })();
 
+  var storageFailed = !LS_OK;
+
   function rawGet(key) {
+    // 当前页写入可能因额度不足失败，最新内存镜像必须优先于旧磁盘值。
+    if (Object.prototype.hasOwnProperty.call(memStore, key)) return memStore[key];
     if (LS_OK) {
       try {
         var v = window.localStorage.getItem(key);
         if (v !== null) return v;
       } catch (e) { /* 忽略，走内存镜像 */ }
     }
-    return Object.prototype.hasOwnProperty.call(memStore, key) ? memStore[key] : null;
+    return null;
   }
   function rawSet(key, val) {
     memStore[key] = val;              // 内存镜像：写失败也不丢当前会话数据
     if (!LS_OK) return false;
     try { window.localStorage.setItem(key, val); return true; }
-    catch (e) { return false; }
+    catch (e) { storageFailed = true; return false; }
   }
   function rawDel(key) {
-    delete memStore[key];
+    // 删除标记保留在内存；磁盘删除失败时也不能把旧存档重新读回来。
+    memStore[key] = null;
     if (!LS_OK) return;
-    try { window.localStorage.removeItem(key); } catch (e) { /* noop */ }
+    try { window.localStorage.removeItem(key); } catch (e) { storageFailed = true; }
   }
   function loadJSON(key, fallback) {
     var raw = rawGet(key);
@@ -92,6 +97,8 @@
     } catch (e) { return fallback; }
   }
   function saveJSON(key, val) { return rawSet(key, JSON.stringify(val)); }
+  /** 外部对象与数组分开校验；数组不能作为题目进度或结果字典。 */
+  function isRecord(v) { return !!v && typeof v === 'object' && !Array.isArray(v); }
 
   /* ======================================================================
    * 2. 工具函数
@@ -383,12 +390,9 @@
   };
 
   function initState() {
-    State.progress = loadJSON(KEY_PROGRESS, {});
-    if (!State.progress || typeof State.progress !== 'object') State.progress = {};
-    if (!State.progress[KEY_DAILY] || typeof State.progress[KEY_DAILY] !== 'object') State.progress[KEY_DAILY] = {};
+    State.progress = sanitizeProgress(loadJSON(KEY_PROGRESS, {}));
     State.settings = Object.assign({}, DEFAULT_SETTINGS, loadJSON(KEY_SETTINGS, {}));
-    var ex = loadJSON(KEY_EXAMS, []);
-    State.exams = Array.isArray(ex) ? ex : [];
+    State.exams = sanitizeExams(loadJSON(KEY_EXAMS, []));
     State.meta = loadJSON(KEY_META, {});
     if (!State.meta || typeof State.meta !== 'object') State.meta = {};
     syncSettings();
@@ -486,6 +490,22 @@
     });
     return out;
   }
+  /** 已提交结果复用草稿的题型校验，忽略坏条目而保留其它有效作答。 */
+  function restoreSessionResults(data, ids) {
+    var out = {};
+    if (!isRecord(data)) return out;
+    ids.forEach(function (id) {
+      var r = data[id], q = qById(id);
+      if (!isRecord(r) || typeof r.ok !== 'boolean' || !q) return;
+      var candidate = {}; candidate[id] = r.picked;
+      var picks = restoreSessionMap(candidate, [id], 'draft');
+      var picked = picks[id];
+      if (q.type === 'short' && r.self === true && r.picked === undefined) picked = '';
+      else if (!Object.prototype.hasOwnProperty.call(picks, id) || !hasAnswer(q, picked)) return;
+      out[id] = { picked: picked, ok: r.ok, self: !!r.self, ts: Math.max(0, toInt(r.ts, 0)) };
+    });
+    return out;
+  }
   /**
    * 恢复会话（首页「继续上次练习」与设置页「从下一题继续」共用这一套）。
    * 顺序**按存储原样恢复**：`d.ids` 就是退出时屏幕上那一份排好的顺序，
@@ -498,7 +518,7 @@
     var s = {
       ids: ids, i: clamp(toInt(d.i, 0), 0, ids.length - 1),
       title: d.title || '继续练习', order: d.order, mode: 'practice',
-      res: (d.res && typeof d.res === 'object') ? d.res : {},
+      res: restoreSessionResults(d.res, ids),
       draft: restoreSessionMap(d.draft, ids, 'draft'), perm: restoreSessionMap(d.perm, ids, 'perm'),
       wrongMode: !!d.wrongMode, revealedRef: restoreSessionMap(d.revealedRef, ids, 'flag'), startedAt: Date.now(),
       gridOpen: false, gridPage: 1, seed: toInt(d.seed, 0)
@@ -552,7 +572,7 @@
   }
   /** 合并两份按日期记录（按天求和；用于「合并导入」） */
   function mergeDaily(a, b) {
-    var srcs = [a, b].filter(function (s) { return s && typeof s === 'object'; });
+    var srcs = [sanitizeDaily(a), sanitizeDaily(b)];
     var out = {};
     if (!srcs.length) return out;
     srcs.forEach(function (src) {
@@ -570,12 +590,13 @@
   /** 清洗导入来的按日期记录 */
   function sanitizeDaily(src) {
     var out = {};
-    if (!src || typeof src !== 'object') return out;
+    if (!isRecord(src)) return out;
     Object.keys(src).forEach(function (k) {
-      if (!/^\d{4}-\d{2}-\d{2}$/.test(k)) return;
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(k) || dayKey(new Date(k + 'T12:00:00').getTime()) !== k) return;
       var x = src[k];
-      if (!x || typeof x !== 'object') return;
-      out[k] = { n: Math.max(0, toInt(x.n, 0)), ok: Math.max(0, toInt(x.ok, 0)) };
+      if (!isRecord(x)) return;
+      var n = Math.max(0, toInt(x.n, 0));
+      out[k] = { n: n, ok: clamp(toInt(x.ok, 0), 0, n) };
     });
     return out;
   }
@@ -599,28 +620,30 @@
    */
   var NOTICE = {
     "title": "本次更新",
-    "intro": "本版合并 PR #2 的修复，并修正乱序答案显示与截图题解析。题库仍为1531题。",
+    "intro": "完整项目巡检修复11类问题，题库仍为1531题。",
     "groups": [
       {
         "name": "修复",
         "items": [
-          "你的答案、参考答案、解析答案和考试错题回顾统一使用当前显示字母。",
-          "解析的选项字母只转换一次，避免多选答案重复映射；解析答案取自实际判分答案。",
-          "修正协调发展原则题及派生填空题的解析、错因与来源：答案为融合发展。",
-          "整合导入统计、判断题快捷键、离线缓存及应用图标修复。"
+          "合并备份不再复制已有考试成绩；覆盖导入同时清掉旧练习、背题和考试会话。",
+          "拒绝结构错误的备份，清理无效成绩与负数、字符串、矛盾计数，避免页面报错和统计失真。",
+          "损坏的练习作答存档不再使题卡报错；存储写入失败后当前页恢复采用最新内存副本。",
+          "第101题及之后输入草稿会更新答题卡；练习未提交草稿保持未答状态。",
+          "统计页说明与首页按题目去重的总正确率口径一致。",
+          "考试填空、简答输入或清空后已答题数即时更新；设置页顶栏正确显示设置。"
         ]
       },
       {
         "name": "新增",
         "items": [
-          "新增乱序答案与解析的一致性回归检查；补齐PR行为回归及带提纲构建校验。"
+          "新增长期项目边界回归，覆盖页面入口、导入校验、损坏存档、存储失败与分页草稿。"
         ]
       },
       {
         "name": "说明",
         "items": [
-          "服从、相容、适度属于本题列出的应遵循原则；题干问的是不是应遵循的原则。",
-          "保留背题恢复与模式内搜索、考试暂停后主动继续；存档始终保存原始答案字母。"
+          "有效的历史作答和旧格式备份继续兼容，题目答案没有改动。",
+          "存储写入失败时内存副本仅在当前页面有效，关页前请导出备份。"
         ]
       }
     ]
@@ -1065,6 +1088,8 @@
         '<div class="note">' + esc(e && e.message ? e.message : String(e)) + '</div>' +
         '<div class="btn-row mt10"><button class="btn primary" type="button" data-nav="home">返回首页</button></div></div>';
     }
+    if (storageFailed) html = '<div class="card note" role="alert">浏览器无法保存数据，当前操作仅暂存在本页。' +
+      '关页前请导出备份。<button class="btn sm" type="button" data-nav="sync">导出备份</button></div>' + html;
     viewEl.innerHTML = html;
     updateTopbar();
     updateBadges();
@@ -2113,13 +2138,15 @@
   function updateGridCell() {
     var c = activeContainer();
     if (!c || !c.ids || !c.ids.length) return;
-    var cells = $$('#view .qcell');
-    if (!cells.length) return;
     var q = qById(c.ids[c.i]);
     if (!q) return;
-    var el = cells[c.i];
+    // 输入过程中只改计数文本，答题卡收起时同样更新，保留焦点与输入法状态。
+    var count = State.route === 'exam' ? $('#exam-answered') : null;
+    if (count) count.textContent = '已答 ' + examAnsweredCount(c) + '/' + c.ids.length + ' 题';
+    // 分页只渲染100格，按全局题号找格子；练习需提交才算已答。
+    var el = $('#view .qcell[data-i="' + c.i + '"]');
     if (!el) return;
-    el.classList.toggle('done', hasAnswer(q, getDraft(c, q.id)));
+    el.classList.toggle('done', State.route === 'exam' && hasAnswer(q, getDraft(c, q.id)));
   }
   function move(d) {
     var c = activeContainer();
@@ -2720,15 +2747,19 @@
     return qById(e.ids[e.i]);
   }
 
+  /** 计数与答题卡共用实际草稿判定，输入、清空和整卡渲染保持同一口径。 */
+  function examAnsweredCount(e) {
+    return e.ids.filter(function (id) { return hasAnswer(qById(id), getDraft(e, id)); }).length;
+  }
   function examRun() {
     var e = State.exam;
     var q = examCurrent();
     if (!q) { State.exam = null; return examSetup(); }
     var picked = getDraft(e, q.id);
-    var answered = Object.keys(e.ids).filter(function (i) { return hasAnswer(qById(e.ids[i]), getDraft(e, e.ids[i])); }).length;
+    var answered = examAnsweredCount(e);
     var ctx = { q: q, idx: e.i, total: e.ids.length, sess: e, picked: picked, reveal: false, ok: false, locked: false, examRunning: true };
     var html = renderCard(q, ctx);
-    html += '<div class="row between mt10 small muted"><span>已答 ' + answered + '/' + e.ids.length + ' 题</span>' +
+    html += '<div class="row between mt10 small muted"><span id="exam-answered">已答 ' + answered + '/' + e.ids.length + ' 题</span>' +
       '<span class="row"><button class="btn sm ghost" type="button" data-act="grid:toggle">答题卡</button>' +
       '<button class="btn sm danger" type="button" data-act="exam:submit">交卷</button></span></div>';
     html += navBtns({ idx: e.i, total: e.ids.length });
@@ -3317,7 +3348,7 @@
       '<div class="report-row"><span>做对过的题</span><b>' + d.uniqueCorrect + ' / ' + d.done + '</b></div>' +
       '<div class="report-row"><span>累计作答</span><b>' + d.attempts + ' 次</b></div>' +
       '<div class="report-row"><span>错题本 / 收藏</span><b>' + d.wrong + ' / ' + d.fav + '</b></div>' +
-      '<div class="small muted mt6">「题目正确率」按题去重（做对过的题 ÷ 做过的题）；首页「作答正确率」按作答次数计，两者口径不同。</div>' +
+      '<div class="small muted mt6">「题目正确率」与首页「总正确率」均按题去重（做对过的题 ÷ 做过的题）；导出页的「作答正确率」按作答次数计算。</div>' +
       '<div class="small muted mt6">掌握度规则：连续答对使「熟练度」累积到 3 以上记为已掌握；答错后回到待复习。</div>' +
       '</div>';
 
@@ -3581,14 +3612,17 @@
     var data;
     try { data = JSON.parse(String(text || '').trim()); }
     catch (e) { toast('JSON 解析失败：' + (e.message || '格式错误'), 'bad', 2600); return null; }
-    if (!data || typeof data !== 'object' || !data.progress || typeof data.progress !== 'object') {
-      toast('不是有效的军理刷题导出文件（缺少 progress）', 'bad', 2600);
+    if (!isRecord(data) || !isRecord(data.progress) ||
+        (data.app !== undefined && data.app !== APP_NAME) ||
+        (data.ver !== undefined && data.ver !== EXPORT_VER)) {
+      toast('不是支持的军理刷题备份（progress须为对象，应用与版本须匹配）', 'bad', 2600);
       return null;
     }
     return data;
   }
 
   function mergeProgress(a, b) {
+    a = sanitizeProgress(a); b = sanitizeProgress(b);
     var out = {};
     [a, b].forEach(function (src) {
       if (src) Object.keys(src).forEach(function (k) {
@@ -3614,12 +3648,39 @@
     return out;
   }
   function ensureShape(p) {
-    p = p && typeof p === 'object' ? p : {};
+    p = isRecord(p) ? p : {};
+    var correct = Math.max(0, toInt(p.correct, 0)), wrong = Math.max(0, toInt(p.wrong, 0));
     return {
-      seen: toInt(p.seen, 0), correct: toInt(p.correct, 0), wrong: toInt(p.wrong, 0),
-      lastTs: toInt(p.lastTs, 0), box: toInt(p.box, 0),
+      seen: Math.max(0, toInt(p.seen, 0), correct + wrong), correct: correct, wrong: wrong,
+      lastTs: Math.max(0, toInt(p.lastTs, 0)), box: clamp(toInt(p.box, 0), 0, 5),
       fav: !!p.fav, wrongFlag: !!p.wrongFlag
     };
+  }
+
+  /** 启动与导入共用清洗，保留尚未在当前题库出现的合法题号记录。 */
+  function sanitizeProgress(src) {
+    var out = {};
+    if (isRecord(src)) Object.keys(src).forEach(function (id) {
+      if (id === KEY_DAILY || ['__proto__', 'constructor', 'prototype'].indexOf(id) >= 0 || !isRecord(src[id])) return;
+      out[id] = ensureShape(src[id]);
+    });
+    out[KEY_DAILY] = sanitizeDaily(isRecord(src) ? src[KEY_DAILY] : null);
+    return out;
+  }
+
+  /** 成绩按时间标识去重；坏记录不进入可渲染历史，分数从合法计数计算。 */
+  function sanitizeExams(src) {
+    var out = [], seen = {};
+    (Array.isArray(src) ? src : []).forEach(function (x) {
+      if (!isRecord(x)) return;
+      var ts = toInt(x.ts, 0), total = toInt(x.total, 0);
+      if (ts <= 0 || ts > 8640000000000000 || total <= 0 || seen[ts]) return;
+      seen[ts] = true;
+      var correct = clamp(toInt(x.correct, 0), 0, total);
+      out.push({ ts: ts, total: total, correct: correct, score: pct(correct, total),
+        durationMs: Math.max(0, toInt(x.durationMs, 0)), detail: Array.isArray(x.detail) ? x.detail.filter(isRecord) : [] });
+    });
+    return out.sort(function (a, b) { return b.ts - a.ts; }).slice(0, 50);
   }
 
   function applyImport(data, mode) {
@@ -3628,18 +3689,16 @@
     var incomingDaily = sanitizeDaily(
       (data.daily && typeof data.daily === 'object') ? data.daily : (data.progress || {})[KEY_DAILY]);
     if (mode === 'replace') {
-      State.progress = {};
-      Object.keys(data.progress || {}).forEach(function (k) {
-        if (k === KEY_DAILY) return;                 // 保留键不当作题目条目
-        State.progress[k] = ensureShape(data.progress[k]); n++;
-      });
+      State.progress = sanitizeProgress(data.progress);
+      n = progressIds().length;
       State.progress[KEY_DAILY] = incomingDaily;
-      State.exams = Array.isArray(data.exams) ? data.exams.slice(0, 50) : [];
+      State.exams = sanitizeExams(data.exams);
       // 覆盖导入等于换了一份进度：旧练习会话里的作答已不属于新进度，必须一并作废，
       // 否则首页「继续上次练习」会恢复出一份已不存在的会话。
       rawDel(KEY_SESSION); rawDel(KEY_RECITE); rawDel(KEY_EXAM_SESSION); stopExamTimer();
       if (sessSaveTimer) { clearTimeout(sessSaveTimer); sessSaveTimer = 0; }
-      State.lastSess = null; State.exam = null;
+      State.sess = null; State.lastSess = null; State.exam = null;
+      State.reciteQ = ''; State.reciteSearchOpen = false;
       if (data.settings && typeof data.settings === 'object') {
         State.settings = Object.assign({}, DEFAULT_SETTINGS, data.settings);
         syncSettings(); saveSettings(); applyTheme();
@@ -3651,13 +3710,7 @@
       State.progress = mergeProgress(State.progress, data.progress || {});
       State.progress[KEY_DAILY] = mergeDaily(localDaily, incomingDaily);
       n = Object.keys(data.progress || {}).filter(function (k) { return k !== KEY_DAILY; }).length;
-      var seen = {};
-      State.exams.concat(Array.isArray(data.exams) ? data.exams : []).forEach(function (x) {
-        if (!x || !x.ts || seen[x.ts]) return;
-        seen[x.ts] = 1; State.exams.push(x);
-      });
-      State.exams.sort(function (a, b) { return b.ts - a.ts; });
-      State.exams = State.exams.slice(0, 50);
+      State.exams = sanitizeExams(State.exams.concat(Array.isArray(data.exams) ? data.exams : []));
     }
     saveProgress(); saveExams();
     invalidateStats();          // 进度整批换过：统计缓存必须作废，否则首页/侧栏还是导入前的旧数字
