@@ -412,7 +412,7 @@ const qById = (h, id) => h.J.state.byId[id];
 }
 
 // ---------------------------------------------------------------------------
-// R18–R19 考试刷新恢复 / 过期自动交卷
+// R18–R19 考试刷新后主动继续 / 零剩余时间继续后自动交卷
 // ---------------------------------------------------------------------------
 {
   const store = new Map();
@@ -465,7 +465,7 @@ const qById = (h, id) => h.J.state.byId[id];
 }
 
 // ---------------------------------------------------------------------------
-// R20–R21 背题刷新恢复 / 退出即作废
+// R20–R21 背题刷新恢复 / 退出后保留恢复点
 // ---------------------------------------------------------------------------
 {
   const store = new Map();
@@ -541,6 +541,20 @@ const pendingExam = () => JSON.stringify({
 // ---------------------------------------------------------------------------
 // 汇总
 // ---------------------------------------------------------------------------
+{
+  // 固定循环排列，不依赖随机数，真实生产动作触发题卡渲染与作答反馈。
+  const h = await build(new Map());
+  click(h, 'home:startall');
+  const st = h.J.state;
+  st.settings.shuffleOptions = true;
+  st.sess.ids = ['q-0047']; st.sess.i = 0;
+  st.sess.perm = { 'q-0047': ['D', 'A', 'C', 'B'] };
+  click(h, 'nav:jump', { 'data-i': 0 });
+  click(h, 'ans:pick', { 'data-k': 'A' });
+  check('乱序反馈输出显示字母B而非存储字母A', html(h).includes('你的答案：B'));
+  check('乱序解析以显示A与融合发展保持一致', html(h).includes('A、融合发展'));
+  check('存档作答仍保持原始字母A', st.sess.res['q-0047'].picked === 'A');
+}
 const failed = checks.filter((c) => !c.ok);
 console.log(JSON.stringify({ suite: 'app_regression', pass: checks.length - failed.length, fail: failed.length, checks }, null, 1));
 process.exit(failed.length ? 1 : 0);

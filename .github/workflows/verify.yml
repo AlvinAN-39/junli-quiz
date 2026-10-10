@@ -98,3 +98,7 @@ jobs:
       # 本地在 qa-env/ 有 Playwright 且 dist/ 有产物时会真跑 35 项。
       - name: 截图回归套件（需 Playwright 与 dist，缺失时 SKIP）
         run: node tests/screenshot_fix_test.mjs
+
+      # 全部四选项排列与考试回顾的真实界面回归；缺少浏览器依赖时明确跳过。
+      - name: 答案显示回归（需 Playwright 与 dist，缺失时 SKIP）
+        run: node tests/answer_display_test.mjs

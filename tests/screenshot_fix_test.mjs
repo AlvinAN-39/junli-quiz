@@ -488,7 +488,10 @@ try {
     await practice([fixture.multi.id]);
     const covered = await page.evaluate((id) => {
       const q = window.__JLX__.state.byId[id];
-      return q.qa.find((letter) => q.distractorWhy[letter]);
+      // 当前题库已清理正确项错因；模拟旧数据，确保渲染防线仍能阻止回归。
+      const letter = q.qa[0];
+      q.distractorWhy = { ...q.distractorWhy, [letter]: '旧数据误把正确项写成错误项' };
+      return letter;
     }, fixture.multi.id);
     assert(covered && fixture.multi.qa.length > 1, '夹具不能触发少选正确项错因');
     await select(covered);

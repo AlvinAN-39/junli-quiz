@@ -598,32 +598,29 @@
    * 发新版时：把 groups 换成该版的改动即可，noticeHtml() 会自动带上版本号。
    */
   var NOTICE = {
-    title: '本次更新',
-    intro: '本版新增背题恢复与模式内搜索，并修复会话、考试、统计和显示问题。题库仍为 1531 题。',
-    groups: [
+    "title": "本次更新",
+    "intro": "本版合并 PR #2 的修复，并修正乱序答案显示与截图题解析。题库仍为1531题。",
+    "groups": [
       {
-        name: '修复', items: [
-          '错题重做续练保留自动移出语义；练习恢复保留选项乱序、未提交草稿和已展开的参考答案。',
-          '考试暂停后不再后台计时或交卷；简答题交卷后的自评会实际计入成绩，未答题不增加学习计数。',
-          '考试页隐藏练习专用判分提示和无效提交按钮；答题卡分页题号正确显示。',
-          '收藏数量包含未作答题，取消收藏即时移除列表项；跨模式顶栏与当前页面一致。',
-          '首页与统计页总正确率采用一致口径；错题搜索防抖生效且不重建输入框。',
-          '多选题少选时不再把已选的正确项解释为错误；四档字号避免重复缩放，深色正误标记提高对比度。',
-          '背题模式退出、刷新或关闭页面后，再次进入会回到上次阅读的同一道题和同一题集，不再从第 1 题开始。'
+        "name": "修复",
+        "items": [
+          "你的答案、参考答案、解析答案和考试错题回顾统一使用当前显示字母。",
+          "解析的选项字母只转换一次，避免多选答案重复映射；解析答案取自实际判分答案。",
+          "修正协调发展原则题及派生填空题的解析、错因与来源：答案为融合发展。",
+          "整合导入统计、判断题快捷键、离线缓存及应用图标修复。"
         ]
       },
       {
-        name: '新增', items: [
-          '考试独立存档：保存题目、位置、草稿、选项排列、剩余时间与自评进度，主动选择继续或放弃。',
-          '背题模式内可搜索当前题集的题干、选项、章节与题型；多个关键词用空格分隔，点击结果直接跳题。',
-          '背题保存搜索词、阅读滚动位置与选项排列；可用「从头背全部」重新开始。'
+        "name": "新增",
+        "items": [
+          "新增乱序答案与解析的一致性回归检查；补齐PR行为回归及带提纲构建校验。"
         ]
       },
       {
-        name: '说明', items: [
-          '背题、练习和考试分别存档；背题不计作答次数，搜索与清空搜索保留原题集。',
-          '总正确率为做对过的题目数除以做过的题目数；考试未答题扣试卷分，但不算实际作答。',
-          '考试离开页面、切到后台、刷新或关页会暂停，回来后主动继续；旧版未保存的草稿无法补回。'
+        "name": "说明",
+        "items": [
+          "服从、相容、适度属于本题列出的应遵循原则；题干问的是不是应遵循的原则。",
+          "保留背题恢复与模式内搜索、考试暂停后主动继续；存档始终保存原始答案字母。"
         ]
       }
     ]
@@ -1208,26 +1205,13 @@
   }
 
   /* ---- 解析正文里的选项字母映射----------------------------------
-   * 问题：选项乱序只改了 `q.qa`（经 dispLetterOf），但 `explanationParts.answer`
+   * 问题：选项乱序后的参考答案已映射显示字母，但 `explanationParts.answer`
    * 与 `reason` 正文里的字母是**生成时写死的原始字母**，乱序后就会与选项顺序、
    * 「参考答案」行的显示字母不一致 —— 同一道题出现两套字母。
    *
-   * 解法：优先用**选项文本反查显示索引**（最可靠）；反查不到再退化到字母映射。
-   * 这样即便答案是「A、侵略和武装颠覆、分裂」这种「字母+文本」形态，
-   * 也能只替换字母部分，文本原样保留。
+   * 解法：正确答案直接来自判分字段与原始选项；正文中的选项字母只映射一次。
+   * 显示映射不改动判分答案和作答存档，避免排列变化影响历史作答。
    * -------------------------------------------------------------------- */
-
-  /** 在 q.options 里按文本找显示字母；找不到返回 '' */
-  function dispLetterOfText(q, sess, text) {
-    var t = String(text || '').trim();
-    if (!t || !q.options) return '';
-    for (var i = 0; i < q.options.length; i++) {
-      if (String(q.options[i]).trim() === t) {
-        return dispLetterOf(q, sess, LETTERS[i]);
-      }
-    }
-    return '';
-  }
 
   /**
    * 把一段文本里**指代选项的字母**换成当前显示字母。
@@ -1239,35 +1223,23 @@
    */
   function dispLettersInText(text, q, sess) {
     var s = String(text || '');
-    if (!s || !State.settings.shuffleOptions) return s;
+    if (!s || !State.settings.shuffleOptions || ['single', 'multi'].indexOf(q.type) < 0) return s;
     var map = function (L) { return dispLetterOf(q, sess, L); };
-    // ① 答录式：`A、文本` —— 字母后紧跟顿号/点（半角冒号也算）
-    s = s.replace(/(^|[^A-Za-z0-9])([A-H])(?=[、.．])/g, function (m, pre, L) {
-      return pre + map(L);
-    });
-    // ② 串列式：`A、B、C` / `A、B` —— 前面已由①处理首字母，这里处理后续
-    s = s.replace(/、([A-H])(?=、|$|正确|均|为|都|应|不)/g, function (m, L) {
-      return '、' + map(L);
-    });
-    // ③ 结论式：`故A` `A正确`
-    s = s.replace(/(故|选|答案)([A-H])(?![A-Za-z0-9])/g, function (m, pre, L) {
-      return pre + map(L);
-    });
-    s = s.replace(/([A-H])(?=正确|错误|项)/g, function (L) { return map(L); });
-    return s;
+    // 一次扫描原文；不能将映射后的字母再送进另一轮替换。
+    return s.replace(/(^|[^A-Za-z0-9])([A-J](?:[、，,\/／][A-J])+|[A-J])(?=$|[、.．:：()（）正确错误项均为都应不])|(故|选|答案|选项)([A-J](?:[、，,\/／]?[A-J])*)(?![A-Za-z0-9])/g,
+      function (m, pre, letters, lead, conclusion) {
+        return (pre || lead || '') + (letters || conclusion).replace(/[A-J]/g, map);
+      });
   }
   function answerDispInExplain(q, sess) {
-    var p = (q && q.explanationParts) || {};
-    var a = p.answer || '';
-    if (!a || !State.settings.shuffleOptions) return a;
-    // 形态一：`A、选项文本` —— 用选项文本反查显示字母
-    var m = a.match(/^([A-H])[、.．]\s*(.+)$/);
-    if (m) {
-      var byText = dispLetterOfText(q, sess, m[2]);
-      if (byText) return byText + '、' + m[2];
+    if (q.type === 'single' || q.type === 'multi') {
+      // 判分答案是唯一来源，防止解析里独立保存的字母与选项文本互相矛盾。
+      var letters = q.type === 'multi' ? q.qa : [q.qa];
+      return letters.map(function (L) {
+        return dispLetterOf(q, sess, L) + '、' + (q.options[LETTERS.indexOf(L)] || '');
+      }).join('；');
     }
-    // 形态二：`A、B、C（…）` 或纯字母 —— 走通用字母映射
-    return dispLettersInText(a, q, sess);
+    return ((q && q.explanationParts) || {}).answer || answerText(q);
   }
 
   /* ---- 多选答案存疑标记--------------------------------------------
@@ -1378,8 +1350,8 @@
       return '<br><span class="small">你的答案：' + esc(u) + '<br>正确答案：' + esc(a) + '</span>';
     }
     var mine = '';
-    if (q.type === 'multi') mine = Array.isArray(ctx.picked) ? ctx.picked.join('') : '';
-    else if (q.type === 'single') mine = String(ctx.picked || '');
+    if (q.type === 'multi') mine = Array.isArray(ctx.picked) ? ctx.picked.map(function (L) { return dispLetterOf(q, ctx.sess, L); }).sort().join('') : '';
+    else if (q.type === 'single') mine = dispLetterOf(q, ctx.sess, String(ctx.picked || ''));
     else if (q.type === 'judge') mine = ctx.picked ? '正确' : '错误';
     return '<br><span class="small">你的答案：' + esc(mine || '（未作答）') + '　正确答案：' + esc(answerTextDisp(q, ctx.sess)) + uncertSuffix(q) + '</span>';
   }
@@ -1404,7 +1376,9 @@
       return '<div class="ex-src">' + ICO_BOOK + '<span>依据：' + esc(ref || '教材') + '</span></div>';
     }
     if (src === 'manual') {
-      return '<div class="ex-src"><span class="chip mini">已人工校订</span></div>';
+      var manualRef = q.explanationRef || (q.explanationParts || {}).ref || '';
+      return '<div class="ex-src"><span class="chip mini">已人工校订</span>' +
+        (manualRef ? '<span>依据：' + esc(manualRef) + '</span>' : '') + '</div>';
     }
     if (src === 'template') {
       return '<div class="ex-src muted">本题库未收录直接出处</div>';
@@ -1424,7 +1398,7 @@
   function explainBody(q, sess) {
     var p = q.explanationParts || {};
     var rows = '';
-    if (p.answer) {
+    if (p.answer || q.type === 'single' || q.type === 'multi') {
       //选项乱序时把解析里的答案字母同步成显示字母，避免与选项/参考答案两套字母
       rows += '<div class="ex-row"><b class="ex-label">正确答案</b><span class="ex-val">' + esc(answerDispInExplain(q, sess)) + '</span></div>';
     }
@@ -1433,9 +1407,9 @@
       rows += '<div class="ex-row"><b class="ex-label">为什么</b><span class="ex-val">' + esc(dispLettersInText(p.reason, q, sess)) + '</span></div>';
     }
     if (p.note) {
-      rows += '<div class="ex-row ex-sub"><b class="ex-label">提示</b><span class="ex-val">' + esc(p.note) + '</span></div>';
+      rows += '<div class="ex-row ex-sub"><b class="ex-label">提示</b><span class="ex-val">' + esc(dispLettersInText(p.note, q, sess)) + '</span></div>';
     }
-    if (!rows) return esc(q.explanation || '（原题库未提供解析）') + explainSrcLine(q);
+    if (!rows) return esc(dispLettersInText(q.explanation || '（原题库未提供解析）', q, sess)) + explainSrcLine(q);
     return rows + explainSrcLine(q);
   }
 
@@ -3018,7 +2992,7 @@
         if (!q) return;
         html += '<div class="list-item"><span class="li-idx">' + (TYPE_SHORT[q.type] || '') + '</span>' +
           '<span class="li-body"><strong class="clamp3">' + esc(q.stem) + '</strong>' +
-          '<small>你的答案：' + esc(renderPick(q, e.res[id])) + '　|　正确答案：' + esc(answerTextDisp(q, e).replace(/\n/g, ' ')) + uncertSuffix(q) + '</small>' +
+          '<small>你的答案：' + esc(renderPick(q, e.res[id], e)) + '　|　正确答案：' + esc(answerTextDisp(q, e).replace(/\n/g, ' ')) + uncertSuffix(q) + '</small>' +
           explainBlock(q, true, e) +
           '</span></div>';
       });
@@ -3040,9 +3014,10 @@
     return html;
   }
 
-  function renderPick(q, r) {
+  function renderPick(q, r, sess) {
     if (!r || r.picked === undefined || r.picked === null) return '（未作答）';
-    if (q.type === 'multi') return (r.picked || []).join('') || '（未作答）';
+    if (q.type === 'multi') return (r.picked || []).map(function (L) { return dispLetterOf(q, sess, L); }).sort().join('') || '（未作答）';
+    if (q.type === 'single') return dispLetterOf(q, sess, r.picked);
     if (q.type === 'judge') return r.picked ? '正确' : '错误';
     if (q.type === 'fill') return (r.picked || []).map(function (t) { return String(t || '（空）'); }).join(' / ');
     return String(r.picked).slice(0, 60);

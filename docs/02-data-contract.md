@@ -82,9 +82,9 @@ App 只把数据存在浏览器 `localStorage`，键名如下（不与其他项�
 | `jlx.settings.v1` | `{ theme, fontSize, order, shuffleOptions, autoNext, examCount, examMinutes, explainOpen, sound, haptic, volume }` |
 | `jlx.exams.v1` | 考试历史 `[{ ts, total, correct, score, durationMs, detail }]` |
 | `jlx.meta.v1` | `{ bankHash, ver, lastExportTs, noticeSeen }` |
-| `jlx.session.v1` | 练习会话（用于「继续上次练习」）：`{ ver, ts, title, seed, order, i, ids, res, wrongMode, perm, draft }`；`ver` 不匹配即作废 |
-| `jlx.recite.v1` | 背题会话（刷新后回到原题；**退出即删**）：`{ ver, ts, title, i, ids }` |
-| `jlx.exam.v1` | 未完成的考试（仅 `run` / `selfcheck` 阶段；交卷出分后删除）：`{ ver, ts, phase, ids, i, draft, perm, self, startTs, endTs, minutes, withShort, scope, gridPage, res, durationMs, autoSubmit }`。截止时间是绝对时刻，恢复时若已过期即按超时自动交卷 |
+| `jlx.session.v1` | 练习会话（用于「继续上次练习」）：`{ ver, ts, title, seed, order, i, ids, res, wrongMode, perm, draft, revealedRef }`；`ver` 不匹配即作废 |
+| `jlx.recite.v1` | 背题独立存档，退出、刷新与关页均保留题集、位置、排列、搜索词、展开状态及滚动位置；明确从头开始或清空数据时重置 |
+| `jlx.exam-session.v1` | 未完成的考试（仅 `run` / `selfcheck` 阶段；交卷出分后删除）：保存题集、位置、草稿、排列、自评、剩余时间与已用时间。退出、刷新及关页时暂停，重新打开后须主动继续；剩余时间为零时，继续后自动交卷 |
 
 导出文件格式：`{ app: "军理刷题", ver: 1, exportedAt, progress, settings, exams, daily }`
 （`daily` 与 `progress.__daily` 是同一份按日期作答记录的两种写法）。
