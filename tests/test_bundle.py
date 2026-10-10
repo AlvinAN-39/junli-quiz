@@ -235,16 +235,26 @@ class TestBuildEndToEnd(unittest.TestCase):
     def test_web_assets_copied(self):
         web = self.index.parent
         for name in ("app.css", "app.js", "sw.js", "manifest.webmanifest",
-                     "icons/icon.svg", "data/questions.json"):
+                     "icons/icon.svg", "icons/apple-touch-icon.png",
+                     "icons/icon-192.png", "icons/icon-512.png"):
             with self.subTest(name=name):
                 self.assertTrue((web / name).exists(), f"缺少 {name}")
 
-    def test_web_bank_json_is_lean_and_usable(self):
-        web_bank = json.loads((self.index.parent / "data" / "questions.json")
-                              .read_text(encoding="utf-8"))
-        self.assertEqual(len(web_bank["questions"]), N_REAL)
-        self.assertNotIn("raw", web_bank["questions"][0])
-        self.assertIn("explanation", web_bank["questions"][0])
+    def test_web_inlined_bank_matches_source(self):
+        """PWA 版不再放 data/questions.json，题库以**内联**为准 —— 这里核对内联内容。"""
+        m = re.search(r"window\.__QUESTION_BANK__\s*=\s*(\{.*?\});\s*\n</script>",
+                      self.web_html, re.S)
+        self.assertIsNotNone(m, "PWA 版未内联题库")
+        bank = json.loads(m.group(1))
+        self.assertEqual(len(bank["questions"]), N_REAL)
+        self.assertEqual({q["id"] for q in bank["questions"]},
+                         {q["id"] for q in REAL_BANK["questions"]})
+        self.assertNotIn("raw", bank["questions"][0])
+        self.assertIn("explanation", bank["questions"][0])
+
+    def test_web_has_no_dead_data_dir(self):
+        """部署目录不放 data/：题库与提纲都已内联，这两个文件永远不会被请求。"""
+        self.assertFalse((self.index.parent / "data").exists())
 
     def test_web_manifest_is_valid_json(self):
         mf = json.loads((self.index.parent / "manifest.webmanifest")
@@ -258,10 +268,58 @@ class TestBuildEndToEnd(unittest.TestCase):
         with zipfile.ZipFile(self.zip_path) as z:
             names = z.namelist()
         self.assertIn("index.html", names, "zip 必须是扁平结构（部署平台要求）")
-        self.assertIn("data/questions.json", names)
+        # 题库/提纲已内联，data/ 属于白占体积（实测约 45%），不应进部署包
+        self.assertNotIn("data/questions.json", names)
         self.assertIn("app.js", names)
         self.assertIn("manifest.webmanifest", names)
         self.assertFalse(any(n.startswith("web/") for n in names))
+
+class TestFontScaling(unittest.TestCase):
+    """字号四档必须只缩放一次：根字号接 --fs，组件一律用 rem。
+
+    2026-10-10 修的真实 bug：根字号已经随 --fs 缩放，又给 8 个组件补了
+    calc(Xrem * var(--fs))，于是双重缩放 ——「小」档题干 13.74px 反而比正文 14.4px 小、
+    「特大」档实际 1.64×。这里防止它再回来。
+    """
+
+    def test_root_font_size_follows_fs(self):
+        css = (ROOT / "app" / "app.css").read_text(encoding="utf-8")
+        self.assertIn("html { font-size: calc(16px * var(--fs)); }", css)
+
+    def test_no_double_scaling_rules(self):
+        css = (ROOT / "app" / "app.css").read_text(encoding="utf-8")
+        # 只认「数字 + rem」的写法：注释里举反例写的 calc(Xrem * var(--fs)) 不算
+        bad = re.findall(r"calc\(\s*[\d.]+\s*rem\s*\*\s*var\(--fs\)\s*\)", css)
+        self.assertEqual(bad, [], f"组件字号被双重缩放：{bad[:3]}")
+
+
+class TestAppIcons(unittest.TestCase):
+    """iOS 的 apple-touch-icon 只认位图：必须有 180×180 PNG，manifest 也要 PNG。
+
+    SVG 会被 iOS 忽略、主屏图标退化成页面截图 —— 这是每个 iPhone 用户
+    添加主屏后第一眼就能看到的差异，所以固化在这里。
+    """
+
+    def test_png_icons_exist_with_expected_sizes(self):
+        import struct
+        for name, size in (("apple-touch-icon.png", 180), ("icon-192.png", 192),
+                           ("icon-512.png", 512)):
+            with self.subTest(name=name):
+                p = ROOT / "app" / "icons" / name
+                self.assertTrue(p.exists(), f"缺少 {name}（跑 python tools/make_icons.py 生成）")
+                data = p.read_bytes()
+                self.assertEqual(data[:8], b"\x89PNG\r\n\x1a\n", f"{name} 不是 PNG")
+                w, h = struct.unpack(">II", data[16:24])
+                self.assertEqual((w, h), (size, size), f"{name} 尺寸应为 {size}")
+
+    def test_manifest_and_html_reference_png(self):
+        mf = json.loads((ROOT / "app" / "manifest.webmanifest").read_text(encoding="utf-8"))
+        pngs = [i for i in mf["icons"] if i.get("type") == "image/png"]
+        self.assertTrue(any(i.get("sizes") == "192x192" for i in pngs), "manifest 缺 192 PNG")
+        self.assertTrue(any(i.get("sizes") == "512x512" for i in pngs), "manifest 缺 512 PNG")
+        html = (ROOT / "app" / "index.html").read_text(encoding="utf-8")
+        self.assertIn("apple-touch-icon", html)
+        self.assertIn("icons/apple-touch-icon.png", html)
 
 
 if __name__ == "__main__":

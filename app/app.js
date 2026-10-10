@@ -993,7 +993,7 @@
     // 徽章数字直接来自同一次统计结果，省掉 wrongIds()/favIds() 两遍全库遍历
     var bw = d.wrong, bf = d.fav;
     if (!PERF_LEAN_BADGES) { bw = wrongIds().length; bf = favIds().length; }
-    [['#badge-wrong', bw], ['#badge-wrong-t', bw], ['#badge-fav', bf]].forEach(function (pair) {
+    [['#badge-wrong', bw], ['#badge-wrong-t', bw], ['#badge-fav', bf], ['#badge-fav-t', bf]].forEach(function (pair) {
       var el = $(pair[0]);
       if (!el) return;
       el.textContent = String(pair[1]);
@@ -1002,7 +1002,7 @@
     var side = $('#side-stat');
     if (side) {
       side.innerHTML = '题库 <b>' + d.total + '</b> 题 · 已做 <b>' + d.done + '</b><br>' +
-        '正确率 <b>' + d.rate + '%</b> · 错题 <b>' + d.wrong + '</b><br>' +
+        '作答正确率 <b>' + d.rate + '%</b> · 错题 <b>' + d.wrong + '</b><br>' +
         '来源：' + esc(State.from || '—');
     }
     var sub = $('#brand-sub');
@@ -1792,7 +1792,9 @@
     // 记住「上次实际用的出题顺序」。首页的「继续上次练习」在页面刷新后要靠它
     // 才能回到随机练习 —— 否则会硬编码落回顺序练习（用户报告的问题 3）。
     State.lastOrder = (ord === 'rand') ? 'rand' : 'seq';
-    saveSession();                       // 立刻落盘：退出/关页后还能继续
+    // 立刻落盘：练习写 KEY_SESSION（退出后仍可「继续上次练习」），
+    // 背题写 KEY_RECITE（刷新后回到原题；退出即作废，见 sess:exit）。
+    saveSession();
     go(mode === 'recite' ? 'recite' : 'practice');
   }
 
@@ -3331,7 +3333,7 @@
 
     html += '<div class="card"><div class="card-title">总览</div>' +
       '<div class="grid grid-4">' +
-      '<div class="stat pri"><b>' + d.uniqueRate + '%</b><span>总正确率</span></div>' +
+      '<div class="stat pri"><b>' + d.uniqueRate + '%</b><span>题目正确率</span></div>' +
       '<div class="stat ok"><b>' + d.mastered + '</b><span>已掌握</span></div>' +
       '<div class="stat bad"><b>' + d.review + '</b><span>待复习</span></div>' +
       '<div class="stat"><b>' + d.untouched + '</b><span>未做过</span></div>' +
@@ -3340,6 +3342,7 @@
       '<div class="report-row"><span>做对过的题</span><b>' + d.uniqueCorrect + ' / ' + d.done + '</b></div>' +
       '<div class="report-row"><span>累计作答</span><b>' + d.attempts + ' 次</b></div>' +
       '<div class="report-row"><span>错题本 / 收藏</span><b>' + d.wrong + ' / ' + d.fav + '</b></div>' +
+      '<div class="small muted mt6">「题目正确率」按题去重（做对过的题 ÷ 做过的题）；首页「作答正确率」按作答次数计，两者口径不同。</div>' +
       '<div class="small muted mt6">掌握度规则：连续答对使「熟练度」累积到 3 以上记为已掌握；答错后回到待复习。</div>' +
       '</div>';
 
@@ -3410,9 +3413,12 @@
       }).join('') +
       '</div>' +
       '<div class="small muted mt6">当前：' + FONT_NAME[st.fontSize] + '。调大后若发现个别地方拥挤，可切回「标准」。</div>' +
-      '<div class="switch-row mt10"><div class="sw-txt"><strong>外观主题</strong><small>跟随系统 / 浅色 / 深色</small></div>' +
-      '<button type="button" class="switch" role="switch" aria-checked="' + (st.theme !== 'auto' ? 'true' : 'false') +
-      '" data-act="set:theme" aria-label="切换主题"></button></div>' +
+      '<div class="field mt10"><label>外观主题</label><div class="seg" role="group" aria-label="外观主题">' +
+      ['auto', 'light', 'dark'].map(function (k) {
+        return '<button type="button" class="' + (st.theme === k ? 'active' : '') +
+          '" data-act="set:theme" data-v="' + k + '">' + THEME_NAME[k] + '</button>';
+      }).join('') +
+      '</div></div>' +
       '<div class="small muted">当前主题：' + THEME_NAME[st.theme] + '</div>' +
       '</div>' +
 
@@ -3445,6 +3451,16 @@
   var offlineState = { checked: false, ready: false, buildId: '', cacheName: '' };
   var offlinePending = false;
 
+  /**
+   * 安全取 ServiceWorkerContainer。
+   * 不能只写「'serviceWorker' in navigator」：在部分环境（file:// / 老 WebView）里
+   * 该属性**存在但值为 undefined**，in 判定为 true，紧接着读 .controller 就会抛错，
+   * 整个设置页会变成「页面渲染出错」。
+   */
+  function swContainer() {
+    try { return navigator.serviceWorker || null; } catch (e) { return null; }
+  }
+
   function checkOfflineReady(cb) {
     var finish = function (payload) {
       offlineState = {
@@ -3455,7 +3471,8 @@
       };
       if (cb) cb(offlineState);
     };
-    if (!('serviceWorker' in navigator) || !navigator.serviceWorker.controller) {
+    var swc = swContainer();
+    if (!swc || !swc.controller) {
       finish(null);
       return;
     }
@@ -3464,7 +3481,7 @@
     var once = function (payload) { if (done) return; done = true; finish(payload); };
     ch.port1.onmessage = function (e) { once(e.data); };
     try {
-      navigator.serviceWorker.controller.postMessage({ type: 'cache-status' }, [ch.port2]);
+      swc.controller.postMessage({ type: 'cache-status' }, [ch.port2]);
     } catch (e) {
       once(null);
       return;
@@ -3484,14 +3501,15 @@
   }
 
   function offlineText() {
-    if (!('serviceWorker' in navigator)) {
-      return '当前环境不支持离线缓存（单文件版或 file:// 打开时属正常）';
-    }
-    if (!navigator.serviceWorker.controller && !offlineState.checked) return '正在检查…';
-    if (!offlineState.checked) return '尚未接管：刷新一次即可启用离线缓存';
+    var swc = swContainer();
+    if (!swc) return '当前环境不支持离线缓存（单文件版或 file:// 打开时属正常）';
+    if (!swc.controller) return offlineState.checked ? '尚未接管：刷新一次即可启用离线缓存' : '正在检查…';
+    if (!offlineState.checked) return '正在检查…';
     if (offlineState.ready) {
-      var id = offlineState.buildId ? 'v' + offlineState.buildId : '当前版本';
-      return '已就绪（' + id + '）';
+      // 显示与首页一致的日期版本号；「是否已写入缓存」由 SW 的 cache-status 回答，不靠猜。
+      // （SW 回传的 buildId 是内容哈希，直接显示会与首页版本号对不上。）
+      var pv = buildTagTextSafe();
+      return '已就绪（' + (pv ? 'v' + pv : '缓存 ' + offlineState.buildId) + '）';
     }
     return '尚未就绪：请联网打开一次本页以完成缓存';
   }
@@ -3518,9 +3536,11 @@
     saveSettings(); applyTheme(); render(false);
     toast('文字大小：' + FONT_NAME[v], '', 1200);
   });
-  reg('set:theme', function () {
-    cycleTheme();
-    render(false);
+  reg('set:theme', function (el) {
+    var v = el.getAttribute('data-v');
+    if (['auto', 'light', 'dark'].indexOf(v) < 0) { cycleTheme(); render(false); return; }
+    State.settings.theme = v;
+    saveSettings(); applyTheme(); render(false);
   });
 
   /* ======================================================================
@@ -3640,15 +3660,22 @@
       });
       State.progress[KEY_DAILY] = incomingDaily;
       State.exams = Array.isArray(data.exams) ? data.exams.slice(0, 50) : [];
+      // 覆盖导入等于换了一份进度：旧练习会话里的作答已不属于新进度，必须一并作废，
+      // 否则首页「继续上次练习」会恢复出一份已不存在的会话。
+      rawDel(KEY_SESSION); rawDel(KEY_RECITE); rawDel(KEY_EXAM_SESSION); stopExamTimer();
+      if (sessSaveTimer) { clearTimeout(sessSaveTimer); sessSaveTimer = 0; }
+      State.lastSess = null; State.exam = null;
       if (data.settings && typeof data.settings === 'object') {
         State.settings = Object.assign({}, DEFAULT_SETTINGS, data.settings);
         syncSettings(); saveSettings(); applyTheme();
       }
     } else {
+      // 合并导入：先把本机的「按日期作答记录」取出来再合并 ——
+      // mergeProgress 会跳过保留键 __daily，不先取出的话本机那部分会被导入文件覆盖。
+      var localDaily = State.progress[KEY_DAILY];
       State.progress = mergeProgress(State.progress, data.progress || {});
-      // 合并导入：按天求和，保留两边的每日作答量（这是「近 7 天」口径的唯一来源）
-      State.progress[KEY_DAILY] = mergeDaily(State.progress[KEY_DAILY], incomingDaily);
-      n = Object.keys(data.progress || {}).length;
+      State.progress[KEY_DAILY] = mergeDaily(localDaily, incomingDaily);
+      n = Object.keys(data.progress || {}).filter(function (k) { return k !== KEY_DAILY; }).length;
       var seen = {};
       State.exams.concat(Array.isArray(data.exams) ? data.exams : []).forEach(function (x) {
         if (!x || !x.ts || seen[x.ts]) return;
@@ -3658,6 +3685,7 @@
       State.exams = State.exams.slice(0, 50);
     }
     saveProgress(); saveExams();
+    invalidateStats();          // 进度整批换过：统计缓存必须作废，否则首页/侧栏还是导入前的旧数字
     State.meta.lastExportTs = Date.now(); saveMeta();
     updateBadges();
     render(false);
@@ -3675,7 +3703,7 @@
       '用于备份或在 iPhone ↔ Windows 之间手动同步。按日期的记录让「近 7 天做题量」在换设备后仍然准确。</div>' +
       '<div class="grid grid-3 mt10">' +
       '<div class="stat"><b>' + d.done + '</b><span>已做</span></div>' +
-      '<div class="stat"><b>' + d.rate + '%</b><span>正确率</span></div>' +
+      '<div class="stat"><b>' + d.rate + '%</b><span>作答正确率</span></div>' +
       '<div class="stat"><b>' + Object.keys(State.progress[KEY_DAILY] || {}).length + '</b><span>作答天数</span></div>' +
       '</div>' +
       '<div class="btn-row mt16">' +
@@ -3726,7 +3754,7 @@
     if (!ta || !ta.value.trim()) { toast('请先粘贴 JSON 文本或选择文件', 'bad', 2000); return; }
     var data = parseImport(ta.value);
     if (!data) return;
-    var n = Object.keys(data.progress || {}).length;
+    var n = Object.keys(data.progress || {}).filter(function (k) { return k !== KEY_DAILY; }).length;
     confirmBox(mode === 'replace' ? '覆盖导入' : '合并导入',
       (mode === 'replace' ? '将清空本机现有进度并写入 ' : '将与本机现有进度合并，共 ') + n + ' 条记录，确定吗？',
       '确定导入', function () { applyImport(data, mode); });
@@ -3738,9 +3766,16 @@
     reader.onload = function () {
       var data = parseImport(reader.result);
       if (data) {
-        var n = Object.keys(data.progress || {}).length;
-        confirmBox('从文件导入', '文件包含 ' + n + ' 条进度记录。选择导入方式：' +
-          '（合并＝保留本机数据并累加；覆盖＝清空本机数据）', '合并导入', function () { applyImport(data, 'merge'); });
+        var n = Object.keys(data.progress || {}).filter(function (k) { return k !== KEY_DAILY; }).length;
+        openModal({
+          title: '从文件导入',
+          html: '<p>文件包含 ' + n + ' 条进度记录。选择导入方式：合并＝保留本机数据并累加；覆盖＝清空本机数据。</p>',
+          buttons: [
+            { label: '取消', cls: 'ghost' },
+            { label: '合并导入', cls: 'primary', onClick: function () { applyImport(data, 'merge'); } },
+            { label: '覆盖导入', cls: 'danger', onClick: function () { applyImport(data, 'replace'); } }
+          ]
+        });
       }
       var f = $('#import-file');
       if (f) f.value = '';
@@ -4068,13 +4103,19 @@
     var back = $('#btn-back');
     if (back) back.addEventListener('click', function () {
       Feedback.fire('nav:go');
-      if (State.route === 'practice' || State.route === 'recite') { go('home'); return; }
+      if (leaveRunningExam('home')) return;
       go('home');
     });
     var themeBtn = $('#btn-theme');
-    if (themeBtn) themeBtn.addEventListener('click', function () { Feedback.play('tap'); cycleTheme(); });
+    if (themeBtn) themeBtn.addEventListener('click', function () {
+      Feedback.play('tap'); cycleTheme();
+      if (State.route === 'settings') render(false);   // 设置页上有「当前主题」，不重绘会与真实值不符
+    });
     var fontBtn = $('#btn-font');
-    if (fontBtn) fontBtn.addEventListener('click', function () { Feedback.play('tap'); cycleFont(); });
+    if (fontBtn) fontBtn.addEventListener('click', function () {
+      Feedback.play('tap'); cycleFont();
+      if (State.route === 'settings') render(false);
+    });
 
     var back2 = $('#modal-backdrop');
     if (back2) back2.addEventListener('click', function (e) {
@@ -4224,7 +4265,14 @@
         if (q2.type === 'short' && s2.revealedRef && s2.revealedRef[q2.id]) return;
       }
       Feedback.fire('ans:pick');
-      if (q2.type === 'judge') { ACT['ans:pick']({ getAttribute: function () { return n === 1 ? 'true' : (n === 2 ? 'false' : null); }, classList: { toggle: function () {} }, querySelector: function () { return null; } }, e); return; }
+      // 判断题只有「1 = 正确 / 2 = 错误」两个有效键，3~9 一律忽略。
+      // 此前 n>=3 被映射成 null，ans:pick 里 (k === 'true') 得 false，
+      // 于是「随手按个数字」就把题判成错误、锁定并记进错题本（考试中更会被悄悄改成「错误」）。
+      if (q2.type === 'judge') {
+        if (n > 2) return;
+        ACT['ans:pick']({ getAttribute: function () { return n === 1 ? 'true' : 'false'; }, classList: { toggle: function () {} }, querySelector: function () { return null; } }, e);
+        return;
+      }
       var opts = dispOpts(q2, cont2);
       if (n > opts.length) return;
       var letter = opts[n - 1].orig;
@@ -4243,11 +4291,12 @@
    * 20. Service Worker 注册（仅 http/https；file:// 直接跳过）
    * ==================================================================== */
   function registerSW() {
-    if (!('serviceWorker' in navigator)) return;
+    var swc = swContainer();
+    if (!swc) return;
     var proto = (window.location && window.location.protocol) || '';
     if (proto !== 'http:' && proto !== 'https:') return;
     var doReg = function () {
-      navigator.serviceWorker.register('sw.js')['catch'](function () { /* 离线注册失败不影响使用 */ });
+      swc.register('sw.js')['catch'](function () { /* 离线注册失败不影响使用 */ });
     };
     if (document.readyState === 'complete') doReg();
     else window.addEventListener('load', doReg);

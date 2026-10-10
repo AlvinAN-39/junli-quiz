@@ -80,6 +80,11 @@ jobs:
       - name: app.js 核心逻辑契约（Node 沙箱）
         run: node tests/js/app_contract.mjs
 
+      # 跨模块状态流转回归（练习会话 / 错题重做 / 导入导出 / 考试计分 / 答题卡分页）。
+      # 这些缺陷都发生在模块协作处，数据契约与纯函数测试覆盖不到，历史上因此漏检。
+      - name: app.js 行为回归（Node 沙箱）
+        run: node tests/js/app_regression.mjs
+
       # PWA 离线更新机制的静态契约（纯 Node 标准库，不依赖 dist/build/qa/网络）。
       # 覆盖「联网看到新版本、断网重开仍是旧版本」那个故障的修法：缓存键统一、
       # 缓存名随内容哈希变化、预缓存精简、cache-status 消息接口；产物存在时另校验

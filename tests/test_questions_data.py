@@ -306,6 +306,23 @@ class TestOptionalFields(unittest.TestCase):
                     self.assertIsInstance(v, str)
                     self.assertTrue(v.strip())
 
+    def test_distractor_why_only_covers_wrong_options(self):
+        """distractorWhy 只描述**错误选项**。
+
+        界面「你选的选项为什么不对」按用户勾选的字母逐条输出；键落在正确选项上时，
+        用户会看到正确选项被列成「为什么不对」（2026-10-10 实测 71 道多选受影响）。
+        只看文案词表会漏掉「该说法属于本题的正确选项」这类写法，所以这里按答案集合判断。
+        """
+        bad = []
+        for q in QUESTIONS:
+            dw = q.get("distractorWhy") or {}
+            ans = q["answer"]
+            ans_set = {str(x).strip().upper() for x in (ans if isinstance(ans, list) else [ans])}
+            hit = sorted(ans_set & set(dw.keys()))
+            if hit:
+                bad.append((q["id"], hit))
+        self.assertEqual(bad, [], f"distractorWhy 覆盖了正确选项：{bad[:5]}")
+
     def test_keywords_is_list_of_strings(self):
         for q in QUESTIONS:
             with self.subTest(qid=q["id"]):
@@ -325,6 +342,55 @@ class TestOptionalFields(unittest.TestCase):
                 continue
             with self.subTest(qid=q["id"]):
                 self.assertIsInstance(parts, dict)
+
+class TestUserFacingText(unittest.TestCase):
+    """用户可见文本的质量门槛（2026-10-09 内容修复后固化）。
+
+    这三类问题都是「用户翻到某道题就会看到」的内容缺陷，而且改数据时极易回归：
+      · 内部质检措辞 / 英文置信度评级泄漏到「提示」行；
+      · 解析里出现「。年五四运动爆发」这种缺数字的年份（读不通、史实失真）；
+      · 题干含异体字「⺠」（U+2EA0）。
+    """
+
+    JARGON = ("独立质检", "源答案串", "本题输入答案", "本处未擅改",
+              "本卷一律按原卷", "答案内部亦不自洽")
+
+    @staticmethod
+    def user_text(q) -> str:
+        pr = q.get("explanationParts") or {}
+        return "\n".join([q.get("explanation") or "",
+                          pr.get("reason") or "", pr.get("note") or ""])
+
+    def test_no_internal_qa_jargon(self):
+        bad = [(q["id"], w) for q in QUESTIONS for w in self.JARGON if w in self.user_text(q)]
+        self.assertEqual(bad, [], f"内部质检措辞泄漏到用户可见文本：{bad[:5]}")
+
+    def test_no_english_confidence_rating(self):
+        bad = [q["id"] for q in QUESTIONS
+               if re.search(r"\b(low|medium|high)\b", self.user_text(q))]
+        self.assertEqual(bad, [], f"英文置信度评级泄漏：{bad[:5]}")
+
+    def test_no_stripped_year(self):
+        """解析里不得出现「年五四运动爆发」这类缺数字的年份。
+
+        例外是**正常写法**：「每年9月」「次年2月」「四年一度」「一九九四年」「二○○一年」。
+        """
+        pat = re.compile(r"(?<![0-9])年(?=[0-9一二三四五六七八九十])")
+        normal = re.compile(r"(每|次|四|同|九四)$")
+        bad = []
+        for q in QUESTIONS:
+            t = self.user_text(q)
+            for m in pat.finditer(t):
+                pre = t[max(0, m.start() - 5):m.start()]
+                if normal.search(pre) or re.search(r"[○〇]", pre):
+                    continue
+                bad.append((q["id"], t[max(0, m.start() - 12):m.end() + 8]))
+        self.assertEqual(bad, [], f"解析中缺少年份数字：{bad[:5]}")
+
+    def test_stem_and_options_have_no_compatibility_ideograph(self):
+        bad = [q["id"] for q in QUESTIONS
+               if "\u2ea0" in q["stem"] or any("\u2ea0" in o for o in q["options"])]
+        self.assertEqual(bad, [], f"题干/选项含异体字「⺠」：{bad[:5]}")
 
 
 if __name__ == "__main__":

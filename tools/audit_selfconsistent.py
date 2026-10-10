@@ -170,8 +170,11 @@ def main() -> int:
                 if len(refd) > 1 or any(c not in ans for c in refd):
                     findings["R5_distractor_wrong_ref"].append(
                         {"id": qid, "key": k, "answer": ans, "refd": refd, "text": v[:60]})
-            # R6：对正确选项写了否定性说明
-            if k in ans and any(h in v for h in NEGATIVE_HINTS):
+            # R6：distractorWhy 的键落在**正确选项**上 —— 契约规定它「只含错误选项」。
+            # 界面「你选的选项为什么不对」是按用户勾选的字母逐条输出的，键落在正确项上时，
+            # 用户会看到正确选项被列成「为什么不对」（2026-10-10 实测 71 道多选受影响）。
+            # 只按 NEGATIVE_HINTS 词表判断会漏掉「该说法属于本题的正确选项」这类文案。
+            if k in ans:
                 findings["R6_distractor_on_correct"].append(
                     {"id": qid, "key": k, "answer": ans, "text": v[:60]})
 

@@ -466,7 +466,8 @@ kbd {
 .opt.wrong .opt-key { background:var(--bad); border-color:var(--bad); color:var(--primary-ink); }
 .opt.faded { opacity:.5; }
 .opt[disabled] { cursor:default; }
-.opt[disabled]:hover { border-color:var(--border); }
+/* 只对「普通选项」生效：否则会盖掉 .opt.right/.opt.wrong 的对/错边框色 */
+.opt[disabled]:hover:not(.right):not(.wrong) { border-color:var(--border); }
 .opt.static { cursor:default; }
 .judge-row { display:flex; gap:12px; margin-top:14px; }
 .judge-btn {
@@ -621,12 +622,21 @@ kbd {
 .ol-item { margin-top:6px; padding:8px 10px; border-radius:10px; background:var(--surface-2); }
 .ol-note { font-size:.86rem; line-height:1.6; }
 .ol-why { margin-top:4px; font-size:.8rem; line-height:1.55; color:var(--warn); }
+/* 错题本搜索栏：🔍 + 输入框 + 清空按钮必须在同一行。
+   这三个类此前没有任何样式，导致图标、输入框（.input 是 width:100%）、按钮各占一行。 */
+.search-bar { display:flex; align-items:center; gap:8px; }
+.search-bar .input { flex:1 1 auto; min-width:0; }
+.search-ico { flex:0 0 auto; opacity:.7; }
+/* 顶栏进度条右侧的「作答正确率 xx%」 */
+.strip-tip { margin-left:8px; opacity:.85; }
+
 /* ---------- 更新公告（开屏弹窗） ---------- */
 .notice-intro { font-size:.86rem; line-height:1.7; color:var(--text-dim); margin-bottom:10px; }
 .notice-group { margin-top:12px; }
 .notice-gt {
   display:inline-block; padding:3px 10px; border-radius:99px; margin-bottom:6px;
-  font:600 .78rem/1.5 var(--sans); color:var(--primary-ink); background:var(--primary-soft);
+  font-weight:600; font-size:.78rem; line-height:1.5;
+  color:var(--primary-ink); background:var(--primary-soft);
 }
 .notice-ul { margin:0; padding-left:1.15em; }
 .notice-ul li { font-size:.85rem; line-height:1.75; margin-bottom:4px; }

@@ -55,15 +55,21 @@
 ```bash
 # 把你的提纲数据放成 data/outline-2026.json
 python tools/bundle.py       # 单文件版会把数据内嵌为 window.__OUTLINE__
-python tools/verify_app.py   # 体检（29 项）
+python tools/verify_app.py   # 体检（31 项）
 ```
 
 单文件版（`dist/军理刷题.html`）会把提纲数据**内嵌**进去，所以双击打开也能直接看提纲。
 
 ### 方式二：只给 PWA 版用（不重新打包）
 
-PWA 版在运行时按相对路径 `data/outline-2026.json` 去取；把这个文件放进部署目录的 `data/` 即可
-（`tools/bundle.py` 生成的 `dist/web/data/` 就是该位置）。
+PWA 版在运行时按相对路径 `data/outline-2026.json` 去取；把这个文件放进部署目录的 `data/` 即可。
+
+> 注意：`tools/bundle.py` 生成的 `dist/web` **不再夹带** `data/`（题库与提纲都已内联进
+> `index.html`，那两个文件永远不会被请求，实测占部署 zip 约 45%）。所以「方式二」需要你自己在
+> 部署目录里建 `data/` 并放入该文件。
+>
+> Service Worker 对 `data/outline-2026.json` 是**网络优先**（其余静态资源仍是缓存优先），
+> 因此换掉文件后刷新即可看到新提纲，不必重新打包。
 
 ### 方式三：从你自己的提纲文本生成
 
