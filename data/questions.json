@@ -188,7 +188,7 @@
     "reason": "古代国防始于公元前21世纪的夏王朝，止于1840年的鸦片战争，历经近4000年、20多个王朝的更迭，呈现出兴衰交替和曲折发展的历程",
     "ref": "教材《普通高校军事课教程》·中国国防"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S01_U03",
    "sectionName": "MT_CH01_S01"
   },
@@ -305,7 +305,7 @@
     "reason": "1937年7月7日，日本发动卢沟桥事变，标志着日本蓄谋已久的全面侵华战争开始",
     "ref": "教材《普通高校军事课教程》·中国国防"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S01_U03",
    "sectionName": "MT_CH01_S01"
   },
@@ -698,7 +698,7 @@
     "reason": "在1894年的甲午战争中，北洋水师全军覆没，标志着洋务运动的失败",
     "ref": "教材《普通高校军事课教程》·军事思想"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S01_U03",
    "sectionName": "MT_CH01_S01"
   },
@@ -934,7 +934,7 @@
     "reason": "⒉民国时期的国防：军阀混战、有边不固有海无防。1919年五四运动爆发；1921年7月中国共产党成立；1931年九一八事变，1937年7月7日卢沟桥事变后，经过14年抗战取得胜利；1949年10月1日中华人民共和国成立，开启现代国防的新征程",
     "ref": "教材《普通高校军事课教程》·中国国防"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -1328,7 +1328,7 @@
    "webSourceUrl": "http://www.npc.gov.cn/zgrdw/huiyi/lfzt/gfdyf/2009-04/20/content_1498484.htm",
    "lawCitationIssue": "wrong_article",
    "lawCitationStatus": "已复核并注明正确条文",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S02_U02",
    "sectionName": "MT_CH01_S02"
   },
@@ -1558,7 +1558,7 @@
     "ref": "教材《普通高校军事课教程》·中国国防"
    },
    "relatedSection": "建设现代化",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S03_U05",
    "sectionName": "MT_CH01_S03"
   },
@@ -1633,7 +1633,7 @@
     "ref": "教材《普通高校军事课教程》·中国国防"
    },
    "relatedSection": "进行形势",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S01_U03",
    "sectionName": "MT_CH01_S01"
   },
@@ -9601,7 +9601,7 @@
     "reason": "7月，美、英、苏三国首脑在波茨坦召开会议，并以中、美、英三国名义发表敦促日本投降的《波茨坦公告》",
     "ref": "教材《普通高校军事课教程》·现代战争"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH04_S03_U05",
    "sectionName": "MT_CH04_S03"
   },
@@ -9678,7 +9678,7 @@
     "reason": "高校《军事理论》课程中“机械化战争的代表性战例”一节标题即为“机械化战争的代表性战例——闪电袭击波兰”，与“1939年9月1日德军以闪电战突袭波兰”一致"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/nodedetailcontroller/visitnodedetail?courseId=215012282&knowledgeId=363615692",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH04_S03_U05",
    "sectionName": "MT_CH04_S03"
   },
@@ -11785,7 +11785,7 @@
     "reason": "〔知识链接：中国航母发展史〕2012年9月25日辽宁舰（舷号16）正式交付人民海军；2012年11月23日歼-15首次降落在辽宁舰甲板并顺利完成舰上滑跃起飞；2017年4月26日我国第一艘国产航母下水。",
     "ref": "教材《普通高校军事课教程》·信息化装备"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -13604,7 +13604,7 @@
    },
    "relatedSection": "边海防建设",
    "webSourceUrl": "http://www.mod.gov.cn/gfbw/xwfyr/rdjj/4846890_2.html",
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -13799,7 +13799,7 @@
     "answer": "B、1931",
     "reason": "战争主要经过1931年9月18日夜，日本关东军炸毁了南满铁路柳条湖附近的一段铁轨，却诬称为中国军队所为，并以此为借口悍然发动九一八事变，侵略占领了中国东北地区。1937年7月7日，日本在中国北平借口发动七七事变，日本侵略者开始全面侵华。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -13918,7 +13918,7 @@
     "reason": "《国防法》第二条规定国防活动指向“保卫国家主权、统一、领土完整、安全和发展利益”，第三条规定“国防是国家生存与发展的安全保障”，第六条规定我国“奉行防御性国防政策”，故“欺凌弱小国家”不属于国防目的"
    },
    "webSourceUrl": "https://gdb.gxzf.gov.cn/ztjj_46964/bfhfzt_00998/zcfw_00441/t10513111.shtml",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S01_U01",
    "sectionName": "MT_CH01_S01"
   },
@@ -15333,7 +15333,7 @@
     "answer": "A、100",
     "reason": "现代前期 (1945—1990年) 第二次世界大战结束到20世纪90年代初期，以美国和苏联为首的两大国际政治、军事集团之间进行了长期的冷战，一大批军事理论家，如美国的布罗迪、康恩、基辛格和苏联的索科洛夫斯基、戈尔什科夫等人。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -16272,7 +16272,7 @@
     "answer": "B、五",
     "reason": "此外，中国人民解放军总参谋部改为中央军委联合参谋部，这也是联合作战指挥体制改革的体现。2016年2月1日，沈阳、北京、兰州、济南、南京、广州、成都七个军区调整为东部、南部、西部、北部、中部五个战区，改变指挥体系，组建战区联合作战指挥机构。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S04_U01",
    "sectionName": "MT_CH01_S04"
   },
@@ -20011,7 +20011,7 @@
     "reason": "美国长期坚持“以台制华”政策，不断提升售台武器的规模和性能，纵容美台官方往来，2022年8月2日晚美国国会众议院议长佩洛西窜访中国台湾地区，严重违反一个中国原则和中美三个联合公报规定，严重侵犯中国主权和领土完整，挑战中国人民的底线",
     "ref": "教材《普通高校军事课教程》·国家安全"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH02_S02_U03",
    "sectionName": "MT_CH02_S02"
   },
@@ -22124,7 +22124,7 @@
    "type": "short",
    "stem": "2026年9月3日，外交部发言人严正指出，日本2026年版《防卫白皮书》谋求“对敌方基地攻击能力”，2027财年国防预算高达8.89万亿日元、再创历史新高，是“新型军国主义”的危险图谋。请就此论述日本军事扩张的主要动向及其对我国周边安全环境的影响。",
    "options": [],
-   "answer": "①军费与军力规模持续扩张。日本防卫预算连续12年增长并屡创新高，2027财年防卫预算高达8.89万亿日元，再创历史新高。②突破“专守防卫”限制，大力发展进攻性军事力量。以谋求“对敌方基地攻击能力”为重点，发展远程导弹等进攻性装备，政策重心从“保卫日本本土”转向“攻击敌方基地”，是“新型军国主义”的危险图谋。③对我国周边安全环境的影响：日本军事扩张配合美国“印太战略”，加剧东亚地区军备竞赛与安全困境，威胁我国东部海空方向安全，干扰台海、东海局势稳定。我国应保持高度警惕，加强国防和军队现代化建设，同时坚持和平发展，维护地区和平稳定。",
+   "answer": "①军费与军力规模持续扩张。日本防卫预算持续增长，2027财年防卫预算申请额约8.9万亿日元，再创历史新高。②突破“专守防卫”限制，大力发展进攻性军事力量。以谋求“对敌方基地攻击能力”为重点，发展远程导弹等进攻性装备，政策重心从“保卫日本本土”转向“攻击敌方基地”，是“新型军国主义”的危险图谋。③对我国周边安全环境的影响：日本军事扩张配合美国“印太战略”，加剧东亚地区军备竞赛与安全困境，威胁我国东部海空方向安全，干扰台海、东海局势稳定。我国应保持高度警惕，加强国防和军队现代化建设，同时坚持和平发展，维护地区和平稳定。",
    "explanation": "《人民日报》报道指出日本2027财年防卫预算申请额再创新高，重点投向具备“对敌基地攻击能力”的远程导弹等进攻性装备，政策重心从“保卫日本本土”转向“攻击敌方基地”，与题干所述相符\n提示：来源：《人民日报》2026年9月21日第13版周信《日本防卫预算创新高暴露军事扩张野心》；已联网核验《人民日报》数字报原文，含“2027财年日防卫预算申请额约8.9万亿日元……创下历史新高”“大力发展具备‘对敌基地攻击能力’的远程导弹”。原依据中“外交部批‘新型军国主义’”另见央广网报道 https://news.cnr.cn/native/gd/20260903/t20260903_527803580.s",
    "source": "模拟题",
    "chapter": "第二章国家安全",
@@ -23545,7 +23545,7 @@
     "reason": "教材原文：“孙子名武，字长卿……生于春秋末期……齐国乐安（今山东省惠民县境内）人”“《孙子兵法》十三篇各成一体，又相互连贯，构成了完整的军事思想体系”“《孙子兵法》成为举世公认的‘兵学经典’”"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=83837768&knowledgeId=83837807",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH03_S03_U03",
    "sectionName": "MT_CH03_S03"
   },
@@ -23971,7 +23971,7 @@
     "reason": "教材列举中国古代兵书为“《孙子兵法》《吴子》《司马法》《孙膑兵法》《六韬》《尉缭子》”以及《武经七书》等；《论持久战》是毛泽东1938年撰写的著作（新浪转载毛泽东《论持久战》全文），不属于我国古代军事著作"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=83837768&knowledgeId=83837807",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH03_S03_U03",
    "sectionName": "MT_CH03_S03"
   },
@@ -24484,7 +24484,7 @@
     "reason": "教材“解放战争中发展壮大”载：人民军队“先后发起了气势磅礴的辽沈战役、淮海战役、平津战役，消灭了国民党军的重兵集团，继而横渡长江”，即三大战略决战为辽沈、淮海、平津，渡江战役不在其中"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/nodedetailcontroller/visitnodedetail?courseId=209616365&knowledgeId=270222022",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH03_S04_U01",
    "sectionName": "MT_CH03_S04"
   },
@@ -24523,7 +24523,7 @@
    },
    "relatedSection": "建设现代化",
    "webSourceUrl": "https://gdb.gxzf.gov.cn/ztjj_46964/bfhfzt_00998/zcfw_00441/t10513111.shtml",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH03_S04_U03",
    "sectionName": "MT_CH03_S04"
   },
@@ -24692,7 +24692,7 @@
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=83837768&knowledgeId=83837813",
    "lawCitationIssue": "wrong_article",
    "lawCitationStatus": "已复核并注明正确条文",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH03_S04_U03",
    "sectionName": "MT_CH03_S04"
   },
@@ -24850,7 +24850,7 @@
     "reason": "教材原文：毛泽东认为“战争的胜负主要决定于作战双方的军事、政治、经济、自然等诸条件……尤其在人和武器方面，毛泽东提出武器是战争的重要因素，但起决定作用的归根到底是人而不是物”，故“决定战争胜负的因素是物不是人”不是实行人民战争的基本依据"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=83837768&knowledgeId=83837817",
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -31979,7 +31979,7 @@
     "reason": "教材原文：「指挥自动化系统可以将现代军队的各个系统有机地联为一体，充分发挥整体威力。……如果没有一个高效率、高度集中统一的指挥信息系统作为军队的神经中枢，那么这支军队只能是一盘散沙」，即充当军队「神经中枢」的是综合电子信息系统（指挥自动化系统/C4ISR）"
    },
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=227637426&knowledgeId=632767513&_from=&_fromV2_=&rtag=",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH05_S03_U03",
    "sectionName": "MT_CH05_S03"
   },
@@ -32019,7 +32019,7 @@
     "ref": "教材《普通高校军事课教程》·信息化装备"
    },
    "relatedSection": "地面情报侦察系统",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH05_S03_U01",
    "sectionName": "MT_CH05_S03"
   },
@@ -33305,7 +33305,7 @@
     "answer": "1840",
     "reason": "古代国防始于公元前21世纪的夏王朝，止于1840年的鸦片战争，历经近4000年、20多个王朝的更迭，呈现出兴衰交替和曲折发展的历程"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S01_U03",
    "sectionName": "MT_CH01_S01"
   },
@@ -33367,7 +33367,7 @@
     "answer": "卢沟桥事变",
     "reason": "1937年7月7日，日本发动卢沟桥事变，标志着日本蓄谋已久的全面侵华战争开始"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S01_U03",
    "sectionName": "MT_CH01_S01"
   },
@@ -33681,7 +33681,7 @@
     "answer": "洋务运动",
     "reason": "在1894年的甲午战争中，北洋水师全军覆没，标志着洋务运动的失败"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S01_U03",
    "sectionName": "MT_CH01_S01"
   },
@@ -34115,7 +34115,7 @@
    },
    "relatedSection": "兵役制度",
    "webSourceUrl": "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?courseId=227637426&knowledgeId=632767472",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S02_U02",
    "sectionName": "MT_CH01_S02"
   },
@@ -34304,7 +34304,7 @@
     "reason": "习近平总书记把军民融合上升为国家战略，将富国与强军融为一体，统一于新时代中国特色社会主义的伟大事业，贯穿于全面建设社会主义现代化强国的伟大征程，实现于中华民族复兴的伟大实践"
    },
    "relatedSection": "建设现代化",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S03_U05",
    "sectionName": "MT_CH01_S03"
   },
@@ -34366,7 +34366,7 @@
     "reason": "20世纪五六十年代，根据当时的国际形势，为了保卫国家安全、维护世界和平，党中央果断地作出了独立自主研制“两弹一星”的战略决策"
    },
    "relatedSection": "进行形势",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH01_S01_U03",
    "sectionName": "MT_CH01_S01"
   },
@@ -36853,7 +36853,7 @@
     "answer": "《波茨坦公告》",
     "reason": "7月，美、英、苏三国首脑在波茨坦召开会议，并以中、美、英三国名义发表敦促日本投降的《波茨坦公告》"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH04_S03_U05",
    "sectionName": "MT_CH04_S03"
   },
@@ -36919,7 +36919,7 @@
     "reason": "1939年9月1日凌晨，德军以“闪击战”（闪电战）方式突袭波兰，点燃第二次世界大战战火"
    },
    "webSourceUrl": "https://big5.cctv.com/gate/big5/news.cctv.com/world/20090902/100125.shtml",
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH04_S03_U05",
    "sectionName": "MT_CH04_S03"
   },
@@ -37669,7 +37669,7 @@
     "answer": "辽宁舰",
     "reason": "〔知识链接：中国航母发展史〕2012年9月25日辽宁舰（舷号16）正式交付人民海军；2012年11月23日歼-15首次降落在辽宁舰甲板并顺利完成舰上滑跃起飞；2017年4月26日我国第一艘国产航母下水。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -38058,7 +38058,7 @@
     "note": "本题由单选题派生，判断该表述是否与教材原文一致",
     "reason": "古代国防始于公元前21世纪的夏王朝，止于1840年的鸦片战争，历经近4000年、20多个王朝的更迭，呈现出兴衰交替和曲折发展的历程"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -38089,7 +38089,7 @@
     "note": "本题由单选题派生，判断该表述是否与教材原文一致",
     "reason": "古代国防始于公元前21世纪的夏王朝，止于1840年的鸦片战争，历经近4000年、20多个王朝的更迭，呈现出兴衰交替和曲折发展的历程"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -38184,7 +38184,7 @@
     "note": "本题由单选题派生，判断该表述是否与教材原文一致",
     "reason": "1937年7月7日，日本发动卢沟桥事变，标志着日本蓄谋已久的全面侵华战争开始"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -38215,7 +38215,7 @@
     "note": "本题由单选题派生，判断该表述是否与教材原文一致",
     "reason": "战争主要经过1931年9月18日夜，日本关东军炸毁了南满铁路柳条湖附近的一段铁轨，却诬称为中国军队所为，并以此为借口悍然发动九一八事变，侵略占领了中国东北地区。1937年7月7日，日本在中国北平借口发动七七事变，日本侵略者开始全面侵华。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -38810,7 +38810,7 @@
     "note": "本题由单选题派生，判断该表述是否与教材原文一致",
     "reason": "在1894年的甲午战争中，北洋水师全军覆没，标志着洋务运动的失败"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -38841,7 +38841,7 @@
     "note": "本题由单选题派生，判断该表述是否与教材原文一致",
     "reason": "在1894年的甲午战争中，北洋水师全军覆没，标志着洋务运动的失败"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -39913,7 +39913,7 @@
     "reason": "习近平总书记把军民融合上升为国家战略，将富国与强军融为一体，统一于新时代中国特色社会主义的伟大事业，贯穿于全面建设社会主义现代化强国的伟大征程，实现于中华民族复兴的伟大实践"
    },
    "relatedSection": "建设现代化",
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -39945,7 +39945,7 @@
     "reason": "习近平总书记把军民融合上升为国家战略，将富国与强军融为一体，统一于新时代中国特色社会主义的伟大事业，贯穿于全面建设社会主义现代化强国的伟大征程，实现于中华民族复兴的伟大实践"
    },
    "relatedSection": "建设现代化",
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -40040,7 +40040,7 @@
     "note": "本题由单选题派生，判断该表述是否与教材原文一致",
     "reason": "20世纪五六十年代，根据当时的国际形势，为了保卫国家安全、维护世界和平，党中央果断地作出了独立自主研制“两弹一星”的战略决策"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -40071,7 +40071,7 @@
     "note": "本题由单选题派生，判断该表述是否与教材原文一致",
     "reason": "20世纪五六十年代，根据当时的国际形势，为了保卫国家安全、维护世界和平，党中央果断地作出了独立自主研制“两弹一星”的战略决策"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -50264,7 +50264,7 @@
     "ref": "教材《普通高校军事课教程》·第五章信息化装备·第二节信息化作战平台（典型信息化装备：航空母舰）",
     "note": "航母的其他定位：“以舰载机为主要武器并作为其海上活动基地的大型水面战斗舰艇”“海军史的一个里程碑”。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "MT_CH05_S02_U02",
    "sectionName": "MT_CH05_S02"
   },
@@ -55697,7 +55697,7 @@
     "ref": "教材《普通高校军事课教程》·中国国防",
     "note": "原卷备注「正确答案：1937年7月7日」。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -55989,7 +55989,7 @@
     "ref": "第一版题库《11年》真题参考答案",
     "note": "原卷答案为 A；原卷 3 个选项，原卷表述如此。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -56407,7 +56407,7 @@
     "ref": "教材《普通高校军事课教程》·中国国防",
     "note": "原卷表述如此。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
@@ -56445,7 +56445,7 @@
     "ref": "第一版题库《军理考试900题库》·中国国防",
     "note": "原卷表述如此。"
    },
-   "isHard": true,
+   "isHard": false,
    "subsection": "",
    "sectionName": ""
   },
