@@ -106,3 +106,6 @@ jobs:
       # 全项目边界巡检；导入与恢复核心逻辑另由上面的Node行为回归实际执行。
       - name: 全项目界面回归（需 Playwright 与 dist，缺失时 SKIP）
         run: node tests/full_project_test.mjs
+
+      - name: 三项交互回归（需本地Playwright，缺失时SKIP）
+        run: node tests/interaction_test.mjs

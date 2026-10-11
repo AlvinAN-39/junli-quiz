@@ -620,26 +620,26 @@
    */
   var NOTICE = {
     "title": "本次更新",
-    "intro": "两道题按联网事实校订：经济排名与委内瑞拉行动。",
+    "intro": "修复返回按钮、简答题回车与答题卡自动分页三项交互问题。",
     "groups": [
       {
         "name": "修复",
         "items": [
-          "q-0529明确2023年现价美元GDP排名，正确答案改为C德国。",
-          "q-1461限定2025年12月23日，改正油轮封锁与航运制裁选项，答案仍为B安理会制裁。",
-          "两题的为什么、关键词、选项错因与出处同步更新，清除旧解析。"
+          "导入/导出页返回按钮可正常回首页，考试返回仍保留暂停确认。",
+          "简答题回车与鼠标查看答案一致，无需先填写内容；输入框内回车仍用于换行。",
+          "翻题或跳题后，答题卡自动显示当前题所在页。"
         ]
       },
       {
         "name": "新增",
         "items": [
-          "补入世界银行、联合国及美国政府一手资料出处。"
+          "加入三项真实界面回归验证。"
         ]
       },
       {
         "name": "说明",
         "items": [
-          "总题数1531、难题568；原有学习记录保留，既有存疑提示继续保留。"
+          "题库1531题、难题568；原有作答与学习记录保留。"
         ]
       }
     ]
@@ -2173,6 +2173,8 @@
       return;
     }
     c.i = ni;
+    // 翻题同步答题卡；手动浏览其它页时不改变当前题。
+    c.gridPage = Math.floor(c.i / GRID_PAGE_SIZE) + 1;
     if (State.route === 'practice') saveSessionSoon();
     else if (State.route === 'recite') { c.scrollY = 0; saveSession(); }
     render(true);
@@ -2185,6 +2187,8 @@
       examSaveDraft();
     }
     c.i = clamp(i, 0, c.ids.length - 1);
+    // 跳题同样显示包含当前题的页。
+    c.gridPage = Math.floor(c.i / GRID_PAGE_SIZE) + 1;
     if (State.route === 'practice') saveSessionSoon();
     else if (State.route === 'recite') { c.scrollY = 0; saveSession(); }
     render(true);
@@ -4131,7 +4135,7 @@
     var back = $('#btn-back');
     if (back) back.addEventListener('click', function () {
       Feedback.fire('nav:go');
-      if (leaveRunningExam('home')) return;
+      // go 已包含考试暂停确认，所有返回入口共用这一保护。
       go('home');
     });
     var themeBtn = $('#btn-theme');
@@ -4274,6 +4278,8 @@
       var r = cont.res[cur.id];
       if (r) { Feedback.play('tap'); move(1); return; }
       if (cur.type === 'short' && cont.revealedRef && cont.revealedRef[cur.id]) return; // 等待自评
+      // 简答回车与鼠标查看答案一致，允许空白自评；输入框内回车仍换行。
+      if (cur.type === 'short') { ACT['ans:reveal'](); return; }
       Feedback.fire('ans:submit');
       ACT['ans:submit']();
       return;
