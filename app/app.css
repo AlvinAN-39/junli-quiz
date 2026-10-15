@@ -325,6 +325,9 @@ kbd {
 .btn.danger:hover { background:var(--bad-soft); border-color:var(--bad); }
 .btn.ghost { background:transparent; border-color:var(--border-strong); color:var(--text-dim); }
 .btn.ghost:hover { background:var(--surface-2); border-color:var(--muted); }
+/* 展开态开关按钮（答题卡、背题「换章节」）：用户 2026-10-16 要求点击前后有可见状态变化 */
+.btn.ghost.on { background:var(--surface-2); border-color:var(--primary); color:var(--primary); }
+.btn.ghost.on:hover { background:var(--surface-2); border-color:var(--primary); }
 .btn.sm { min-height:44px; padding:8px 12px; font-size:.84rem; border-radius:var(--radius-sm); }
 .btn.block { display:flex; width:100%; }
 .btn-row { display:flex; flex-wrap:wrap; gap:10px; }
@@ -663,6 +666,9 @@ kbd {
   transition:border-color .15s, background .15s, box-shadow .15s;
 }
 .list-item:hover { border-color:var(--primary); box-shadow:var(--shadow); }
+/* 章节卡片选中态（错题本按章节跳转）：与展开态按钮同一套视觉语言，保证点得动、看得出来 */
+.list-item.on { border-color:var(--primary); background:var(--surface-2); }
+.list-item.on .li-body strong { color:var(--primary); }
 .list-item .li-body { flex:1 1 auto; min-width:0; }
 .list-item .li-body strong { display:block; font-size:.92rem; font-weight:600; line-height:1.55; }
 .list-item .li-body small { display:block; margin-top:4px; color:var(--muted); font-size:.74rem; }

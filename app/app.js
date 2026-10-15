@@ -385,6 +385,9 @@
     lastOrder: 'seq', // 上次实际使用的出题顺序（seq|rand），供刷新后「继续上次练习」还原
     reciteQ: '',     // 背题搜索词，与全局搜索页面隔离
     reciteSearchOpen: false,
+    reciteChaptersOpen: false, // 背题过程中「换章节」卡片的展开态（内存态）
+    wrongQ: '',       // 错题本搜索词（内存态，刷新即清空）
+    wrongChapter: '', // 错题本按章节跳转的过滤值（内存态；再点同一章取消）
     p: {},            // 各页面临时参数
     examTimer: 0
   };
@@ -613,33 +616,64 @@
    * 取不到版本号时**不弹**，避免在没有版本概念的环境里反复弹。
    * -------------------------------------------------------------------- */
   /**
-   * 本次更新公告 —— **只描述当前版本**。
-   * 用户 2026-10-09 要求：每次版本更新时清除上一版的公告内容、补充当版内容，
-   * 并在公告左上角标注版本号；因此这里不再累积历史版本（此前累积了 8 组，越看越乱）。
+   * 本次更新公告。
+   * 常规规矩（用户 2026-10-09）：只描述当前版本，清除上一版内容，并在左上角标注版本号。
+   * **本次例外（用户 2026-10-16 原话「本次公告延续上一次公告内容（仅本次）」）**：
+   * 保留上一版「78 道题人工复核校订」的三组内容，再追加本版改动；下一版恢复只留当版。
    * 发新版时：把 groups 换成该版的改动即可，noticeHtml() 会自动带上版本号。
    */
   var NOTICE = {
     "title": "本次更新",
-    "intro": "修复返回按钮、简答题回车与答题卡自动分页三项交互问题。",
+    "intro": "延续上一版：按人工复核报告校订 78 道题；本次修复七项问题，并新增「待复习题目练习」。",
     "groups": [
       {
-        "name": "修复",
+        "name": "本次修复",
         "items": [
-          "导入/导出页返回按钮可正常回首页，考试返回仍保留暂停确认。",
-          "简答题回车与鼠标查看答案一致，无需先填写内容；输入框内回车仍用于换行。",
-          "翻题或跳题后，答题卡自动显示当前题所在页。"
+          "清空本机数据后错题计数不清零：界面读的仍是清空前的统计缓存，现已同步作废，清空后徽章、统计与进度一并归零。",
+          "模拟考试组卷去重：同一场考试内同题干、同知识点各只出现一次（题库原有同题干 133 组、同考点 218 组）。",
+          "手机端左上角返回箭头增加触摸兜底（click 与 touchend 双通道 + 14 像素滑动判定），iPhone 视口下练习、背题、考试页均能返回首页。",
+          "答题卡按钮点击前后有状态变化：展开时显示「收起答题卡」并高亮，收起时恢复「答题卡」。",
+          "错题本新增按章节卡片：点某章只看该章错题，再点同一章取消，可与搜索叠加；「重做」按钮同步按筛选范围出题。",
+          "背题模式在背题过程中也能「换章节」，不必退回入口页。",
+          "修正 q-0616「对《孙子兵法》评价不正确的是」的解析论证（答案 D 不变）；q-0216 的答案由 A、D 统一为 A、B、D，与同源题 q-1315 口径一致。"
         ]
       },
       {
-        "name": "新增",
+        "name": "本次新增",
         "items": [
-          "加入三项真实界面回归验证。"
+          "专项练习新增「待复习题目练习」：题源与统计页「待复习」同源（做过的、未达已掌握的题），按最久未复习优先排序；没有待复习题时按钮显示为禁用态。"
         ]
       },
       {
-        "name": "说明",
+        "name": "本次说明",
         "items": [
-          "题库1531题、难题568；原有作答与学习记录保留。"
+          "题库仍为 1531 题、难题 568；单选 762、多选 322、判断 170、填空 141、简答 136，题量没有变化。",
+          "q-0216 答案由 A、D 改为 A、B、D 属知识口径统一，历史作答记录不重新计分。",
+          "本次改动集中在 App 交互与两题校订，其余题目未动。"
+        ]
+      },
+      {
+        "name": "上一版修复（2026-10-15）",
+        "items": [
+          "恢复13道被做成无选项填空的单选题（q-0875、q-0897、q-0902、q-0913、q-0915、q-0921、q-0923、q-0934、q-0946、q-0954、q-1009、q-1010、q-1015）。",
+          "修正武警领导指挥体制、兵役分类、预备役遴选与学生军训身份等法规时点表述。",
+          "修正国防含义与2011年旧法版本关系、四总部历史时点、国防法规四层分类与军事规章制定主体。",
+          "修正《论持久战》《论联合政府》引文用字、上海公约用语，以及网络中心战、“南方之矛”等来源表述。",
+          "删除与题干不符的错配解析（百万裁军、外国古代军事著作等）。"
+        ]
+      },
+      {
+        "name": "上一版新增（2026-10-15）",
+        "items": [
+          "加入人工复核回归检查，并保存逐题校订前后值以备复查。"
+        ]
+      },
+      {
+        "name": "上一版说明（2026-10-15）",
+        "items": [
+          "题库1531题、难题568；单选762、多选322、判断170、填空141、简答136。",
+          "四道法规全名残缺题（q-0026、q-0895、q-1068、q-1069）保持现状，报告中注明未解决。",
+          "保留题号和历史学习记录；本次校订不重新计算历史作答成绩。"
         ]
       }
     ]
@@ -781,6 +815,30 @@
     return { total: 0, attempts: 0, correct: 0, done: 0, rate: 0, uniqueCorrect: 0, uniqueRate: 0 };
   }
 
+  /**
+   * 「已掌握」的唯一判定（铁律 41：同一口径只留一处）。
+   * 统计页的「已掌握 / 待复习」与「待复习练习」的选题池共用它，
+   * 否则界面数字与实际练习出来的题数会对不上。未作答（seen=0）的题既不算掌握也不算待复习。
+   */
+  function isMastered(p) {
+    return !!(p && p.seen > 0 && p.box >= 3 && p.correct > 0);
+  }
+
+  /**
+   * 待复习题目池（用户 2026-10-16 新增「待复习题目练习」的题源）：
+   * 取做过的、尚未达到「已掌握」的题，按最后一次作答时间升序 —— 最久没复习的排在最前。
+   */
+  function reviewPool() {
+    var rows = [];
+    State.questions.forEach(function (q) {
+      var p = State.progress[q.id];
+      if (!p || !p.seen || isMastered(p)) return;
+      rows.push({ id: q.id, ts: p.lastTs || 0 });
+    });
+    rows.sort(function (a, b) { return a.ts - b.ts; });
+    return rows.map(function (r) { return r.id; });
+  }
+
   function deriveUncached() {
     var d = {
       total: State.questions.length, done: 0, attempts: 0, correct: 0,
@@ -807,7 +865,7 @@
       if (p.correct > 0) t.uniqueCorrect += 1;
       c.done += 1; c.attempts += p.seen; c.correct += p.correct;
       if (p.correct > 0) c.uniqueCorrect += 1;
-      if (p.box >= 3 && p.correct > 0) d.mastered += 1; else d.review += 1;
+      if (isMastered(p)) d.mastered += 1; else d.review += 1;
     });
     d.rate = pct(d.correct, d.attempts);
     d.uniqueRate = pct(d.uniqueCorrect, d.done);
@@ -1145,7 +1203,7 @@
     var back = $('#btn-back');
     // 设置 / 提纲 / 同步也显示返回按钮（设置页是 2026-10-09 新增的页面）
     if (back) back.hidden = (r === 'home');
-    if (back) back.setAttribute('aria-label', '返回');
+    if (back) back.setAttribute('aria-label', '返回首页');
     var ps = $('#progress-strip');
     if (ps) ps.hidden = !strip;
     if (strip) {
@@ -1882,14 +1940,18 @@
       '<div class="btn-row mt10"><button class="btn' + (hn ? ' primary' : '') + ' block" type="button" data-act="hard:start"' +
       (hn ? '' : ' disabled') + '>' + (hn ? '开始难题挑战（' + hn + ' 题）' : '题库尚未标记难题') + '</button></div></div>';
 
-    // 错题 / 收藏 快捷
-    var w = wrongIds().length, f = favIds().length;
-    if (w || f) {
-      html += '<div class="card"><div class="card-title">专项练习</div><div class="btn-row">' +
-        (w ? '<button class="btn danger" type="button" data-act="wrong:redo">重做错题（' + w + '）</button>' : '') +
-        (f ? '<button class="btn" type="button" data-act="fav:practice">练习收藏（' + f + '）</button>' : '') +
-        '</div></div>';
-    }
+    // 专项练习：错题重做 / 收藏练习 / 待复习练习（2026-10-16 新增「待复习」）。
+    // 用户要求专项练习新增待复习模块，故这张卡片改为**常显**：没有错题或收藏时
+    // 对应按钮换成禁用态提示，而不是整张卡片消失（否则新入口在干净存档上根本看不见）。
+    var w = wrongIds().length, f = favIds().length, rv = d.review;
+    html += '<div class="card"><div class="card-title">专项练习</div><div class="btn-row">' +
+      (w ? '<button class="btn danger" type="button" data-act="wrong:redo">重做错题（' + w + '）</button>'
+         : '<button class="btn" type="button" disabled>暂无错题</button>') +
+      (f ? '<button class="btn" type="button" data-act="fav:practice">练习收藏（' + f + '）</button>'
+         : '<button class="btn" type="button" disabled>暂无收藏</button>') +
+      (rv ? '<button class="btn primary" type="button" data-act="review:start">待复习练习（' + rv + '）</button>'
+          : '<button class="btn" type="button" disabled>暂无待复习题</button>') +
+      '</div></div>';
     return html;
   }
 
@@ -1928,7 +1990,9 @@
     var html = renderCard(q, ctx);
     html += '<div class="row between mt10 small muted"><span>正确率 ' +
       sessRate(s) + '% · 已答 ' + Object.keys(s.res).length + '/' + s.ids.length + '</span>' +
-      '<span class="row"><button class="btn sm ghost" type="button" data-act="grid:toggle">答题卡</button>' +
+      '<span class="row"><button class="btn sm ghost' + (s.gridOpen ? ' on' : '') + '" type="button"' +
+      ' data-act="grid:toggle" aria-expanded="' + (s.gridOpen ? 'true' : 'false') + '">' +
+      (s.gridOpen ? '收起答题卡' : '答题卡') + '</button>' +
       '<button class="btn sm ghost" type="button" data-act="sess:exit">退出练习</button></span></div>';
     html += navBtns({ idx: s.i, total: s.ids.length });
     if (s.gridOpen) html += gridCard(s.ids.map(qById), { idx: s.i, page: s.gridPage,
@@ -2391,6 +2455,21 @@
     jumpTo(idx);
   });
 
+  /**
+   * 背题模式的「按章节」卡片（入口页与背题过程中共用，铁律 41：只留一份）。
+   * d 为 derive() 结果，每章题数取 byChapter[c].total。
+   */
+  function reciteChapterCards(d) {
+    var chs = Object.keys(d.byChapter);
+    if (!chs.length) return '';
+    var h = '<div class="grid grid-2">';
+    chs.forEach(function (c) {
+      h += '<button type="button" class="list-item" data-act="recite:chapter" data-v="' + esc(c) + '">' +
+        '<span class="li-body"><strong>' + esc(c) + '</strong><small>' + d.byChapter[c].total + ' 题</small></span></button>';
+    });
+    return h + '</div>';
+  }
+
   VIEWS.recite = function () {
     var s = State.sess;
     if ((!s || s.mode !== 'recite') && restoreReciteSession()) s = State.sess;
@@ -2400,15 +2479,8 @@
         '<p class="small dim">直接显示题干、正确答案与解析，适合考前快速过一遍。' +
         '可用 <kbd>←</kbd> <kbd>→</kbd> 或下方按钮翻题。</p>' +
         '<div class="btn-row mt10"><button class="btn primary block" type="button" data-act="recite:start">开始背题（全部 ' + d.total + ' 题）</button></div></div>';
-      var chs = Object.keys(d.byChapter);
-      if (chs.length) {
-        html += '<div class="card"><div class="card-title">按章节背题</div><div class="grid grid-2">';
-        chs.forEach(function (c) {
-          html += '<button type="button" class="list-item" data-act="recite:chapter" data-v="' + esc(c) + '">' +
-            '<span class="li-body"><strong>' + esc(c) + '</strong><small>' + d.byChapter[c].total + ' 题</small></span></button>';
-        });
-        html += '</div></div>';
-      }
+      var cards = reciteChapterCards(d);
+      if (cards) html += '<div class="card"><div class="card-title">按章节背题</div>' + cards + '</div>';
       if (d.wrong) {
         html += '<div class="card"><div class="btn-row"><button class="btn danger" type="button" data-act="wrong:recite">背错题（' + d.wrong + '）</button></div></div>';
       }
@@ -2418,9 +2490,15 @@
     if (!q) { State.sess = null; rawDel(KEY_RECITE); return VIEWS.recite(); }
     var ctx = { q: q, idx: s.i, total: s.ids.length, sess: s, picked: undefined, reveal: true, ok: false, locked: true };
     var html = reciteSearchCard() + renderCard(q, ctx);
+    // 背题过程中也能换章节（用户 2026-10-16 要求）：展开后点某章，从该章第一题重新开始。
     html += '<div class="row between mt10 small muted"><span>背题模式 · 不计入正确率</span>' +
-      '<div class="row wrap"><button class="btn sm ghost" type="button" data-act="recite:new">从头背全部</button>' +
+      '<div class="row wrap"><button class="btn sm ghost' + (State.reciteChaptersOpen ? ' on' : '') + '" type="button"' +
+      ' data-act="recite:chapters" aria-expanded="' + (State.reciteChaptersOpen ? 'true' : 'false') + '">换章节</button>' +
+      '<button class="btn sm ghost" type="button" data-act="recite:new">从头背全部</button>' +
       '<button class="btn sm ghost" type="button" data-act="sess:exit">退出</button></div></div>';
+    if (State.reciteChaptersOpen) {
+      html += '<div class="card"><div class="card-title">按章节背题</div>' + reciteChapterCards(derive()) + '</div>';
+    }
     html += navBtns({ idx: s.i, total: s.ids.length });
     return html;
   };
@@ -2430,11 +2508,18 @@
     ACT['recite:new']();
   });
   reg('recite:new', function () {
+    State.reciteChaptersOpen = false;
     startSession(State.questions.map(function (q) { return q.id; }), '背题模式 · 全部 ' + State.questions.length + ' 题', 'seq', 'recite');
+  });
+  /** 展开 / 收起背题过程中的章节卡片：只切内存态，不改变当前背题位置。 */
+  reg('recite:chapters', function () {
+    State.reciteChaptersOpen = !State.reciteChaptersOpen;
+    render(false);
   });
   reg('recite:chapter', function (el) {
     var c = el.getAttribute('data-v');
     var ids = State.questions.filter(function (q) { return q.chapter === c; }).map(function (q) { return q.id; });
+    State.reciteChaptersOpen = false;
     startSession(ids, '背题 · ' + c, 'seq', 'recite');
   });
 
@@ -2586,6 +2671,35 @@
     });
   }
 
+  /** 题干归一化：去掉填空下划线（半角/全角）与空白，用于「同题干」判定。 */
+  function stemKey(q) {
+    return String((q && q.stem) || '').replace(/[_＿\s]+/g, '');
+  }
+
+  /**
+   * 组卷去重（用户 2026-10-16 要求）：同一场考试内「同题干」与「同知识点」各只保留一题。
+   * 依据：题库规范化题干重复 133 组（266 题）、keyConcept 重复 218 组（564 题），
+   * 一场 100 题几乎必然撞到重复题或重复考点。
+   * 两处保护：题干为空串的题不参与归组；keyConcept 为空的题不参与知识点归组
+   * ——否则大量没有考点的题会被压成一道。
+   * 只有考试组卷走这里；练习、错题重做、待复习各有自己的池子口径（铁律 41）。
+   */
+  function dedupeExamPool(list) {
+    var seenStem = {}, seenConcept = {}, out = [];
+    list.forEach(function (q) {
+      var sk = stemKey(q);
+      if (sk && seenStem[sk]) return;
+      var kc = String(q.keyConcept || '').trim();
+      if (kc) {
+        if (seenConcept[kc]) return;
+        seenConcept[kc] = 1;
+      }
+      if (sk) seenStem[sk] = 1;
+      out.push(q);
+    });
+    return out;
+  }
+
   /** 存档一律表示已暂停；刷新、关页后不会自行倒计时或交卷。 */
   function saveExamSession() {
     var e = State.exam;
@@ -2657,7 +2771,8 @@
   function examSetup() {
     var withShort = !!State.p.withShort;
     var scope = State.p.scope || 'all';
-    var pool = examScopePool(scope, withShort);
+    // 与 examStart 共用同一个去重池，界面显示的「当前范围可用题目」才是真实可抽题数。
+    var pool = dedupeExamPool(examScopePool(scope, withShort));
     var html = '';
 
     var pending = pendingExam();
@@ -2728,7 +2843,8 @@
     }
     var withShort = !!State.p.withShort;
     var scope = State.p.scope || 'all';
-    var pool = examScopePool(scope, withShort);
+    // 组卷前先去重：同题干、同知识点在同一场考试内只出现一次（用户 2026-10-16 要求）。
+    var pool = dedupeExamPool(examScopePool(scope, withShort));
     if (!pool.length) { toast('该范围内没有可用题目', 'bad'); return; }
     var n = clamp(State.settings.examCount, 1, pool.length);
     var ids = shuffle(pool.map(function (q) { return q.id; })).slice(0, n);
@@ -2764,7 +2880,9 @@
     var ctx = { q: q, idx: e.i, total: e.ids.length, sess: e, picked: picked, reveal: false, ok: false, locked: false, examRunning: true };
     var html = renderCard(q, ctx);
     html += '<div class="row between mt10 small muted"><span id="exam-answered">已答 ' + answered + '/' + e.ids.length + ' 题</span>' +
-      '<span class="row"><button class="btn sm ghost" type="button" data-act="grid:toggle">答题卡</button>' +
+      '<span class="row"><button class="btn sm ghost' + (e.gridOpen ? ' on' : '') + '" type="button"' +
+      ' data-act="grid:toggle" aria-expanded="' + (e.gridOpen ? 'true' : 'false') + '">' +
+      (e.gridOpen ? '收起答题卡' : '答题卡') + '</button>' +
       '<button class="btn sm danger" type="button" data-act="exam:submit">交卷</button></span></div>';
     html += navBtns({ idx: e.i, total: e.ids.length });
     //卡片标题里的重复「收起/展开」按钮已删除（上方工具行的「答题卡」就是同一个动作）；
@@ -3103,38 +3221,83 @@
 
   VIEWS.wrong = function () {
     // State.wrongQ：错题本搜索词（内存态，不落盘；刷新即清空）
+    // State.wrongChapter：按章节跳转的章节过滤（同为内存态，再点同一章取消）
     var ids = wrongIds();
     var html = '';
     if (!ids.length) {
       return listEmpty('🎉', '错题本是空的', '答错的题会自动收进这里，方便集中复习。', '去练习', 'home:startall');
     }
     var kw = String(State.wrongQ || '').trim();
-    var shown = wrongFilter(ids, kw);
+    var chapter = wrongCurrentChapter();
+    var shown = wrongChapterFilter(wrongFilter(ids, kw), chapter);
     html += '<div class="card"><div class="card-title">错题本<span class="card-sub">' + ids.length + ' 题</span></div>' +
+      wrongChapterCards(ids, chapter) +
       '<div class="search-bar">' +
       '<span class="search-ico" aria-hidden="true">🔍</span>' +
       '<input class="input search-input" type="search" data-act="wrong:search" value="' + esc(kw) + '"' +
       ' placeholder="搜索题干 / 选项关键词，快速定位错题" aria-label="搜索错题">' +
       '<button class="btn sm ghost" type="button" data-act="wrong:searchclear" aria-label="清空搜索"' + (kw ? '' : ' hidden') + '>清空</button>' +
       '</div>' +
-      '<div class="small muted mt6" id="wrong-search-summary">' + wrongSearchSummary(ids, shown, kw) + '</div>' +
+      '<div class="small muted mt6" id="wrong-search-summary">' + wrongSearchSummary(ids, shown, kw, chapter) + '</div>' +
       '<div class="btn-row mt10">' +
-      '<button class="btn primary" type="button" data-act="wrong:redo">重做' + (kw ? '筛选出的 ' + shown.length + ' 题' : '全部错题') + '</button>' +
+      '<button class="btn primary" type="button" data-act="wrong:redo">重做' + ((kw || chapter) ? '筛选出的 ' + shown.length + ' 题' : '全部错题') + '</button>' +
       '<button class="btn danger" type="button" data-act="wrong:clear">清空错题本</button>' +
       '</div><div class="small muted mt6">在「错题重做」中答对的题目会自动移出错题本。</div></div>';
-    return html + '<div id="wrong-search-results">' + wrongResultsHtml(shown, kw) + '</div>';
+    return html + '<div id="wrong-search-results">' + wrongResultsHtml(shown, kw, chapter) + '</div>';
   };
 
-  /** 搜索只替换结果区，输入框与移动端键盘保持原位。 */
-  function wrongSearchSummary(ids, shown, kw) {
-    return kw ? '命中 <b>' + shown.length + '</b> / ' + ids.length + ' 题' +
-      (shown.length ? '，结果沿用错题顺序' : '，没有匹配的错题') : '';
+  /** 当前章节过滤值：统一字符串化，避免 undefined 混进 data-v 属性。 */
+  function wrongCurrentChapter() { return String(State.wrongChapter || ''); }
+
+  /**
+   * 错题本「按章节」卡片（用户 2026-10-16 要求：错题本缺少按章节分组、可快速跳转的卡片）。
+   * 只做过滤：点某章只看该章错题，再点同一章取消；与搜索框叠加，不新开页面、不复制列题逻辑。
+   * 章节只有一个时不渲染 —— 那种情况点它等于没过滤，纯占版面。
+   */
+  function wrongChapterCards(ids, active) {
+    var order = [], count = {};
+    ids.forEach(function (id) {
+      var q = qById(id);
+      if (!q) return;
+      var c = q.chapter || '未分章';
+      if (!count[c]) { count[c] = 0; order.push(c); }
+      count[c] += 1;
+    });
+    if (order.length < 2) return '';
+    var h = '<div class="grid grid-2 mt10">';
+    order.forEach(function (c) {
+      var on = (c === active);
+      h += '<button type="button" class="list-item' + (on ? ' on' : '') + '" data-act="wrong:chapter"' +
+        ' data-v="' + esc(c) + '" aria-pressed="' + (on ? 'true' : 'false') + '">' +
+        '<span class="li-body"><strong>' + esc(c) + '</strong><small>' + count[c] + ' 题</small></span></button>';
+    });
+    return h + '</div>';
   }
-  function wrongResultsHtml(shown, kw) {
+
+  /** 章节过滤（叠加在搜索结果之上）：空值表示不按章节过滤。 */
+  function wrongChapterFilter(ids, chapter) {
+    if (!chapter) return ids;
+    return ids.filter(function (id) {
+      var q = qById(id);
+      return !!(q && (q.chapter || '未分章') === chapter);
+    });
+  }
+
+  /** 搜索 / 章节摘要：只描述当前生效的过滤条件，输入框局部刷新时也走这里（口径只留一处）。 */
+  function wrongSearchSummary(ids, shown, kw, chapter) {
+    if (kw) {
+      return '命中 <b>' + shown.length + '</b> / ' + ids.length + ' 题' +
+        (shown.length ? '，结果沿用错题顺序' : '，没有匹配的错题');
+    }
+    if (chapter) return '只看「' + esc(chapter) + '」：<b>' + shown.length + '</b> 题（错题共 ' + ids.length + ' 题）';
+    return '';
+  }
+  function wrongResultsHtml(shown, kw, chapter) {
     if (kw && !shown.length) {
       return listEmpty('🔍', '没有匹配的错题', '换个关键词试试，或点「清空搜索」看全部。');
     }
-    var html = '<div class="card"><div class="card-title">' + (kw ? '搜索结果' : '全部错题') +
+    var html = '<div class="card"><div class="card-title">' +
+      (kw ? '搜索结果' : (chapter ? '「' + esc(chapter) + '」错题' : '全部错题')) +
       '<span class="card-sub">' + shown.length + ' 题</span></div><div class="list">';
     shown.forEach(function (id) {
       var q = qById(id);
@@ -3157,13 +3320,16 @@
     if (State.route !== 'wrong') return;
     var box = $('#wrong-search-results');
     if (!box) return;
-    var ids = wrongIds(), kw = String(State.wrongQ || '').trim(), shown = wrongFilter(ids, kw);
-    box.innerHTML = wrongResultsHtml(shown, kw);
+    var ids = wrongIds(), kw = String(State.wrongQ || '').trim();
+    // 章节过滤与搜索叠加：输入关键词时也必须尊重当前选中的章节。
+    var chapter = wrongCurrentChapter();
+    var shown = wrongChapterFilter(wrongFilter(ids, kw), chapter);
+    box.innerHTML = wrongResultsHtml(shown, kw, chapter);
     var summary = $('#wrong-search-summary'), clear = $('#view [data-act="wrong:searchclear"]');
     var redo = $('#view [data-act="wrong:redo"]');
-    if (summary) summary.innerHTML = wrongSearchSummary(ids, shown, kw);
+    if (summary) summary.innerHTML = wrongSearchSummary(ids, shown, kw, chapter);
     if (clear) clear.hidden = !kw;
-    if (redo) redo.textContent = '重做' + (kw ? '筛选出的 ' + shown.length + ' 题' : '全部错题');
+    if (redo) redo.textContent = '重做' + ((kw || chapter) ? '筛选出的 ' + shown.length + ' 题' : '全部错题');
   }
 
   VIEWS.fav = function () {
@@ -3217,11 +3383,19 @@
     if (el) { el.value = ''; el.focus(); }
     renderWrongSearchResults();
   });
+  /** 错题本按章节卡片：点某章只看该章，再点同一章取消过滤（用户 2026-10-16 要求）。 */
+  reg('wrong:chapter', function (el) {
+    var c = String(el.getAttribute('data-v') || '');
+    State.wrongChapter = (wrongCurrentChapter() === c) ? '' : c;
+    render(false);
+  });
   reg('wrong:redo', function () {
     var all = wrongIds();
     var kw = String(State.wrongQ || '').trim();
-    var ids = kw ? wrongFilter(all, kw).slice(0, 999) : all;
-    if (!ids.length) { toast(kw ? '没有匹配的错题' : '错题本是空的', '', 1400); return; }
+    var chapter = wrongCurrentChapter();
+    // 重做范围与界面上看到的筛选结果保持一致：搜索词与章节过滤一起生效。
+    var ids = wrongChapterFilter(wrongFilter(all, kw), chapter).slice(0, 999);
+    if (!ids.length) { toast((kw || chapter) ? '没有匹配的错题' : '错题本是空的', '', 1400); return; }
     startSession(ids, '错题重做 · ' + ids.length + ' 题', State.settings.order, 'practice');
     if (State.sess) { State.sess.wrongMode = true; saveSession(); }
   });
@@ -3229,6 +3403,17 @@
     var ids = wrongIds();
     if (!ids.length) { toast('错题本是空的', '', 1400); return; }
     startSession(ids, '背错题 · ' + ids.length + ' 题', 'seq', 'recite');
+  });
+  /**
+   * 待复习题目练习（用户 2026-10-16 新增模块）。
+   * 题源与统计页「待复习」同源：reviewPool() 与 deriveUncached() 共用 isMastered 判定。
+   * 池子已按「最久未复习优先」排好，故固定顺序出题，不跟随设置里的随机开关，
+   * 否则最该复习的题会被打散（用户确认的口径）。
+   */
+  reg('review:start', function () {
+    var ids = reviewPool();
+    if (!ids.length) { toast('暂无待复习题', '', 1600); return; }
+    startSession(ids, '待复习练习 · ' + ids.length + ' 题', 'seq', 'practice');
   });
   reg('wrong:remove', function (el) {
     var id = el.getAttribute('data-id');
@@ -3826,6 +4011,11 @@
       if (sessSaveTimer) { clearTimeout(sessSaveTimer); sessSaveTimer = 0; }
       rawDel(KEY_SESSION); rawDel(KEY_EXAM_SESSION);
       State.reciteQ = ''; State.reciteSearchOpen = false; rawDel(KEY_RECITE);
+      State.wrongQ = ''; State.wrongChapter = '';
+      // ⚠ 统计缓存必须同时作废：否则徽章、首页「掌握/待复习」与统计页读到的仍是清空前的
+      //   派生结果，看起来「按钮没生效」（用户 2026-10-16 报告的根因）。
+      //   与 applyImport「覆盖导入」路径同一处理（铁律 43：口径只留一处）。
+      invalidateStats();
       applyTheme(); updateBadges(); render(false);
       toast('已清空本机数据', 'ok', 2000);
     });
@@ -4133,11 +4323,43 @@
     }
 
     var back = $('#btn-back');
-    if (back) back.addEventListener('click', function () {
-      Feedback.fire('nav:go');
-      // go 已包含考试暂停确认，所有返回入口共用这一保护。
-      go('home');
-    });
+    if (back) {
+      /**
+       * 返回首页的唯一出口（用户 2026-10-16 反馈手机端点返回「完全没反应」）。
+       * 本机 iPhone 视口下四个场景都能正常返回，故这里只做**不改变既有行为**的加固：
+       *   ① iOS 在页面滚动/惯性期间可能丢弃 click，因此 click 与 touchend 双通道，
+       *      500ms 去重保证同一次手势只执行一次；
+       *   ② touchend 里按与全局误触防护相同的 14px 阈值判定，手指滑走（其实是想滚页面）不算点击；
+       *   ③ preventDefault 抑制随后合成的 click，避免同一手势触发两次；
+       *   ④ go() 内部已含「考试中先暂停确认」，所有返回入口共用这一保护。
+       */
+      var lastBackTs = 0;
+      var goHomeFromBack = function () {
+        var now = Date.now();
+        if (now - lastBackTs < 500) return;   // click 与 touchend 双通道去重
+        lastBackTs = now;
+        Feedback.fire('nav:go');
+        go('home');
+      };
+      var backTouch = { x: 0, y: 0, moved: false };
+      back.addEventListener('touchstart', function (e) {
+        var t = e.touches && e.touches[0];
+        backTouch.x = t ? t.clientX : 0;
+        backTouch.y = t ? t.clientY : 0;
+        backTouch.moved = false;
+      }, { passive: true });
+      back.addEventListener('touchmove', function (e) {
+        var t = e.touches && e.touches[0];
+        if (!t) return;
+        if (Math.abs(t.clientX - backTouch.x) + Math.abs(t.clientY - backTouch.y) > 14) backTouch.moved = true;
+      }, { passive: true });
+      back.addEventListener('touchend', function (e) {
+        if (backTouch.moved) return;              // 手指滑走：这是滚动意图，不是点击
+        if (e.cancelable) e.preventDefault();      // 抑制随后合成的 click
+        goHomeFromBack();
+      }, { passive: false });
+      back.addEventListener('click', goHomeFromBack, false);
+    }
     var themeBtn = $('#btn-theme');
     if (themeBtn) themeBtn.addEventListener('click', function () {
       Feedback.play('tap'); cycleTheme();

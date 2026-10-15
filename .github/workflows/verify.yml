@@ -109,3 +109,9 @@ jobs:
 
       - name: 三项交互回归（需本地Playwright，缺失时SKIP）
         run: node tests/interaction_test.mjs
+
+      # 2026-10-16 七项修复的真实界面回归（清空归零 / 返回箭头 / 答题卡状态 / 组卷去重 /
+      # 错题本章节卡片 / 背题过程换章节 / 待复习练习）；缺 Playwright 或缺 dist 时打印 SKIP
+      # 并以 0 退出，本地有环境时真跑 9 项。
+      - name: 七项修复回归（需 Playwright 与 dist，缺失时 SKIP）
+        run: node tests/interaction_fix_20261016.mjs
