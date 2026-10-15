@@ -606,11 +606,18 @@ const pendingExam = () => JSON.stringify({
 {
   const h = await build(new Map());
   nav(h, 'exam'); click(h, 'exam:start');
-  Object.assign(h.J.state.exam, { ids: ['q-0913'], i: 0, draft: {} });
+  // 2026-10-16 修测试脆弱性：原先硬编码 q-0913 当填空题，而该题在人工复核中已由派生填空恢复为四选项单选，
+  // 于是 hasAnswer(single, ['']) 把「清空后的空数组」判成已答，这条断言测到的不再是填空路径。
+  // 改为按当前题库取真实填空题，题库类型再变也不会让断言失真。
+  const fillQ = bank.questions.find((q) => q.type === 'fill');
+  Object.assign(h.J.state.exam, { ids: [fillQ.id], i: 0, draft: {} });
   input(h, 'ans:fill', { 'data-i': 0, value: '草稿' });
   check('巡检：输入实时更新考试已答题数', h.elById('exam-answered').textContent === '已答 1/1 题');
   input(h, 'ans:fill', { 'data-i': 0, value: '' });
-  check('巡检：清空实时减少考试已答题数', h.elById('exam-answered').textContent === '已答 0/1 题');
+  check('巡检：清空实时减少考试已答题数', h.elById('exam-answered').textContent === '已答 0/1 题',
+    'actual=' + JSON.stringify(h.elById('exam-answered').textContent) +
+    ' draft=' + JSON.stringify((h.J.state.exam || {}).draft) +
+    ' fillQ=' + fillQ.id);
 }
 {
   // 使用生产题卡：网页出处不能消失，原卷参考出处不能冒充独立依据，空引用不造出处。
