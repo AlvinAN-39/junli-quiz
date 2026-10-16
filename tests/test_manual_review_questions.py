@@ -56,14 +56,21 @@ class ManualReviewQuestionsTest(unittest.TestCase):
                 self.assertNotIn("改编为", q["stem"])
 
     def test_current_military_service_has_two_forms(self):
+        """兵役类别按 2021 年《兵役法》只有现役、预备役两类；教材讲的「三种形式」指履行义务的形式。
+        2026-10-17 用户裁定：q-0092 按教材补回「三种形式」（服现役、服预备役、参加学生军事训练），
+        因此这里不再禁止「三种」字样，改为同时校验两个口径都在、且旧法年龄范围不得混入。"""
         for qid in ("q-0034", "q-0902"):
             q = BY_ID[qid]
             self.assertIn("2021年", q["stem"])
             self.assertEqual(selected(q), "现役和预备役")
         for qid in ("q-0091", "q-0092"):
-            self.assertNotIn("三种", BY_ID[qid]["answer"])
-            self.assertNotIn("预备役年龄为18岁到35岁", BY_ID[qid]["answer"])
+            ans = BY_ID[qid]["answer"]
+            self.assertIn("现役和预备役", ans)
+            self.assertIn("不另列为一种兵役类别", ans)
+            self.assertNotIn("预备役年龄为18岁到35岁", ans)
             self.assertIn("国防教育法", BY_ID[qid]["explanationRef"])
+        # q-0092 另需按教材列出履行兵役义务的三种形式
+        self.assertIn("参加学生军事训练", BY_ID["q-0092"]["answer"])
 
     def test_reserve_question_does_not_mix_current_and_old_categories(self):
         q = BY_ID["q-0380"]
@@ -150,8 +157,15 @@ class ManualReviewQuestionsTest(unittest.TestCase):
             self.assertNotIn("中国古代军事思想是指", BY_ID[qid]["explanation"])
 
     def test_mixed_war_case_distinguishes_material_from_verified_fact(self):
+        """材料分析题要让读者看得到材料，并把「材料作者的分析」与「已独立证实的事实」分开。
+        2026-10-17 用户裁定：题干不再指向用户看不到的 PDF，改为把材料写进题干（自包含），
+        因此这里改判「题干已内联材料」，但「材料所述不等同于已证实事实」的边界仍必须在答案里。"""
         for qid in ("q-0304", "q-1485", "q-1486"):
-            self.assertIn("所供PDF", BY_ID[qid]["stem"])
+            stem = BY_ID[qid]["stem"]
+            self.assertNotIn("所供PDF", stem)
+            self.assertTrue(("材料" in stem) or ("报道称" in stem), qid + " 题干应内联材料")
+        self.assertIn("材料", BY_ID["q-0304"]["answer"])
+        self.assertIn("不能", BY_ID["q-0304"]["answer"])
         text = BY_ID["q-1486"]["explanation"]
         self.assertIn("不能", text)
         self.assertIn("免除", text)
