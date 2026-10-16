@@ -38,7 +38,7 @@ class TestLettersOf(unittest.TestCase):
         self.assertEqual(letters_of(single("H")), ["H"])
 
     def test_single_single_element_list_is_tolerated(self):
-        # 回归：T18 修正答案后出现 7 道 answer 为列表的单选题，
+        # 回归：修正答案后出现 7 道 answer 为列表的单选题，
         # 读取端必须容错（当年 6 处各自实现全部崩在这里）。
         self.assertEqual(letters_of(single(["B"])), ["B"])
 

@@ -148,7 +148,7 @@ const EXPECTED_KEYS = ['version', 'state', 'derive', 'deriveUncached', 'outline'
   'outlineMarkdown', 'exportText', 'normalizeAnswer', 'sessionProbe', 'feedback', 'MOCK_BANK'];
 if (J) {
   const missing = EXPECTED_KEYS.filter((k) => !(k in J));
-  check('__JLX__ 键名稳定（T5/T6 依赖）', missing.length === 0, 'missing=' + missing.join(','));
+  check('__JLX__ 键名稳定（依赖）', missing.length === 0, 'missing=' + missing.join(','));
 }
 
 // ---------------------------------------------------------------------------
